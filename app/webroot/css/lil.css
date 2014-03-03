@@ -1,0 +1,178 @@
+.center {
+	text-align: center;
+}
+.left {
+	text-align: left;
+}
+.right {
+	text-align: right;
+}
+.nowrap {
+	white-space: nowrap;
+}
+.altrow {
+	background-color: #f9f9f9;
+}
+.highlight {
+	background-color: #FDF7E1;
+	cursor: pointer;
+}
+.light {
+	color: #7E7E7E;
+}
+.strong {
+	font-weight: bold;
+}
+.big {
+	font-size: 18px;
+}
+.small {
+	font-size: 10px;
+}
+.minwidth {
+	width: 1px;
+}
+
+.list div.thumb {
+	float: left;
+	text-align: center;
+	width: 150px;
+	height: 150px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	border: solid 1px #f0f0f0;
+	font-size: 1em;
+}
+
+.list div.thumb img {    /*hidden from IE 5-6 */
+	margin-top: 0; /* to clean up, just in case IE later supports valign! */
+	vertical-align: middle;
+	}
+
+
+.index table * {
+	font-family: Verdana, Arial, helvetica, sans-serif;
+}
+.index table {
+	width: 100%;
+	border: solid 1px #646464;
+}
+.index th {
+	padding: 5px;
+	background-color: #e0e0e0;
+	border-bottom: solid 1px #b0b0b0;
+}
+.index td {
+	padding: 5px;
+	border-left: solid 1px #e0e0e0;
+	border-top: solid 1px #e0e0e0;
+}
+.index td div.overflow {
+	display: block;
+	overflow: hidden;
+	width: 100%;
+	height: 22px !important;
+	line-height: 24px;
+	margin-top: 3px;
+}
+.index td.actions {
+	width: 1px;
+}
+.index tfoot td {
+	border-top: solid 1px #b0b0b0;
+	background-color: #e0e0e0;
+}
+.index tfoot td.paging div, .index tfoot td.paging a {
+	float: left;
+	margin-left: 10px;
+}
+
+.index tfoot td.paging div.counter {
+	float: right;
+}
+
+
+.form * {
+	font-family: Tahoma, Arial, helvetica, sans-serif;
+}
+
+.form fieldset {
+	margin-bottom: 10px;
+	border: none;
+	border-top: solid 1px #b0b0b0;
+}
+.form fieldset legend {
+	font-size: 16px;
+	font-weight: bold;
+	padding-bottom: 10px;
+}
+.form .input {
+	margin-top: 5px;
+}
+.form .input label {
+	text-align: left;
+	display: block;
+	float: left;
+	overflow: hidden;
+	width: 120px;
+	height: 18px !important;
+	margin-right: 15px;
+	margin-top: 5px;
+}
+
+.form .text input, .file input, .form select, .form textarea, .password input {
+	padding: 2px;
+}
+.form .error input, .form .error textarea {
+	border: solid 1px #ff0000;
+}
+.form .checkbox input, .form .radio input {
+	margin-left: 135px;
+	margin-right: 5px;
+	display: block;
+	float:left;
+}
+.form .checkbox label, .form .radio label {
+	text-align: left;
+	font-weight: normal;
+	display: block;
+	float: none;
+	width: auto;
+	padding-top: 5px;
+}
+.form .radio_row .row {
+	margin-left: 135px;
+}
+.form .radio_row .row input {
+	display: block;
+	float:left;
+	margin-left: 0px;
+}
+.form .radio_row .row label {
+	display: block;
+	float:left;
+	margin-left: 0px;
+	margin-right: 20px;
+	width: auto;
+}
+
+.form .hint {
+	font-size: 12px;
+	padding: 2px;
+	margin-left: 135px;
+}
+
+.form .submit {
+	margin-top: 10px;
+	margin-left: 135px;
+}
+.form .submit input {
+	font-weight: bold;
+	padding-left: 12px;
+	padding-right: 12px;
+}
+.form .error-message {
+	color: #ff0000;
+	font-size: 80%;
+	margin-left: 135px;
+}

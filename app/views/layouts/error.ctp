@@ -1,0 +1,1 @@
+<div class="message" id="errorMessage"><?php echo $content_for_layout; ?></div>

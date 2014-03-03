@@ -1,0 +1,12 @@
+app/config/config.php
+app/config/database.php
+app/webroot/paths.php
+app/tmp/*
+app/tmp/cache/*
+app/tmp/cache/models/*
+app/tmp/cache/persistent/*
+app/tmp/cache/views/*
+app/tmp/cache/sessions/*
+app/tmp/cache/tests/*
+app/tmp/logs/*
+!empty

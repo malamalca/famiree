@@ -1,0 +1,1298 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Famiree v0.9dev\n"
+"POT-Creation-Date: 2014-03-03 17:43+0100\n"
+"PO-Revision-Date: 2014-03-03 17:55+0100\n"
+"Last-Translator: Malamalca <info@malamalca.com>\n"
+"Language-Team: Miha Nahtigal <miha@nahtigal.com>\n"
+"Language: sl_SI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.6.2\n"
+
+#: \controllers\attachments_controller.php:193
+#: \controllers\profiles_controller.php:140
+msgid "Attachment has been successfully saved."
+msgstr "Priponka je shranjena."
+
+#: \controllers\attachments_controller.php:208
+#: \controllers\imgnotes_controller.php:100
+#: \controllers\posts_controller.php:64
+#: \controllers\profiles_controller.php:143;152;202;339
+#: \controllers\settings_controller.php:56;84
+#: \plugins\lil_users\controllers\users_controller.php:145
+msgid ""
+"There are some errors in the form. Please correct all marked fields below."
+msgstr "V vnešenih podatkih so napake. Popravite označena polja."
+
+#: \controllers\attachments_controller.php:249
+msgid "Attachment has been successfully deleted."
+msgstr "Priponka je izbrisana."
+
+#: \controllers\attachments_controller.php:251
+msgid "Deleting Attachment has failed."
+msgstr "Brisanje priponke je spodletelo."
+
+#: \controllers\attachments_controller.php:254
+msgid "You cannot delete Profile's avatar."
+msgstr "Privzete slike profile ni mogoče izbrisati."
+
+#: \controllers\attachments_controller.php:271
+msgid "Attachment has been successfully modified."
+msgstr "Priponka je shranjena."
+
+#: \controllers\attachments_controller.php:273
+msgid "Modify Attachment has failed."
+msgstr "Shranjevanje priponke je spodletelo."
+
+#: \controllers\imgnotes_controller.php:86
+msgid "Image Note has been successfully saved plus new image has been created."
+msgstr ""
+"Nalepka na sliki je shranjena, hkrati je iz izbora ustvarjena nova slika."
+
+#: \controllers\imgnotes_controller.php:91
+msgid "Image Note has been successfully saved."
+msgstr "Nalepka na sliki je shranjena."
+
+#: \controllers\imgnotes_controller.php:125
+msgid "Image note has been successfully deleted."
+msgstr "Nalepka je izbrisana."
+
+#: \controllers\imgnotes_controller.php:127
+msgid "Deleting Image note has failed."
+msgstr "Brisanje nalepke je spodletelo."
+
+#: \controllers\posts_controller.php:53
+msgid "Post has been successfully saved."
+msgstr "Zapis je bil shranjen."
+
+#: \controllers\posts_controller.php:110
+msgid "Post has been successfully deleted."
+msgstr "Zapis je bil izbrisan."
+
+#: \controllers\posts_controller.php:112
+msgid "Deleting Post has failed."
+msgstr "Brisanje izpisa je spodletelo."
+
+#: \controllers\profiles_controller.php:134
+msgid "You have to be logged in to view profiles of living people."
+msgstr "Za ogled osebe, ki še živi, se je potrebno prijaviti."
+
+#: \controllers\profiles_controller.php:149
+msgid "Memory has been successfully saved."
+msgstr "Spomin je shranjen."
+
+#: \controllers\profiles_controller.php:191
+msgid "Profile has been successfully saved."
+msgstr "Profil je shranjen."
+
+#: \controllers\profiles_controller.php:230
+msgid "Profile has been successfuly deleted."
+msgstr "Profil je izbrisan."
+
+#: \controllers\profiles_controller.php:256
+msgid "Profile's avatar has been successfully cleared."
+msgstr "Privzeta slika profila je odstranjena."
+
+#: \controllers\profiles_controller.php:262
+msgid "Profile's avatar has been successfully saved."
+msgstr "Provzeta slika profila je shranjena."
+
+#: \controllers\profiles_controller.php:474
+msgid "Parent of"
+msgstr "Prednik od"
+
+#: \controllers\settings_controller.php:53
+msgid "Default language has been successfully set."
+msgstr "Privzeti jezik je bil shranjen."
+
+#: \controllers\settings_controller.php:81
+msgid "Settings have been successfully updated."
+msgstr "Nastavitve so shranjene."
+
+#: \models\behaviors\lil\lil_upload.php:258
+#: \plugins\lil_upload\models\behaviors\lil_upload.php:258
+msgid ""
+"Upload not possible. There is a problem with the setup on the server, more "
+"info available in the logs."
+msgstr ""
+"Pošiljanje slik ni mogoče. Prišlo je do napake pri nastavitvi strežnika. Več "
+"informacij poiščite v dnevniku."
+
+#: \models\behaviors\lil\lil_upload.php:272
+#: \plugins\lil_upload\models\behaviors\lil_upload.php:272
+msgid "The submitted mime type is not permitted, only %s permitted."
+msgstr ""
+"MIME vrsta datoteke, ki jo želite poslati ni dovoljena. Dovoljene so samo "
+"MIME vrste %s."
+
+#: \models\behaviors\lil\lil_upload.php:283
+#: \plugins\lil_upload\models\behaviors\lil_upload.php:283
+msgid "The submitted file extension is not permitted, only %s permitted."
+msgstr ""
+"Vrsta datoteke, ki jo želite poslati ni dovoljena. Dovoljene so samo "
+"končnice %s."
+
+#: \models\behaviors\lil\lil_upload.php:289
+#: \plugins\lil_upload\models\behaviors\lil_upload.php:289
+msgid "File was not uploaded."
+msgstr "Datoteka ni bila poslana."
+
+#: \models\behaviors\lil\lil_upload.php:294
+#: \plugins\lil_upload\models\behaviors\lil_upload.php:294
+msgid "The file uploaded is too big, only files less than %1$s %2$s permitted."
+msgstr ""
+"Datoteka, ki jo želite poslati je prevelika. Dovoljene so samo velikosti "
+"manjše od %1$s %2$s."
+
+#: \models\behaviors\lil\logable.php:334
+msgid "deleted"
+msgstr "brisano"
+
+#: \models\behaviors\lil\logable.php:380
+msgid "added"
+msgstr "vpisano"
+
+#: \models\behaviors\lil\logable.php:382
+msgid "updated"
+msgstr "posodobitev"
+
+#: \plugins\lil_users\controllers\users_controller.php:142
+msgid "Password have been successfully changed."
+msgstr "Geslo je bilo spremenjeno."
+
+#: \plugins\lil_users\views\users\change_password.php:1
+#: \views\plugins\lil_users\users\change_password.ctp:6
+msgid "Change Password"
+msgstr "Sprememba gesla"
+
+#: \plugins\lil_users\views\users\change_password.php:7
+#: \views\plugins\lil_users\users\change_password.ctp:12
+msgid "Current Password"
+msgstr "Trenutno geslo"
+
+#: \plugins\lil_users\views\users\change_password.php:9
+#: \views\plugins\lil_users\users\change_password.ctp:18
+msgid "New Password"
+msgstr "Novo geslo"
+
+#: \plugins\lil_users\views\users\change_password.php:12
+#: \views\plugins\lil_users\users\change_password.ctp:23
+msgid "Repeat Password"
+msgstr "Ponovitev gesla"
+
+#: \plugins\lil_users\views\users\change_password.php:13
+msgid "Passwords do not match."
+msgstr "Novo geslo in ponovitev gesla se ne ujemata."
+
+#: \plugins\lil_users\views\users\change_password.php:16
+msgid "OK"
+msgstr "OK"
+
+#: \plugins\lil_users\views\users\login.ctp:1
+msgid "User Login"
+msgstr "Prijava"
+
+#: \plugins\lil_users\views\users\login.ctp:8;28
+#: \views\plugins\lil_users\users\login.ctp:2;18
+#: \views\profiles\login.ctp:2;19
+msgid "Login"
+msgstr "Prijava"
+
+#: \plugins\lil_users\views\users\login.ctp:17
+msgid "Forgot your password?"
+msgstr "Ste pozabili geslo?"
+
+#: \views\attachments\edit.ctp:3 \views\attachments\view.ctp:54
+msgid "Attachment"
+msgstr "Priponka"
+
+#: \views\attachments\edit.ctp:8
+msgid "Add"
+msgstr "Dodaj"
+
+#: \views\attachments\edit.ctp:14
+#: \views\plugins\lil_blogs\posts\admin_edit.ctp:7 \views\posts\edit.ctp:4
+msgid "Basic Info"
+msgstr "Osnovni podatki"
+
+#: \views\attachments\edit.ctp:24
+#: \views\plugins\lil_blogs\posts\admin_edit.ctp:16 \views\posts\edit.ctp:13
+#: \views\profiles\view.ctp:286;461
+msgid "Title"
+msgstr "Naslov"
+
+#: \views\attachments\edit.ctp:29 \views\profiles\view.ctp:283
+msgid "Filename"
+msgstr "Datoteka"
+
+#: \views\attachments\edit.ctp:32 \views\profiles\view.ctp:290
+msgid "Description"
+msgstr "Opis"
+
+#: \views\attachments\edit.ctp:39
+#: \views\plugins\lil_blogs\posts\admin_edit.ctp:28 \views\posts\edit.ctp:25
+msgid "Additional Properties"
+msgstr "Dodatne lastnosti"
+
+#: \views\attachments\edit.ctp:43
+#: \views\plugins\lil_blogs\posts\admin_edit.ctp:33 \views\posts\edit.ctp:29
+msgid "Created"
+msgstr "Datum vpisa"
+
+#: \views\attachments\edit.ctp:54 \views\attachments\view.ctp:120
+#: \views\plugins\lil_blogs\posts\admin_edit.ctp:50
+#: \views\plugins\lil_users\users\change_password.ctp:29
+#: \views\posts\edit.ctp:38 \views\profiles\add.ctp:135
+#: \views\profiles\edit.ctp:210 \views\profiles\reorder_children.ctp:61
+#: \views\profiles\view.ctp:292;470 \views\settings\datetime.ctp:48
+#: \views\settings\lang.ctp:18
+msgid "Save"
+msgstr "Shrani"
+
+#: \views\attachments\edit.ctp:60 \views\attachments\view.ctp:121
+#: \views\elements\layouts\header.ctp:17
+#: \views\plugins\lil_blogs\posts\admin_edit.ctp:53
+#: \views\plugins\lil_blogs\posts\index.ctp:22
+#: \views\plugins\lil_blogs\posts\view.ctp:17
+#: \views\plugins\lil_users\users\change_password.ctp:32
+#: \views\posts\edit.ctp:41 \views\posts\view.ctp:12
+#: \views\profiles\add.ctp:138 \views\profiles\edit.ctp:213
+#: \views\profiles\reorder_children.ctp:64
+#: \views\profiles\view.ctp:297;475;498 \views\settings\datetime.ctp:51
+#: \views\settings\lang.ctp:21
+msgid "or"
+msgstr "ali"
+
+#: \views\attachments\edit.ctp:60 \views\attachments\view.ctp:121
+#: \views\plugins\lil_blogs\posts\admin_edit.ctp:53
+#: \views\plugins\lil_users\users\change_password.ctp:32
+#: \views\posts\edit.ctp:41 \views\profiles\add.ctp:138
+#: \views\profiles\edit.ctp:213 \views\profiles\reorder_children.ctp:64
+#: \views\profiles\view.ctp:297;475 \views\settings\datetime.ctp:51
+#: \views\settings\lang.ctp:21
+msgid "Cancel"
+msgstr "Prekliči"
+
+#: \views\attachments\index.ctp:1
+msgid "Attachments"
+msgstr "Priponke"
+
+#: \views\attachments\view.ctp:4
+msgid "anonymous"
+msgstr "neznan/a"
+
+#: \views\attachments\view.ctp:7;32
+#: \views\elements\sidebar\pages\dashboard.ctp:114;130;145;168;192;210
+msgid "Me"
+msgstr "Jaz sem"
+
+#: \views\attachments\view.ctp:19
+msgid "Added by %1$s, %2$s."
+msgstr "%1$s objavil/a %2$s."
+
+#: \views\attachments\view.ctp:29
+#: \views\elements\sidebar\pages\dashboard.ctp:183;190
+#: \views\plugins\lil_blogs\posts\index.ctp:60
+#: \views\plugins\lil_blogs\posts\view.ctp:52
+msgid "Unknown"
+msgstr "neznan"
+
+#: \views\attachments\view.ctp:46
+msgid "Belongs to"
+msgstr "Pripada"
+
+#: \views\attachments\view.ctp:47
+#: \views\elements\sidebar\pages\dashboard.ctp:41
+#: \views\plugins\lil_blogs\posts\index.ctp:72
+#: \views\plugins\lil_blogs\posts\view.ctp:64 \views\posts\view.ctp:47
+#: \views\profiles\view.ctp:149;197
+msgid "and"
+msgstr "in"
+
+#: \views\attachments\view.ctp:90
+msgid "Add Note"
+msgstr "Dodaj nalepko"
+
+#: \views\attachments\view.ctp:108
+msgid "Note"
+msgstr "Nalepka"
+
+#: \views\attachments\view.ctp:116
+msgid "Crop and create new image"
+msgstr "Z izrezom ustvari novo sliko"
+
+#: \views\attachments\view.ctp:149;158
+#: \views\plugins\lil_blogs\posts\index.ctp:23
+#: \views\plugins\lil_blogs\posts\view.ctp:18 \views\posts\view.ctp:13
+#: \views\profiles\view.ctp:375;384;499
+msgid "delete"
+msgstr "briši"
+
+#: \views\attachments\view.ctp:161
+msgid "Are you sure you want to delete this note?"
+msgstr "Ste prepričani, da želite izbrisati oznako?"
+
+#: \views\elements\layouts\header.ctp:6
+msgid "own your family tree..."
+msgstr "vaše družinsko drevo..."
+
+#: \views\elements\layouts\header.ctp:14
+msgid "Hello, %s."
+msgstr "Pozdravljeni, %s."
+
+#: \views\elements\layouts\header.ctp:16
+msgid "Settings"
+msgstr "Nastavitve"
+
+#: \views\elements\layouts\header.ctp:18
+msgid "Logout"
+msgstr "Odjava"
+
+#: \views\elements\layouts\header.ctp:23
+msgid "Home"
+msgstr "Domov"
+
+#: \views\elements\layouts\header.ctp:28
+msgid "Tree"
+msgstr "Drevo"
+
+#: \views\elements\layouts\header.ctp:31
+msgid "Photos"
+msgstr "Slike"
+
+#: \views\elements\layouts\header.ctp:34
+msgid "Profiles"
+msgstr "Profili"
+
+#: \views\elements\sidebar\attachments\attachment.ctp:4
+msgid "Operations"
+msgstr "Operacije"
+
+#: \views\elements\sidebar\attachments\attachment.ctp:9
+msgid "Point a Person"
+msgstr "Pokaži osebo"
+
+#: \views\elements\sidebar\attachments\attachment.ctp:22
+msgid "Edit"
+msgstr "Uredi"
+
+#: \views\elements\sidebar\attachments\attachment.ctp:23
+msgid "properties"
+msgstr "lastnosti"
+
+#: \views\elements\sidebar\attachments\attachment.ctp:30
+msgid "Image Properties"
+msgstr "Lastnosti datoteke"
+
+#: \views\elements\sidebar\attachments\attachment.ctp:33
+msgid "Dimensions"
+msgstr "Dimenzije"
+
+#: \views\elements\sidebar\attachments\attachment.ctp:34
+msgid "px"
+msgstr "px"
+
+#: \views\elements\sidebar\attachments\attachment.ctp:37
+msgid "Size"
+msgstr "Velikost"
+
+#: \views\elements\sidebar\attachments\index.ctp:4
+msgid "Actions"
+msgstr "Akcije"
+
+#: \views\elements\sidebar\attachments\index.ctp:9
+msgid "[Upload] attachment"
+msgstr "[Dodaj] sliko ali datoteko"
+
+#: \views\elements\sidebar\attachments\index.ctp:22
+msgid "Filters"
+msgstr "Filtri"
+
+#: \views\elements\sidebar\attachments\index.ctp:25
+msgid "All Attachments"
+msgstr "Vse priponke"
+
+#: \views\elements\sidebar\attachments\index.ctp:32
+msgid "Recent Uploads"
+msgstr "Zadnje priponke"
+
+#: \views\elements\sidebar\pages\dashboard.ctp:3
+msgid "Statistics"
+msgstr "Statistika"
+
+#: \views\elements\sidebar\pages\dashboard.ctp:8
+msgid "No. of Females"
+msgstr "Št. žensk"
+
+#: \views\elements\sidebar\pages\dashboard.ctp:13
+msgid "No. of Males"
+msgstr "Št. moških"
+
+#: \views\elements\sidebar\pages\dashboard.ctp:26 \views\profiles\view.ctp:430
+msgid "Memories"
+msgstr "Spomini"
+
+#: \views\elements\sidebar\pages\dashboard.ctp:36
+msgid "my past"
+msgstr "moja zgodovina"
+
+#: \views\elements\sidebar\pages\dashboard.ctp:39
+msgid "About %1$s written by %2$s %3$s"
+msgstr "%2$s je napisal/a spomine o %1$s %3$s"
+
+#: \views\elements\sidebar\pages\dashboard.ctp:56
+msgid "All Posts"
+msgstr "Vsi spomini"
+
+#: \views\elements\sidebar\pages\dashboard.ctp:69
+msgid "Log"
+msgstr "Zgodovina"
+
+#: \views\elements\sidebar\pages\dashboard.ctp:80
+msgid "I've edited my own profile."
+msgstr "Uredil/a lastni profil."
+
+#: \views\elements\sidebar\pages\dashboard.ctp:82
+msgid "%s has edited my profile."
+msgstr "%s je uredil/a moj profil."
+
+#: \views\elements\sidebar\pages\dashboard.ctp:90
+msgid "%s has edited his own profile."
+msgstr "%s je uredil/a svoj profil."
+
+#: \views\elements\sidebar\pages\dashboard.ctp:99
+msgid "%1$s has been added by %2$s"
+msgstr "%2$s je vnesel/a %1$s"
+
+#: \views\elements\sidebar\pages\dashboard.ctp:101
+msgid "%1$s has been edited by %2$s"
+msgstr "%2$s je uredil/a %1$s"
+
+#: \views\elements\sidebar\pages\dashboard.ctp:125
+msgid "Profile \"%1$s\" has been deleted by %2$s"
+msgstr "%2$s je izbrisal profil \"%1$s\"."
+
+#: \views\elements\sidebar\pages\dashboard.ctp:142
+msgid "Post \"%1$s\" has been deleted by %2$s."
+msgstr "%2$s je izbrisal/a zapis \"%1$s\"."
+
+#: \views\elements\sidebar\pages\dashboard.ctp:153
+msgid "Post \"%1$s\" has been added by %2$s"
+msgstr "%2$s je napisal/a zapis \"%1$s\"."
+
+#: \views\elements\sidebar\pages\dashboard.ctp:155
+msgid "Post \"%1$s\" has been edited by %2$s"
+msgstr "%2$s je uredil/a zapis \"%1$s\""
+
+#: \views\elements\sidebar\pages\dashboard.ctp:178
+msgid "Attachment \"%1$s\" has been added by %2$s"
+msgstr "%2$s je dodal priponko \"%1$s\""
+
+#: \views\elements\sidebar\pages\dashboard.ctp:180
+msgid "Attachment \"%1$s\" has been edited by %2$s"
+msgstr "%2$s je spremeni priponko \"%1$s\""
+
+#: \views\elements\sidebar\pages\dashboard.ctp:203
+msgid "A note has been added to %1$s by %2$s."
+msgstr "Dodana oznaka za %1$s. Avtor %2$s."
+
+#: \views\elements\sidebar\pages\dashboard.ctp:204
+msgid "image"
+msgstr "slika"
+
+#: \views\elements\sidebar\profiles\edit.ctp:3 \views\profiles\edit.ctp:12
+msgid "Basics"
+msgstr "Osnove"
+
+#: \views\elements\sidebar\profiles\edit.ctp:4
+#: \views\elements\sidebar\profiles\view.ctp:64
+msgid "Personal"
+msgstr "Osebni podatki"
+
+#: \views\elements\sidebar\profiles\edit.ctp:5
+#: \views\elements\sidebar\profiles\view.ctp:143;149
+#: \views\profiles\edit.ctp:120;125
+msgid "Interests"
+msgstr "Interesi"
+
+#: \views\elements\sidebar\profiles\edit.ctp:6 \views\profiles\edit.ctp:141
+msgid "Relationships"
+msgstr "Sorodstvena razmerja"
+
+#: \views\elements\sidebar\profiles\edit_avatar.ctp:13
+msgid "Click on image you wish to set as users new avatar."
+msgstr "Kliknite za spremembo privzete slike osebe."
+
+#: \views\elements\sidebar\profiles\edit_avatar.ctp:16
+msgid "[Click here] if you wish to remove this profile's."
+msgstr "[Kliknite tukaj], če želite odstraniti privzeto sliko profila."
+
+#: \views\elements\sidebar\profiles\view.ctp:23
+msgid "[Show tree] for this person"
+msgstr "[Prikaz drevesa] za osebo"
+
+#: \views\elements\sidebar\profiles\view.ctp:30
+msgid "[Edit] person's data"
+msgstr "[Uredi] osebne podatke"
+
+#: \views\elements\sidebar\profiles\view.ctp:34
+msgid "[Change] person's avatar"
+msgstr "[Spremeni] privzeto sliko"
+
+#: \views\elements\sidebar\profiles\view.ctp:38
+msgid "[Reorder] children"
+msgstr "[Vrstni red] otrok"
+
+#: \views\elements\sidebar\profiles\view.ctp:43
+msgid "[Delete] profile"
+msgstr "[Izbriši] profil"
+
+#: \views\elements\sidebar\profiles\view.ctp:46
+msgid "Are you sure you want to delete profile?"
+msgstr "Ste prepričani, da želite izbrisati profil?"
+
+#: \views\elements\sidebar\profiles\view.ctp:70 \views\profiles\edit.ctp:91
+msgid "Hair Color"
+msgstr "Barva las"
+
+#: \views\elements\sidebar\profiles\view.ctp:74 \views\profiles\edit.ctp:93
+msgid "Auburn"
+msgstr "kostanjeva"
+
+#: \views\elements\sidebar\profiles\view.ctp:75 \views\profiles\edit.ctp:94
+msgid "Black"
+msgstr "črna"
+
+#: \views\elements\sidebar\profiles\view.ctp:76 \views\profiles\edit.ctp:95
+msgid "Blonde"
+msgstr "blond"
+
+#: \views\elements\sidebar\profiles\view.ctp:77;99
+#: \views\profiles\edit.ctp:96;107
+msgid "Brown"
+msgstr "rjava"
+
+#: \views\elements\sidebar\profiles\view.ctp:78 \views\profiles\edit.ctp:97
+msgid "Gray"
+msgstr "siva"
+
+#: \views\elements\sidebar\profiles\view.ctp:79 \views\profiles\edit.ctp:98
+msgid "Red"
+msgstr "rdeča"
+
+#: \views\elements\sidebar\profiles\view.ctp:81 \views\profiles\edit.ctp:100
+msgid "None"
+msgstr "brez"
+
+#: \views\elements\sidebar\profiles\view.ctp:82;104
+#: \views\profiles\edit.ctp:101;112
+msgid "Other"
+msgstr "drugo"
+
+#: \views\elements\sidebar\profiles\view.ctp:93 \views\profiles\edit.ctp:103
+msgid "Eye Color"
+msgstr "Barva oči"
+
+#: \views\elements\sidebar\profiles\view.ctp:97 \views\profiles\edit.ctp:105
+msgid "Amber"
+msgstr "kostanjeva"
+
+#: \views\elements\sidebar\profiles\view.ctp:98 \views\profiles\edit.ctp:106
+msgid "Blue"
+msgstr "modra"
+
+#: \views\elements\sidebar\profiles\view.ctp:100 \views\profiles\edit.ctp:108
+msgid "Grey"
+msgstr "siva"
+
+#: \views\elements\sidebar\profiles\view.ctp:101 \views\profiles\edit.ctp:109
+msgid "Green"
+msgstr "zelena"
+
+#: \views\elements\sidebar\profiles\view.ctp:102 \views\profiles\edit.ctp:110
+msgid "Hazel"
+msgstr "kostanjeva"
+
+#: \views\elements\sidebar\profiles\view.ctp:115 \views\profiles\edit.ctp:114
+msgid "Nick Names"
+msgstr "Vzdevki"
+
+#: \views\elements\sidebar\profiles\view.ctp:158 \views\profiles\edit.ctp:126
+msgid "Activities"
+msgstr "Aktivnosti"
+
+#: \views\elements\sidebar\profiles\view.ctp:167 \views\profiles\edit.ctp:127
+msgid "People/Heroes"
+msgstr "Ljudje/Idoli"
+
+#: \views\elements\sidebar\profiles\view.ctp:176 \views\profiles\edit.ctp:128
+msgid "Cuisines"
+msgstr "Hrana"
+
+#: \views\elements\sidebar\profiles\view.ctp:185 \views\profiles\edit.ctp:129
+msgid "Quotes"
+msgstr "Reki/Pregovori"
+
+#: \views\elements\sidebar\profiles\view.ctp:194 \views\profiles\edit.ctp:130
+msgid "Movies"
+msgstr "Filmi"
+
+#: \views\elements\sidebar\profiles\view.ctp:203 \views\profiles\edit.ctp:131
+msgid "TV Shows"
+msgstr "TV programi"
+
+#: \views\elements\sidebar\profiles\view.ctp:212 \views\profiles\edit.ctp:132
+msgid "Music"
+msgstr "Glasba"
+
+#: \views\elements\sidebar\profiles\view.ctp:221 \views\profiles\edit.ctp:133
+msgid "Books"
+msgstr "Knjige"
+
+#: \views\elements\sidebar\profiles\view.ctp:230 \views\profiles\edit.ctp:134
+msgid "Sports"
+msgstr "Šport"
+
+#: \views\elements\sidebar\settings\index.ctp:4
+msgid "[Language]"
+msgstr "[Jezik]"
+
+#: \views\elements\sidebar\settings\index.ctp:7
+msgid "[Date and Time] format"
+msgstr "Oblika [datuma in ure]"
+
+#: \views\elements\sidebar\settings\index.ctp:10
+msgid "Change [Password]"
+msgstr "[Spremeni] geslo"
+
+#: \views\elements\sidebar\settings\index.ctp:13
+msgid "[Maintenance]"
+msgstr "[Vzdrževanje]"
+
+#: \views\helpers\quicks.php:78 \views\profiles\tree.ctp:151
+msgid "deceased"
+msgstr "pokojni/a"
+
+#: \views\helpers\lil\date.php:55 \views\pages\dashboard.ctp:52
+msgid "Today"
+msgstr "Danes"
+
+#: \views\helpers\lil\date.php:57
+msgid "Yesterday"
+msgstr "Včeraj"
+
+#: \views\helpers\lil\date.php:212
+msgid "yesterday"
+msgstr "včeraj"
+
+#: \views\helpers\lil\date.php:220
+msgid "today"
+msgstr "danes"
+
+#: \views\helpers\lil\date.php:235
+msgid "%s ago"
+msgstr "%s nazaj"
+
+#: \views\helpers\lil\date.php:198
+msgid "year"
+msgid_plural "years"
+msgstr[0] "let"
+msgstr[1] "leto"
+msgstr[2] "leti"
+msgstr[3] "let"
+
+#: \views\helpers\lil\date.php:199;204
+msgid "month"
+msgid_plural "months"
+msgstr[0] "mesecev"
+msgstr[1] "mesec"
+msgstr[2] "meseca"
+msgstr[3] "meseci"
+
+#: \views\helpers\lil\date.php:200;205;209
+msgid "week"
+msgid_plural "weeks"
+msgstr[0] "tednov"
+msgstr[1] "teden"
+msgstr[2] "tedna"
+msgstr[3] "tedni"
+
+#: \views\helpers\lil\date.php:201;206;210;216
+msgid "day"
+msgid_plural "days"
+msgstr[0] "dni"
+msgstr[1] "dan"
+msgstr[2] "dni"
+msgstr[3] "dnevi"
+
+#: \views\helpers\lil\date.php:217;224
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "ur"
+msgstr[1] "ura"
+msgstr[2] "uri"
+msgstr[3] "ure"
+
+#: \views\helpers\lil\date.php:225;228
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minut"
+msgstr[1] "minuta"
+msgstr[2] "minuti"
+msgstr[3] "minute"
+
+#: \views\helpers\lil\date.php:231
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "sekund"
+msgstr[1] "sekunda"
+msgstr[2] "sekundi"
+msgstr[3] "sekunde"
+
+#: \views\layouts\default.ctp:7 \views\profiles\tree.ctp:7
+msgid "Famiree"
+msgstr "Famiree"
+
+#: \views\layouts\default.ctp:58
+msgid "RSS Memories"
+msgstr "RSS spomini"
+
+#: \views\pages\dashboard.ctp:2
+msgid "Dashboard"
+msgstr "Osnovna plošča"
+
+#: \views\pages\dashboard.ctp:7
+msgid "Search"
+msgstr "Iskanje"
+
+#: \views\pages\dashboard.ctp:30
+msgid "Welcome to Famiree!"
+msgstr "Dobrodošli v Famiree!"
+
+#: \views\pages\dashboard.ctp:33
+msgid ""
+"This is a private place for your family to build your family tree, preserve "
+"your history and share your lives."
+msgstr ""
+"Prostor za vašo družinsko drevo, ohranjanje korenin in stikov z vašimi "
+"bližnjimi."
+
+#: \views\pages\dashboard.ctp:56
+msgid "Tomorrow"
+msgstr "Jutri"
+
+#: \views\pages\dashboard.ctp:59
+msgid "This month"
+msgstr "Tekoči mesec"
+
+#: \views\pages\dashboard.ctp:62
+msgid "Next month"
+msgstr "Naslednji mesec"
+
+#: \views\pages\dashboard.ctp:65
+msgid "Furher on"
+msgstr "Kasneje"
+
+#: \views\pages\dashboard.ctp:73
+msgid "%1$s celebrates %2$s %3$d birthday on %4$s."
+msgstr "%1$s %4$s praznuje %2$s %3$d rojstni dan."
+
+#: \views\pages\dashboard.ctp:75
+msgid "%1$s celebrates %2$s %3$d birthday."
+msgstr "%1$s praznuje svoj %2$s %3$d rojstni dan."
+
+#: \views\pages\dashboard.ctp:83
+msgid "his"
+msgstr "svoj"
+
+#: \views\pages\dashboard.ctp:83
+msgid "her"
+msgstr "svoj"
+
+#: \views\plugins\lil_blogs\posts\admin_edit.ctp:4 \views\posts\edit.ctp:1
+msgid "Edit Post"
+msgstr "Uredi zapis"
+
+#: \views\plugins\lil_blogs\posts\admin_edit.ctp:19 \views\posts\edit.ctp:16
+#: \views\profiles\view.ctp:464
+msgid "Body"
+msgstr "Telo"
+
+#: \views\plugins\lil_blogs\posts\admin_edit.ctp:21 \views\posts\edit.ctp:18
+msgid "Allow Comments"
+msgstr "Komentarji so dovoljeni"
+
+#: \views\plugins\lil_blogs\posts\admin_edit.ctp:31 \views\posts\edit.ctp:28
+msgid "Slug"
+msgstr "Povezava"
+
+#: \views\plugins\lil_blogs\posts\admin_edit.ctp:42
+msgid "Creator"
+msgstr "Avtor"
+
+#: \views\plugins\lil_blogs\posts\index.ctp:15
+#: \views\plugins\lil_blogs\posts\view.ctp:10 \views\posts\view.ctp:7
+#: \views\profiles\view.ctp:363;371;491
+msgid "edit"
+msgstr "uredi"
+
+#: \views\plugins\lil_blogs\posts\index.ctp:33
+#: \views\plugins\lil_blogs\posts\view.ctp:28 \views\posts\view.ctp:21
+msgid "Are your sure you want to delete this post?"
+msgstr "Ste prepričani, da želite izbrisati zapis?"
+
+#: \views\plugins\lil_blogs\posts\index.ctp:45
+#: \views\plugins\lil_blogs\posts\view.ctp:37 \views\posts\view.ctp:29
+#: \views\profiles\view.ctp:519
+msgid "Published %1$s by %2$s."
+msgstr "Objavil/a %2$s, %1$s."
+
+#: \views\plugins\lil_blogs\posts\index.ctp:72
+#: \views\plugins\lil_blogs\posts\view.ctp:64 \views\posts\view.ctp:47
+msgid "Linked to"
+msgstr "Povezano s/z"
+
+#: \views\plugins\lil_blogs\posts\index.ctp:101 \views\profiles\view.ctp:535
+msgid "Read more..."
+msgstr "Beri naprej..."
+
+#: \views\plugins\lil_blogs\posts\index.ctp:117
+msgid "Newer"
+msgstr "Novejše"
+
+#: \views\plugins\lil_blogs\posts\index.ctp:118
+msgid "Older"
+msgstr "Starejše"
+
+#: \views\plugins\lil_blogs\posts\index.ctp:81
+msgid "1 comment"
+msgid_plural "%d comments"
+msgstr[0] "1 komentar"
+msgstr[1] "%d komentarja"
+msgstr[2] "%d komentarji"
+msgstr[3] "%d komentarjev"
+
+#: \views\plugins\lil_users\users\change_password.ctp:13
+msgid "Password does not match to your current password."
+msgstr "Vpisano geslo se ne ujema z vašim trenutnim geslom."
+
+#: \views\plugins\lil_users\users\change_password.ctp:19
+msgid "Please enter your new password."
+msgstr "Vpišite novo geslo."
+
+#: \views\plugins\lil_users\users\change_password.ctp:24
+msgid "Repeated password does not match to password above."
+msgstr "Ponovljeno geslo se ne ujema s predhodnim."
+
+#: \views\plugins\lil_users\users\login.ctp:6 \views\profiles\login.ctp:5
+msgid "Your Father"
+msgstr "Vaš oče"
+
+#: \views\plugins\lil_users\users\login.ctp:7 \views\profiles\login.ctp:6
+msgid "Your Mother"
+msgstr "Vaša mati"
+
+#: \views\plugins\lil_users\users\login.ctp:11 \views\profiles\login.ctp:10
+msgid "Your name"
+msgstr "Vaše ime"
+
+#: \views\plugins\lil_users\users\login.ctp:12 \views\profiles\login.ctp:11
+msgid "Password"
+msgstr "Geslo"
+
+#: \views\plugins\lil_users\users\login.ctp:14 \views\profiles\login.ctp:14
+msgid "Remember me"
+msgstr "Zapomni si me"
+
+#: \views\posts\edit.ctp:31
+msgid "Author"
+msgstr "Avtor"
+
+#: \views\profiles\add.ctp:10
+msgid "Add %s's sister or brother"
+msgstr "%s: Dodaj sestro ali brata"
+
+#: \views\profiles\add.ctp:13
+msgid "Add %s's Child"
+msgstr "%s: Dodaj otroka"
+
+#: \views\profiles\add.ctp:16
+msgid "Add %s's Partner"
+msgstr "%s: Dodaj partnerja"
+
+#: \views\profiles\add.ctp:19
+msgid "Add %s's Parent"
+msgstr "%s: Dodaj očeta ali mater"
+
+#: \views\profiles\add.ctp:43
+msgid "Select other parent"
+msgstr "Izberi drugega partnerja"
+
+#: \views\profiles\add.ctp:44
+msgid "create new family"
+msgstr "ustvari novo družino"
+
+#: \views\profiles\add.ctp:53 \views\profiles\edit.ctp:17
+#: \views\profiles\view.ctp:72
+msgid "Status"
+msgstr "Status"
+
+#: \views\profiles\add.ctp:59 \views\profiles\edit.ctp:21
+msgid "Living"
+msgstr "Še živi"
+
+#: \views\profiles\add.ctp:60 \views\profiles\edit.ctp:21
+#: \views\profiles\search.ctp:62 \views\profiles\view.ctp:73
+msgid "Deceased"
+msgstr "Preminul"
+
+#: \views\profiles\add.ctp:70 \views\profiles\edit.ctp:29
+msgid "Name"
+msgstr "Ime"
+
+#: \views\profiles\add.ctp:78 \views\profiles\edit.ctp:37
+msgid "Maiden Name"
+msgstr "Dekliško ime"
+
+#: \views\profiles\add.ctp:81 \views\profiles\edit.ctp:40
+msgid "Gender"
+msgstr "Spol"
+
+#: \views\profiles\add.ctp:89 \views\profiles\edit.ctp:44
+msgid "Male"
+msgstr "Moški"
+
+#: \views\profiles\add.ctp:90 \views\profiles\edit.ctp:44
+msgid "Female"
+msgstr "Ženski"
+
+#: \views\profiles\add.ctp:102 \views\profiles\edit.ctp:52
+#: \views\profiles\view.ctp:30
+msgid "Date of Birth"
+msgstr "Datum rojstva"
+
+#: \views\profiles\add.ctp:110 \views\profiles\edit.ctp:60
+#: \views\profiles\view.ctp:60
+msgid "Place of Birth"
+msgstr "Kraj rojstva"
+
+#: \views\profiles\add.ctp:115 \views\profiles\edit.ctp:65
+msgid "Place of Living"
+msgstr "Prebivališče"
+
+#: \views\profiles\add.ctp:120 \views\profiles\edit.ctp:70
+#: \views\profiles\view.ctp:76
+msgid "Date of Death"
+msgstr "Datum smrti"
+
+#: \views\profiles\add.ctp:128 \views\profiles\edit.ctp:78
+#: \views\profiles\view.ctp:99
+msgid "Place of Death"
+msgstr "Kraj smrti"
+
+#: \views\profiles\add.ctp:129 \views\profiles\edit.ctp:79
+#: \views\profiles\view.ctp:110
+msgid "Cause of Death"
+msgstr "Vzrok smrti"
+
+#: \views\profiles\add.ctp:130 \views\profiles\edit.ctp:80
+#: \views\profiles\view.ctp:121
+msgid "Place of Burial"
+msgstr "Pokopan v/na"
+
+#: \views\profiles\edit.ctp:86
+msgid "Personal info"
+msgstr "Osebni podatki"
+
+#: \views\profiles\edit.ctp:148
+msgid "Wife"
+msgstr "Žena"
+
+#: \views\profiles\edit.ctp:149;158
+msgid "Fiancee"
+msgstr "Zaročenka"
+
+#: \views\profiles\edit.ctp:150;159;187
+msgid "Partner"
+msgstr "Partner"
+
+#: \views\profiles\edit.ctp:151
+msgid "Ex-wife (deceased)"
+msgstr "Pokojna žena"
+
+#: \views\profiles\edit.ctp:152
+msgid "Ex-wife"
+msgstr "Bivša žena"
+
+#: \views\profiles\edit.ctp:154
+msgid "%s is his"
+msgstr "%s je njegov/a"
+
+#: \views\profiles\edit.ctp:157
+msgid "Husband"
+msgstr "Soprog"
+
+#: \views\profiles\edit.ctp:160
+msgid "Ex-husband (deceased)"
+msgstr "Pokojni mož"
+
+#: \views\profiles\edit.ctp:161
+msgid "Ex-husband"
+msgstr "Bivši mož"
+
+#: \views\profiles\edit.ctp:163
+msgid "%s is her"
+msgstr "%s je njen"
+
+#: \views\profiles\edit.ctp:167
+msgid "%s is my"
+msgstr "%s je moj/a"
+
+#: \views\profiles\edit.ctp:178
+msgid "born %s"
+msgstr "rojen/a %s"
+
+#: \views\profiles\edit.ctp:192
+msgid "Married On"
+msgstr "Datum poroke"
+
+#: \views\profiles\edit.ctp:200
+msgid "Married In"
+msgstr "Kraj poroke"
+
+#: \views\profiles\edit_avatar.ctp:3
+msgid "Select Avatar"
+msgstr "Izberi privzeto sliko profila"
+
+#: \views\profiles\reorder_children.ctp:4
+msgid "Reorder Children"
+msgstr "Vrstni red otrok"
+
+#: \views\profiles\search.ctp:4
+msgid "Search Results"
+msgstr "Rezultat iskanja"
+
+#: \views\profiles\search.ctp:71
+msgid "View Tree"
+msgstr "Ogled drevesa"
+
+#: \views\profiles\search.ctp:79
+msgid "Show Profile"
+msgstr "Prikaz profila"
+
+#: \views\profiles\tree.ctp:50;55;340
+msgid "Show Tree"
+msgstr "Prikaz drevesa"
+
+#: \views\profiles\tree.ctp:86
+msgid "Add This Person"
+msgstr "Dodaj to osebo"
+
+#: \views\profiles\tree.ctp:127
+msgid "Minor Child"
+msgstr "Mladoleten otrok"
+
+#: \views\profiles\tree.ctp:341
+msgid "Edit Profile"
+msgstr "Uredi profil"
+
+#: \views\profiles\tree.ctp:342
+msgid "Add Mother or Father"
+msgstr "Dodaj očeta ali mater"
+
+#: \views\profiles\tree.ctp:343
+msgid "Add Partner"
+msgstr "Dodaj partnerja"
+
+#: \views\profiles\tree.ctp:344
+msgid "Add Sibling"
+msgstr "Dodaj sestro/brata"
+
+#: \views\profiles\tree.ctp:345
+msgid "Add Child"
+msgstr "Dodaj otroka"
+
+#: \views\profiles\view.ctp:22
+msgid "Location"
+msgstr "Prebivališče"
+
+#: \views\profiles\view.ctp:46
+msgid "would be"
+msgstr "danes bi imel"
+
+#: \views\profiles\view.ctp:47
+msgid "years old"
+msgstr "let"
+
+#: \views\profiles\view.ctp:52;91
+msgid "unknown"
+msgstr "neznano"
+
+#: \views\profiles\view.ctp:132
+msgid "Immediate Family"
+msgstr "Ožja družina"
+
+#: \views\profiles\view.ctp:139
+msgid "Daughter of"
+msgstr "Starši:"
+
+#: \views\profiles\view.ctp:141
+msgid "Son of"
+msgstr "Starši:"
+
+#: \views\profiles\view.ctp:143
+msgid "Child of"
+msgstr "Starši:"
+
+#: \views\profiles\view.ctp:158
+msgid "Sister of"
+msgstr "Bratje/sestre:"
+
+#: \views\profiles\view.ctp:160
+msgid "Brother of"
+msgstr "Bratje/sestre:"
+
+#: \views\profiles\view.ctp:162
+msgid "Sibling of"
+msgstr "Bratje/sestre:"
+
+#: \views\profiles\view.ctp:169
+msgid " and "
+msgstr " in "
+
+#: \views\profiles\view.ctp:182
+msgid "Married"
+msgstr "Soprog:"
+
+#: \views\profiles\view.ctp:184
+msgid "to"
+msgstr " "
+
+#: \views\profiles\view.ctp:191
+msgid "with %d %s"
+msgstr ", %d %s"
+
+#: \views\profiles\view.ctp:215
+msgid "Added"
+msgstr "Dodano"
+
+#: \views\profiles\view.ctp:221
+msgid "by"
+msgstr "::"
+
+#: \views\profiles\view.ctp:230
+msgid "Last Login"
+msgstr "Zadnja prijava"
+
+#: \views\profiles\view.ctp:245
+msgid "add photo"
+msgstr "dodaj fotografijo"
+
+#: \views\profiles\view.ctp:248
+msgid "Photo Gallery"
+msgstr "Foto galerija"
+
+#: \views\profiles\view.ctp:287
+msgid "Please enter a title for your attachment."
+msgstr "Vpišite naslov priponke oz. slike."
+
+#: \views\profiles\view.ctp:387
+msgid "Are you sure you want to delete this attachment?"
+msgstr "Ste prepričani, da želite izbrisati priponko?"
+
+#: \views\profiles\view.ctp:413
+msgid ""
+"There are currently no media files for this person. Please do add yours."
+msgstr "Trenutno še ni elementov v galeriji."
+
+#: \views\profiles\view.ctp:425
+msgid "add"
+msgstr "dodaj"
+
+#: \views\profiles\view.ctp:466
+msgid "Please enter some memories about this person."
+msgstr "Vpišite besedilo spominov."
+
+#: \views\profiles\view.ctp:510
+msgid "Are your sure you want to delete this memory?"
+msgstr "Ste prepričani, da želite izbrisati spomin?"
+
+#: \views\profiles\view.ctp:546;598
+msgid "There are currently no memories for this person. Please do add yours."
+msgstr "Trenutno še ni spominov o izbrani osebi."
+
+#: \views\profiles\view.ctp:191
+msgid "child"
+msgid_plural "children"
+msgstr[0] "otrok"
+msgstr[1] "otroka"
+msgstr[2] "otroci"
+msgstr[3] "otrok"
+
+#: \views\settings\datetime.ctp:3
+msgid "Date and Time Format"
+msgstr "Format datuma in ure"
+
+#: \views\settings\datetime.ctp:11
+msgid "Date Input Order"
+msgstr "Vrstni red polja"
+
+#: \views\settings\datetime.ctp:13
+msgid "YMD - year, month, day"
+msgstr "YMD - leto, mesec, dan"
+
+#: \views\settings\datetime.ctp:14
+msgid "MDY - month, day, year"
+msgstr "MDY - mesec, dan, leto"
+
+#: \views\settings\datetime.ctp:15
+msgid "DMY - day, month, year"
+msgstr "DMY - dan, mesec, leto"
+
+#: \views\settings\datetime.ctp:21
+msgid "Date Separator"
+msgstr "Ločilo datuma"
+
+#: \views\settings\datetime.ctp:28
+msgid "24 Hour Time Format"
+msgstr "24 urni format"
+
+#: \views\settings\datetime.ctp:33
+msgid "Date Format"
+msgstr "Format datuma"
+
+#: \views\settings\datetime.ctp:38
+msgid "No Year Format"
+msgstr "Format brez letnice"
+
+#: \views\settings\datetime.ctp:43
+msgid "Short Date Format"
+msgstr "Skrajšan format"
+
+#: \views\settings\lang.ctp:3;11
+msgid "Language"
+msgstr "Jezik"
+
+#: \views\settings\lang.ctp:13
+msgid "auto detect"
+msgstr "samodejno zaznaj"
+
+#: \views\settings\maintenance.ctp:3
+msgid "Maintentance operations"
+msgstr "Vzdrževanje sistema"
+
+#: \views\settings\maintenance.ctp:6
+msgid "Rebuild index"
+msgstr "Posodobitev kazala"
+
+#: \webroot\test.php:92
+msgid "Debug setting does not allow access to this url."
+msgstr "Nastavitve razhroščevanja ne omogočajo dostopa do vpisanega naslova."
+
+#~ msgid "No. of people"
+#~ msgstr "Št. oseb"
