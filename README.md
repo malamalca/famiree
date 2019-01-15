@@ -10,12 +10,12 @@ The source code can be found here: [cakephp/cakephp](https://github.com/malamalc
 ## Installation
 
 1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar install --prefer-dist malamalca/famiree`.
+2. Run `php composer.phar create-project malamalca/famiree`.
 
 If Composer is installed globally, run
 
 ```bash
-composer install --prefer-dist malamalca/famiree
+composer create-project malamalca/famiree
 ```
 
 You can now either use your machine's webserver to view the default home page, or start
