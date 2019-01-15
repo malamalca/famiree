@@ -74,7 +74,8 @@
                                 echo __('I\'ve edited my own profile.');
                             } elseif ($log->foreign_id == $this->currentUser->get('id')) {
                                 echo __('{0} has edited my profile.',
-                                    $this->Html->link($log->user->d_n, ['controller' => 'Profiles', 'action' => 'view', $log->foreign_id])
+                                    empty($log->user_id) ? __('Guest') :
+                                        $this->Html->link($log->user->d_n, ['controller' => 'Profiles', 'action' => 'view', $log->foreign_id])
                                 );
                             } elseif ($log->foreign_id == $log->user_id) {
                                 echo __('{0} has edited his own profile.',
@@ -87,7 +88,6 @@
                                     $message = __('%1$s has been edited by %2$s');
                                 }
 
-                                $userTitle = __('Unknown');
                                 printf(
                                     $message,
                                     $this->Html->link($log->title, ['controller' => 'Profiles', 'action' => 'view', $log->foreign_id]),
