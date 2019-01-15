@@ -1,0 +1,1218 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2019-01-14 13:13+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Controller/AttachmentsController.php:131
+msgid "The attachment has been saved."
+msgstr ""
+
+#: Controller/AttachmentsController.php:139
+msgid "The attachment could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/AttachmentsController.php:156
+msgid "The attachment has been deleted."
+msgstr ""
+
+#: Controller/AttachmentsController.php:158
+msgid "The attachment could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/AttachmentsLinksController.php:53
+msgid "The attachments link has been saved."
+msgstr ""
+
+#: Controller/AttachmentsLinksController.php:61
+msgid "The attachments link could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/ImgnotesController.php:63
+msgid "The imgnote has been saved."
+msgstr ""
+
+#: Controller/ImgnotesController.php:71
+msgid "The imgnote could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/ImgnotesController.php:91
+msgid "The imgnote has been deleted."
+msgstr ""
+
+#: Controller/ImgnotesController.php:93
+msgid "The imgnote could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/PostsController.php:80
+msgid "The post has been saved."
+msgstr ""
+
+#: Controller/PostsController.php:88
+msgid "The post could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/PostsController.php:106
+msgid "The post has been deleted."
+msgstr ""
+
+#: Controller/PostsController.php:108
+msgid "The post could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/ProfilesController.php:164
+msgid "The profile already has two parents."
+msgstr ""
+
+#: Controller/ProfilesController.php:194;217
+msgid "The profile has been saved."
+msgstr ""
+
+#: Controller/ProfilesController.php:198;221
+msgid "The profile could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/ProfilesController.php:238
+msgid "The profile has been deleted."
+msgstr ""
+
+#: Controller/ProfilesController.php:240
+msgid "The profile could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/ProfilesController.php:267
+msgid "Profile's avatar has been successfully saved."
+msgstr ""
+
+#: Controller/ProfilesController.php:269
+msgid "Profile's avatar could not be changed."
+msgstr ""
+
+#: Controller/ProfilesController.php:336
+msgid "Invalid ajax call."
+msgstr ""
+
+#: Controller/UsersController.php:94
+msgid "Invalid username or password, try again"
+msgstr ""
+
+#: Controller/UsersController.php:127
+msgid "Cannot register new users."
+msgstr ""
+
+#: Controller/UsersController.php:134
+msgid "The user has been registered."
+msgstr ""
+
+#: Controller/UsersController.php:138
+msgid "Unable to add the user."
+msgstr ""
+
+#: Controller/UsersController.php:162
+msgid "An email with password reset instructions has been sent."
+msgstr ""
+
+#: Controller/UsersController.php:164
+msgid "No user with specified email has been found."
+msgstr ""
+
+#: Controller/UsersController.php:177
+msgid "Reset key does not exist."
+msgstr ""
+
+#: Controller/UsersController.php:182
+msgid "User does not exist."
+msgstr ""
+
+#: Controller/UsersController.php:189
+msgid "Properties have been saved."
+msgstr ""
+
+#: Controller/UsersController.php:192
+msgid "Please verify that the information is correct."
+msgstr ""
+
+#: Model/Table/ProfilesTable.php:337
+msgid "Password Reset"
+msgstr ""
+
+#: Template/Attachments/edit.ctp:8
+#: Template/Attachments/view.ctp:77
+msgid "Attachment"
+msgstr ""
+
+#: Template/Attachments/edit.ctp:11
+#: Template/Attachments/view.ctp:66
+msgid "Add"
+msgstr ""
+
+#: Template/Attachments/edit.ctp:19
+#: Template/Posts/edit.ctp:7
+msgid "Basic Info"
+msgstr ""
+
+#: Template/Attachments/edit.ctp:36
+#: Template/Posts/edit.ctp:15
+#: Template/Profiles/view.ctp:286;472
+msgid "Title"
+msgstr ""
+
+#: Template/Attachments/edit.ctp:42
+#: Template/Profiles/view.ctp:282
+msgid "Filename"
+msgstr ""
+
+#: Template/Attachments/edit.ctp:46
+#: Template/Profiles/view.ctp:292
+msgid "Description"
+msgstr ""
+
+#: Template/Attachments/edit.ctp:54
+#: Template/Posts/edit.ctp:27
+msgid "Additional Properties"
+msgstr ""
+
+#: Template/Attachments/edit.ctp:58
+#: Template/Posts/edit.ctp:32
+msgid "Created"
+msgstr ""
+
+#: Template/Attachments/edit.ctp:70
+#: Template/Attachments/view.ctp:136
+#: Template/Posts/edit.ctp:50
+#: Template/Profiles/add.ctp:85
+#: Template/Profiles/edit.ctp:136
+#: Template/Profiles/reorder_children.ctp:60
+#: Template/Profiles/view.ctp:295;482
+#: Template/Users/register.ctp:98
+msgid "Save"
+msgstr ""
+
+#: Template/Attachments/edit.ctp:76
+#: Template/Attachments/view.ctp:137
+#: Template/Element/header.ctp:17
+#: Template/Posts/edit.ctp:53
+#: Template/Posts/index.ctp:16
+#: Template/Posts/view.ctp:13
+#: Template/Profiles/add.ctp:88
+#: Template/Profiles/edit.ctp:139
+#: Template/Profiles/reorder_children.ctp:61
+#: Template/Profiles/view.ctp:300;487;511
+msgid "or"
+msgstr ""
+
+#: Template/Attachments/edit.ctp:76
+#: Template/Attachments/view.ctp:68;137
+#: Template/Posts/edit.ctp:53
+#: Template/Profiles/add.ctp:88
+#: Template/Profiles/edit.ctp:139
+#: Template/Profiles/reorder_children.ctp:61
+#: Template/Profiles/view.ctp:301;488
+msgid "Cancel"
+msgstr ""
+
+#: Template/Attachments/index.ctp:6
+msgid "Attachments"
+msgstr ""
+
+#: Template/Attachments/view.ctp:10
+msgid "anonymous"
+msgstr ""
+
+#: Template/Attachments/view.ctp:14;41
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:127;143;159;183;209;229
+msgid "Me"
+msgstr ""
+
+#: Template/Attachments/view.ctp:25
+msgid "Added by %1$s, %2$s."
+msgstr ""
+
+#: Template/Attachments/view.ctp:37
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:199;206
+#: Template/Posts/index.ctp:36
+#: Template/Posts/view.ctp:42
+msgid "Unknown"
+msgstr ""
+
+#: Template/Attachments/view.ctp:52
+msgid "nobody"
+msgstr ""
+
+#: Template/Attachments/view.ctp:56
+msgid "Belongs to"
+msgstr ""
+
+#: Template/Attachments/view.ctp:57
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:47
+#: Template/Posts/index.ctp:42
+#: Template/Posts/view.ctp:52
+#: Template/Profiles/view.ctp:134;183
+msgid "and"
+msgstr ""
+
+#: Template/Attachments/view.ctp:58
+msgid "Add link"
+msgstr ""
+
+#: Template/Attachments/view.ctp:67
+msgid " or "
+msgstr ""
+
+#: Template/Attachments/view.ctp:110
+msgid "Add Note"
+msgstr ""
+
+#: Template/Attachments/view.ctp:122
+msgid "Note"
+msgstr ""
+
+#: Template/Attachments/view.ctp:132
+msgid "Crop and create new image"
+msgstr ""
+
+#: Template/Element/header.ctp:6
+msgid "own your family tree..."
+msgstr ""
+
+#: Template/Element/header.ctp:14
+msgid "Hello, {0}."
+msgstr ""
+
+#: Template/Element/header.ctp:16
+msgid "Settings"
+msgstr ""
+
+#: Template/Element/header.ctp:18
+msgid "Logout"
+msgstr ""
+
+#: Template/Element/header.ctp:29
+msgid "Home"
+msgstr ""
+
+#: Template/Element/header.ctp:35
+msgid "Tree"
+msgstr ""
+
+#: Template/Element/header.ctp:40
+msgid "Photos"
+msgstr ""
+
+#: Template/Element/header.ctp:45
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:29
+#: Template/Profiles/view.ctp:441
+msgid "Memories"
+msgstr ""
+
+#: Template/Element/header.ctp:50
+msgid "Profiles"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:3
+#: Template/Profiles/view.ctp:68
+msgid "Status"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:4
+msgid "Living"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:4
+#: Template/Profiles/index.ctp:55
+#: Template/Profiles/view.ctp:69
+msgid "Deceased"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:9
+#: Template/Users/register.ctp:34
+msgid "Name"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:11
+msgid "First"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:13
+msgid "Last"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:17
+msgid "Maiden Name"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:21
+msgid "Gender"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:22
+msgid "Male"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:22
+msgid "Female"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:27
+#: Template/Profiles/view.ctp:33
+msgid "Date of Birth"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:35
+#: Template/Profiles/view.ctp:57
+msgid "Place of Birth"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:41
+msgid "Place of Living"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:47
+#: Template/Profiles/view.ctp:72
+msgid "Date of Death"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:55
+#: Template/Profiles/view.ctp:88
+msgid "Place of Death"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:59
+#: Template/Profiles/view.ctp:98
+msgid "Cause of Death"
+msgstr ""
+
+#: Template/Element/profile_basics.ctp:63
+#: Template/Profiles/view.ctp:108
+msgid "Place of Burial"
+msgstr ""
+
+#: Template/Element/Sidebar/Attachments/index.ctp:4
+msgid "Actions"
+msgstr ""
+
+#: Template/Element/Sidebar/Attachments/index.ctp:9
+msgid "[Upload] attachment"
+msgstr ""
+
+#: Template/Element/Sidebar/Attachments/index.ctp:22
+msgid "Filters"
+msgstr ""
+
+#: Template/Element/Sidebar/Attachments/index.ctp:25
+msgid "All Attachments"
+msgstr ""
+
+#: Template/Element/Sidebar/Attachments/index.ctp:32
+msgid "Recent Uploads"
+msgstr ""
+
+#: Template/Element/Sidebar/Attachments/view.ctp:4
+msgid "Operations"
+msgstr ""
+
+#: Template/Element/Sidebar/Attachments/view.ctp:10
+msgid "Point a Person"
+msgstr ""
+
+#: Template/Element/Sidebar/Attachments/view.ctp:24
+msgid "[Edit] properties"
+msgstr ""
+
+#: Template/Element/Sidebar/Attachments/view.ctp:31
+msgid "Image Properties"
+msgstr ""
+
+#: Template/Element/Sidebar/Attachments/view.ctp:34
+msgid "Dimensions"
+msgstr ""
+
+#: Template/Element/Sidebar/Attachments/view.ctp:38
+msgid "Size"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:6
+msgid "Statistics"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:11
+msgid "No. of Females"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:16
+msgid "No. of Males"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:41
+msgid "my past"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:45
+msgid "About %1$s written by %2$s %3$s"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:67
+msgid "All Posts"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:78
+msgid "Log"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:89
+msgid "I've edited my own profile."
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:92
+msgid "%s has edited my profile."
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:101
+msgid "%s has edited his own profile."
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:110
+msgid "%1$s has been added by %2$s"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:112
+msgid "%1$s has been edited by %2$s"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:138
+msgid "Profile \"%1$s\" has been deleted by %2$s"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:156
+msgid "Post \"%1$s\" has been deleted by %2$s."
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:167
+msgid "Post \"%1$s\" has been added by %2$s"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:169
+msgid "Post \"%1$s\" has been edited by %2$s"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:193
+msgid "Attachment \"%1$s\" has been added by %2$s"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:195
+msgid "Attachment \"%1$s\" has been edited by %2$s"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:221
+msgid "A note has been added to %1$s by %2$s."
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/dashboard.ctp:222
+msgid "image"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/edit.ctp:3
+#: Template/Profiles/edit.ctp:12
+#: Template/Users/register.ctp:27
+msgid "Basics"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/edit.ctp:4
+#: Template/Element/Sidebar/Profiles/view.ctp:62
+msgid "Personal"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/edit.ctp:5
+#: Template/Element/Sidebar/Profiles/view.ctp:139;145
+#: Template/Profiles/edit.ctp:53;56
+msgid "Interests"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/edit.ctp:6
+#: Template/Profiles/edit.ctp:71
+msgid "Relationships"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/edit_avatar.ctp:17
+msgid "Click on image you wish to set as users new avatar."
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/edit_avatar.ctp:20
+msgid "[Click here] if you wish to remove this profile's."
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/reorder_children.ctp:2
+msgid "Drag and drop children to reorder them."
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:26
+msgid "[Show tree] for this person"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:33
+msgid "[Edit] person's data"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:37
+msgid "[Change] person's avatar"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:41
+msgid "[Reorder] children"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:46
+msgid "[Delete] profile"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:46
+msgid "Are you sure you want to delete profile?"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:68
+#: Template/Profiles/edit.ctp:23
+msgid "Hair Color"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:72
+#: Template/Profiles/edit.ctp:25
+msgid "Auburn"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:73
+#: Template/Profiles/edit.ctp:26
+msgid "Black"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:74
+#: Template/Profiles/edit.ctp:27
+msgid "Blonde"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:75;97
+#: Template/Profiles/edit.ctp:28;39
+msgid "Brown"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:76
+#: Template/Profiles/edit.ctp:29
+msgid "Gray"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:77
+#: Template/Profiles/edit.ctp:30
+msgid "Red"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:79
+#: Template/Profiles/edit.ctp:32
+msgid "None"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:80;101
+#: Template/Profiles/edit.ctp:33;44
+msgid "Other"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:91
+#: Template/Profiles/edit.ctp:35
+msgid "Eye Color"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:95
+#: Template/Profiles/edit.ctp:37
+msgid "Amber"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:96
+#: Template/Profiles/edit.ctp:38
+msgid "Blue"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:98
+#: Template/Profiles/edit.ctp:40
+msgid "Grey"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:99
+#: Template/Profiles/edit.ctp:41
+msgid "Green"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:100
+#: Template/Profiles/edit.ctp:42
+msgid "Hazel"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:112
+#: Template/Profiles/edit.ctp:46
+msgid "Nick Names"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:153
+#: Template/Profiles/edit.ctp:57
+msgid "Activities"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:161
+#: Template/Profiles/edit.ctp:58
+msgid "People/Heroes"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:169
+#: Template/Profiles/edit.ctp:59
+msgid "Cuisines"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:177
+#: Template/Profiles/edit.ctp:60
+msgid "Quotes"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:185
+#: Template/Profiles/edit.ctp:61
+msgid "Movies"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:193
+#: Template/Profiles/edit.ctp:62
+msgid "TV Shows"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:201
+#: Template/Profiles/edit.ctp:63
+msgid "Music"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:209
+#: Template/Profiles/edit.ctp:64
+msgid "Books"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:217
+#: Template/Profiles/edit.ctp:65
+msgid "Sports"
+msgstr ""
+
+#: Template/Email/text/reset.ctp:13
+msgid "Forgot your password?"
+msgstr ""
+
+#: Template/Email/text/reset.ctp:15
+msgid "You've received this mail from password reset request on Famiree"
+msgstr ""
+
+#: Template/Email/text/reset.ctp:16
+msgid "Please follow this url to change your password:"
+msgstr ""
+
+#: Template/Email/text/reset.ctp:20
+msgid "Please discard this email if you did not want to change your password."
+msgstr ""
+
+#: Template/Email/text/reset.ctp:23
+msgid "Best Regards."
+msgstr ""
+
+#: Template/Layout/default.ctp:6
+#: Template/Profiles/tree.ctp:6
+msgid "Famiree"
+msgstr ""
+
+#: Template/Layout/default.ctp:43
+msgid "RSS Memories"
+msgstr ""
+
+#: Template/Layout/error.ctp:35
+msgid "Error"
+msgstr ""
+
+#: Template/Layout/error.ctp:43
+msgid "Back"
+msgstr ""
+
+#: Template/Pages/dashboard.ctp:2
+#: Template/Profiles/dashboard.ctp:3
+msgid "Dashboard"
+msgstr ""
+
+#: Template/Pages/dashboard.ctp:7
+#: Template/Profiles/dashboard.ctp:8
+msgid "Search"
+msgstr ""
+
+#: Template/Pages/dashboard.ctp:30
+#: Template/Profiles/dashboard.ctp:32
+msgid "Welcome to Famiree!"
+msgstr ""
+
+#: Template/Pages/dashboard.ctp:33
+#: Template/Profiles/dashboard.ctp:35
+msgid "This is a private place for your family to build your family tree, preserve your history and share your lives."
+msgstr ""
+
+#: Template/Pages/dashboard.ctp:52
+#: Template/Profiles/dashboard.ctp:55
+msgid "Today"
+msgstr ""
+
+#: Template/Pages/dashboard.ctp:56
+#: Template/Profiles/dashboard.ctp:59
+msgid "Tomorrow"
+msgstr ""
+
+#: Template/Pages/dashboard.ctp:59
+#: Template/Profiles/dashboard.ctp:62
+msgid "This month"
+msgstr ""
+
+#: Template/Pages/dashboard.ctp:62
+#: Template/Profiles/dashboard.ctp:65
+msgid "Next month"
+msgstr ""
+
+#: Template/Pages/dashboard.ctp:65
+#: Template/Profiles/dashboard.ctp:68
+msgid "Furher on"
+msgstr ""
+
+#: Template/Pages/dashboard.ctp:73
+#: Template/Profiles/dashboard.ctp:76
+msgid "%1$s celebrates %2$s %3$d birthday on %4$s."
+msgstr ""
+
+#: Template/Pages/dashboard.ctp:75
+#: Template/Profiles/dashboard.ctp:78
+msgid "%1$s celebrates %2$s %3$d birthday."
+msgstr ""
+
+#: Template/Pages/dashboard.ctp:83
+#: Template/Profiles/dashboard.ctp:86
+msgid "his"
+msgstr ""
+
+#: Template/Pages/dashboard.ctp:83
+#: Template/Profiles/dashboard.ctp:86
+msgid "her"
+msgstr ""
+
+#: Template/Posts/edit.ctp:4
+msgid "Edit Post"
+msgstr ""
+
+#: Template/Posts/edit.ctp:19
+#: Template/Profiles/view.ctp:475
+msgid "Body"
+msgstr ""
+
+#: Template/Posts/edit.ctp:41
+msgid "Creator"
+msgstr ""
+
+#: Template/Posts/index.ctp:15
+#: Template/Posts/view.ctp:12
+#: Template/Profiles/view.ctp:370;379;506
+msgid "edit"
+msgstr ""
+
+#: Template/Posts/index.ctp:17
+#: Template/Posts/view.ctp:15
+#: Template/Profiles/view.ctp:385;394;513
+msgid "delete"
+msgstr ""
+
+#: Template/Posts/index.ctp:19
+#: Template/Posts/view.ctp:18
+msgid "Are your sure you want to delete this post?"
+msgstr ""
+
+#: Template/Posts/index.ctp:27
+#: Template/Posts/view.ctp:29
+#: Template/Profiles/view.ctp:538
+msgid "Published %1$s by %2$s."
+msgstr ""
+
+#: Template/Posts/index.ctp:42
+#: Template/Posts/view.ctp:52
+msgid "Linked to"
+msgstr ""
+
+#: Template/Posts/index.ctp:61
+#: Template/Profiles/view.ctp:557
+msgid "Read more..."
+msgstr ""
+
+#: Template/Profiles/add.ctp:13
+msgid "Add {0}'s Child"
+msgstr ""
+
+#: Template/Profiles/add.ctp:16
+msgid "Add {0}'s Spouse"
+msgstr ""
+
+#: Template/Profiles/add.ctp:19
+msgid "Add {0}'s Parent"
+msgstr ""
+
+#: Template/Profiles/add.ctp:22
+msgid "Add {0}'s Sibling"
+msgstr ""
+
+#: Template/Profiles/add.ctp:35
+msgid "Select Other parent"
+msgstr ""
+
+#: Template/Profiles/add.ctp:36;52
+msgid "create new family"
+msgstr ""
+
+#: Template/Profiles/add.ctp:51
+msgid "Parent for children"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:20
+msgid "Personal info"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:76
+msgid "Wife"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:77;86
+msgid "Fiancee"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:78;87;113
+msgid "Partner"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:79
+msgid "Ex-wife (deceased)"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:80
+msgid "Ex-wife"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:82
+msgid "%s is his"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:85
+msgid "Husband"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:88
+msgid "Ex-husband (deceased)"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:89
+msgid "Ex-husband"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:91
+msgid "%s is her"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:95
+msgid "%s is my"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:106
+msgid "born %s"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:120
+msgid "Married On"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:128
+msgid "Married In"
+msgstr ""
+
+#: Template/Profiles/edit_avatar.ctp:5
+msgid "Select Avatar"
+msgstr ""
+
+#: Template/Profiles/index.ctp:4
+msgid "Search Results for \"{0}\""
+msgstr ""
+
+#: Template/Profiles/index.ctp:8
+msgid "Page {{page}} of {{pages}}, showing {{current}} records out of {{count}} total."
+msgstr ""
+
+#: Template/Profiles/index.ctp:66
+msgid "View Tree"
+msgstr ""
+
+#: Template/Profiles/index.ctp:69
+msgid "Show Profile"
+msgstr ""
+
+#: Template/Profiles/reorder_children.ctp:4
+msgid "Reorder Children"
+msgstr ""
+
+#: Template/Profiles/reorder_children.ctp:22
+#: Template/Profiles/view.ctp:49;80
+msgid "unknown"
+msgstr ""
+
+#: Template/Profiles/tree.ctp:47;49;323
+msgid "Show Tree"
+msgstr ""
+
+#: Template/Profiles/tree.ctp:74
+msgid "Add This Person"
+msgstr ""
+
+#: Template/Profiles/tree.ctp:110
+msgid "Minor Child"
+msgstr ""
+
+#: Template/Profiles/tree.ctp:134
+msgid "deceased"
+msgstr ""
+
+#: Template/Profiles/tree.ctp:324
+msgid "Edit Profile"
+msgstr ""
+
+#: Template/Profiles/tree.ctp:325
+msgid "Add Mother or Father"
+msgstr ""
+
+#: Template/Profiles/tree.ctp:326
+msgid "Add Partner"
+msgstr ""
+
+#: Template/Profiles/tree.ctp:327
+msgid "Add Sibling"
+msgstr ""
+
+#: Template/Profiles/tree.ctp:328
+msgid "Add Child"
+msgstr ""
+
+#: Template/Profiles/view.ctp:26
+msgid "Location"
+msgstr ""
+
+#: Template/Profiles/view.ctp:43
+msgid "would be"
+msgstr ""
+
+#: Template/Profiles/view.ctp:45
+msgid "years old"
+msgstr ""
+
+#: Template/Profiles/view.ctp:118
+msgid "Immediate Family"
+msgstr ""
+
+#: Template/Profiles/view.ctp:125
+msgid "Daughter of"
+msgstr ""
+
+#: Template/Profiles/view.ctp:127
+msgid "Son of"
+msgstr ""
+
+#: Template/Profiles/view.ctp:129
+msgid "Child of"
+msgstr ""
+
+#: Template/Profiles/view.ctp:142
+msgid "Sister of"
+msgstr ""
+
+#: Template/Profiles/view.ctp:144
+msgid "Brother of"
+msgstr ""
+
+#: Template/Profiles/view.ctp:146
+msgid "Sibling of"
+msgstr ""
+
+#: Template/Profiles/view.ctp:153
+msgid " and "
+msgstr ""
+
+#: Template/Profiles/view.ctp:166
+msgid "Married"
+msgstr ""
+
+#: Template/Profiles/view.ctp:168
+msgid "to"
+msgstr ""
+
+#: Template/Profiles/view.ctp:177
+msgid "with %d %s"
+msgstr ""
+
+#: Template/Profiles/view.ctp:200
+msgid "Added"
+msgstr ""
+
+#: Template/Profiles/view.ctp:206
+msgid "by"
+msgstr ""
+
+#: Template/Profiles/view.ctp:215
+msgid "Last Login"
+msgstr ""
+
+#: Template/Profiles/view.ctp:231
+msgid "add photo"
+msgstr ""
+
+#: Template/Profiles/view.ctp:236
+msgid "Photo Gallery"
+msgstr ""
+
+#: Template/Profiles/view.ctp:287
+msgid "Please enter a title for your attachment."
+msgstr ""
+
+#: Template/Profiles/view.ctp:397
+msgid "Are you sure you want to delete this attachment?"
+msgstr ""
+
+#: Template/Profiles/view.ctp:424
+msgid "There are currently no media files for this person. Please do add yours."
+msgstr ""
+
+#: Template/Profiles/view.ctp:436
+msgid "add"
+msgstr ""
+
+#: Template/Profiles/view.ctp:477
+msgid "Please enter some memories about this person."
+msgstr ""
+
+#: Template/Profiles/view.ctp:523
+msgid "Are your sure you want to delete this memory?"
+msgstr ""
+
+#: Template/Profiles/view.ctp:568;620
+msgid "There are currently no memories for this person. Please do add yours."
+msgstr ""
+
+#: Template/Profiles/view.ctp:177
+msgid "child"
+msgid_plural "children"
+msgstr[0] ""
+msgstr[1] ""
+
+#: Template/Users/change_password.ctp:7
+msgid "Set New Password for \"{0}\""
+msgstr ""
+
+#: Template/Users/change_password.ctp:36
+msgid "Change password"
+msgstr ""
+
+#: Template/Users/change_password.ctp:47
+msgid "New password"
+msgstr ""
+
+#: Template/Users/change_password.ctp:48
+#: Template/Users/register.ctp:77
+msgid "Password is required, format must be valid."
+msgstr ""
+
+#: Template/Users/change_password.ctp:55
+msgid "Repeat password"
+msgstr ""
+
+#: Template/Users/change_password.ctp:56
+msgid "Passwords do not match."
+msgstr ""
+
+#: Template/Users/change_password.ctp:65
+msgid "Change"
+msgstr ""
+
+#: Template/Users/login.ctp:2;17
+msgid "Login"
+msgstr ""
+
+#: Template/Users/login.ctp:6
+#: Template/Users/reset.ctp:7
+msgid "Your Father"
+msgstr ""
+
+#: Template/Users/login.ctp:7
+#: Template/Users/reset.ctp:8
+msgid "Your Mother"
+msgstr ""
+
+#: Template/Users/login.ctp:10
+msgid "Your name"
+msgstr ""
+
+#: Template/Users/login.ctp:11
+#: Template/Users/register.ctp:68;76
+msgid "Password"
+msgstr ""
+
+#: Template/Users/login.ctp:13
+msgid "Remember me"
+msgstr ""
+
+#: Template/Users/register.ctp:6
+msgid "User Registration"
+msgstr ""
+
+#: Template/Users/register.ctp:35
+msgid "User's name is required."
+msgstr ""
+
+#: Template/Users/register.ctp:46
+msgid "Username"
+msgstr ""
+
+#: Template/Users/register.ctp:48
+msgid "Username is required, format must be valid."
+msgstr ""
+
+#: Template/Users/register.ctp:49
+msgid "Username already exists."
+msgstr ""
+
+#: Template/Users/register.ctp:60
+#: Template/Users/reset.ctp:11
+msgid "Email"
+msgstr ""
+
+#: Template/Users/register.ctp:61
+msgid "Email is required, format must be valid."
+msgstr ""
+
+#: Template/Users/register.ctp:88
+msgid "Repeat Password"
+msgstr ""
+
+#: Template/Users/register.ctp:89
+msgid "Please retype your password."
+msgstr ""
+
+#: Template/Users/reset.ctp:4
+msgid "Reset Email"
+msgstr ""
+
+#: Template/Users/reset.ctp:13
+msgid "Request new Password"
+msgstr ""
+
