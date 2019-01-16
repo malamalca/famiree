@@ -2,6 +2,8 @@
 namespace App\Test\TestCase\Controller;
 
 use App\Controller\PostsController;
+use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
@@ -19,9 +21,19 @@ class PostsControllerTest extends TestCase
      */
     public $fixtures = [
         'app.Posts',
-        'app.Creators',
-        'app.Comments',
-        'app.PostsLinks'
+        'app.Profiles',
+        'app.PostsLinks',
+        'app.Logs'
+    ];
+
+    /**
+     * Auth data
+     */
+    private $authData = [
+        'User' => [
+            'id' => 1,
+            'd_n' => 'Test User',
+        ]
     ];
 
     /**
@@ -31,7 +43,11 @@ class PostsControllerTest extends TestCase
      */
     public function testIndex()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->session(['Auth' => $this->authData]);
+        $this->get('/posts');
+
+        $this->assertResponseOk();
+        $this->assertNoRedirect();
     }
 
     /**
@@ -41,7 +57,15 @@ class PostsControllerTest extends TestCase
      */
     public function testView()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->session(['Auth' => $this->authData]);
+        $this->get('/posts/view/1');
+
+        $this->assertResponseOk();
+        $this->assertNoRedirect();
+
+        $this->disableErrorHandlerMiddleware();
+        $this->expectException(RecordNotFoundException::class);
+        $this->get('/posts/view/1111');
     }
 
     /**
@@ -51,7 +75,24 @@ class PostsControllerTest extends TestCase
      */
     public function testAdd()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->session(['Auth' => $this->authData]);
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+        $this->enableRetainFlashMessages();
+
+        $countBefore = TableRegistry::get('Posts')->find()->count();
+
+        $this->post('posts/add', [
+            'title' => 'Test Memory',
+            'body' => 'This is a memory from a test suite.',
+        ]);
+
+        $this->assertResponseSuccess();
+        $this->assertRedirect(['controller' => 'Posts', 'action' => 'index']);
+        $this->assertFlashElement('Flash/success');
+
+        $countAfter = TableRegistry::get('Posts')->find()->count();
+        $this->assertEquals($countBefore + 1, $countAfter);
     }
 
     /**
@@ -61,7 +102,28 @@ class PostsControllerTest extends TestCase
      */
     public function testEdit()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->session(['Auth' => $this->authData]);
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+        $this->enableRetainFlashMessages();
+
+        $countBefore = TableRegistry::get('Posts')->find()->count();
+
+        $this->post('posts/edit/1', [
+            'id' => 1,
+            'title' => 'Test Memory',
+            'body' => 'This is an edited memory from a test suite.',
+        ]);
+
+        $this->assertResponseSuccess();
+        $this->assertRedirect(['controller' => 'Posts', 'action' => 'index']);
+        $this->assertFlashElement('Flash/success');
+
+        $countAfter = TableRegistry::get('Posts')->find()->count();
+        $this->assertEquals($countBefore, $countAfter);
+
+        $post = TableRegistry::get('Posts')->get(1);
+        $this->assertEquals('Test Memory', $post->title);
     }
 
     /**
@@ -71,6 +133,15 @@ class PostsControllerTest extends TestCase
      */
     public function testDelete()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->session(['Auth' => $this->authData]);
+
+        $countBefore = TableRegistry::get('Posts')->find()->count();
+
+        $this->get('posts/delete/1');
+
+        $this->assertRedirect();
+
+        $countAfter = TableRegistry::get('Posts')->find()->count();
+        $this->assertEquals($countBefore - 1, $countAfter);
     }
 }

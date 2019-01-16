@@ -26,7 +26,7 @@ class AttachmentsLinksController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     * @return void
      */
     public function add()
     {

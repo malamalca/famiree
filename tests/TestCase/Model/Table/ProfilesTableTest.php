@@ -25,10 +25,7 @@ class ProfilesTableTest extends TestCase
      */
     public $fixtures = [
         'app.Profiles',
-        'app.Creators',
-        'app.Modifiers',
         'app.Imgnotes',
-        'app.Settings',
         'app.Units'
     ];
 

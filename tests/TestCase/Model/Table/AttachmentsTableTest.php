@@ -25,7 +25,7 @@ class AttachmentsTableTest extends TestCase
      */
     public $fixtures = [
         'app.Attachments',
-        'app.Users',
+        'app.Profiles',
         'app.AttachmentsLinks',
         'app.Imgnotes'
     ];

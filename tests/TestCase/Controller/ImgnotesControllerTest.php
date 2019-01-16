@@ -19,7 +19,6 @@ class ImgnotesControllerTest extends TestCase
      */
     public $fixtures = [
         'app.Imgnotes',
-        'app.Users',
         'app.Attachments',
         'app.Profiles'
     ];

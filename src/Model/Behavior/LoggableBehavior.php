@@ -4,7 +4,7 @@ namespace App\Model\Behavior;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
-use Cake\Network\Session;
+use Cake\Http\Session;
 use Cake\ORM\Behavior;
 use Cake\ORM\TableRegistry;
 

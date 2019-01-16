@@ -25,7 +25,6 @@ class ImgNotesTableTest extends TestCase
      */
     public $fixtures = [
         'app.ImgNotes',
-        'app.Users',
         'app.Attachments',
         'app.Profiles'
     ];

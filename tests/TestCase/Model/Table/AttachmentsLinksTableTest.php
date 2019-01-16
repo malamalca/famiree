@@ -26,7 +26,7 @@ class AttachmentsLinksTableTest extends TestCase
     public $fixtures = [
         'app.AttachmentsLinks',
         'app.Attachments',
-        'app.Foreigns'
+        'app.Profiles'
     ];
 
     /**

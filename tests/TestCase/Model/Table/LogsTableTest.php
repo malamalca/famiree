@@ -25,8 +25,7 @@ class LogsTableTest extends TestCase
      */
     public $fixtures = [
         'app.Logs',
-        'app.Foreigns',
-        'app.Users'
+        'app.Profiles'
     ];
 
     /**
