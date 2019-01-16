@@ -17,8 +17,8 @@ namespace App\Auth;
 
 use Cake\Auth\BaseAuthenticate;
 use Cake\Controller\ComponentRegistry;
-use Cake\Network\Request;
-use Cake\Network\Response;
+use Cake\Http\Response;
+use Cake\Http\ServerRequest;
 
 /**
  * An authentication adapter for AuthComponent. Provides the ability to authenticate using cookies
@@ -78,7 +78,7 @@ class CookieAuthenticate extends BaseAuthenticate
      * @param \Cake\Network\Response $response Unused response object.
      * @return mixed False on login failure.  An array of User data on success.
      */
-    public function authenticate(Request $request, Response $response)
+    public function authenticate(ServerRequest $request, Response $response)
     {
         $fields = $this->_config['fields'];
 
