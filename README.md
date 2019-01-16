@@ -5,7 +5,7 @@
 
 Simple open source family tree web application [Famiree](https://famiree.org)
 
-The source code can be found here: [cakephp/cakephp](https://github.com/malamalca/famiree).
+The source code can be found here: [malamalca/famiree](https://github.com/malamalca/famiree).
 
 ## Installation
 
