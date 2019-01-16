@@ -64,5 +64,4 @@ class AttachmentsLinksController extends AppController
         $profiles = $this->AttachmentsLinks->Profiles->find('list', ['limit' => 200]);
         $this->set(compact('attachmentsLink', 'attachments', 'profiles'));
     }
-
 }

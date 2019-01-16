@@ -5,6 +5,7 @@ if (!defined('STDIN')) {
     define('STDIN', fopen('php://stdin', 'r'));
 }
 
+use Cake\Datasource\ConnectionManager;
 use Cake\Utility\Security;
 use Composer\Script\Event;
 use Exception;
@@ -65,6 +66,25 @@ class Installer
 
             if (in_array($setFolderPermissions, ['Y', 'y'])) {
                 static::setFolderPermissions($rootDir, $io);
+            }
+
+            $dbConnectSuccess = false;
+            while (!$dbConnectSuccess) {
+                $dbHost = $io->ask('<info>Enter database host ?</info> [<comment>localhost</comment>]? ', 'localhost');
+                $dbName = $io->ask('<info>Enter database name ?</info> [<comment>famiree</comment>]? ', 'famiree');
+                $dbUser = $io->ask('<info>Enter db user ?</info> ');
+                $dbPassword = $io->ask('<info>Enter db password ?</info> ');
+
+                $dbConnectSuccess = static::checkDbConnection($dbHost, $dbName, $dbUser, $dbPassword, $io);
+
+                if ($dbConnectSuccess) {
+                    static::setDbConfigInFile($dbHost, $dbName, $dbUser, $dbPassword, $rootDir, 'app.php', $io);
+                    if (static::importDbSchema($rootDir, 'famiree.sql')) {
+                        $io->write('Successfuly imported sql schema.');
+                    }
+                } else {
+                    $io->writeError('Cannot connect to mysql database. Please try again.');
+                }
             }
         } else {
             static::setFolderPermissions($rootDir, $io);
@@ -231,5 +251,98 @@ class Installer
             return;
         }
         $io->write('Unable to update __APP_NAME__ value.');
+    }
+
+    /**
+     * Try to connect to database
+     *
+     * @param string $dbHost Database host.
+     * @param string $db Database name.
+     * @param string $dbUser Mysql username.
+     * @param string $dbPassword Mysql password.
+     * @param @param \Composer\IO\IOInterface $io IO interface to write to console.
+     * @return bool
+     */
+    public static function checkDbConnection($dbHost, $db, $dbUser, $dbPassword, $io)
+    {
+        try {
+            $config = ConnectionManager::setConfig('install', [
+                'className' => 'Cake\Database\Connection',
+                'driver' => 'Cake\Database\Driver\Mysql',
+                'persistent' => false,
+                'host' => $dbHost,
+                'username' => $dbUser,
+                'password' => $dbPassword,
+                'database' => $db,
+                'timezone' => 'UTC',
+                'flags' => [],
+                'cacheMetadata' => true,
+                'log' => false,
+                'quoteIdentifiers' => true,
+                'url' => null,
+            ]);
+            $connection = ConnectionManager::get('install');
+            $result = $connection->connect();
+
+            return $result;
+        } catch (Exception $connectionError) {
+            $errorMsg = $connectionError->getMessage();
+            $io->writeError($errorMsg);
+        }
+
+        return false;
+    }
+
+    /**
+     * Set the dbconfig in a given file
+     *
+     * @param string $dbHost Database host.
+     * @param string $dbName Database name.
+     * @param string $dbUser Mysql username.
+     * @param string $dbPassword Mysql password.
+     * @param string $dir The application's root directory.
+     * @param string $file A path to a file relative to the application's root
+     * @param \Composer\IO\IOInterface $io IO interface to write to console.
+     * @return void
+     */
+    public static function setDbConfigInFile($dbHost, $dbName, $dbUser, $dbPassword, $dir, $file, $io)
+    {
+        $config = $dir . '/config/' . $file;
+        $content = file_get_contents($config);
+
+        $content = str_replace('__DBHOST__', $dbHost, $content, $count);
+        $content = str_replace('__DATABASE__', $dbName, $content, $count);
+        $content = str_replace('__DBUSER__', $dbUser, $content, $count);
+        $content = str_replace('__DBPASS__', $dbPassword, $content, $count);
+
+        $result = file_put_contents($config, $content);
+        if ($result) {
+            $io->write('Updated Datasources.default values in config/' . $file);
+
+            return;
+        }
+        $io->write('Unable to update Datasources.default values.');
+    }
+
+    /**
+     * Import sql schema from config/schema/famiree.sql
+     *
+     * @param string $dir The application's root directory.
+     * @param string $file A path to a file relative to the application's root
+     * @return bool
+     */
+    public static function importDbSchema($dir, $file)
+    {
+        $config = $dir . '/config/schema/' . $file;
+        $content = file_get_contents($config);
+
+        $result = false;
+
+        if ($content) {
+            $connection = ConnectionManager::get('install');
+            $result = (bool)$connection->execute($content);
+        }
+
+        return $result;
     }
 }

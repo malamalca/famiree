@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 use Cake\Http\Exception\NotFoundException;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
@@ -16,6 +17,22 @@ use Cake\Utility\Hash;
  */
 class ProfilesController extends AppController
 {
+    /**
+     * beforeFilter method
+     *
+     * @param \Cake\Event\Event $event Event object
+     * @return void
+     */
+    public function beforeFilter(Event $event)
+    {
+        if (!$this->currentUser->exists()) {
+            $userCount = TableRegistry::get('Profiles')->find()->count();
+            if ($userCount == 0) {
+                $this->redirect(['controller' => 'Users', 'action' => 'install']);
+            }
+        }
+    }
+
     /**
      * isAuthorized hook method.
      *
@@ -150,6 +167,8 @@ class ProfilesController extends AppController
     /**
      * Add method
      *
+     * @param string $relationship Relationship option.
+     * @param uuid $profileId Profile id.
      * @return \Cake\Http\Response|null
      */
     public function add($relationship, $profileId = null)

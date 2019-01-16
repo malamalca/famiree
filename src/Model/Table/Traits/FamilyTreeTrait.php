@@ -44,7 +44,7 @@ trait FamilyTreeTrait
      * Fetch tree for specified profile
      *
      * @param mixed $id Profile id
-     * @access public
+     * @param int $depth Tree depthd
      * @return array Unions and Profiles with calculated positions for XML tree generation
      */
     public function tree($id, $depth = 100)
@@ -203,7 +203,10 @@ trait FamilyTreeTrait
      *
      * Recursive function for processing children
      *
-     * @access private
+     * @param array $children Children array
+     * @param array $unions Unions array
+     * @param array $profiles Profiles array
+     * @param array $options Options array
      * @return array
      */
     private function __recurseChildren($children, &$unions, &$profiles, $options = [])
@@ -408,7 +411,11 @@ trait FamilyTreeTrait
      *
      * Recursive function for processing parents
      *
-     * @access public
+     * @param uuid $profile_id Profile id.
+     * @param int $depth Tree depth.
+     * @param array $unions Unions array.
+     * @param array $profiles Profiles array.
+     * @param array $options Options array.
      * @return array
      */
     private function __recurseParents($profile_id, $depth, &$unions, &$profiles, $options)
@@ -697,12 +704,16 @@ trait FamilyTreeTrait
             }
         }
     }
+
     /**
      * __addProfile method
      *
-     * @param int $profiles Profile list
-     * @access private
-     * @return mixed
+     * @param array $profiles Profile list.
+     * @param uuid $profile_id Profile id.
+     * @param int $x X position.
+     * @param int $y Y position.
+     * @param array $options Options array.
+     * @return void
      */
     private function __addProfile(&$profiles, $profile_id, $x, $y, $options = [])
     {
@@ -713,6 +724,7 @@ trait FamilyTreeTrait
             $profiles[$profile_id]['Profile']['d_r'] = true;
         }
     }
+
     /**
      * __gender method
      *
@@ -769,11 +781,11 @@ trait FamilyTreeTrait
 
         return false;
     }
+
     /**
      * __fetchUnionOfChild method
      *
-     * @param int $profile_id Profile id
-     * @access private
+     * @param int $profile_id Profile id.
      * @return array
      */
     private function __fetchUnionOfChild($profile_id)
@@ -786,11 +798,12 @@ trait FamilyTreeTrait
 
         return false;
     }
+
     /**
      * __fetchUnionsOfParent method
      *
-     * @param int $profile_id Profile id
-     * @access private
+     * @param int $profile_id Profile id.
+     * @param bool $exclude_profile_id Exclude base profile.
      * @return array
      */
     private function __fetchUnionsOfParent($profile_id, $exclude_profile_id = false)
@@ -806,11 +819,12 @@ trait FamilyTreeTrait
 
         return $ret;
     }
+
     /**
      * __fetchSpouse method
      *
      * @param int $profile_id Profile id
-     * @access private
+     * @param int $union_id Union id
      * @return array
      */
     private function __fetchSpouse($profile_id, $union_id)
@@ -823,12 +837,12 @@ trait FamilyTreeTrait
 
         return false;
     }
+
     /**
      * __fetchChildren method
      *
      * @param int $profile_id Profile id
      * @param int $union_id Union for which to return children. Return children from all unions on null.
-     * @access private
      * @return array
      */
     private function __fetchChildren($profile_id, $union_id = null)
@@ -964,7 +978,6 @@ trait FamilyTreeTrait
      * @param int $x Node id to be passed as parameter to add method
      * @param array $y Array of profiles to which ghost will be added
      * @param int $options Y position of ghost node
-     * @access private
      * @return int Ghost id
      */
     private function __addGhost(&$profiles, $x = 0, $y = 0, $options = [])
@@ -976,8 +989,8 @@ trait FamilyTreeTrait
             'id' => $ghost_id,
             'x' => $x,
             'y' => $y,
-            'method' => @$options['method'],
-            'ref' => @$options['ref']
+            'method' => isset($options['method']) ? $options['method'] : null,
+            'ref' => isset($options['ref']) ? $options['ref'] : null
         ];
         if (!empty($options['direct_relative'])) {
             $profiles[$ghost_id]['Profile']['d_r'] = true;

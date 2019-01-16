@@ -56,7 +56,7 @@ class FamireeHelper extends Helper
     /**
      * Returns age
      *
-     * @param string $dateString
+     * @param string $dateString Date string
      * @return int
      */
     public function age($dateString)
@@ -243,7 +243,7 @@ class FamireeHelper extends Helper
         if (strpos($pee, '<pre') !== false) {
             $pee = preg_replace_callback(
                 '!(<pre[^>]*>)(.*?)</pre>!is',
-                'cleanPre',
+                'self::cleanPre',
                 $pee
             );
         }
@@ -251,29 +251,28 @@ class FamireeHelper extends Helper
 
         return $pee;
     }
-}
 
+    /**
+     * CleanPre function
+     *
+     * Callback function from regex which removes new lines
+     *
+     * @param mixed $matches Regex matches
+     *
+     * @return string
+     */
+    public static function cleanPre($matches)
+    {
+        if (is_array($matches)) {
+            $text = $matches[1] . $matches[2] . "</pre>";
+        } else {
+            $text = $matches;
+        }
 
-/**
- * CleanPre function
- *
- * Callback function from regex which removes new lines
- *
- * @param mixed $matches Regex matches
- *
- * @return string
- */
-function cleanPre($matches)
-{
-    if (is_array($matches)) {
-        $text = $matches[1] . $matches[2] . "</pre>";
-    } else {
-        $text = $matches;
+        $text = str_replace('<br />', '', $text);
+        $text = str_replace('<p>', "\n", $text);
+        $text = str_replace('</p>', '', $text);
+
+        return $text;
     }
-
-    $text = str_replace('<br />', '', $text);
-    $text = str_replace('<p>', "\n", $text);
-    $text = str_replace('</p>', '', $text);
-
-    return $text;
 }

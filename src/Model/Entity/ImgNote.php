@@ -60,5 +60,4 @@ class ImgNote extends Entity
     {
         return $this->note;
     }
-
 }

@@ -131,6 +131,38 @@ class ProfilesTable extends Table
     }
 
     /**
+     * Install validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     *
+     * @return \Cake\Validation\Validator
+     */
+    public function validationInstall($validator)
+    {
+        $validator = new Validator();
+        $validator
+            ->notEmpty('fn')
+            ->notEmpty('ln')
+            ->notEmpty('u')
+            ->notEmpty('e')
+            ->email('e')
+            ->add('p', 'minLength', ['rule' => ['minLength', 4]])
+            ->requirePresence(
+                'repeat_pass',
+                function ($context) {
+                    return !empty($context['data']['p']);
+                }
+            )
+            ->notEmpty('repeat_pass')
+            ->add('repeat_pass', 'match', [
+                    'rule' => function ($value, $context) {
+                        return $value == $context['data']['p'];
+                    }
+                ]);
+
+        return $validator;
+    }
+    /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
      *
@@ -303,6 +335,10 @@ class ProfilesTable extends Table
 
     /**
      * Costum finder method "search"
+     *
+     * @param Query $query Query object.
+     * @param array $options Options.
+     * @return Query
      */
     public function findSearch(Query $query, array $options)
     {

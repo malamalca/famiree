@@ -7,9 +7,9 @@
     <span id="YourMother"><?= __('Your Mother') ?></span>
 <?php
     echo $this->Form->create(null);
-    echo $this->Form->input('u', ['label' => __('Your name')]);
-    echo $this->Form->input('p', ['label' => __('Password'), 'type' => 'password']);
-    echo $this->Form->input('remember_me', [
+    echo $this->Form->control('u', ['label' => __('Your name')]);
+    echo $this->Form->control('p', ['label' => __('Password'), 'type' => 'password']);
+    echo $this->Form->control('remember_me', [
         'label' => __('Remember me'),
         'type' => 'checkbox'
     ]);

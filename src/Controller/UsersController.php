@@ -48,7 +48,7 @@ class UsersController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['logout', 'reset', 'changePassword']);
+        $this->Auth->allow(['logout', 'reset', 'changePassword', 'install']);
         if (Configure::read('enableRegistration')) {
             $this->Auth->allow(['register']);
         }
@@ -147,6 +147,7 @@ class UsersController extends AppController
             }
         }
     }
+
     /**
      * Change users password
      *
@@ -169,6 +170,35 @@ class UsersController extends AppController
 
             if (!$user->getErrors() && TableRegistry::get('Profiles')->save($user)) {
                 $this->Flash->success(__('Password has been changed.'));
+                $this->redirect('/');
+            } else {
+                $this->Flash->error(__('Please verify that the information is correct.'));
+            }
+        } else {
+            $user->p = null;
+        }
+
+        $this->set(compact('user'));
+    }
+
+    /**
+     * Install first user
+     *
+     * @return void
+     */
+    public function install()
+    {
+        $userCount = TableRegistry::get('Profiles')->find()->count();
+        if ($userCount > 0) {
+            $this->redirect('/');
+        }
+
+        $user = TableRegistry::get('Profiles')->newEntity();
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            TableRegistry::get('Profiles')->patchEntity($user, $this->getRequest()->getData(), ['validate' => 'install']);
+
+            if (!$user->getErrors() && TableRegistry::get('Profiles')->save($user)) {
+                $this->Flash->success(__('User has been added.'));
                 $this->redirect('/');
             } else {
                 $this->Flash->error(__('Please verify that the information is correct.'));

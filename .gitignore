@@ -21,6 +21,7 @@ Thumbs.db
 
 # Tool specific files #
 #######################
+*.bak
 # vim
 *~
 *.swp

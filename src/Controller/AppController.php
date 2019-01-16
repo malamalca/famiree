@@ -28,6 +28,11 @@ class AppController extends Controller
 {
     private $_Auth = false;
 
+    /** Auth method
+     *
+     * @param array $Auth Auth data.
+     * @return void
+     */
     public function setAuth($Auth)
     {
         $this->_Auth = $Auth;

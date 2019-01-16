@@ -64,5 +64,4 @@ class Post extends Entity
     {
         return $this->title;
     }
-
 }

@@ -42,7 +42,7 @@ class AuthUser implements ArrayAccess
      * Checks user's role.
      *
      * @param int $role User role.
-     * @params uuid $projectId Project id.
+     * @param uuid $projectId Project id.
      * @access public
      * @return bool
      */

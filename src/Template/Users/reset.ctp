@@ -8,7 +8,7 @@
     <span id="YourMother"><?= __('Your Mother') ?></span>
 <?php
     echo $this->Form->create(null);
-    echo $this->Form->input('email', ['label' => __('Email') . ':']);
+    echo $this->Form->control('email', ['label' => __('Email') . ':']);
 
     echo $this->Form->submit(__('Request new Password'));
     echo $this->Form->end();
