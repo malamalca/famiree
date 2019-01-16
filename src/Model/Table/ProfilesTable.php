@@ -6,7 +6,7 @@ use ArrayObject;
 use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
-use Cake\Network\Email\Email;
+use Cake\Mailer\Email;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
