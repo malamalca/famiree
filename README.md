@@ -7,6 +7,8 @@ Simple open source family tree web application [Famiree](https://famiree.org)
 
 The source code can be found here: [malamalca/famiree](https://github.com/malamalca/famiree).
 
+![alt text](https://github.com/malamalca/famiree/raw/master/example.png)
+
 ## Installation
 
 1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
