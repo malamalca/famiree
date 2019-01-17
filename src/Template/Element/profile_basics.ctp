@@ -27,7 +27,7 @@
         <label><?= __('Date of Birth') ?>:</label>
         <?php
             echo $this->Form->text('dob_d', ['type' => 'text', 'size' => 2]);
-            echo $this->Form->select('dob_m', $this->Famiree->getMonthNames());
+            echo $this->Form->select('dob_m', $this->Famiree->getMonthNames(), ['empty' => true]);
             echo $this->Form->text('dob_y', ['type' => 'text', 'size' => 4]);
         ?>
     </div>
@@ -47,7 +47,7 @@
         <label><?= __('Date of Death') ?>:</label>
         <?php
             echo $this->Form->text('dod_d', ['type' => 'text', 'size' => 2]);
-            echo $this->Form->select('dod_m', $this->Famiree->getMonthNames());
+            echo $this->Form->select('dod_m', $this->Famiree->getMonthNames(), ['empty' => true]);
             echo $this->Form->text('dod_y', ['type' => 'text', 'size' => 4]);
         ?>
     </div>

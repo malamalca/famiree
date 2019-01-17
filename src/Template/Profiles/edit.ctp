@@ -120,7 +120,7 @@
                 <label><?= __('Married On') ?>:</label>
                 <?php
                     echo $this->Form->text('marriages.'.$i.'.dom_d', ['type' => 'text', 'size' => 2]);
-                    echo $this->Form->select('marriages.'.$i.'.dom_m', $this->Famiree->getMonthNames());
+                    echo $this->Form->select('marriages.'.$i.'.dom_m', $this->Famiree->getMonthNames(), ['empty' => true]);
                     echo $this->Form->text('marriages.'.$i.'.dom_y', ['type' => 'text', 'size' => 4]);
                 ?>
             </div>
