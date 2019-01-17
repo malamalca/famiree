@@ -13,12 +13,12 @@ The source code can be found here: [malamalca/famiree](https://github.com/malama
 ## Installation
 
 1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project malamalca/famiree`.
+2. Run `php composer.phar create-project malamalca/famiree --no-dev`.
 
 If Composer is installed globally, run
 
 ```bash
-composer create-project malamalca/famiree
+composer create-project malamalca/famiree --no-dev
 ```
 
 You can now either use your machine's webserver to view the default home page, or start
