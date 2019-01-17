@@ -214,14 +214,14 @@ class AttachmentsTable extends Table
      *
      * @param \App\Model\Entity\Attachment $entity Attachment entity
      * @param string $tmpFilename Temporary file name
-     * @param string $method Move file method - 'uploaded' or 'existingp'
+     * @param string $method Move file method - 'uploaded' or 'existing'
      * @return void
      */
     public function processUpload($entity, $tmpFilename, $method = 'uploaded')
     {
         $checkExists = ($method == 'uploaded') ? is_uploaded_file($tmpFilename) : file_exists($tmpFilename);
         if ($checkExists) {
-            $image = WideImage::load($tmpFilename);
+            $image = WideImage::loadFromFile($tmpFilename, $entity->ext);
             if (!empty($image)) {
                 $dir = new Folder(Configure::read('sourceFolders.attachments') . $entity->id, true);
 
@@ -264,7 +264,7 @@ class AttachmentsTable extends Table
             $height = (int)round($imgnote->height * $scaleFactor);
 
             $tmpfname = tempnam(defined('TMP') ? constant('TMP') : null, 'fam');
-            $image = WideImage::load($filenameOriginal);
+            $image = WideImage::loadFromFile($filenameOriginal, $attachment->ext);
             if (!empty($image)) {
                 $image = $image->crop($x, $y, $width, $height);
                 $image->saveToFile($tmpfname, $attachment->ext);

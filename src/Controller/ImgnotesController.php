@@ -52,7 +52,7 @@ class ImgnotesController extends AppController
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $imgnote = $this->Imgnotes->patchEntity($imgnote, $this->getRequest()->getData());
 
-            if ($this->Imgnotes->save($imgnote)) {
+            if ($result = $this->Imgnotes->save($imgnote)) {
                 /** @var \App\Model\Table\AttachmentsLinksTable $AttachmentsLinksTable */
                 $AttachmentsLinksTable = TableRegistry::get('AttachmentsLinks');
                 if ($this->getRequest()->getData('crop_to_new')) {
@@ -73,6 +73,7 @@ class ImgnotesController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
             }
+            dd($imgnote);
             $this->Flash->error(__('The imgnote could not be saved. Please, try again.'));
         }
 
