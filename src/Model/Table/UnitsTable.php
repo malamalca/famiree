@@ -111,7 +111,7 @@ class UnitsTable extends Table
      * Afterdelete event handler
      *
      * @param Event $event Event object
-     * @param EntityInterface $entity Entity object
+     * @param \App\Model\Entity\Unit $entity Entity object
      * @param ArrayObject $options Options
      * @return void
      */

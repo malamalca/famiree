@@ -88,8 +88,8 @@ class AttachmentsLinksTable extends Table
      * Link profile and attachment
      *
      * @param int $profileId Profile id
-     * @param int $attachmentId Attachment id
-     * @return bppč
+     * @param string $attachmentId Attachment id
+     * @return bool
      */
     public function linkProfile($profileId, $attachmentId)
     {

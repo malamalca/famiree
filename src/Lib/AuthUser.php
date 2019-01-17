@@ -30,7 +30,6 @@ class AuthUser implements ArrayAccess
     /**
      * Checks is current user exists
      *
-     * @access public
      * @return bool
      */
     public function exists()
@@ -42,11 +41,9 @@ class AuthUser implements ArrayAccess
      * Checks user's role.
      *
      * @param int $role User role.
-     * @param uuid $projectId Project id.
-     * @access public
      * @return bool
      */
-    public function role($role, $projectId = null)
+    public function role($role)
     {
         static $roles;
 
@@ -54,37 +51,13 @@ class AuthUser implements ArrayAccess
             return false;
         }
 
-        if (is_null($projectId)) {
-            return $this->container['privileges'] <= $role;
-        } else {
-            if (!isset($roles[$projectId][$this->get('id')])) {
-                $ProjectsUsersTable = TableRegistry::get('ProjectsUsers');
-                $projectsUser = $ProjectsUsersTable->find()
-                    ->select(['role'])
-                    ->where([
-                            'project_id' => $projectId,
-                            'user_id' => $this->get('id')
-                    ])
-                    ->first();
-
-                if ($projectsUser) {
-                    $roles[$projectId][$this->get('id')] = $projectsUser->role;
-
-                    return $projectsUser->role <= $role;
-                }
-            } else {
-                return $roles[$projectId][$this->get('id')] <= $role;
-            }
-        }
-
-        return false;
+        return $this->container['lvl'] <= $role;
     }
 
     /**
      * Get array value
      *
      * @param string $offset Array offset.
-     * @access public
      * @return mixed
      */
     public function get($offset)
@@ -98,12 +71,11 @@ class AuthUser implements ArrayAccess
      * @param string $offset Array offset.
      * @param mixed $value Array element value.
      * @link http://php.net/manual/en/arrayaccess.offsetset.php
-     * @access public
      * @return mixed
      */
     public function offsetSet($offset, $value)
     {
-        if (is_null($offset)) {
+        if (empty($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -115,7 +87,6 @@ class AuthUser implements ArrayAccess
      *
      * @param string $offset Array offset.
      * @link http://php.net/manual/en/arrayaccess.offsetexists.php
-     * @access public
      * @return bool
      */
     public function offsetExists($offset)
@@ -128,7 +99,6 @@ class AuthUser implements ArrayAccess
      *
      * @param string $offset Array offset.
      * @link http://php.net/manual/en/arrayaccess.offsetunset.php
-     * @access public
      * @return void
      */
     public function offsetUnset($offset)
@@ -141,7 +111,6 @@ class AuthUser implements ArrayAccess
      *
      * @param string $offset Array offset.
      * @link http://php.net/manual/en/arrayaccess.offsetget.php
-     * @access public
      * @return bool
      */
     public function offsetGet($offset)

@@ -69,7 +69,7 @@ class LoggableBehavior extends Behavior
         }
         if (!empty($packed)) {
             $log = TableRegistry::get('Logs')->newEntity([
-                'title' => $entity->toString(),
+                'title' => $entity->get($this->getTable()->getDisplayField()),
                 'class' => $entityClass,
                 'foreign_id' => $entity->id,
                 'action' => $action,
@@ -108,7 +108,7 @@ class LoggableBehavior extends Behavior
 
         if (!empty($packed)) {
             $log = TableRegistry::get('Logs')->newEntity([
-                'title' => $entity->toString(),
+                'title' => $entity->get($this->getTable()->getDisplayField()),
                 'class' => $entityClass,
                 'foreign_id' => $entity->id,
                 'action' => $action,

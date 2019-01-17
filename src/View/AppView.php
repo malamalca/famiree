@@ -28,6 +28,13 @@ use Cake\View\View;
 class AppView extends View
 {
     /**
+     * Current user
+     *
+     * @var object
+     */
+    public $currentUser = null;
+
+    /**
      * Constructor
      *
      * @param \Cake\Http\ServerRequest|null $request Request instance.

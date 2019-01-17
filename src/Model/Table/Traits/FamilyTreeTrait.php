@@ -19,24 +19,46 @@ trait FamilyTreeTrait
     /**
      * ghost_id variable
      *
-     * @var array
-     * @access private
+     * @var int
      */
     private $ghost_id = -1;
     /**
      * dx variable specifies width of single profile; spacings included
      *
-     * @var array
-     * @access public
+     * @var int
      */
     private $dx = 6;
     /**
      * dy variable specifies tree line height
      *
-     * @var array
-     * @access public
+     * @var int
      */
     private $dy = 4;
+
+    /**
+     * Unions cache
+     *
+     * @var array
+     */
+    private $_unions = [];
+    /**
+     * Child to union cache
+     *
+     * @var array
+     */
+    private $_c2u = [];
+    /**
+     * Parent to union cache
+     *
+     * @var array
+     */
+    private $_p2u = [];
+    /**
+     * Gender cache
+     *
+     * @var array
+     */
+    private $_g = [];
 
     /**
      * tree method
@@ -89,7 +111,7 @@ trait FamilyTreeTrait
 
             if (!empty($parents['mom'])) {
                 $moms_siblings = $this->__fetchSiblings($parents['mom'], false);
-                if (!$dads_siblings) {
+                if (empty($dads_siblings)) {
                     $process_unions[] = $parents['mom'];
                 }
                 $process_unions = array_merge($process_unions, $moms_siblings);
@@ -112,6 +134,7 @@ trait FamilyTreeTrait
             $profiles[$unions[$main_union]['p'][1]]['Profile']['x'] -= $delta_p;
 
             // Process parents tree
+            $dads_width = 0;
             if (!empty($parents['dad'])) {
                 $dads_width = $this->__recurseParents($parents['dad'], 0, $parent_unions, $parent_profiles, [
                     'x' => (int)($this->dx / 2),
@@ -207,7 +230,7 @@ trait FamilyTreeTrait
      * @param array $unions Unions array
      * @param array $profiles Profiles array
      * @param array $options Options array
-     * @return array
+     * @return float|int Current width
      */
     private function __recurseChildren($children, &$unions, &$profiles, $options = [])
     {
@@ -411,12 +434,12 @@ trait FamilyTreeTrait
      *
      * Recursive function for processing parents
      *
-     * @param uuid $profile_id Profile id.
+     * @param int $profile_id Profile id.
      * @param int $depth Tree depth.
      * @param array $unions Unions array.
      * @param array $profiles Profiles array.
      * @param array $options Options array.
-     * @return array
+     * @return float|int Current width
      */
     private function __recurseParents($profile_id, $depth, &$unions, &$profiles, $options)
     {
@@ -499,8 +522,10 @@ trait FamilyTreeTrait
             if ($upper_widths['dad'] > $siblings_widths['dad']) {
                 $moms_delta = $upper_widths['dad'];
             }
-            foreach ($base_profiles['mom'] as $k => $p) {
-                $base_profiles['mom'][$k]['Profile']['x'] += $moms_delta;
+            if (!empty($base_profiles['mom'])) {
+                foreach ($base_profiles['mom'] as $k => $p) {
+                    $base_profiles['mom'][$k]['Profile']['x'] += $moms_delta;
+                }
             }
 
             // process placement
@@ -508,11 +533,15 @@ trait FamilyTreeTrait
             if ($options['width'] > $siblings_width) {
                 // move both trees to the left
                 $tree_delta = ($options['width'] - $siblings_width) / 2;
-                foreach ($base_profiles['dad'] as $k => $p) {
-                    $base_profiles['dad'][$k]['Profile']['x'] += $tree_delta;
+                if (!empty($base_profiles['dad'])) {
+                    foreach ($base_profiles['dad'] as $k => $p) {
+                        $base_profiles['dad'][$k]['Profile']['x'] += $tree_delta;
+                    }
                 }
-                foreach ($base_profiles['mom'] as $k => $p) {
-                    $base_profiles['mom'][$k]['Profile']['x'] += $tree_delta;
+                if (!empty($base_profiles['mom'])) {
+                    foreach ($base_profiles['mom'] as $k => $p) {
+                        $base_profiles['mom'][$k]['Profile']['x'] += $tree_delta;
+                    }
                 }
             }
 
@@ -709,7 +738,7 @@ trait FamilyTreeTrait
      * __addProfile method
      *
      * @param array $profiles Profile list.
-     * @param uuid $profile_id Profile id.
+     * @param int $profile_id Profile id.
      * @param int $x X position.
      * @param int $y Y position.
      * @param array $options Options array.
@@ -730,7 +759,7 @@ trait FamilyTreeTrait
      *
      * @param int $profile_id Profile id
      * @access private
-     * @return mixed
+     * @return bool|string
      */
     private function __gender($profile_id)
     {
@@ -748,7 +777,7 @@ trait FamilyTreeTrait
      * @param int $profile1_id First profile id
      * @param int $profile2_id Second profile id
      * @access private
-     * @return array
+     * @return bool|int
      */
     private function __union($profile1_id, $profile2_id)
     {
@@ -786,7 +815,7 @@ trait FamilyTreeTrait
      * __fetchUnionOfChild method
      *
      * @param int $profile_id Profile id.
-     * @return array
+     * @return bool|array
      */
     private function __fetchUnionOfChild($profile_id)
     {
@@ -825,7 +854,7 @@ trait FamilyTreeTrait
      *
      * @param int $profile_id Profile id
      * @param int $union_id Union id
-     * @return array
+     * @return bool|int
      */
     private function __fetchSpouse($profile_id, $union_id)
     {
@@ -867,7 +896,7 @@ trait FamilyTreeTrait
      *
      * @param int $profile_id Profile id
      * @access private
-     * @return array
+     * @return bool|array
      */
     private function __fetchParents($profile_id)
     {
@@ -942,7 +971,7 @@ trait FamilyTreeTrait
                 $this->__cleanupProfile($profiles[$profile->id]['Profile']);
             }
         } elseif (is_numeric($profile_list) && !isset($profiles[$profile_list])) {
-            $profiles[$profile_list] = TableRegistry::get('Profiles')->get($this->field_list)->toArray();
+            $profiles[$profile_list] = TableRegistry::get('Profiles')->get($profile_list)->toArray();
             $this->__cleanupProfile($profiles[$profile_list]['Profile']);
         }
     }
@@ -974,17 +1003,18 @@ trait FamilyTreeTrait
      *
      * Creates ghost node and returns its id
      *
-     * @param string $profiles Method to be called when user clicks ob ghost (add_parent, add_partner...)
+     * @param array $profiles Method to be called when user clicks ob ghost (add_parent, add_partner...)
      * @param int $x Node id to be passed as parameter to add method
-     * @param array $y Array of profiles to which ghost will be added
-     * @param int $options Y position of ghost node
+     * @param int $y Array of profiles to which ghost will be added
+     * @param array $options Y position of ghost node
      * @return int Ghost id
      */
     private function __addGhost(&$profiles, $x = 0, $y = 0, $options = [])
     {
-        $ghost_id = (string)$this->ghost_id;
+        $ghost_id = $this->ghost_id;
         $this->ghost_id--;
-        $profiles[$ghost_id]['Profile'] = [
+
+        $profiles[(string)$ghost_id]['Profile'] = [
             'nt' => 'ghost',
             'id' => $ghost_id,
             'x' => $x,

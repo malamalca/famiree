@@ -54,14 +54,4 @@ class Post extends Entity
         'modifier' => true,
         'posts_links' => true
     ];
-
-    /**
-     * Returns string representation of entity
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        return $this->title;
-    }
 }

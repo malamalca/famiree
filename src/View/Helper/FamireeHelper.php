@@ -2,8 +2,15 @@
 namespace App\View\Helper;
 
 use Cake\I18n\FrozenDate;
+use Cake\Utility\Text;
 use Cake\View\Helper;
 
+/**
+ * Famiree Helper
+ *
+ * @property \Cake\View\Helper\HtmlHelper $Html
+ * @property \Cake\View\Helper\TextHelper $Text
+ */
 class FamireeHelper extends Helper
 {
     public $helpers = ['Html', 'Text'];
@@ -16,8 +23,8 @@ class FamireeHelper extends Helper
      */
     public function duration($seconds)
     {
-        $hours = str_pad(floor($seconds / 3600), 2, '0', STR_PAD_LEFT);
-        $minutes = str_pad(floor($seconds / 60) % 60, 2, '0', STR_PAD_LEFT);
+        $hours = str_pad((string)(floor($seconds / 3600)), 2, '0', STR_PAD_LEFT);
+        $minutes = str_pad((string)(floor($seconds / 60) % 60), 2, '0', STR_PAD_LEFT);
 
         return $hours . ':' . $minutes;
     }
@@ -30,7 +37,7 @@ class FamireeHelper extends Helper
      */
     public function getMonthName($month)
     {
-        $_time = new FrozenDate('2018-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-01');
+        $_time = new FrozenDate('2018-' . str_pad((string)$month, 2, '0', STR_PAD_LEFT) . '-01');
         $_format = 'MMMM';
 
         return $_time->i18nFormat($_format);
@@ -39,7 +46,7 @@ class FamireeHelper extends Helper
     /**
      * Returns month names
      *
-     * @return string
+     * @return array
      */
     public function getMonthNames()
     {
@@ -47,7 +54,7 @@ class FamireeHelper extends Helper
         $_format = 'MMMM';
 
         for ($month = 1; $month < 13; $month++) {
-            $ret[$month] = (new FrozenDate('2018-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-01'))->i18nFormat($_format);
+            $ret[$month] = (new FrozenDate('2018-' . str_pad((string)$month, 2, '0', STR_PAD_LEFT) . '-01'))->i18nFormat($_format);
         }
 
         return $ret;
@@ -85,18 +92,17 @@ class FamireeHelper extends Helper
      * @param string $title The content to be wrapped by <a> tags.
      * @param mixed $url Cake-relative URL or array of URL parameters, or external URL (starts with http://)
      * @param array $options Array of HTML attributes.
-     * @param string $confirmMessage JavaScript confirmation message.
+     * @param bool $confirmMessage JavaScript confirmation message.
      * @return string An <a /> element.
-     * @access public
      */
     public function link($title, $url = null, $options = [], $confirmMessage = false)
     {
         if (preg_match('/\[(.*)\]/', $title, $matches)) {
-            $link_element = $this->Html->link($matches[1], $url, (array)$options, $confirmMessage);
+            $link_element = $this->Html->link($matches[1], $url, array_merge((array)$options, ['confirm' => $confirmMessage]));
 
             return str_replace($matches[0], $link_element, $title);
         } else {
-            return $this->Html->link($title, $url, $options, $confirmMessage);
+            return $this->Html->link($title, $url, array_merge((array)$options, ['confirm' => $confirmMessage]));
         }
     }
 
@@ -158,7 +164,7 @@ class FamireeHelper extends Helper
             '/ß/' => 'ss',
             '/[^\w\s]/' => ' ',
             '/\\s+/' => $replacement,
-            $this->Text->insert('/^[:replacement]+|[:replacement]+$/', ['replacement' => preg_quote($replacement, '/')]) => '',
+            Text::insert('/^[:replacement]+|[:replacement]+$/', ['replacement' => preg_quote($replacement, '/')]) => '',
         ];
         $result = preg_replace(array_keys($map), array_values($map), $string);
         $result = preg_replace('/[^A-Za-z0-9-]/', $replacement, $result);

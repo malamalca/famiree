@@ -16,7 +16,7 @@ class PostsController extends AppController
     /**
      * isAuthorized hook method.
      *
-     * @param object $user Logged in user.
+     * @param array $user Logged in user.
      * @return bool
      */
     public function isAuthorized($user)

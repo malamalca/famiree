@@ -194,32 +194,35 @@ class AttachmentsTable extends Table
      * Fetch for specified profile
      *
      * @param int $id Profile id
-     * @return Cake\ORM\ResultSet
+     * @return \Cake\ORM\ResultSet
      */
     public function fetchForProfile($id)
     {
-        return $this->find()
+        /** @var \Cake\ORM\ResultSet $ret */
+        $ret = $this->find()
             ->select()
             ->innerJoinWith('AttachmentsLinks', function ($q) use ($id) {
                 return $q->where(['class' => 'Profile', 'foreign_id' => $id]);
             })
             ->all();
+
+        return $ret;
     }
 
     /**
      * Process uploaded attachment
      *
-     * @param App\Model\Entity\Attachment $entity Attachment entity
+     * @param \App\Model\Entity\Attachment $entity Attachment entity
      * @param string $tmpFilename Temporary file name
-     * @param string $method Move file method - uploaded or existing
+     * @param string $method Move file method - 'uploaded' or 'existingp'
      * @return void
      */
     public function processUpload($entity, $tmpFilename, $method = 'uploaded')
     {
         $checkExists = ($method == 'uploaded') ? is_uploaded_file($tmpFilename) : file_exists($tmpFilename);
         if ($checkExists) {
-            $image = WideImage::load($tmpFilename, $entity->ext);
-            if ($image) {
+            $image = WideImage::load($tmpFilename);
+            if (!empty($image)) {
                 $dir = new Folder(Configure::read('sourceFolders.attachments') . $entity->id, true);
 
                 $moveResult = ($method == 'uploaded') ? move_uploaded_file($tmpFilename, $dir->path . DS . 'original') : rename($tmpFilename, $dir->path . DS . 'original');
@@ -242,13 +245,15 @@ class AttachmentsTable extends Table
     /**
      * Extract image area from specified attachment and create new image
      *
-     * @param App\Model\Entity\Imgnote $imgnote Imgnote entity
-     * @return App\Model\Entity\Attachment|bool
+     * @param \App\Model\Entity\ImgNote $imgnote Imgnote entity
+     * @return \App\Model\Entity\Attachment|bool
      */
     public function createFromImgnote($imgnote)
     {
         $filenameOriginal = Configure::read('sourceFolders.attachments') . DS . $imgnote->attachment_id . DS . 'original';
-        if (file_exists($filenameOriginal) && $attachment = $this->get($imgnote->attachment_id)) {
+        if (file_exists($filenameOriginal)) {
+            $attachment = $this->get($imgnote->attachment_id);
+
             $largeSize = $this->getImageSize($imgnote->attachment_id, 'large');
             $originalSize = $this->getImageSize($imgnote->attachment_id, 'original');
 
@@ -258,9 +263,9 @@ class AttachmentsTable extends Table
             $width = (int)round($imgnote->width * $scaleFactor);
             $height = (int)round($imgnote->height * $scaleFactor);
 
-            $tmpfname = tempnam(TMP, 'fam');
-            $image = WideImage::load($filenameOriginal, $attachment->ext);
-            if ($image) {
+            $tmpfname = tempnam(defined('TMP') ? constant('TMP') : null, 'fam');
+            $image = WideImage::load($filenameOriginal);
+            if (!empty($image)) {
                 $image = $image->crop($x, $y, $width, $height);
                 $image->saveToFile($tmpfname, $attachment->ext);
                 unset($image);
@@ -298,7 +303,7 @@ class AttachmentsTable extends Table
     /**
      * Returns physical dimension of image file
      *
-     * @param uuid $attachmentId Attachment id
+     * @param string $attachmentId Attachment id
      * @param mixed $size Image size
      * @access public
      * @return bool|array

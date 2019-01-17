@@ -260,13 +260,13 @@ class Installer
      * @param string $db Database name.
      * @param string $dbUser Mysql username.
      * @param string $dbPassword Mysql password.
-     * @param @param \Composer\IO\IOInterface $io IO interface to write to console.
+     * @param \Composer\IO\IOInterface $io IO interface to write to console.
      * @return bool
      */
     public static function checkDbConnection($dbHost, $db, $dbUser, $dbPassword, $io)
     {
         try {
-            $config = ConnectionManager::setConfig('install', [
+            ConnectionManager::setConfig('install', [
                 'className' => 'Cake\Database\Connection',
                 'driver' => 'Cake\Database\Driver\Mysql',
                 'persistent' => false,
@@ -281,6 +281,7 @@ class Installer
                 'quoteIdentifiers' => true,
                 'url' => null,
             ]);
+            /** @var \Cake\Database\Connection $connection */
             $connection = ConnectionManager::get('install');
             $result = $connection->connect();
 

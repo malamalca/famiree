@@ -21,22 +21,24 @@ class ProfilesController extends AppController
      * beforeFilter method
      *
      * @param \Cake\Event\Event $event Event object
-     * @return void
+     * @return \Cake\Http\Response|null
      */
     public function beforeFilter(Event $event)
     {
         if (!$this->currentUser->exists()) {
-            $userCount = TableRegistry::get('Profiles')->find()->count();
+            $userCount = $this->Profiles->find()->count();
             if ($userCount == 0) {
                 $this->redirect(['controller' => 'Users', 'action' => 'install']);
             }
         }
+
+        return null;
     }
 
     /**
      * isAuthorized hook method.
      *
-     * @param object $user Logged in user.
+     * @param array $user Logged in user.
      * @return bool
      */
     public function isAuthorized($user)
@@ -114,8 +116,13 @@ class ProfilesController extends AppController
         $profile = $this->Profiles->get($id, ['contain' => ['Creators']]);
         $family = $this->Profiles->family($id);
 
-        $attachments = TableRegistry::get('Attachments')->fetchForProfile($id);
-        $posts = TableRegistry::get('Posts')->fetchForProfile($id);
+        /** @var \App\Model\Table\AttachmentsTable $AttachmentsTable */
+        $AttachmentsTable = TableRegistry::get('Attachments');
+        $attachments = $AttachmentsTable->fetchForProfile($id);
+
+        /** @var \App\Model\Table\PostsTable $PostsTable */
+        $PostsTable = TableRegistry::get('Posts');
+        $posts = $PostsTable->fetchForProfile($id);
 
         $this->set(compact('profile', 'family', 'posts', 'attachments'));
     }
@@ -168,13 +175,14 @@ class ProfilesController extends AppController
      * Add method
      *
      * @param string $relationship Relationship option.
-     * @param uuid $profileId Profile id.
+     * @param int $profileId Profile id.
      * @return \Cake\Http\Response|null
      */
     public function add($relationship, $profileId = null)
     {
         $baseProfile = $this->Profiles->get($profileId);
 
+        $baseProfileKind = 'p';
         switch ($relationship) {
             case 'child':
             case 'spouse':
@@ -208,11 +216,16 @@ class ProfilesController extends AppController
             if ($this->Profiles->save($profile)) {
                 // create new family with base profile in neccessary
                 if (empty($profile->units[0]->union_id)) {
+                    /** @var \App\Model\Entity\Unit $profileUnit */
+                    $profileUnit = $profile->units[0];
+
+                    /** @var \App\Model\Entity\Unit $baseUnit */
+                    $baseUnit = TableRegistry::get('Units')->newEntity(['profile_id' => $baseProfile->id, 'kind' => $baseProfileKind]);
+
+                    /** @var \App\Model\Entity\Union $union */
                     $union = TableRegistry::get('Unions')->newEntity();
-                    $union->units = [
-                        $profile->units[0],
-                        TableRegistry::get('Units')->newEntity(['profile_id' => $baseProfile->id, 'kind' => $baseProfileKind])
-                    ];
+
+                    $union->units = [$profileUnit, $baseUnit];
                     $union = TableRegistry::get('Unions')->save($union);
                 }
 
@@ -272,19 +285,21 @@ class ProfilesController extends AppController
      * Change avatar
      *
      * @param int $id Profile id
-     * @param uuid $attachmentId Attachment id to be set as new avatar (optional)
+     * @param string $attachmentId Attachment id to be set as new avatar (optional)
      * @return \Cake\Http\Response|void
      */
     public function editAvatar($id = null, $attachmentId = null)
     {
         $profile = $this->Profiles->get($id);
-        $attachments = TableRegistry::get('Attachments')->fetchForProfile($id);
+        /** @var \App\Model\Table\AttachmentsTable $AttachmentsTable */
+        $AttachmentsTable = TableRegistry::get('Attachments');
+        $attachments = $AttachmentsTable->fetchForProfile($id);
 
         if (!empty($attachmentId)) {
             if ($attachmentId == 'remove') {
                 $profile->ta = null;
             } else {
-                $attachment = TableRegistry::get('Attachments')->get($attachmentId);
+                $attachment = $AttachmentsTable->get($attachmentId);
                 $profile->ta = $attachment->id;
             }
 
@@ -303,7 +318,7 @@ class ProfilesController extends AppController
     /**
      * Reorder children function
      *
-     * @param uuid $id Contact id
+     * @param int $id Contact id
      * @return void
      */
     public function reorderChildren($id = null)
@@ -315,6 +330,8 @@ class ProfilesController extends AppController
             $unitIds = Hash::extract($this->getRequest()->getData('units', []), '{n}.id');
             if (count($unitIds) > 0) {
                 $unitsTable = TableRegistry::get('Units');
+
+                /** @var \Cake\ORM\ResultSet<\Cake\Datasource\EntityInterface> $units */
                 $units = $unitsTable->find()
                     ->select(['id', 'sort_order'])
                     ->where(['id IN' => $unitIds])

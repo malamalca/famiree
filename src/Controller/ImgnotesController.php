@@ -17,7 +17,7 @@ class ImgnotesController extends AppController
     /**
      * isAuthorized hook method.
      *
-     * @param object $user Logged in user.
+     * @param array $user Logged in user.
      * @return bool
      */
     public function isAuthorized($user)
@@ -53,12 +53,17 @@ class ImgnotesController extends AppController
             $imgnote = $this->Imgnotes->patchEntity($imgnote, $this->getRequest()->getData());
 
             if ($this->Imgnotes->save($imgnote)) {
+                /** @var \App\Model\Table\AttachmentsLinksTable $AttachmentsLinksTable */
+                $AttachmentsLinksTable = TableRegistry::get('AttachmentsLinks');
                 if ($this->getRequest()->getData('crop_to_new')) {
-                    if ($attachment = TableRegistry::get('Attachments')->createFromImgnote($imgnote)) {
-                        TableRegistry::get('AttachmentsLinks')->linkProfile($imgnote->profile_id, $attachment->id);
+                    /** @var \App\Model\Table\AttachmentsTable $AttachmentsTable */
+                    $AttachmentsTable = TableRegistry::get('Attachments');
+                    /** @var \App\Model\Entity\Attachment $attachment */
+                    if ($attachment = $AttachmentsTable->createFromImgnote($imgnote)) {
+                        $AttachmentsLinksTable->linkProfile($imgnote->profile_id, $attachment->id);
                     }
                 } else {
-                    TableRegistry::get('AttachmentsLinks')->linkProfile($imgnote->profile_id, $imgnote->attachment_id);
+                    $AttachmentsLinksTable->linkProfile($imgnote->profile_id, $imgnote->attachment_id);
                 }
                 $this->Flash->success(__('The imgnote has been saved.'));
 
@@ -70,10 +75,8 @@ class ImgnotesController extends AppController
             }
             $this->Flash->error(__('The imgnote could not be saved. Please, try again.'));
         }
-        $users = $this->Imgnotes->Users->find('list', ['limit' => 200]);
-        $attachments = $this->Imgnotes->Attachments->find('list', ['limit' => 200]);
-        $profiles = $this->Imgnotes->Profiles->find('list', ['limit' => 200]);
-        $this->set(compact('imgnote', 'users', 'attachments', 'profiles'));
+
+        $this->set(compact('imgnote'));
     }
 
     /**

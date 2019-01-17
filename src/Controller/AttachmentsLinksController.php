@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * AttachmentsLinks Controller
@@ -15,7 +16,7 @@ class AttachmentsLinksController extends AppController
     /**
      * isAuthorized hook method.
      *
-     * @param object $user Logged in user.
+     * @param array $user Logged in user.
      * @return bool
      */
     public function isAuthorized($user)
@@ -60,8 +61,5 @@ class AttachmentsLinksController extends AppController
             }
             $this->Flash->error(__('The attachments link could not be saved. Please, try again.'));
         }
-        $attachments = $this->AttachmentsLinks->Attachments->find('list', ['limit' => 200]);
-        $profiles = $this->AttachmentsLinks->Profiles->find('list', ['limit' => 200]);
-        $this->set(compact('attachmentsLink', 'attachments', 'profiles'));
     }
 }

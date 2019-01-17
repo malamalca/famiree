@@ -26,11 +26,12 @@ use Cake\Event\Event;
  */
 class AppController extends Controller
 {
+    public $currentUser = null;
     private $_Auth = false;
 
     /** Auth method
      *
-     * @param array $Auth Auth data.
+     * @param \Cake\Controller\Component\AuthComponent $Auth Auth data.
      * @return void
      */
     public function setAuth($Auth)
@@ -97,7 +98,7 @@ class AppController extends Controller
     /**
      * isAuthorized hook method.
      *
-     * @param object $user Logged in user.
+     * @param array $user Logged in user.
      * @return bool
      */
     public function isAuthorized($user)
@@ -109,13 +110,13 @@ class AppController extends Controller
      * Before render callback.
      *
      * @param \Cake\Event\Event $event The beforeRender event.
-     * @return void
+     * @return null
      */
     public function beforeRender(Event $event)
     {
         $builder = $this->viewBuilder();
         $builder->setHelpers(['Famiree']);
 
-        //$this->viewBuilder()->setTheme('MaterializeCss');
+        return null;
     }
 }

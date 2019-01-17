@@ -181,11 +181,11 @@ class ProfilesTable extends Table
      * beforeSave event handler
      *
      * @param Event $event Event object
-     * @param EntityInterface $entity Entity object
+     * @param \App\Model\Entity\Profile $entity Entity object
      * @param ArrayObject $options Options
      * @return bool
      */
-    public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options)
+    public function beforeSave(Event $event, \App\Model\Entity\Profile $entity, ArrayObject $options)
     {
         if ($entity->isDirty('fn') || $entity->isDirty('mn') || $entity->isDirty('ln')) {
             $entity->d_n = trim(trim($entity->fn . ' ' . $entity->mn) . ' ' . $entity->ln);
@@ -197,8 +197,8 @@ class ProfilesTable extends Table
     /**
      * Build family tree for specified profile
      *
-     * @param uuid $id Profile id
-     * @param string $type Which part of family to fetch: parents, children, siblings, marriages, spouses
+     * @param int $id Profile id
+     * @param string|array $type Which part of family to fetch: parents, children, siblings, marriages, spouses
      * @param bool $assoc Fetch associativly (array keys equal profile id)
      * @return array
      */
@@ -208,6 +208,7 @@ class ProfilesTable extends Table
 
         $data = TableRegistry::get('Profiles')->get($id);
 
+        /** @var \App\Model\Entity\Unit $family */
         $family = TableRegistry::get('Units')->find()
             ->select(['union_id'])
             ->where(['profile_id' => $id, 'kind' => 'c'])
@@ -274,7 +275,7 @@ class ProfilesTable extends Table
             $children = [];
             foreach ($marr as $m_k => $marriage) {
                 if ($assoc) {
-                    $marriage_key = $unit->union_id;
+                    $marriage_key = $marriage->union_id;
                 } else {
                     $marriage_key = $m_k;
                 }
@@ -296,7 +297,7 @@ class ProfilesTable extends Table
                         ->matching('Units', function ($q) use ($marriage) {
                             return $q->where(['Units.union_id' => $marriage->union_id, 'Units.kind' => 'c']);
                         })
-                        ->order(['Units.sort_order'], ['Profiles.dob_y'])
+                        ->order(['Units.sort_order', 'Profiles.dob_y'])
                         ->toArray();
 
                     if ($assoc) {
@@ -388,7 +389,7 @@ class ProfilesTable extends Table
     /**
      * Sends reset email
      *
-     * @param entity $user User entity.
+     * @param \App\Model\Entity\Profile $user User entity.
      *
      * @return bool
      */
@@ -408,9 +409,8 @@ class ProfilesTable extends Table
             $email->helpers(['Html']);
 
             $ret = $email->send();
-            debug($ret);
 
-            return $ret;
+            return (bool)$ret;
         }
 
         return false;

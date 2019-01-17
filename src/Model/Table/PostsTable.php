@@ -109,16 +109,19 @@ class PostsTable extends Table
      * Fetch for specified profile
      *
      * @param int $id Profile id
-     * @return Cake\ORM\ResultSet
+     * @return \Cake\ORM\ResultSet
      */
     public function fetchForProfile($id)
     {
-        return $this->find()
+        /** @var \Cake\ORM\ResultSet $ret */
+        $ret = $this->find()
             ->select()
             ->contain(['Creators'])
             ->innerJoinWith('PostsLinks', function ($q) use ($id) {
                 return $q->where(['class' => 'Profile', 'foreign_id' => $id]);
             })
             ->all();
+
+        return $ret;
     }
 }

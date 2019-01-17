@@ -142,16 +142,6 @@ class Profile extends Entity
     }
 
     /**
-     * Returns string representation of entity
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        return $this->d_n;
-    }
-
-    /**
      * Returns profile age
      *
      * @return bool|int
@@ -163,8 +153,8 @@ class Profile extends Entity
         if (!empty($this->dob_y)) {
             $dateString = $this->dob_y;
 
-            $dateString .= '-' . (empty($this->dob_m) ? '12' : str_pad($this->dob_m, 2, '0', STR_PAD_LEFT));
-            $dateString .= '-' . (empty($this->dob_d) ? '31' : str_pad($this->dob_d, 2, '0', STR_PAD_LEFT));
+            $dateString .= '-' . (empty($this->dob_m) ? '12' : str_pad((string)$this->dob_m, 2, '0', STR_PAD_LEFT));
+            $dateString .= '-' . (empty($this->dob_d) ? '31' : str_pad((string)$this->dob_d, 2, '0', STR_PAD_LEFT));
 
             $date = new FrozenDate($dateString);
             $now = new FrozenDate();

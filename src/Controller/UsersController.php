@@ -42,8 +42,8 @@ class UsersController extends AppController
     /**
      * BeforeFilter method.
      *
-     * @param Cake\Event\Event $event Cake Event object.
-     * @return void
+     * @param \Cake\Event\Event $event Cake Event object.
+     * @return \Cake\Http\Response|null
      */
     public function beforeFilter(Event $event)
     {
@@ -52,6 +52,8 @@ class UsersController extends AppController
         if (Configure::read('enableRegistration')) {
             $this->Auth->allow(['register']);
         }
+
+        return null;
     }
     /**
      * IsAuthorized method.
@@ -84,6 +86,7 @@ class UsersController extends AppController
             $this->Auth->setUser($user);
 
             if ($this->Auth->authenticationProvider()->needsPasswordRehash()) {
+                /** @var \App\Model\Entity\Profile $user */
                 $user = TableRegistry::get('Profiles')->get($this->Auth->user('id'));
                 $user->p = $this->request->getData('p');
                 TableRegistry::get('Profiles')->save($user);
@@ -91,8 +94,10 @@ class UsersController extends AppController
 
             // set cookie
             if (!empty($this->getRequest()->getData('remember_me'))) {
-                if ($CookieAuth = $this->Auth->getAuthenticate('Cookie')) {
-                    $CookieAuth->createCookie($this->getRequest()->data);
+                /** @var \App\Auth\CookieAuthenticate $CookieAuth */
+                $CookieAuth = $this->Auth->getAuthenticate('Cookie');
+                if (!empty($CookieAuth)) {
+                    $CookieAuth->createCookie($this->getRequest()->getData());
                 }
             }
         } else {
@@ -115,7 +120,9 @@ class UsersController extends AppController
      */
     public function logout()
     {
-        if ($CookieAuth = $this->Auth->getAuthenticate('Cookie')) {
+        /** @var \App\Auth\CookieAuthenticate $CookieAuth */
+        $CookieAuth = $this->Auth->getAuthenticate('Cookie');
+        if (!empty($CookieAuth)) {
             $CookieAuth->deleteCookie();
         }
 
@@ -130,17 +137,21 @@ class UsersController extends AppController
     public function reset()
     {
         if ($this->Auth->user()) {
-            $this->redirect($this->Auth->loginRedirect);
+            $redirect = $this->Auth->redirectUrl();
+
+            $this->redirect($redirect);
         }
 
         if ($this->getRequest()->is('post')) {
-            $user = TableRegistry::get('Profiles')->find()
+            /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
+            $ProfilesTable = TableRegistry::get('Profiles');
+            $user = $ProfilesTable->find()
                 ->select()
                 ->where(['e' => $this->getRequest()->getData('email')])
                 ->first();
 
             if ($user) {
-                TableRegistry::get('Profiles')->sendResetEmail($user);
+                $ProfilesTable->sendResetEmail($user);
                 $this->Flash->success(__('An email with password reset instructions has been sent.'));
             } else {
                 $this->Flash->error(__('No user with specified email has been found.'));
@@ -160,22 +171,25 @@ class UsersController extends AppController
             throw new NotFoundException(__('Reset key does not exist.'));
         }
 
-        $user = TableRegistry::get('Profiles')->findByRst($resetKey)->first();
-        if (!$user) {
+        /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
+        $ProfilesTable = TableRegistry::get('Profiles');
+        $user = $ProfilesTable->find()->select()->where(['rst' => $resetKey])->first();
+
+        if (empty($user)) {
             throw new NotFoundException(__('User does not exist.'));
         }
 
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
-            TableRegistry::get('Profiles')->patchEntity($user, $this->getRequest()->getData(), ['validate' => 'resetPassword']);
+            $ProfilesTable->patchEntity($user, $this->getRequest()->getData(), ['validate' => 'resetPassword']);
 
-            if (!$user->getErrors() && TableRegistry::get('Profiles')->save($user)) {
+            if (!$user->getErrors() && $ProfilesTable->save($user)) {
                 $this->Flash->success(__('Password has been changed.'));
                 $this->redirect('/');
             } else {
                 $this->Flash->error(__('Please verify that the information is correct.'));
             }
         } else {
-            $user->p = null;
+            $user->set('p', null);
         }
 
         $this->set(compact('user'));
@@ -188,23 +202,26 @@ class UsersController extends AppController
      */
     public function install()
     {
-        $userCount = TableRegistry::get('Profiles')->find()->count();
+        /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
+        $ProfilesTable = TableRegistry::get('Profiles');
+
+        $userCount = $ProfilesTable->find()->count();
         if ($userCount > 0) {
             $this->redirect('/');
         }
 
-        $user = TableRegistry::get('Profiles')->newEntity();
+        $user = $ProfilesTable->newEntity();
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
-            TableRegistry::get('Profiles')->patchEntity($user, $this->getRequest()->getData(), ['validate' => 'install']);
+            $ProfilesTable->patchEntity($user, $this->getRequest()->getData(), ['validate' => 'install']);
 
-            if (!$user->getErrors() && TableRegistry::get('Profiles')->save($user)) {
+            if (!$user->getErrors() && $ProfilesTable->save($user)) {
                 $this->Flash->success(__('User has been added.'));
                 $this->redirect('/');
             } else {
                 $this->Flash->error(__('Please verify that the information is correct.'));
             }
         } else {
-            $user->p = null;
+            $user->set('p', null);
         }
 
         $this->set(compact('user'));

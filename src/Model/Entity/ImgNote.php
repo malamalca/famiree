@@ -50,14 +50,4 @@ class ImgNote extends Entity
         'attachment' => true,
         'profile' => true
     ];
-
-    /**
-     * Returns string representation of entity
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        return $this->note;
-    }
 }

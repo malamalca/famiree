@@ -2,14 +2,16 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
 use Cake\I18n\Date;
-use Cake\Orm\TableRegistry;
+use Cake\ORM\TableRegistry;
 use Cake\Utility\Text;
 
 /**
  * Attachments Controller
  *
  *
+ * @property \App\Model\Table\AttachmentsTable $Attachments
  * @method \App\Model\Entity\Attachment[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class AttachmentsController extends AppController
@@ -24,7 +26,7 @@ class AttachmentsController extends AppController
     /**
      * isAuthorized hook method.
      *
-     * @param object $user Logged in user.
+     * @param array $user Logged in user.
      * @return bool
      */
     public function isAuthorized($user)
@@ -55,11 +57,12 @@ class AttachmentsController extends AppController
      * @param mixed $id Attachment id
      * @param mixed $size Attachment size
      * @param mixed $name Attachment name
-     * @return Cake\Http\Response
+     * @return \Cake\Http\Response
      */
     public function display($id, $size = 'original', $name = null)
     {
-        $attachment = TableRegistry::get('Attachments')->get($id);
+        /** @var \App\Model\Entity\Attachment $attachment */
+        $attachment = $this->Attachments->get($id);
 
         // correct slug
         $a_description = Text::slug($attachment->title);
@@ -75,9 +78,9 @@ class AttachmentsController extends AppController
             $this->redirect([$id, $size, $a_description], 301);
         }
 
-        $filePath = ROOT . DS . 'uploads' . DS . $attachment->id . DS . $size;
+        $filePath = Configure::read('sourceFolders.attachments') . $attachment->id . DS . $size;
         if (!file_exists($filePath)) {
-            $filePath = ROOT . DS . 'uploads' . DS . 'missing.png';
+            $filePath = Configure::read('sourceFolders.attachments') . 'missing.png';
         }
 
         $response = $this->response->withFile($filePath, ['name' => 'foo', 'download' => (bool)$this->getRequest()->getParam('download')]);

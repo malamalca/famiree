@@ -31,6 +31,12 @@ use Cake\Http\ServerRequest;
 class CookieAuthenticate extends BaseAuthenticate
 {
     /**
+     * Controller
+     *
+     * @var object
+     */
+    private $_controller = null;
+    /**
      * Cookie key name
      *
      * @var string
@@ -54,7 +60,7 @@ class CookieAuthenticate extends BaseAuthenticate
     /**
      * Checks the fields to ensure they are supplied.
      *
-     * @param \Cake\Network\Request $data The request that contains login information.
+     * @param array $data The request that contains login information.
      * @param array $fields The fields to be checked.
      * @return bool False if the fields have not been supplied. True if they exist.
      */

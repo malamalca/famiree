@@ -59,16 +59,6 @@ class Attachment extends Entity
     ];
 
     /**
-     * Returns string representation of entity
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        return $this->title;
-    }
-
-    /**
      * Returns physical dimension of image file
      *
      * @param mixed $size Image size
