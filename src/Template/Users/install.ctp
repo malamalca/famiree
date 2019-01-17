@@ -16,8 +16,8 @@
 
     echo '<br />';
     echo $this->Form->control('u', ['label' => __('Username') . ':']);
-    echo $this->Form->control('p', ['label' => __('Password') . ':']);
-    echo $this->Form->control('repeat_pass', ['label' => __('Repeat Password') . ':']);
+    echo $this->Form->control('p', ['type' => 'password', 'label' => __('Password') . ':']);
+    echo $this->Form->control('repeat_pass', ['type' => 'password', 'label' => __('Repeat Password') . ':']);
 
     echo '<br />';
     echo $this->Form->submit(__('Save'));
