@@ -1,4 +1,6 @@
 <?php
+namespace App;
+
 use Migrations\AbstractMigration;
 
 class Initial extends AbstractMigration
@@ -6,9 +8,13 @@ class Initial extends AbstractMigration
 
     public $autoId = false;
 
+    /**
+     * Up migration
+     *
+     * @return void
+     */
     public function up()
     {
-
         $this->table('attachments')
             ->addColumn('id', 'uuid', [
                 'default' => '',
@@ -818,6 +824,11 @@ class Initial extends AbstractMigration
             ->create();
     }
 
+    /**
+     * Down migration
+     *
+     * @return void
+     */
     public function down()
     {
         $this->table('attachments')->drop()->save();

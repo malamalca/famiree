@@ -1,4 +1,6 @@
 <?php
+namespace App;
+
 use Migrations\AbstractMigration;
 
 class AddRstToProfiles extends AbstractMigration
