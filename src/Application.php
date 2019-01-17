@@ -45,7 +45,11 @@ class Application extends BaseApplication
                 // Do not halt if the plugin is missing
             }
 
-            $this->addPlugin('Migrations');
+            try {
+                $this->addPlugin('Migrations', ['ignoreMissing' => true]);
+            } catch (MissingPluginException $e) {
+                // Do not halt if the plugin is missing
+            }
         }
 
         /*
