@@ -8,6 +8,8 @@
     <span id="YourMother"><?= __('Your Mother') ?></span>
 <?php
     echo $this->Form->create(null);
+    echo $this->Form->control('lvl', ['value' => LVL_ROOT]);
+    echo $this->Form->control('l', ['value' => true]);
     echo $this->Form->control('fn', ['label' => __('First Name') . ':']);
     echo $this->Form->control('ln', ['label' => __('Last Name') . ':']);
     echo $this->Form->control('e', ['label' => __('Email') . ':']);
