@@ -136,7 +136,7 @@
 				echo '</sub>' . PHP_EOL;
 			}
 
-			if (!empty($node['p'])) {
+			if (!empty($node['showPrune'])) {
 				echo strtr($prune_link, ['__id__' => $node['id']]);
 			}
 		}
@@ -147,7 +147,6 @@
 					</ul>
 					<div id="unions">
 <?php
-	if (!empty($tree['u']) && sizeof($tree['u']) > 1)
 	foreach ($tree['u'] as $union_id => $union) {
 		$spouse_count = 0;
 		if (isset($union['spouse_count'])) $spouse_count = $union['spouse_count']-1;

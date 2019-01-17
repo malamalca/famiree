@@ -382,13 +382,11 @@ trait FamilyTreeTrait
                         // add tree icon if sposuse has more than one marriage or
                         // is child in any union and is not main union (which has already all that
                         // included in tree
-                        if (($this->__fetchUnionOfChild($spouse_id) ||
-                            (count($this->__fetchUnionsOfParent($spouse_id)) > 1))
+                        if (($this->__fetchUnionOfChild($spouse_id) || (count($this->__fetchUnionsOfParent($spouse_id)) > 1))
                             &&
-                            (empty($options['main_union']) ||
-                            ($options['main_union'] != $profile_union_id))
+                            (empty($options['main_union']) || ($options['main_union'] != $profile_union_id))
                         ) {
-                            $profiles[$spouse_id]['Profile']['p'] = '+';
+                            $profiles[$spouse_id]['Profile']['showPrune'] = '+';
                         }
                     } else {
                         // add ghost spouse to profiles
@@ -594,7 +592,7 @@ trait FamilyTreeTrait
                                     if (($this->__fetchUnionOfChild($spouse_id) ||
                                         (count($this->__fetchUnionsOfParent($spouse_id)) > 1))
                                     ) {
-                                        $profiles[$spouse_id]['Profile']['p'] = '+';
+                                        $profiles[$spouse_id]['Profile']['showPrune'] = '+';
                                     }
                                 } else {
                                     $ghost_id = $this->__addGhost(
@@ -627,10 +625,8 @@ trait FamilyTreeTrait
                         }
 
                         // add tree icon profile isnt in main line and have children
-                        if (($sibling_id != $parent_id) &&
-                            count($this->__fetchChildren($sibling_id)) > 0
-                        ) {
-                            $profiles[$sibling_id]['Profile']['p'] = '+';
+                        if (($sibling_id != $parent_id) && count($this->__fetchChildren($sibling_id)) > 0) {
+                            $profiles[$sibling_id]['Profile']['showPrune'] = '+';
                         }
                     }
                 } else {
