@@ -3,7 +3,9 @@ namespace App\Model\Table;
 
 use App\Model\Table\Traits\FamilyTreeTrait;
 use ArrayObject;
+use Cake\Cache\Cache;
 use Cake\Core\Configure;
+use Cake\Database\Expression\QueryExpression;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\Mailer\Email;
@@ -190,6 +192,7 @@ class ProfilesTable extends Table
         if ($entity->isDirty('fn') || $entity->isDirty('mn') || $entity->isDirty('ln')) {
             $entity->d_n = trim(trim($entity->fn . ' ' . $entity->mn) . ' ' . $entity->ln);
         }
+        Cache::delete('Profiles');
 
         return true;
     }
@@ -414,5 +417,38 @@ class ProfilesTable extends Table
         }
 
         return false;
+    }
+
+    /**
+     * Fetch profiles with concatenated date of birth, ordered by dob
+     *
+     * @return \Cake\ORM\ResultSet
+     */
+    public function withBirthdays()
+    {
+        //Cache::delete('Profiles.birthdays');
+        $ret = Cache::remember('Profiles.birthdays', function () {
+            $q = $this->find();
+            $fieldExpr = $q->newExpr()->add('DATE_ADD(DATE_ADD(MAKEDATE(dob_y, 1), INTERVAL (dob_m)-1 MONTH), INTERVAL (dob_d)-1 DAY)');
+            $diffExpr = $q->newExpr()->add('DATEDIFF(DATE_ADD( DATE_ADD( MAKEDATE(YEAR(CURDATE()), 1), INTERVAL (dob_m)-1 MONTH ), INTERVAL (dob_d)-1 DAY ), CURDATE() )');
+            $dates = $q
+                ->select($this)
+                ->select(['dob' => $fieldExpr])
+                ->select(['diff' => $diffExpr])
+                ->where(['l' => true])
+                ->andWhere(function (QueryExpression $whereExpr) use ($fieldExpr) {
+                    return $whereExpr->isNotNull($fieldExpr);
+                })
+                ->andWhere(function (QueryExpression $andWhereExpr) use ($diffExpr) {
+                    return $andWhereExpr->gt($diffExpr, 0, 'integer');
+                })
+                ->order(['diff'])
+                ->limit(30)
+                ->all();
+
+            return $dates;
+        });
+
+        return $ret;
     }
 }
