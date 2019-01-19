@@ -415,7 +415,7 @@ class ProfilesTable extends Table
                 'g',
                 'count' => $query->func()->count('*'),
             ])
-            ->hydrate(false)
+            ->enableHydration(false)
             ->group(['g'])
             ->toArray();
 

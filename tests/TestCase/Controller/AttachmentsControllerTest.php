@@ -3,7 +3,6 @@ namespace App\Test\TestCase\Controller;
 
 use App\Controller\AttachmentsController;
 use Cake\Core\Configure;
-use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
@@ -73,8 +72,7 @@ class AttachmentsControllerTest extends TestCase
 
         Configure::write('uploadCheck', 'existing');
 
-        $uploadFile = new File($this->resourceFolder . DS . 'DDuckAngry.png');
-        $uploadFile->copy(TMP . 'DDuckAngry.png');
+        copy($this->resourceFolder . DS . 'DDuckAngry.png', TMP . 'DDuckAngry.png');
     }
 
     /**

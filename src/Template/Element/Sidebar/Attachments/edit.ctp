@@ -1,5 +1,5 @@
 <?php
-if (isset($attachment)) {
+if (!empty($attachment->id)) {
 ?>
     <div id="SidebarAttachmentPreview">
         <?php

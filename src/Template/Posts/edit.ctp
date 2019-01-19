@@ -18,8 +18,8 @@
         echo $this->Form->control('posts_links.0.class', ['type' => 'hidden', 'default' => $this->getRequest()->getQuery('class')]);
     }
 
-    echo $this->Form->input('title', ['label' => __('Title') . ':', 'class' => 'big', 'id' => 'PostTitle']);
-    echo $this->Form->input('body', ['label' => __('Body') . ':', 'rows' => 4, 'id' => 'PostBody']);
+    echo $this->Form->control('title', ['label' => __('Title') . ':', 'class' => 'big', 'id' => 'PostTitle']);
+    echo $this->Form->control('body', ['label' => __('Body') . ':', 'rows' => 4, 'id' => 'PostBody']);
     echo $this->Html->script('jquery.textarearesizer.min');
     ?>
     </div>
@@ -28,14 +28,14 @@
     <div class="legend"><?= __('Additional Properties') ?></div>
     <div class="dropdown">
     <?php
-        echo $this->Form->input('created', [
+        echo $this->Form->control('created', [
             'label' => __('Created') . ':',
             //'dateFormat' => Configure::read('dateFormat'),
             //'timeFormat' => Configure::read('timeFormat'),
             //'separator' => Configure::read('dateSeparator'),
         ]);
 
-        echo $this->Form->input('creator_id', [
+        echo $this->Form->control('creator_id', [
             'type' => 'select',
             'options' => @$authors,
             'label' => __('Creator') . ':',
@@ -67,20 +67,5 @@
     $(document).ready(function() {
         // add resizer to textarea
         $('#PostBody:not(.processed)').TextAreaResizer();
-
-        /*$('#PostAuthorTitle').autocomplete({
-            url      : '<?php echo $this->Html->url(['controller' => 'Profiles', 'action' => 'autocomplete']); ?>',
-            dataType : "text",
-            width    : "500px",
-            formatResult: function(row) {
-                return row[1];
-            },
-            formatItem: function(data, i, total) {
-                return data[1];
-            },
-            result: function(data, row) {
-                $('#PostCreatorId').val(row[0]);
-            }
-        });*/
     });
 </script>
