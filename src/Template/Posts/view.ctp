@@ -43,7 +43,7 @@
             } else {
                 $linked_to[] = $this->Html->link($profile->d_n, [
                     'controller' => 'Profiles',
-                    'action'     => 'view',
+                    'action' => 'view',
                     $profile->id
                 ]);
             }

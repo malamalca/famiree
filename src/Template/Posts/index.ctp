@@ -7,6 +7,16 @@
 <?php
 foreach ($posts as $post) {
     echo '<div class="dashboard_post">';
+
+    if (!empty($post->profiles[0]->ta)) {
+        echo '<div id="ProfileHeadshot">';
+        echo $this->Html->image(
+            ['controller' => 'Attachments', 'action' => 'display', $post->profiles[0]->ta, 'medium'],
+            ['id' => 'SidebarAttachmentPreviewImage']
+        );
+        echo '</div>';
+    }
+
     echo '<div class="_header">';
 
     // admin actions - DELETE, EDIT
@@ -43,6 +53,7 @@ foreach ($posts as $post) {
     }
 
     echo '</div>';
+
     echo '<div class="_body">';
     echo $this->Famiree->autop($body = $this->Famiree->excerpt($post->body));
     echo '</div>';

@@ -4,15 +4,8 @@ foreach ($post->profiles as $profile) {
     if (!empty($profile->ta)) {
         echo '<div id="ProfileHeadshot">';
         echo $this->Html->image(
-            [
-                'controller' => 'Attachments',
-                'action'=> 'display',
-                $profile->ta,
-                'medium'
-            ],
-            [
-                'id' => 'SidebarAttachmentPreviewImage'
-            ]
+            ['controller' => 'Attachments', 'action' => 'display', $profile->ta, 'medium'],
+            ['id' => 'SidebarAttachmentPreviewImage']
         );
         echo '</div>';
     }

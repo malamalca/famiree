@@ -835,6 +835,16 @@ ul.label_value li select {
 	font-size: .9em;
 }
 
+.dashboard_post #ProfileHeadshot {
+    display: block;
+    float: left;
+    margin-left: -135px;
+}
+.dashboard_post #ProfileHeadshot img {
+    width: 100px;
+    border-radius: 50%;
+}
+
 #DashboardDates .date_title {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
