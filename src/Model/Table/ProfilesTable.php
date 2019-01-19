@@ -443,7 +443,7 @@ class ProfilesTable extends Table
                     return $andWhereExpr->gt($diffExpr, 0, 'integer');
                 })
                 ->order(['diff'])
-                ->limit(30)
+                ->limit(20)
                 ->all();
 
             return $dates;
