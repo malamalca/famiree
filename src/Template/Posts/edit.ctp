@@ -11,11 +11,14 @@
     echo $this->Form->hidden('id');
     echo $this->Form->hidden('referer', ['default' => base64_encode($this->getRequest()->referer())]);
 
-    echo $this->Form->input('title', [
-        'label' => __('Title') . ':',
-        'class' => 'big',
-        'id' => 'PostTitle'
-    ]);
+    if ($this->getRequest()->getQuery('foreignid')) {
+        echo $this->Form->control('posts_links.0.id', ['type' => 'hidden']);
+        echo $this->Form->control('posts_links.0.post_id', ['type' => 'hidden']);
+        echo $this->Form->control('posts_links.0.foreign_id', ['type' => 'hidden', 'default' => $this->getRequest()->getQuery('foreignid')]);
+        echo $this->Form->control('posts_links.0.class', ['type' => 'hidden', 'default' => $this->getRequest()->getQuery('class')]);
+    }
+
+    echo $this->Form->input('title', ['label' => __('Title') . ':', 'class' => 'big', 'id' => 'PostTitle']);
     echo $this->Form->input('body', ['label' => __('Body') . ':', 'rows' => 4, 'id' => 'PostBody']);
     echo $this->Html->script('jquery.textarearesizer.min');
     ?>

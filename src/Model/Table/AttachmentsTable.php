@@ -58,7 +58,8 @@ class AttachmentsTable extends Table
         ]);
         $this->hasMany('AttachmentsLinks', [
             'foreignKey' => 'attachment_id',
-            'dependent' => true
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('Imgnotes', [
             'foreignKey' => 'attachment_id',

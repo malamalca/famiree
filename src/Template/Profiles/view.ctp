@@ -433,7 +433,7 @@ if ($this->currentUser->exists() && $this->currentUser->get('lvl') <= LVL_EDITOR
         <div class="inner">
         <div class="legend"><?php
             if ($this->currentUser->exists() && $this->currentUser->get('lvl') <= LVL_EDITOR) {
-                echo $this->Html->link(__('add'), '#', [
+                echo $this->Html->link(__('add'), ['controller' => 'Posts', 'action' => 'add', 'class' => 'Profile', 'foreignid' => $profile->id], [
                     'id'    => 'ProfileAddPostLegendLink',
                     'class' => 'javascript_action'
                 ]);
@@ -444,34 +444,19 @@ if ($this->currentUser->exists() && $this->currentUser->get('lvl') <= LVL_EDITOR
             <?php
                 echo $this->Form->create(null, [
                     'id' => 'ProfileViewPostForm',
-                    'url' => [
-                        'controller' => 'Profiles',
-                        'action' => 'view',
-                        $profile->id
-                    ]
+                    'url' => ['controller' => 'Posts', 'action' => 'add', 'class' => 'Profile', 'foreignid' => $profile->id]
                 ]);
-                echo $this->Form->control('Post.blog_id', [
-                    'type'  => 'hidden',
-                    'value' => 1
-                ]);
-                echo $this->Form->control('Post.status', [
-                    'type'  => 'hidden',
-                    'value' => 2
-                ]);
-                echo $this->Form->control('Post.creator_id', [
-                    'type'  => 'hidden',
-                    'value' => $this->currentUser->get('id')
-                ]);
+                echo $this->Form->control('referer', ['type' => 'hidden', 'value' => base64_encode($this->Url->build(null, true))]);
+                echo $this->Form->control('status', ['type'  => 'hidden', 'value' => 2]);
+                echo $this->Form->control('creator_id', ['type'  => 'hidden', 'value' => $this->currentUser->get('id')]);
 
-                echo $this->Form->control('Category.0.foreign_id', [
-                    'type'  => 'hidden',
-                    'value' => $profile->id
-                ]);
-                echo $this->Form->control('Category.0.class', ['type' => 'hidden', 'value' => 'Profile']);
+                echo $this->Form->control('posts_links.0.post_id', ['type'  => 'hidden', 'value' => '']);
+                echo $this->Form->control('posts_links.0.foreign_id', ['type'  => 'hidden', 'value' => $profile->id]);
+                echo $this->Form->control('posts_links.0.class', ['type' => 'hidden', 'value' => 'Profile']);
 
-                echo $this->Form->control('Post.title', ['label' => __('Title') . ':', 'id' => 'PostTitle']);
+                echo $this->Form->control('title', ['label' => __('Title') . ':', 'id' => 'PostTitle']);
 
-                echo $this->Form->control('Post.body', [
+                echo $this->Form->control('body', [
                     'label' => __('Body', true).':',
                     'rows'  => 4,
                     'error' => __('Please enter some memories about this person.'),

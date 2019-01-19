@@ -50,7 +50,9 @@ class PostsTable extends Table
             'foreignKey' => 'creator_id'
         ]);
         $this->hasMany('PostsLinks', [
-            'foreignKey' => 'post_id'
+            'foreignKey' => 'post_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->belongsToMany('Profiles', [
             'className' => 'Profiles',

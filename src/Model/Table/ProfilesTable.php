@@ -39,6 +39,7 @@ use Cake\Validation\Validator;
 class ProfilesTable extends Table
 {
     use FamilyTreeTrait;
+
     /**
      * Initialize method
      *
@@ -195,6 +196,46 @@ class ProfilesTable extends Table
         Cache::delete('Profiles');
 
         return true;
+    }
+
+    /**
+     * Update attachment count for specified profiles
+     *
+     * @param array $profiles Array of profile id's
+     * @return void
+     */
+    public function updateAttachmentCount($profiles)
+    {
+        foreach ($profiles as $profileId) {
+            $attachmentCount = TableRegistry::get('AttachmentsLinks')->find()
+                ->where(['class' => 'Profile', 'foreign_id' => $profileId])
+                ->count();
+
+            $this->updateAll(
+                ['cn_med' => $attachmentCount],
+                ['id' => $profileId]
+            );
+        }
+    }
+
+    /**
+     * Update memory count for specified profiles
+     *
+     * @param array $profiles Array of profile id's
+     * @return void
+     */
+    public function updateMemoryCount($profiles)
+    {
+        foreach ($profiles as $profileId) {
+            $attachmentCount = TableRegistry::get('PostsLinks')->find()
+                ->where(['class' => 'Profile', 'foreign_id' => $profileId])
+                ->count();
+
+            $this->updateAll(
+                ['cn_mem' => $attachmentCount],
+                ['id' => $profileId]
+            );
+        }
     }
 
     /**

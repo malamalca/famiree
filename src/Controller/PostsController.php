@@ -70,12 +70,12 @@ class PostsController extends AppController
     public function edit($id = null)
     {
         if ($id) {
-            $post = $this->Posts->get($id, ['contain' => []]);
+            $post = $this->Posts->get($id, ['contain' => ['PostsLinks']]);
         } else {
-            $post = $this->Posts->newEntity();
+            $post = $this->Posts->newEntity(['contain' => ['AttachmentsLinks']]);
         }
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
-            $post = $this->Posts->patchEntity($post, $this->getRequest()->getData());
+            $post = $this->Posts->patchEntity($post, $this->getRequest()->getData(), ['PostsLinks']);
             if ($this->Posts->save($post)) {
                 $this->Flash->success(__('The post has been saved.'));
 

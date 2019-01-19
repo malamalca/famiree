@@ -1,9 +1,12 @@
 <?php
 namespace App\Model\Table;
 
+use ArrayObject;
+use Cake\Event\Event;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -82,6 +85,45 @@ class AttachmentsLinksTable extends Table
         $rules->add($rules->existsIn(['attachment_id'], 'Attachments'));
 
         return $rules;
+    }
+
+    /**
+     * Aftersave event handler
+     *
+     * @param Event $event Event object
+     * @param \App\Model\Entity\AttachmentsLink $entity Entity object
+     * @param ArrayObject $options Options
+     * @return void
+     */
+    public function afterSave(Event $event, \App\Model\Entity\AttachmentsLink $entity, ArrayObject $options)
+    {
+        if ($entity->class == 'Profile') {
+            $profilesToUpdate = [$entity->foreign_id];
+            $previousProfileId = $entity->getOriginal('foreign_id');
+            if ($entity->foreign_id != $previousProfileId) {
+                $profilesToUpdate[] = $previousProfileId;
+            }
+            /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
+            $ProfilesTable = TableRegistry::get('Profiles');
+            $ProfilesTable->updateAttachmentCount($profilesToUpdate);
+        }
+    }
+
+    /**
+     * Afterdelete event handler
+     *
+     * @param Event $event Event object
+     * @param \App\Model\Entity\AttachmentsLink $entity Entity object
+     * @param ArrayObject $options Options
+     * @return void
+     */
+    public function afterDelete(Event $event, \App\Model\Entity\AttachmentsLink $entity, ArrayObject $options)
+    {
+        if ($entity->class == 'Profile') {
+            /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
+            $ProfilesTable = TableRegistry::get('Profiles');
+            $ProfilesTable->updateAttachmentCount([$entity->foreign_id]);
+        }
     }
 
     /**
