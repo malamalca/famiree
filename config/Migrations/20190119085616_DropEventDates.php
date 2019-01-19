@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class DropComments extends AbstractMigration
+class DropEventDates extends AbstractMigration
 {
     /**
      * Change Method.
@@ -12,13 +12,7 @@ class DropComments extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('comments');
+        $table = $this->table('event_dates');
         $table->drop()->save();
-
-        $table = $this->table('posts');
-        $table->removeColumn('slug');
-        $table->removeColumn('no_comments');
-        $table->removeColumn('allow_comments');
-        $table->update();
     }
 }
