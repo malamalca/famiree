@@ -17,8 +17,6 @@
         'id' => 'PostTitle'
     ]);
     echo $this->Form->input('body', ['label' => __('Body') . ':', 'rows' => 4, 'id' => 'PostBody']);
-    //echo $this->Form->input('allow_comments', ['label' => __('Allow Comments')]);
-
     echo $this->Html->script('jquery.textarearesizer.min');
     ?>
     </div>

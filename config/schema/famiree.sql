@@ -41,22 +41,6 @@ CREATE TABLE `attachments_links` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
---
-
-CREATE TABLE `comments` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `post_id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `body` text,
-  `status` mediumint(2) NOT NULL DEFAULT '1',
-  `created` datetime DEFAULT NULL,
-  `modified` datetime DEFAULT NULL
-) ENGINE=InnoDB;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `event_dates`
 --
 
@@ -121,8 +105,6 @@ CREATE TABLE `posts` (
   `title` varchar(100) DEFAULT NULL,
   `slug` varchar(100) DEFAULT NULL,
   `body` text,
-  `no_comments` int(4) NOT NULL DEFAULT '0',
-  `allow_comments` tinyint(1) NOT NULL DEFAULT '1',
   `created` datetime DEFAULT NULL,
   `creator_id` int(11) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,

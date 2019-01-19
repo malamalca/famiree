@@ -12,17 +12,13 @@ use Cake\ORM\Entity;
  * @property string|null $title
  * @property string|null $slug
  * @property string|null $body
- * @property int $no_comments
- * @property bool $allow_comments
  * @property \Cake\I18n\FrozenTime|null $created
  * @property int|null $creator_id
  * @property \Cake\I18n\FrozenTime|null $modified
  * @property int|null $modifier_id
  *
- * @property \App\Model\Entity\Blog $blog
  * @property \App\Model\Entity\Creator $creator
  * @property \App\Model\Entity\Modifier $modifier
- * @property \App\Model\Entity\Comment[] $comments
  * @property \App\Model\Entity\PostsLink[] $posts_links
  */
 class Post extends Entity
@@ -43,8 +39,6 @@ class Post extends Entity
         'title' => true,
         'slug' => true,
         'body' => true,
-        'no_comments' => true,
-        'allow_comments' => true,
         'created' => true,
         'creator_id' => true,
         'modified' => true,

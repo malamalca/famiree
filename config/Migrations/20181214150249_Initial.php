@@ -114,54 +114,6 @@ class Initial extends AbstractMigration
             ])
             ->create();
 
-        $this->table('comments')
-            ->addColumn('id', 'integer', [
-                'autoIncrement' => true,
-                'default' => null,
-                'limit' => 10,
-                'null' => false,
-                'signed' => false,
-            ])
-            ->addPrimaryKey(['id'])
-            ->addColumn('post_id', 'integer', [
-                'default' => null,
-                'limit' => 10,
-                'null' => false,
-                'signed' => false,
-            ])
-            ->addColumn('user_id', 'integer', [
-                'default' => null,
-                'limit' => 10,
-                'null' => false,
-                'signed' => false,
-            ])
-            ->addColumn('body', 'text', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
-            ->addColumn('status', 'integer', [
-                'default' => '1',
-                'limit' => 2,
-                'null' => false,
-            ])
-            ->addColumn('created', 'datetime', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
-            ->addColumn('modified', 'datetime', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
-            ->addIndex(
-                [
-                    'post_id',
-                ]
-            )
-            ->create();
-
         $this->table('event_dates')
             ->addColumn('id', 'integer', [
                 'autoIncrement' => true,
@@ -344,16 +296,6 @@ class Initial extends AbstractMigration
                 'default' => null,
                 'limit' => null,
                 'null' => true,
-            ])
-            ->addColumn('no_comments', 'integer', [
-                'default' => '0',
-                'limit' => 4,
-                'null' => false,
-            ])
-            ->addColumn('allow_comments', 'boolean', [
-                'default' => true,
-                'limit' => null,
-                'null' => false,
             ])
             ->addColumn('created', 'datetime', [
                 'default' => null,

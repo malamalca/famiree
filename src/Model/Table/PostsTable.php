@@ -10,11 +10,9 @@ use Cake\Validation\Validator;
 /**
  * Posts Model
  *
- * @property \App\Model\Table\BlogsTable|\Cake\ORM\Association\BelongsTo $Blogs
  * @property \App\Model\Table\CreatorsTable|\Cake\ORM\Association\BelongsTo $Creators
- * @property \App\Model\Table\ModifiersTable|\Cake\ORM\Association\BelongsTo $Modifiers
- * @property \App\Model\Table\CommentsTable|\Cake\ORM\Association\HasMany $Comments
  * @property \App\Model\Table\PostsLinksTable|\Cake\ORM\Association\HasMany $PostsLinks
+ * @property \App\Model\Table\ProfilesTable|\Cake\ORM\Association\belongsToMany $Profiles
  *
  * @method \App\Model\Entity\Post get($primaryKey, $options = [])
  * @method \App\Model\Entity\Post newEntity($data = null, array $options = [])
