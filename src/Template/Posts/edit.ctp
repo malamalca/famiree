@@ -25,7 +25,6 @@
     <div class="legend"><?= __('Additional Properties') ?></div>
     <div class="dropdown">
     <?php
-        //echo $this->Form->input('slug', ['label' => __('Slug') . ':', 'id' => 'PostSlug']);
         echo $this->Form->input('created', [
             'label' => __('Created') . ':',
             //'dateFormat' => Configure::read('dateFormat'),

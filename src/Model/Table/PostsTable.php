@@ -80,11 +80,6 @@ class PostsTable extends Table
             ->allowEmpty('title');
 
         $validator
-            ->scalar('slug')
-            ->maxLength('slug', 100)
-            ->allowEmpty('slug');
-
-        $validator
             ->scalar('body')
             ->allowEmpty('body');
 

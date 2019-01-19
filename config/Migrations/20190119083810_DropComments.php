@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class AddRstToProfiles extends AbstractMigration
+class DropComments extends AbstractMigration
 {
     /**
      * Change Method.
@@ -12,13 +12,13 @@ class AddRstToProfiles extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('profiles');
-        $table->addColumn('rst', 'string', [
-            'default' => null,
-            'limit' => 36,
-            'null' => true,
-            'after' => 'e'
-        ]);
+        $table = $this->table('comments');
+        $table->drop();
+
+        $table = $this->table('posts');
+        $table->removeColumn('slug');
+        $table->removeColumn('no_comments');
+        $table->removeColumn('allow_comments');
         $table->update();
     }
 }

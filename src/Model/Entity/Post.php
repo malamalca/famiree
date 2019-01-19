@@ -37,7 +37,6 @@ class Post extends Entity
         'blog_id' => true,
         'status' => true,
         'title' => true,
-        'slug' => true,
         'body' => true,
         'created' => true,
         'creator_id' => true,
