@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Database\Expression\QueryExpression;
 use Cake\Event\Event;
 use Cake\Http\Exception\NotFoundException;
 use Cake\ORM\TableRegistry;

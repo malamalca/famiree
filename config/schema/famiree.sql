@@ -41,23 +41,6 @@ CREATE TABLE `attachments_links` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `event_dates`
---
-
-CREATE TABLE `event_dates` (
-  `id` int(11) NOT NULL,
-  `class` varchar(50) NOT NULL,
-  `foreign_id` int(10) NOT NULL DEFAULT '0',
-  `kind` varchar(8) NOT NULL DEFAULT '',
-  `date_start` datetime DEFAULT NULL,
-  `date_end` datetime DEFAULT NULL,
-  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `imgnotes`
 --
 
@@ -103,7 +86,6 @@ CREATE TABLE `posts` (
   `blog_id` int(11) NOT NULL DEFAULT '1',
   `status` tinyint(2) NOT NULL DEFAULT '2',
   `title` varchar(100) DEFAULT NULL,
-  `slug` varchar(100) DEFAULT NULL,
   `body` text,
   `created` datetime DEFAULT NULL,
   `creator_id` int(11) DEFAULT NULL,
@@ -161,6 +143,8 @@ CREATE TABLE `profiles` (
   `plod` varchar(100) DEFAULT NULL COMMENT 'Place of Death',
   `cod` varchar(100) DEFAULT NULL COMMENT 'Cause of Death',
   `plobu` varchar(100) DEFAULT NULL COMMENT 'Place of Burrial',
+  `job` varchar(100) DEFAULT NULL COMMENT 'Job description',
+  `edu` varchar(100) DEFAULT NULL COMMENT 'Education',
   `in_i` varchar(200) DEFAULT NULL COMMENT 'Interests',
   `in_a` varchar(200) DEFAULT NULL COMMENT 'Activities',
   `in_p` varchar(200) DEFAULT NULL COMMENT 'PeopleHeroes',
@@ -251,19 +235,6 @@ ALTER TABLE `attachments_links`
   ADD UNIQUE KEY `IX_UNIQUE` (`attachment_id`,`class`,`foreign_id`);
 
 --
--- Indexes for table `comments`
---
-ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `post_id` (`post_id`);
-
---
--- Indexes for table `event_dates`
---
-ALTER TABLE `event_dates`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `imgnotes`
 --
 ALTER TABLE `imgnotes`
@@ -322,18 +293,6 @@ ALTER TABLE `units`
 --
 ALTER TABLE `attachments_links`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=365;
-
---
--- AUTO_INCREMENT for table `comments`
---
-ALTER TABLE `comments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `event_dates`
---
-ALTER TABLE `event_dates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=368;
 
 --
 -- AUTO_INCREMENT for table `imgnotes`

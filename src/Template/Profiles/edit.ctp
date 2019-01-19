@@ -44,6 +44,8 @@
                     -1 => __('Other'),
                 ], 'empty' => '']);
             echo $this->Form->control('n_n', ['type' => 'text', 'label' => __('Nick Names').':']);
+            echo $this->Form->control('edu', ['type' => 'text', 'label' => __('Education').':']);
+            echo $this->Form->control('job', ['type' => 'text', 'label' => __('Job').':']);
         ?>
     </fieldset>
     </div>

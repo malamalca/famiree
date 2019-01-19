@@ -42,15 +42,6 @@ foreach ($posts as $post) {
         echo ' ' . __('Linked to') . ' ' . $this->Text->toList($linked_to, __('and')) . '.';
     }
 
-    // show no of comments
-    /*echo ' (';
-    $comment_count = $post->no_comments;
-    echo $this->Html->link(
-        sprintf(__n('1 comment', '%d comments', $comment_count), $comment_count),
-        ['action'     => 'view', $post->id, '#comments']
-    );
-    echo ')';*/
-
     echo '</div>';
     echo '<div class="_body">';
     echo $this->Famiree->autop($body = $this->Famiree->excerpt($post->body));

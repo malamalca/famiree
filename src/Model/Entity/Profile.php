@@ -38,6 +38,8 @@ use Cake\ORM\Entity;
  * @property string|null $plod
  * @property string|null $cod
  * @property string|null $plobu
+ * @property string|null $job
+ * @property string|null $edu
  * @property string|null $in_i
  * @property string|null $in_a
  * @property string|null $in_p
@@ -104,6 +106,8 @@ class Profile extends Entity
         'plod' => true,
         'cod' => true,
         'plobu' => true,
+        'job' => true,
+        'edu' => true,
         'in_i' => true,
         'in_a' => true,
         'in_p' => true,
