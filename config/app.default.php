@@ -385,7 +385,7 @@ return [
     ],
 
     'outputDateFormat' => 'YYYY-MM-dd',
-    'noYearDateFormat' => 'dd.MM',
+    'noYearDateFormat' => 'MM-dd',
     'dateFormat' => 'YMD',
     'dateSeparator' => '-',
     'timeFormat' => '12',

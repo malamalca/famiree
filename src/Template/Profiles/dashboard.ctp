@@ -89,7 +89,7 @@
                         $this->Html->link($profile->d_n, ['action' => 'view', $profile->id]),
                         ($profile->g == 'm') ? __('his') : __('her'),
                         $this->Famiree->age($dobReal) + $oneIfFuture,
-                        '<b>' . $dobReal->format(Configure::read('noYearDateFormat')) . '</b>'
+                        '<b>' . $dobReal->i18nFormat(Configure::read('noYearDateFormat')) . '</b>'
                     );
                     echo '</div>'.PHP_EOL;
                 }
