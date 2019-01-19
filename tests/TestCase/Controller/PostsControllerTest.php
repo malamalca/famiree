@@ -37,6 +37,20 @@ class PostsControllerTest extends TestCase
     ];
 
     /**
+     * Setup test
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+        $this->enableRetainFlashMessages();
+    }
+
+    /**
      * Test index method
      *
      * @return void
@@ -76,9 +90,6 @@ class PostsControllerTest extends TestCase
     public function testAdd()
     {
         $this->session(['Auth' => $this->authData]);
-        $this->enableCsrfToken();
-        $this->enableSecurityToken();
-        $this->enableRetainFlashMessages();
 
         $countBefore = TableRegistry::get('Posts')->find()->count();
 
@@ -103,9 +114,6 @@ class PostsControllerTest extends TestCase
     public function testEdit()
     {
         $this->session(['Auth' => $this->authData]);
-        $this->enableCsrfToken();
-        $this->enableSecurityToken();
-        $this->enableRetainFlashMessages();
 
         $countBefore = TableRegistry::get('Posts')->find()->count();
 

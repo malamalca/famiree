@@ -70,7 +70,7 @@ class ImgnotesController extends AppController
                 if ($referer = base64_decode($this->getRequest()->getData('referer', ''))) {
                     return $this->redirect($referer);
                 } else {
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['controller' => 'Attachments', 'action' => 'view', $imgnote->attachment_id]);
                 }
             }
             dd($imgnote);

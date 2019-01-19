@@ -56,10 +56,30 @@ class AttachmentsLinksController extends AppController
                 if ($referer = base64_decode($this->getRequest()->getData('referer', ''))) {
                     return $this->redirect($referer);
                 } else {
-                    return $this->redirect(['controller' => 'Attachments', 'action' => 'index']);
+                    return $this->redirect(['controller' => 'Attachments', 'action' => 'view', $attachmentsLink->attachment_id]);
                 }
             }
             $this->Flash->error(__('The attachments link could not be saved. Please, try again.'));
         }
+    }
+
+    /**
+     * Delete method
+     *
+     * @param string|null $id Attachments Link id.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function delete($id = null)
+    {
+        $this->getRequest()->allowMethod(['post', 'delete', 'get']);
+        $imgnote = $this->AttachmentsLinks->get($id);
+        if ($this->AttachmentsLinks->delete($imgnote)) {
+            $this->Flash->success(__('The attachments link has been deleted.'));
+        } else {
+            $this->Flash->error(__('The attachments link could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect($this->getRequest()->referer());
     }
 }

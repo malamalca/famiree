@@ -2,6 +2,7 @@
 namespace App\Test\TestCase\Controller;
 
 use App\Controller\AttachmentsLinksController;
+use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
@@ -18,29 +19,35 @@ class AttachmentsLinksControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.AttachmentsLinks',
+        'app.Imgnotes',
         'app.Attachments',
-        'app.Profiles'
+        'app.AttachmentsLinks',
+        'app.Profiles',
+        'app.Logs'
     ];
 
     /**
-     * Test index method
-     *
-     * @return void
+     * Auth data
      */
-    public function testIndex()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+    private $authData = [
+        'User' => [
+            'id' => 1,
+            'd_n' => 'Test User',
+        ]
+    ];
 
     /**
-     * Test view method
+     * Setup test
      *
      * @return void
      */
-    public function testView()
+    public function setUp()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        parent::setUp();
+
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+        $this->enableRetainFlashMessages();
     }
 
     /**
@@ -50,7 +57,22 @@ class AttachmentsLinksControllerTest extends TestCase
      */
     public function testAdd()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->session(['Auth' => $this->authData]);
+
+        $countBefore = TableRegistry::get('AttachmentsLinks')->find()->count();
+
+        $this->post('attachments-links/add', [
+            'attachment_id' => 'd372525d-9fb6-4643-bd21-217cb96d7496',
+            'class' => 'Profile',
+            'foreign_id' => '2'
+        ]);
+
+        $this->assertResponseSuccess();
+        $this->assertRedirect(['controller' => 'Attachments', 'action' => 'view', 'd372525d-9fb6-4643-bd21-217cb96d7496']);
+        $this->assertFlashElement('Flash/success');
+
+        $countAfter = TableRegistry::get('AttachmentsLinks')->find()->count();
+        $this->assertEquals($countBefore + 1, $countAfter);
     }
 
     /**
@@ -60,7 +82,22 @@ class AttachmentsLinksControllerTest extends TestCase
      */
     public function testEdit()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->session(['Auth' => $this->authData]);
+
+        $countBefore = TableRegistry::get('AttachmentsLinks')->find()->count();
+
+        $this->post('attachments-links/edit/2', [
+            'attachment_id' => 'd372525d-9fb6-4643-bd21-217cb96d7496',
+            'class' => 'Profile',
+            'foreign_id' => '2'
+        ]);
+
+        $this->assertResponseSuccess();
+        $this->assertRedirect(['controller' => 'Attachments', 'action' => 'view', 'd372525d-9fb6-4643-bd21-217cb96d7496']);
+        $this->assertFlashElement('Flash/success');
+
+        $countAfter = TableRegistry::get('AttachmentsLinks')->find()->count();
+        $this->assertEquals($countBefore, $countAfter);
     }
 
     /**
@@ -70,6 +107,15 @@ class AttachmentsLinksControllerTest extends TestCase
      */
     public function testDelete()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->session(['Auth' => $this->authData]);
+
+        $countBefore = TableRegistry::get('AttachmentsLinks')->find()->count();
+
+        $this->get('attachments-links/delete/2');
+
+        $this->assertRedirect();
+
+        $countAfter = TableRegistry::get('AttachmentsLinks')->find()->count();
+        $this->assertEquals($countBefore - 1, $countAfter);
     }
 }

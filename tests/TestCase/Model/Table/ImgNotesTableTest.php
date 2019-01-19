@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\ImgNotesTable;
+use App\Model\Table\ImgnotesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\ImgNotesTable Test Case
+ * App\Model\Table\ImgnotesTable Test Case
  */
-class ImgNotesTableTest extends TestCase
+class ImgnotesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\ImgNotesTable
+     * @var \App\Model\Table\ImgnotesTable
      */
-    public $ImgNotes;
+    public $Imgnotes;
 
     /**
      * Fixtures
@@ -24,7 +24,7 @@ class ImgNotesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.ImgNotes',
+        'app.Imgnotes',
         'app.Attachments',
         'app.Profiles'
     ];
@@ -37,8 +37,8 @@ class ImgNotesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('ImgNotes') ? [] : ['className' => ImgNotesTable::class];
-        $this->ImgNotes = TableRegistry::getTableLocator()->get('ImgNotes', $config);
+        $config = TableRegistry::getTableLocator()->exists('Imgnotes') ? [] : ['className' => ImgnotesTable::class];
+        $this->ImgNotes = TableRegistry::getTableLocator()->get('Imgnotes', $config);
     }
 
     /**
@@ -48,7 +48,7 @@ class ImgNotesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->ImgNotes);
+        unset($this->Imgnotes);
 
         parent::tearDown();
     }

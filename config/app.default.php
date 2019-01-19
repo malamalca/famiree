@@ -395,5 +395,7 @@ return [
     'sourceFolders' => [
         'thumbs' => WWW_ROOT . 'img' . DS . 'thumbs' . DS,
         'attachments' => ROOT . DS . 'uploads' . DS,
-    ]
+    ],
+
+    'uploadCheck' => 'uploaded'
 ];

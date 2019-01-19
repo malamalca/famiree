@@ -109,14 +109,14 @@ if (!empty($attachment->description)) {
     echo $this->Form->Create(null, ['url' => ['controller' => 'Imgnotes', 'action' => 'add']]);
     echo '<fieldset>';
     echo '<legend>' . __('Add Note') . '</legend>';
-    echo $this->Form->input('attachment_id', ['type' => 'hidden', 'value' => $attachment->id]);
-    echo $this->Form->input('user_id', ['type' => 'hidden', 'value' => $this->currentUser->get('id')]);
-    echo $this->Form->input('referer', ['type' => 'hidden', 'value' => base64_encode($this->Url->build(null, true))]);
-    echo $this->Form->input('x1', ['type' => 'hidden', 'id' => 'ImgnoteX1']);
-    echo $this->Form->input('y1', ['type' => 'hidden', 'id' => 'ImgnoteY1']);
-    echo $this->Form->input('width', ['type' => 'hidden', 'id' => 'ImgnoteWidth']);
-    echo $this->Form->input('height', ['type' => 'hidden', 'id' => 'ImgnoteHeight']);
-    echo $this->Form->input('profile_id', ['type' => 'hidden', 'id' => 'ImgnoteProfileId']);
+    echo $this->Form->control('attachment_id', ['type' => 'hidden', 'value' => $attachment->id]);
+    echo $this->Form->control('user_id', ['type' => 'hidden', 'value' => $this->currentUser->get('id')]);
+    echo $this->Form->control('referer', ['type' => 'hidden', 'value' => base64_encode($this->Url->build(null, true))]);
+    echo $this->Form->control('x1', ['type' => 'hidden', 'id' => 'ImgnoteX1']);
+    echo $this->Form->control('y1', ['type' => 'hidden', 'id' => 'ImgnoteY1']);
+    echo $this->Form->control('width', ['type' => 'hidden', 'id' => 'ImgnoteWidth']);
+    echo $this->Form->control('height', ['type' => 'hidden', 'id' => 'ImgnoteHeight']);
+    echo $this->Form->control('profile_id', ['type' => 'hidden', 'id' => 'ImgnoteProfileId']);
 
     $this->Form->unlockField('x1');
     $this->Form->unlockField('y1');
@@ -135,7 +135,7 @@ if (!empty($attachment->description)) {
     ]);
     echo '</div>';
 
-    echo $this->Form->input('crop_to_new', [
+    echo $this->Form->control('crop_to_new', [
         'type' => 'checkbox',
         'label' => __('Crop and create new image')
     ]);

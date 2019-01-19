@@ -41,9 +41,15 @@ class AttachmentsLinksFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'attachment_id' => '0beca663-943a-4af2-983b-50d773932f11',
-                'class' => 'Lorem',
-                'foreign_id' => 'Lorem ipsum dolor sit amet'
+                'attachment_id' => 'd372525d-9fb6-4643-bd21-217cb96d7495',
+                'class' => 'Profile',
+                'foreign_id' => '1'
+            ],
+            [
+                'id' => 2,
+                'attachment_id' => 'd372525d-9fb6-4643-bd21-217cb96d7496',
+                'class' => 'Profile',
+                'foreign_id' => '1'
             ],
         ];
         parent::init();

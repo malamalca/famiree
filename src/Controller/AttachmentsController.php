@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Core\Configure;
+use Cake\Http\Exception\NotFoundException;
 use Cake\I18n\Date;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Text;
@@ -74,13 +75,15 @@ class AttachmentsController extends AppController
                 $a_description .= '.' . $attachment->ext;
             }
         }
+        $a_description = strtolower($a_description);
         if ($name != $a_description) {
             $this->redirect([$id, $size, $a_description], 301);
         }
 
         $filePath = Configure::read('sourceFolders.attachments') . $attachment->id . DS . $size;
         if (!file_exists($filePath)) {
-            $filePath = Configure::read('sourceFolders.attachments') . 'missing.png';
+            throw new NotFoundException(__('Attachment does not exist.'));
+            //$filePath = Configure::read('sourceFolders.attachments') . 'missing.png';
         }
 
         $response = $this->response->withFile($filePath, ['name' => 'foo', 'download' => (bool)$this->getRequest()->getParam('download')]);
@@ -130,7 +133,7 @@ class AttachmentsController extends AppController
             $attachment = $this->Attachments->patchEntity($attachment, $this->getRequest()->getData(), ['AttachmentsLinks']);
 
             if ($this->Attachments->save($attachment)) {
-                $this->Attachments->processUpload($attachment, $this->getRequest()->getData('filename.tmp_name'));
+                $this->Attachments->processUpload($attachment, $this->getRequest()->getData('filename.tmp_name'), Configure::read('uploadCheck'));
                 $this->Flash->success(__('The attachment has been saved.'));
 
                 if ($referer = base64_decode($this->getRequest()->getData('referer', ''))) {

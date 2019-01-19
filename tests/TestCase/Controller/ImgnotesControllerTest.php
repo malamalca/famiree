@@ -2,6 +2,7 @@
 namespace App\Test\TestCase\Controller;
 
 use App\Controller\ImgnotesController;
+use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
@@ -20,27 +21,33 @@ class ImgnotesControllerTest extends TestCase
     public $fixtures = [
         'app.Imgnotes',
         'app.Attachments',
-        'app.Profiles'
+        'app.AttachmentsLinks',
+        'app.Profiles',
+        'app.Logs'
     ];
 
     /**
-     * Test index method
-     *
-     * @return void
+     * Auth data
      */
-    public function testIndex()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+    private $authData = [
+        'User' => [
+            'id' => 1,
+            'd_n' => 'Test User',
+        ]
+    ];
 
     /**
-     * Test view method
+     * Setup test
      *
      * @return void
      */
-    public function testView()
+    public function setUp()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        parent::setUp();
+
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+        $this->enableRetainFlashMessages();
     }
 
     /**
@@ -50,7 +57,27 @@ class ImgnotesControllerTest extends TestCase
      */
     public function testAdd()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->session(['Auth' => $this->authData]);
+
+        $countBefore = TableRegistry::get('Imgnotes')->find()->count();
+
+        $this->post('imgnotes/add', [
+            'user_id' => 1,
+            'attachment_id' => 'd372525d-9fb6-4643-bd21-217cb96d7496',
+            'profile_id' => 1,
+            'x1' => 110,
+            'y1' => 275,
+            'width' => 85,
+            'height' => 85,
+            'note' => 'Huey Duck',
+        ]);
+
+        $this->assertResponseSuccess();
+        $this->assertRedirect(['controller' => 'Attachments', 'action' => 'view', 'd372525d-9fb6-4643-bd21-217cb96d7496']);
+        $this->assertFlashElement('Flash/success');
+
+        $countAfter = TableRegistry::get('Imgnotes')->find()->count();
+        $this->assertEquals($countBefore + 1, $countAfter);
     }
 
     /**
@@ -60,7 +87,31 @@ class ImgnotesControllerTest extends TestCase
      */
     public function testEdit()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->session(['Auth' => $this->authData]);
+
+        $countBefore = TableRegistry::get('Imgnotes')->find()->count();
+
+        $this->post('imgnotes/edit/1', [
+            'id' => 1,
+            'user_id' => 1,
+            'attachment_id' => 'd372525d-9fb6-4643-bd21-217cb96d7496',
+            'profile_id' => 1,
+            'x1' => 160,
+            'y1' => 35,
+            'width' => 100,
+            'height' => 110,
+            'note' => 'This is Donald Duck',
+        ]);
+
+        $this->assertResponseSuccess();
+        $this->assertRedirect(['controller' => 'Attachments', 'action' => 'view', 'd372525d-9fb6-4643-bd21-217cb96d7496']);
+        $this->assertFlashElement('Flash/success');
+
+        $countAfter = TableRegistry::get('Imgnotes')->find()->count();
+        $this->assertEquals($countBefore, $countAfter);
+
+        $imgnote = TableRegistry::get('Imgnotes')->get(1);
+        $this->assertEquals('This is Donald Duck', $imgnote->note);
     }
 
     /**
@@ -70,6 +121,15 @@ class ImgnotesControllerTest extends TestCase
      */
     public function testDelete()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->session(['Auth' => $this->authData]);
+
+        $countBefore = TableRegistry::get('Imgnotes')->find()->count();
+
+        $this->get('imgnotes/delete/1');
+
+        $this->assertRedirect();
+
+        $countAfter = TableRegistry::get('Imgnotes')->find()->count();
+        $this->assertEquals($countBefore - 1, $countAfter);
     }
 }
