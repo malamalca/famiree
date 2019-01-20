@@ -211,13 +211,21 @@
 			} else if (!empty($union['c']) && sizeof($union['c'])>1) {
 				// multiple children
 				$bottom = $parent1['y'] * $spacing_y;
-				$center = ($parent1['x']+$parent2['x']) / 2 * $spacing_x + ($node_w / 2); // beware there is sum of parents in original version
+                $center = ($parent1['x']+$parent2['x']) / 2 * $spacing_x + ($node_w / 2); // beware there is sum of parents in original version
+
+                if (!empty($union['c'][0]) && $spouse_count > 0) {
+                    // check if first child position outside bounds
+                    $firstChild = $tree['p'][$union['c'][0]]['Profile'];
+                    if ($firstChild['x'] > $center) {
+                        $center = $firstChild['x'] * $spacing_x + ($node_w / 2);
+                    }
+                }
 
 				$class = 'v';
 				if (!empty($parent1['d_r']) || !empty($parent2['d_r'])) $class .= ' d_r';
 				$style = sprintf('left: %Fem; ', $center);
 				$style .= sprintf('bottom: %Fem; ', ($bottom - ($space_h / 3)));
-				$style .= sprintf('height: %Fem; ', (($node_h / 2) + ($space_h / 3)));
+				$style .= sprintf('height: %Fem; ', (($node_h / 2) + ($space_h / 3)) + $spouse_count);
 				echo '<div class="'.$class.'" style="'.$style.'">&#160;</div>' . PHP_EOL;
 
 				foreach ($union['c'] as $child_u) {
