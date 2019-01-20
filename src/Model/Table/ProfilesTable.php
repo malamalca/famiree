@@ -443,14 +443,14 @@ class ProfilesTable extends Table
         $user->rst = $reset_key;
         if ($this->save($user)) {
             $email = new Email('default');
-            $email->from([Configure::read('from.email') => Configure::read('from.name')]);
-            $email->to($user->e);
-            $email->subject(__('Password Reset'));
+            $email->setFrom([Configure::read('from.email') => Configure::read('from.name')]);
+            $email->setTo($user->e);
+            $email->setSubject(__('Password Reset'));
 
-            $email->template('reset');
-            $email->emailFormat('text');
-            $email->viewVars(['reset_key' => $reset_key]);
-            $email->helpers(['Html']);
+            $email->viewBuilder()->setTemplate('reset');
+            $email->setEmailFormat('text');
+            $email->setViewVars(['reset_key' => $reset_key]);
+            $email->setHelpers(['Html']);
 
             $ret = $email->send();
 
