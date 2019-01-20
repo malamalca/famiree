@@ -342,7 +342,11 @@
 				?>
 			</div>
 		</div>
-		<?php echo $this->Html->script('tree') . PHP_EOL; ?>
+        <?php
+            if (!$this->getRequest()->is('mobile')) {
+                echo $this->Html->script('tree') . PHP_EOL;
+            }
+        ?>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				var sel ;
