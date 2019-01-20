@@ -9,7 +9,7 @@
 <?php
     echo $this->Form->create($user);
     echo $this->Form->hidden('id');
-    echo $this->Form->hidden('rst');
+    echo $this->Form->hidden('rst', ['value' => '']);
     echo $this->Form->control('p', ['type' => 'password', 'label' => __('New Password') . ':', 'error' => __('Password is required, format must be valid.')]);
     echo $this->Form->control('repeat_pass', ['type' => 'password', 'label' => __('New Password') . ':', 'error' => __('Passwords do not match.')]);
 
