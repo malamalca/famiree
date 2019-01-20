@@ -213,11 +213,20 @@
 				$bottom = $parent1['y'] * $spacing_y;
                 $center = ($parent1['x']+$parent2['x']) / 2 * $spacing_x + ($node_w / 2); // beware there is sum of parents in original version
 
-                if (!empty($union['c'][0]) && $spouse_count > 0) {
+                // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                // 20.01.2019 added code for multiple spouses and positioning of vertical lines
+                if (sizeof($union['c']) > 0  && $spouse_count > 0) {
                     // check if first child position outside bounds
                     $firstChild = $tree['p'][$union['c'][0]]['Profile'];
-                    if ($firstChild['x'] > $center) {
-                        $center = $firstChild['x'] * $spacing_x + ($node_w / 2);
+                    $newCenter = $firstChild['x'] * $spacing_x + ($node_w / 2);
+                    if ($newCenter > $center) {
+                        $center = $newCenter;
+                    }
+                    // check last child
+                    $lastChild = $tree['p'][$union['c'][sizeof($union['c'])-1]]['Profile'];
+                    $newCenter = $lastChild['x'] * $spacing_x + ($node_w / 2);
+                    if ($newCenter < $center) {
+                        $center = $newCenter;
                     }
                 }
 
