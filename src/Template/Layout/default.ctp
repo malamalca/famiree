@@ -16,7 +16,6 @@
 	<?php echo $this->Html->css('main').PHP_EOL; ?>
 
 	<?php echo $this->Html->script('jquery.min').PHP_EOL; ?>
-	<?php echo $this->Html->script('geni').PHP_EOL; ?>
 	<?= $this->fetch('script') ?>
 </head>
 <body>
