@@ -1,8 +1,3 @@
-$(document).ready(function() {
-
-
-});
-
 function HidePopups(event) {
 	var el = event.target;
 	if(el.tagName.toUpperCase() == "SELECT" || el.tagName.toUpperCase() == "INPUT") return false;
@@ -20,121 +15,108 @@ function ShowPopup(node_id) {
 
 	$(popup_clone).html($(popup_clone).html().replace(/__n__/ig, node_id));
 
-	$(popup).after($(popup_clone).addClass('popup').css("left", $("#TreeNode"+node_id).offset().left+$("#TreeNode"+node_id).width()).css("top", $("#TreeNode"+node_id).offset().top-80).show());
+    $(popup).after($(popup_clone)
+        .addClass('popup')
+        .css("left", $("#TreeNode"+node_id).offset().left+$("#TreeNode"+node_id).width())
+        .css("top", $("#TreeNode"+node_id).offset().top-80)
+        .show()
+    );
 
 	$("body").bind('mouseup', HidePopups).bind('keyup', HidePopups);
 }
 
-function el_id(x) { return document.getElementById(x); }
 var dragging = 0;
 var dragging_mode = '';
-var tree = el_id('tree');
 var mouseX, mouseY;
 var iPhone = (navigator.userAgent.indexOf('iPhone') != -1);
-var static_mode = iPhone || (window.location.search.substring(1).indexOf('printmode')!=-1);
+var static_mode = iPhone || (window.location.search.substring(1).indexOf('print')!=-1);
 
 
 function MoveToNode(node_id) {
 	var node = $('#TreeNode' + node_id);
 	if (node) {
-		tree.style.left = - $(node).position().left + 'px';
-		tree.style.top = - $(node).position().top - $(node).height() + 'px';
+        $('#tree').css({
+            'left': -$(node).position().left + $('#tree_window').width() / 2,
+            'top': -$(node).position().top - $(node).height() + $('#tree_window').height() / 2})
 	}
 }
 
-if (!static_mode) { // for printing or for iPhone browser (has drag scrolling already)
-	el_id('tree_window').onmousedown = function() {
-		if (!dragging) {
-			dragging = 1;
-			dragging_mode = 'tree';
-		}
-	}
-	el_id('zoom_track').onmousedown = function() {
-		if (!dragging) {
-			dragging = 1;
-			dragging_mode = 'zoom-track';
-		}
-	}
-	el_id('zoom_slider').onmousedown = function() {
-		if (!dragging) {
-			dragging = 1;
-			dragging_mode = 'zoom-slider';
-		}
-	}
-	document.onmouseup = function() {
-		dragging = 0;
-		dragging_mode = '';
-	}
-	document.onmousemove = function(e) {
-		if (dragging) {
-			if ( e == null ) e = document.parentWindow.event;
-			if (dragging==2) {
-				x = mouseX-getMouseX(e);
-				y = mouseY-getMouseY(e);
-				if (dragging_mode=='tree') {
-					tree.style.left = parseInt(tree.style.left+'0')-x+'px';
-					tree.style.top = parseInt(tree.style.top+'0')-y+'px';
-	//				tree.scrollLeft += x;
-	//				tree.scrollTop += y;
-				} else if (dragging_mode=='zoom-slider') {
-					slider_pos = Math.max(0, Math.min(143, parseInt(el_id('zoom_slider').style.top+'0')-y));
-					el_id('zoom_slider').style.top = slider_pos+'px';
-					tree.style.fontSize = (143-slider_pos)/143*11+1+'px';
-				} else if (dragging_mode=='zoom-track') {
+$(document).ready(function() {
+    if (!static_mode) { // for printing or for iPhone browser (has drag scrolling already)
+        $('#tree_window').mousedown(function(e) {
+            if (!dragging) {
+                dragging = 1;
+                dragging_mode = 'tree';
+                mouseX = getMouseX(e);
+                mouseY = getMouseY(e);
+            }
+        });
+        $('#zoom_track').mousedown(function() {
+            if (!dragging) {
+                dragging = 1;
+                dragging_mode = 'zoom-track';
+            }
+        });
+        $('#zoom_slider').mousedown(function() {
+            if (!dragging) {
+                dragging = 1;
+                dragging_mode = 'zoom-slider';
+            }
+        });
+        $(document).mouseup(function() {
+            dragging = 0;
+            dragging_mode = '';
+        });
 
-				}
-			}
-			mouseX = getMouseX(e);
-			mouseY = getMouseY(e);
-			if (mouseX==null || mouseY==null)
-				dragging = 0;
-			else dragging = 2;
-		}
-	}
+        $(document).mousemove(function(e) {
+            if (dragging) {
+                if ( e == null ) e = document.parentWindow.event;
+                if (dragging==2) {
+                    x = mouseX - getMouseX(e);
+                    y = mouseY - getMouseY(e);
+                    if (dragging_mode == 'tree') {
+                        var pos = $('#tree').position();
+                        $('#tree').css({'left': pos.left - x, 'top': pos.top - y})
+                    } else if (dragging_mode == 'zoom-slider') {
+                        slider_pos = Math.max(0, Math.min(143, $('#zoom_slider').position().top - y));
+                        $('#zoom_slider').css({'top': slider_pos});
+                        $('#tree').css({'fontSize': (143-slider_pos)/143*11+1});
+                    } else if (dragging_mode == 'zoom-track') {
 
-	el_id('zoom_track').parentNode.getElementsByTagName('img')[0].onclick=function() {
-		tree.style.left = 0;
-		tree.style.top = 0;
-	}
-} else { // static_mode mode: Allow the device's drag-scrolling, rather than use javascript drag-scrolling.
-	el_id('tree_centerer').style.left = el_id('tree_centerer').style.top = el_id('tree_centerer').style.margin = 0;//document.body.style.minWidth
-	el_id('zoomer').style.display = 'none';
-	el_id('tree_window').style.position = 'static';
-	//document.body.style.backgroundColor = el_id('tree_window').style.backgroundColor;
-	var nodes = tree.getElementsByTagName('li');
-	var leftmost = 0;
-	var topmost = 0;
-	function fixPositioning() {
-		if (nodes[1].offsetTop < 0) {
-			for (i=0; i<nodes.length; i++) {
-				if (nodes[i].offsetTop < topmost) {
-					topmost = nodes[i].offsetTop;
-				}
-				if (nodes[i].offsetLeft < leftmost) {
-					leftmost = nodes[i].offsetLeft;
-				}
-			}
-			tree.style.left = (0-leftmost)+'px';
-			tree.style.top = (0-topmost)+'px';
-			if (iPhone) {
-				doScroll(0-leftmost-(document.body.clientWidth/2)+(nodes[1].clientWidth/2), 0-topmost-(document.body.clientHeight/2)+(nodes[1].clientHeight/2));
-			}
-		} else {
-			setTimeout(fixPositioning, 1);
-		}
-	}
-	fixPositioning();
-	function doScroll(x, y) {
-		document.documentElement.scrollLeft = x;
-		document.documentElement.scrollTop = y;
-		document.body.scrollLeft = x;
-		document.body.scrollTop = y;
-		window.pageXOffset = x;
-		window.pageYOffset = y;
-		window.scrollX = x;
-		window.scrollY = y;
-	}
-}
+                    }
+                }
+                mouseX = getMouseX(e);
+                mouseY = getMouseY(e);
+                if (mouseX==null || mouseY==null) dragging = 0; else dragging = 2;
+            }
+        });
+
+        $('#zoomer>img').click(function(e) {
+            $('#tree').css({'left': $('#tree_window').width() / 2, 'top': $('#tree_window').height() / 2});
+        });
+    } else { // static_mode mode: Allow the device's drag-scrolling, rather than use javascript drag-scrolling.
+        $('#zoomer').hide();
+        $('#tree_window').css({'position': 'static'});
+
+        var leftmost = 0;
+        var topmost = 0;
+        $('#tree li').each(function() {
+            if ($(this).position().top < topmost) {
+                topmost = $(this).position().top;
+            }
+            if ($(this).position().left < leftmost) {
+                leftmost = $(this).position().left;
+            }
+        });
+
+        $('#tree').css({'left': (-leftmost), 'top': (-topmost) + $('#header_container').height() + 5, 'margin': 5});
+        $('#header_container').css({'position': 'fixed', 'z-index': 99999999});
+        $('html, body').animate({
+            scrollLeft: ($('.main:first').offset().left - (document.body.clientWidth/2)),
+            scrollTop: ($('.main:first').offset().top)
+        }, 500);
+    }
+});
 function getMouseX(evt) {
 	if (evt.pageX) return evt.pageX;
 	else if (evt.clientX)

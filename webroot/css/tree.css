@@ -42,7 +42,7 @@ img {
 	height: 90px;
 	width: 100%;
 	background-color: #ffffff;
-	
+
 	border-bottom-style: solid;
 	border-bottom-width: 1px;
 	border-bottom-color: #CCCCCC;
@@ -52,7 +52,7 @@ img {
 	width: 960px;
 	margin-left: auto !important;
 	margin-right: auto !important;
-	
+
 	margin: 0px;
 	padding: 0px;
 }
@@ -93,8 +93,10 @@ img {
 }
 #tree {
 	position:absolute;
-	top:0;
-	left:0;
+	top:50%;
+	left:50%;
+	margin-top:4.833em;/*8.5*/
+	margin-left:-4em;
 }
 
 #nodes {
@@ -155,7 +157,7 @@ img {
 	/*margin:0.75em 2em .6em;*/
 	margin: 0px;
 	margin-top: .35em;
-	
+
 	border:.083em solid;
 	border-color:#d8d8d8 #fff #fff #d8d8d8;
 	display:block;
@@ -214,7 +216,7 @@ img {
 #nodes li .minor {
 	font-weight: normal;
 	font-style: italic;
-} 
+}
 #tree a.ghost {
 	text-decoration:underline;
 	font-size:120%;

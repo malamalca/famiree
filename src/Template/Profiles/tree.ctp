@@ -25,7 +25,7 @@
 ?>
 		<div id="header_container"><?php echo $this->element('header'); ?></div>
 		<div id="tree_window">
-			<div id="tree_centerer">
+			<!--<div id="tree_centerer">-->
 				<div id="tree">
 					<ul id="nodes">
 <?php
@@ -331,7 +331,7 @@
 	}
 ?>
 					</div>
-				</div>
+				<!--</div>-->
 			</div>
 
 			<div id="HiddenPopup" style="display:none;">
@@ -349,7 +349,7 @@
 				<div id="zoom_track">&#160;</div>
 				<div id="zoom_slider">&#160;</div>
 				<?php
-					if (!empty($tree['p'][$current_profile]['Profile']['ta']) && (!empty($Auth) || !$tree['p'][$current_profile]['Profile']['l'])) {
+					if (!empty($tree['p'][$current_profile]['Profile']['ta']) && ($this->currentUser->exists() || !$tree['p'][$current_profile]['Profile']['l'])) {
 						echo $this->Html->image('thumbs/'.$tree['p'][$current_profile]['Profile']['ta'].'.png', ['alt' => $tree['p'][$current_profile]['Profile']['d_n']]) . PHP_EOL;
 					} else if ($tree['p'][$current_profile]['Profile']['g']=='f') {
 						echo $this->Html->image('f.png', ['alt' => $tree['p'][$current_profile]['Profile']['d_n']]) . PHP_EOL;
@@ -359,11 +359,7 @@
 				?>
 			</div>
 		</div>
-        <?php
-            if (!$this->getRequest()->is('mobile')) {
-                echo $this->Html->script('tree') . PHP_EOL;
-            }
-        ?>
+        <?php echo $this->Html->script('tree') . PHP_EOL; ?>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				var sel ;
