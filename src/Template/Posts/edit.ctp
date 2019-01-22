@@ -1,5 +1,6 @@
 <?php
     $this->set('sidebar', '');
+    $this->set('title_for_layout', __('Edit Post'));
 ?>
 <h1><?= __('Edit Post') ?></h1>
 <div class="form" id="FormEditPost">
@@ -28,16 +29,11 @@
     <div class="legend"><?= __('Additional Properties') ?></div>
     <div class="dropdown">
     <?php
-        echo $this->Form->control('created', [
-            'label' => __('Created') . ':',
-            //'dateFormat' => Configure::read('dateFormat'),
-            //'timeFormat' => Configure::read('timeFormat'),
-            //'separator' => Configure::read('dateSeparator'),
-        ]);
+        echo $this->Form->control('created', ['label' => __('Created') . ':']);
 
         echo $this->Form->control('creator_id', [
             'type' => 'select',
-            'options' => @$authors,
+            'options' => $authors,
             'label' => __('Creator') . ':',
             'id' => 'PostCreatorId'
         ]);
