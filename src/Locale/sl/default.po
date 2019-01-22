@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Famiree v0.9dev\n"
 "POT-Creation-Date: 2019-01-22 15:30+0000\n"
-"PO-Revision-Date: 2019-01-22 16:40+0100\n"
+"PO-Revision-Date: 2019-01-22 16:59+0100\n"
 "Last-Translator: Miha Nahtigal <mihan@email.si>\n"
 "Language-Team: Miha Nahtigal <miha@nahtigal.com>\n"
 "Language: sl_SI\n"
@@ -576,7 +576,7 @@ msgstr "Izobrazba"
 
 #: Template/Element/Sidebar/Profiles/view.ctp:100 Template/Profiles/edit.ctp:48
 msgid "Job"
-msgstr "Zaposlitev"
+msgstr "Poklic"
 
 #: Template/Element/Sidebar/Profiles/view.ctp:141 Template/Profiles/edit.ctp:59
 msgid "Activities"

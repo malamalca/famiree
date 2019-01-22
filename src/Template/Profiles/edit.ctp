@@ -21,9 +21,9 @@
     <fieldset>
         <?php
             echo $this->Form->control('h_c', ['type' => 'select', 'label' => __('Hair Color').':',
-                'options' => $this->Famiree->hairColors, 'empty' => '']);
+                'options' => $this->Famiree->hairColors, 'empty' => true]);
             echo $this->Form->control('e_c', ['type' => 'select', 'label' => __('Eye Color').':',
-                'options' => $this->Famiree->eyeColors, 'empty' => '']);
+                'options' => $this->Famiree->eyeColors, 'empty' => true]);
             echo $this->Form->control('n_n', ['type' => 'text', 'label' => __('Nick Names').':']);
             echo $this->Form->control('edu', ['type' => 'text', 'label' => __('Education').':']);
             echo $this->Form->control('job', ['type' => 'text', 'label' => __('Job').':']);
