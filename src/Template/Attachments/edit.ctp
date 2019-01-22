@@ -7,11 +7,11 @@
 <?php
     echo __('Attachment');
     echo ': ';
-if ($attachment->isNew()) {
-    echo __('Add');
-} else {
-    echo h($attachment->title);
-}
+    if ($attachment->isNew()) {
+        echo __('Add');
+    } else {
+        echo h($attachment->title);
+    }
 ?>
 </h1>
 <div class="form" id="FormAttachment">
@@ -54,26 +54,17 @@ if ($attachment->isNew()) {
     <div class="legend"><?= __('Additional Properties') ?></div>
     <div class="dropdown">
     <?php
-        echo $this->Form->control('created', [
-            'label' => __('Created') . ':',
-            //'dateFormat' => Configure::read('dateFormat'),
-            //'timeFormat' => Configure::read('timeFormat'),
-            //'separator' => Configure::read('dateSeparator'),
-            'id' => 'AttachmentCreated'
-        ]);
+        echo $this->Form->control('created', ['label' => __('Created') . ':', 'id' => 'AttachmentCreated']);
         echo $this->Form->control('creator_id', ['type' => 'hidden']);
         ?>
     </div>
 </div>
     <?php
         echo '<div class="input submit">';
-        echo $this->Form->button(__('Save'), [
-            'type' => 'submit',
-            'id' => 'AttachmentSubmitButton'
-        ]);
+        echo $this->Form->button(__('Save'), ['type' => 'submit', 'id' => 'AttachmentSubmitButton']);
 
         if ($referer = trim(base64_decode($this->getRequest()->getData('referer')))) {
-            echo ' '.__('or', true).' '.$this->Html->link(__('Cancel'), $referer);
+            echo ' ' . __('or') . ' ' . $this->Html->link(__('Cancel'), $referer);
         }
 
         echo '</div>';
@@ -92,16 +83,16 @@ if ($attachment->isNew()) {
             $('#AttachmentSubmitButton').attr('disabled', true);
         });
         $('#AttachmentFilename').change(function(){
-            if ($('#AttachmentTitle').val()=='') {
+            if ($('#AttachmentTitle').val() == '') {
                 var fileName = $('#AttachmentFilename').val();
-                var extractStart = fileName.lastIndexOf('\\')+1;
-                var extractStart2 = fileName.lastIndexOf('/')+1;
+                var extractStart = fileName.lastIndexOf('\\') + 1;
+                var extractStart2 = fileName.lastIndexOf('/') + 1;
                 if (extractStart2 > extractStart) extractStart = extractStart2;
 
                 fileName = fileName.substring(extractStart, fileName.length);
 
                 var extractEnd = fileName.lastIndexOf('.');
-                if (extractEnd>=0) fileName = fileName.substring(0, extractEnd);
+                if (extractEnd >= 0) fileName = fileName.substring(0, extractEnd);
 
                 $('#AttachmentTitle').val(fileName);
             }

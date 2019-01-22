@@ -13,21 +13,13 @@
         if ($this->currentUser->get('id') == $attachment->user_id) {
             $added_by = __('Me');
         }
-        $added_by = $this->Html->link($added_by, [
-            'controller' => 'Profiles',
-            'action' => 'view',
-            $attachment->user_id
-        ]);
+        $added_by = $this->Html->link($added_by, ['controller' => 'Profiles', 'action' => 'view', $attachment->user_id]);
     }
 
     echo '<div>';
-    printf(
-        __('Added by %1$s, %2$s.'),
-        $added_by,
-        $this->Time->timeAgoInWords(
-            $attachment->created,
-            ['format' => Configure::read('outputDateFormat').' HH:mm']
-        )
+    echo __('Added {0} by {1}.',
+        $this->Time->timeAgoInWords($attachment->created, ['format' => Configure::read('outputDateFormat').' HH:mm']),
+        $added_by
     );
     echo '</div>';
 
@@ -40,11 +32,7 @@
             if ($this->currentUser->get('id') == $alink->profile->id) {
                 $bName = __('Me');
             }
-            $belongsTo[] = $this->Html->link($bName, [
-                'controller' => 'Profiles',
-                'action' => 'view',
-                $alink->profile->id
-            ]);
+            $belongsTo[] = $this->Html->link($bName, ['controller' => 'Profiles', 'action' => 'view', $alink->profile->id]);
         }
     }
 
@@ -53,10 +41,10 @@
     }
 
     echo '<div>';
-    echo __('Belongs to');
-    echo ' ' . $this->Text->toList($belongsTo, __('and')) . '. ';
-    echo $this->Html->link(__('Add link'), '#', ['id' => 'AddAttachmentsLink']);
+    echo __('Belongs to {0}.', $this->Text->toList($belongsTo, __('and')));
+    echo '&nbsp;';
 
+    echo $this->Html->link(__('Add link'), '#', ['id' => 'AddAttachmentsLink']);
     echo $this->Form->create(null, ['id' => 'AttachmentsLinkForm', 'url' => ['controller' => 'AttachmentsLinks', 'action' => 'add']]);
     $this->Form->unlockField('foreign_id');
     echo $this->Form->hidden('referer', ['value' => base64_encode($this->Url->build(null, true))]);
@@ -76,26 +64,19 @@
 <h1>
 <?php
     echo __('Attachment');
-if (!empty($attachment->title)) {
-    echo ': ';
-    echo h($attachment->title);
-}
+    if (!empty($attachment->title)) {
+        echo ': ';
+        echo h($attachment->title);
+    }
 ?>
 </h1>
 <div>
-    <?php
-        echo $this->Html->image(
-            [
-                'action' => 'display',
-                $attachment->id,
-                'large',
-                $this->Famiree->slug($attachment->title) . '.' . strtolower($attachment->ext)
-            ],
-            [
-                'id' => 'AttachmentImage'
-            ]
-        );
-        ?>
+<?php
+    echo $this->Html->image(
+        ['action' => 'display', $attachment->id, 'large', Text::slug($attachment->title) . '.' . strtolower($attachment->ext)],
+        ['id' => 'AttachmentImage']
+    );
+?>
 </div>
 <?php
 if (!empty($attachment->description)) {
@@ -129,20 +110,14 @@ if (!empty($attachment->description)) {
     echo '<div class="input text">';
     echo '<label for="Imgnote.note">' . __('Note') . ':</label>';
     echo $this->Form->text('note', ['id' => 'ImgnoteNote']);
-    echo $this->Html->image('ico_avatar_check.gif', [
-        'style' => 'display: none;',
-        'id' => 'ImageAvatarCheck'
-    ]);
+    echo $this->Html->image('ico_avatar_check.gif', ['style' => 'display: none;', 'id' => 'ImageAvatarCheck']);
     echo '</div>';
 
-    echo $this->Form->control('crop_to_new', [
-        'type' => 'checkbox',
-        'label' => __('Crop and create new image')
-    ]);
+    echo $this->Form->control('crop_to_new', ['type' => 'checkbox', 'label' => __('Crop and create new image')]);
 
     echo '<div class="input submit">';
     echo $this->Form->button(__('Save'), ['type' => 'submit']);
-    echo ' '.__('or').' <span class="link" id="CancelNoteLink">'.__('Cancel').'</span>';
+    echo ' ' . __('or') . ' <span class="link" id="CancelNoteLink">' . __('Cancel') . '</span>';
     echo '</div>';
     echo $this->Form->end();
 
@@ -159,14 +134,14 @@ if (!empty($attachment->description)) {
     <?php
         echo 'var notes = [';
         $i = 0;
-    foreach ($attachment->imgnotes as $imgnote) {
-        if ($i++ > 0) {
-            echo ',';
+        foreach ($attachment->imgnotes as $imgnote) {
+            if ($i++ > 0) {
+                echo ',';
+            }
+            echo '{"x1":"'.$imgnote->x1.'","y1":"'.$imgnote->y1.'","height":"'.$imgnote->height.'","width":"'.$imgnote->width.
+                '","note":"'.$imgnote->note.'","id":'.$imgnote->id.
+                (!empty($imgnote->profile_id)?',"url":"'.$this->Url->build(['controller' => 'Profiles', 'action' => 'view', $imgnote->profile_id]).'"':'').'}';
         }
-        echo '{"x1":"'.$imgnote->x1.'","y1":"'.$imgnote->y1.'","height":"'.$imgnote->height.'","width":"'.$imgnote->width.
-            '","note":"'.$imgnote->note.'","id":'.$imgnote->id.
-            (!empty($imgnote->profile_id)?',"url":"'.$this->Url->build(['controller' => 'Profiles', 'action' => 'view', $imgnote->profile_id]).'"':'').'}';
-    }
         echo '];';
     ?>
 

@@ -127,52 +127,6 @@ class FamireeHelper extends Helper
     }
 
     /**
-     * Returns a string with all spaces converted to underscores (by default), accented
-     * characters converted to non-accented characters, and non word characters removed.
-     *
-     * @param string $string String
-     * @param string $replacement Replacement chars
-     * @return string
-     * @access public
-     * @static
-     */
-    public function slug($string, $replacement = '_')
-    {
-        $map = [
-            '/à|á|å|â/' => 'a',
-            '/è|é|ê|ẽ|ë/' => 'e',
-            '/ì|í|î/' => 'i',
-            '/ò|ó|ô|ø/' => 'o',
-            '/ù|ú|ů|û/' => 'u',
-            '/ç|č|ć/' => 'c',
-            '/š/' => 's',
-            '/ž/' => 'z',
-            '/đ/' => 'dz',
-
-            '/Ć|Č/' => 'C',
-            '/Š/' => 'S',
-            '/Ž/' => 'Z',
-            '/Đ/' => 'DZ',
-
-            '/ñ/' => 'n',
-            '/ä|æ/' => 'ae',
-            '/ö/' => 'oe',
-            '/ü/' => 'ue',
-            '/Ä/' => 'Ae',
-            '/Ü/' => 'Ue',
-            '/Ö/' => 'Oe',
-            '/ß/' => 'ss',
-            '/[^\w\s]/' => ' ',
-            '/\\s+/' => $replacement,
-            Text::insert('/^[:replacement]+|[:replacement]+$/', ['replacement' => preg_quote($replacement, '/')]) => '',
-        ];
-        $result = preg_replace(array_keys($map), array_values($map), $string);
-        $result = preg_replace('/[^A-Za-z0-9-]/', $replacement, $result);
-
-        return preg_replace('/' . preg_quote($replacement, '/') . '+/', $replacement, $result);
-    }
-
-    /**
      * Replaces double line-breaks with paragraph elements.
      *
      * A group of regex replaces used to identify text formatted with newlines and

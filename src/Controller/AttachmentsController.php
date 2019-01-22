@@ -75,7 +75,6 @@ class AttachmentsController extends AppController
                 $a_description .= '.' . $attachment->ext;
             }
         }
-        $a_description = strtolower($a_description);
         if ($name != $a_description) {
             $this->redirect([$id, $size, $a_description], 301);
         }
@@ -83,10 +82,14 @@ class AttachmentsController extends AppController
         $filePath = Configure::read('sourceFolders.attachments') . $attachment->id . DS . $size;
         if (!file_exists($filePath)) {
             throw new NotFoundException(__('Attachment does not exist.'));
-            //$filePath = Configure::read('sourceFolders.attachments') . 'missing.png';
         }
 
-        $response = $this->response->withFile($filePath, ['name' => 'foo', 'download' => (bool)$this->getRequest()->getParam('download')]);
+        $response = $this->response
+            ->withType($attachment->mimetype)
+            ->withFile(
+                $filePath,
+                ['name' => $a_description, 'download' => (bool)$this->getRequest()->getParam('download')]
+            );
 
         return $response;
     }

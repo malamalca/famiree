@@ -66,5 +66,5 @@ foreach ($posts as $post) {
     echo '</div>';
 }
 ?>
-<div class="paginator"><?= $this->Paginator->numbers(['first' => '1']) ?></div>
+<ul class="paginator"><?= $this->Paginator->numbers(['first' => '1']) ?></ul>
 </div>
