@@ -110,22 +110,6 @@ class AttachmentsControllerTest extends TestCase
     }
 
     /**
-     * Test display method
-     *
-     * @return void
-     */
-    public function testDisplay()
-    {
-        $this->session(['Auth' => $this->authData]);
-        $this->get('/attachments/display/d372525d-9fb6-4643-bd21-217cb96d7495');
-        $this->assertRedirect(['controller' => 'Attachments', 'action' => 'display', 'd372525d-9fb6-4643-bd21-217cb96d7495', 'original', 'd-duck-profile.png']);
-
-        $this->get('/attachments/display/d372525d-9fb6-4643-bd21-217cb96d7495/original/d-duck-profile.png');
-        $this->assertResponseOk();
-        $this->assertNoRedirect();
-    }
-
-    /**
      * Test view method
      *
      * @return void
@@ -153,7 +137,7 @@ class AttachmentsControllerTest extends TestCase
         $this->post('attachments/add', [
             'user_id' => 1,
             'filename' => [
-                'tmp_name' => TMP . DS . 'DDuckAngry.png',
+                'tmp_name' => TMP . 'DDuckAngry.png',
                 'name' => 'DDuckAngry.png',
                 'type' => 'image/png',
                 'size' => 115850,
@@ -170,7 +154,7 @@ class AttachmentsControllerTest extends TestCase
         $countAfter = TableRegistry::get('Attachments')->find()->count();
         $this->assertEquals($countBefore + 1, $countAfter);
 
-        $this->assertFalse(file_exists(TMP . DS . 'DDuckAngry.png')); // file should move
+        $this->assertFalse(file_exists(TMP . 'DDuckAngry.png')); // file should move
 
         $attachment = TableRegistry::get('Attachments')->find()
             ->select()
@@ -235,7 +219,7 @@ class AttachmentsControllerTest extends TestCase
             'id' => 'd372525d-9fb6-4643-bd21-217cb96d7495',
             'user_id' => 1,
             'filename' => [
-                'tmp_name' => TMP . DS . 'DDuckAngry.png',
+                'tmp_name' => TMP . 'DDuckAngry.png',
                 'name' => 'DDuckAngry.png',
                 'type' => 'image/png',
                 'size' => 115850,
@@ -292,5 +276,21 @@ class AttachmentsControllerTest extends TestCase
 
         $this->assertFalse(file_exists(Configure::read('sourceFolders.thumbs') . 'd372525d-9fb6-4643-bd21-217cb96d7495.png'));
         $this->assertFalse(file_exists(Configure::read('sourceFolders.attachments') . 'd372525d-9fb6-4643-bd21-217cb96d7495'));
+    }
+
+    /**
+     * Test display method
+     *
+     * @return void
+     */
+    public function testDisplay()
+    {
+        $this->session(['Auth' => $this->authData]);
+        $this->get('/attachments/display/d372525d-9fb6-4643-bd21-217cb96d7495');
+        $this->assertRedirect(['controller' => 'Attachments', 'action' => 'display', 'd372525d-9fb6-4643-bd21-217cb96d7495', 'original', 'D-Duck-Profile.png']);
+
+        $this->get('/attachments/display/d372525d-9fb6-4643-bd21-217cb96d7495/original/D-Duck-Profile.png');
+        $this->assertResponseOk();
+        $this->assertNoRedirect();
     }
 }

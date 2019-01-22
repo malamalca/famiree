@@ -226,6 +226,10 @@ class AttachmentsTable extends Table
             if (!empty($image)) {
                 $dir = new Folder(Configure::read('sourceFolders.attachments') . $entity->id, true);
 
+                if (file_exists($dir->path . DS . 'original')) {
+                    unlink($dir->path . DS . 'original');
+                }
+
                 $moveResult = ($method == 'uploaded') ? move_uploaded_file($tmpFilename, $dir->path . DS . 'original') : rename($tmpFilename, $dir->path . DS . 'original');
                 if ($moveResult) {
                     $image->resize(640, 480, 'inside')->saveToFile($dir->path . DS . 'large', $entity->ext);
@@ -239,6 +243,7 @@ class AttachmentsTable extends Table
                     }
                     $thumb->saveToFile(Configure::read('sourceFolders.thumbs') . $entity->id . '.png', null, 9);
                 }
+                unset($image);
             }
         }
     }
