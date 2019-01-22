@@ -11,10 +11,7 @@ foreach ($posts as $post) {
 
     if (!empty($post->profiles[0]->ta)) {
         echo '<div id="ProfileHeadshot">';
-        echo $this->Html->image(
-            ['controller' => 'Attachments', 'action' => 'display', $post->profiles[0]->ta, 'medium'],
-            ['id' => 'SidebarAttachmentPreviewImage']
-        );
+        echo $this->Html->image('thumbs/' . $post->profiles[0]->ta . '.png', ['id' => 'SidebarAttachmentPreviewImage']);
         echo '</div>';
     }
 

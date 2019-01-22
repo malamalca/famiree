@@ -74,9 +74,9 @@ foreach ($profiles as $profile) {
     echo '</tr>' . PHP_EOL;
 }
     echo '</table>';
-    echo '<div class="paginator">';
-        $this->Paginator->options(['url' => array_merge($this->passedArgs, ['criterio' => $criterio])]);
+    $this->Paginator->options(['url' => array_merge($this->passedArgs, ['criterio' => $criterio])]);
+    echo '<ul class="paginator">';
     echo $this->Paginator->numbers();
-    echo '</div>';
+    echo '</ul>';
 ?>
 </div>
