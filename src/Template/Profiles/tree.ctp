@@ -61,9 +61,9 @@
 			if (!$node['l']) $class .= "_d";
 		}
 		if (!isset($node['del'])) $class .= " user";
-		if ($current_profile==$node['id']) $class .= " main";
+		if ($current_profile == $node['id']) $class .= " main";
 
-		printf('<li id="TreeNode%4$d" style="bottom: %1$Fem; left: %2$Fem" class="%3$s">' . PHP_EOL,
+        printf('<li id="TreeNode%4$d" style="bottom: %1$Fem; left: %2$Fem" class="%3$s">' . PHP_EOL,
 			$node['y'] * $spacing_y,
 			$node['x'] * $spacing_x,
 			$class,

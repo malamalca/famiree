@@ -102,7 +102,11 @@ class ProfilesController extends AppController
             throw new NotFoundException(__('Invalid user.'));
         }
 
-        $tree = $this->Profiles->tree($current_profile, 100);
+        $depth = (int)$this->request->getQuery('depth', 100);
+        if ($depth < 0) {
+            $depth = 0;
+        }
+        $tree = $this->Profiles->tree($current_profile, $depth);
         $this->set(compact('tree', 'current_profile'));
     }
 

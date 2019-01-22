@@ -104,24 +104,31 @@ trait FamilyTreeTrait
 
             $process_unions = [];
             if (!empty($parents['dad'])) {
-                $dads_siblings = $this->__fetchSiblings($parents['dad'], false);
+                $dads_siblings = [];
+                if ($depth > 0) {
+                    $dads_siblings = $this->__fetchSiblings($parents['dad'], false);
+                }
                 $dads_siblings[] = $parents['dad'];
                 $process_unions = $dads_siblings;
             }
 
             if (!empty($parents['mom'])) {
-                $moms_siblings = $this->__fetchSiblings($parents['mom'], false);
+                $moms_siblings = [];
+                if ($depth > 0) {
+                    $moms_siblings = $this->__fetchSiblings($parents['mom'], false);
+                }
                 if (empty($dads_siblings)) {
                     $process_unions[] = $parents['mom'];
                 }
                 $process_unions = array_merge($process_unions, $moms_siblings);
             }
 
-            $this->__recurseChildren($process_unions, $unions, $profiles, [
+            $this->__recurseChildren($process_unions, 0, $unions, $profiles, [
                 'x' => 0,
                 'y' => $this->dy,
                 'main_union' => $main_union,
-                'direct_relative_id' => [$parents['dad'], $parents['mom']]
+                'direct_relative_id' => [$parents['dad'], $parents['mom']],
+                'maxDepth' => $depth
             ]);
             $this->__bulkReadProfiles($profiles, array_keys($profiles));
 
@@ -164,21 +171,23 @@ trait FamilyTreeTrait
             if (empty($siblings)) {
                 // Situation 1 (profile is not a child in any union)
                 $process_unions = [$id];
-                $this->__recurseChildren($process_unions, $unions, $profiles, [
+                $this->__recurseChildren($process_unions, 0, $unions, $profiles, [
                     'x' => 0,
                     'y' => 0,
-                    'direct_relative' => true
+                    'direct_relative' => true,
+                    'maxDepth' => $depth
                 ]);
                 $this->__bulkReadProfiles($profiles, array_keys($profiles));
             } else {
                 // Situation 2 (no parents in profile's union)
                 $main_union = $this->__fetchUnionOfChild($id);
 
-                $this->__recurseChildren($siblings, $unions, $profiles, [
+                $this->__recurseChildren($siblings, 0, $unions, $profiles, [
                     'x' => 0,
                     'y' => 0,
                     'main_union' => $main_union,
-                    'direct_relative' => true
+                    'direct_relative' => true,
+                    'maxDepth' => $depth
                 ]);
                 $this->__bulkReadProfiles($profiles, array_keys($profiles));
 
@@ -227,12 +236,13 @@ trait FamilyTreeTrait
      * Recursive function for processing children
      *
      * @param array $children Children array
+     * @param int $depth Processing depth
      * @param array $unions Unions array
      * @param array $profiles Profiles array
      * @param array $options Options array
      * @return float|int Current width
      */
-    private function __recurseChildren($children, &$unions, &$profiles, $options = [])
+    private function __recurseChildren($children, $depth, &$unions, &$profiles, $options = [])
     {
         // initialization
         $current_width = 0;
@@ -276,6 +286,9 @@ trait FamilyTreeTrait
                 foreach ($profile_unions as $profile_union_id => $real_profile_id) {
                     // add union to list
                     $unions[$profile_union_id] = $this->_unions[$profile_union_id];
+                    if ($depth > $options['maxDepth']) {
+                        unset($unions[$profile_union_id]['c']);
+                    }
 
                     if (!empty($options['main_union']) && ($options['main_union'] == $profile_union_id)) {
                         $options['x'] += (int)($this->dx / 2);
@@ -283,17 +296,23 @@ trait FamilyTreeTrait
 
                     $base_width = $this->dx;
                     if ($children = $this->__fetchChildren($real_profile_id, $profile_union_id)) {
-                        $base_width = $this->__recurseChildren(
-                            $children,
-                            $unions,
-                            $profiles,
-                            [
-                                'x' => $options['x'] + $current_width,
-                                'y' => $options['y'] - $this->dy,
-                                'direct_relative' => !empty($options['direct_relative']) ||
-                                    (isset($options['main_union']) && $options['main_union'] == $profile_union_id)
-                            ]
-                        );
+                        if ($depth <= $options['maxDepth']) {
+                            $base_width = $this->__recurseChildren(
+                                $children,
+                                $depth + 1,
+                                $unions,
+                                $profiles,
+                                [
+                                    'x' => $options['x'] + $current_width,
+                                    'y' => $options['y'] - $this->dy,
+                                    'direct_relative' => !empty($options['direct_relative']) ||
+                                        (isset($options['main_union']) && $options['main_union'] == $profile_union_id),
+                                    'maxDepth' => $options['maxDepth']
+                                ]
+                            );
+                        } else {
+                            // just read children profiles
+                        }
                     }
 
                     // set position for profile and spouses
@@ -362,7 +381,9 @@ trait FamilyTreeTrait
 
                         // when having only single child, reposition child a bit
                         if ($single_child_id = $this->__bottomMostChildInUnion($profile_union_id)) {
-                            $profiles[$single_child_id]['Profile']['x'] += (int)($this->dx / 2);
+                            if ($depth <= $options['maxDepth']) {
+                                $profiles[$single_child_id]['Profile']['x'] += (int)($this->dx / 2);
+                            }
                         }
                     }
 
@@ -956,6 +977,9 @@ trait FamilyTreeTrait
      */
     private function __bulkReadProfiles(&$profiles, $profile_list)
     {
+        if (empty($profile_list)) {
+            return;
+        }
         if (is_array($profile_list)) {
             $bulk = TableRegistry::get('Profiles')->find()
                 ->select()
