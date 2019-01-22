@@ -50,7 +50,16 @@ class UnitsFixture extends TestFixture
                 'id' => 1,
                 'union_id' => 1,
                 'profile_id' => 1,
-                'kind' => 'L',
+                'kind' => 'p',
+                'sort_order' => 1,
+                'created' => '2019-01-06 15:56:25',
+                'modified' => '2019-01-06 15:56:25'
+            ],
+            [
+                'id' => 2,
+                'union_id' => 1,
+                'profile_id' => 2,
+                'kind' => 'c',
                 'sort_order' => 1,
                 'created' => '2019-01-06 15:56:25',
                 'modified' => '2019-01-06 15:56:25'

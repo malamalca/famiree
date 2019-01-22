@@ -44,11 +44,11 @@ class UnionsFixture extends TestFixture
     {
         $this->records = [
             [
-                'id' => 1,
+                'id' => 1, // Donald ducks family
                 't' => 'L',
-                'dom_d' => 1,
-                'dom_m' => 1,
-                'dom_y' => 'Lorem ip',
+                'dom_d' => null,
+                'dom_m' => null,
+                'dom_y' => null,
                 'loc' => 'Lorem ipsum dolor sit amet',
                 'created' => '2019-01-08 17:18:23',
                 'modified' => '2019-01-08 17:18:23'
