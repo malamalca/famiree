@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Famiree v0.9dev\n"
-"POT-Creation-Date: 2019-01-19 09:14+0000\n"
-"PO-Revision-Date: 2019-01-19 10:22+0100\n"
+"POT-Creation-Date: 2019-01-22 07:40+0000\n"
+"PO-Revision-Date: 2019-01-22 08:41+0100\n"
 "Last-Translator: Miha Nahtigal <mihan@email.si>\n"
 "Language-Team: Miha Nahtigal <miha@nahtigal.com>\n"
 "Language: sl_SI\n"
@@ -14,19 +14,23 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 2.0.6\n"
 
-#: Controller/AttachmentsController.php:134
+#: Controller/AttachmentsController.php:84
+msgid "Attachment does not exist."
+msgstr ""
+
+#: Controller/AttachmentsController.php:140
 msgid "The attachment has been saved."
 msgstr "Priponka je shranjena."
 
-#: Controller/AttachmentsController.php:142
+#: Controller/AttachmentsController.php:148
 msgid "The attachment could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/AttachmentsController.php:159
+#: Controller/AttachmentsController.php:165
 msgid "The attachment has been deleted."
 msgstr "Priponka je izbrisana."
 
-#: Controller/AttachmentsController.php:161
+#: Controller/AttachmentsController.php:167
 msgid "The attachment could not be deleted. Please, try again."
 msgstr ""
 
@@ -36,6 +40,14 @@ msgstr "Priponka je shranjena."
 
 #: Controller/AttachmentsLinksController.php:62
 msgid "The attachments link could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/AttachmentsLinksController.php:78
+msgid "The attachments link has been deleted."
+msgstr "Povezava priponke je izbrisana."
+
+#: Controller/AttachmentsLinksController.php:80
+msgid "The attachments link could not be deleted. Please, try again."
 msgstr ""
 
 #: Controller/ImgnotesController.php:68
@@ -134,24 +146,24 @@ msgstr ""
 msgid "User has been added."
 msgstr "Uporabnik je shranjen."
 
-#: Model/Table/ProfilesTable.php:407
+#: Model/Table/ProfilesTable.php:448
 msgid "Password Reset"
 msgstr "Novo geslo"
 
-#: Template/Attachments/edit.ctp:8 Template/Attachments/view.ctp:78
+#: Template/Attachments/edit.ctp:8 Template/Attachments/view.ctp:66
 msgid "Attachment"
 msgstr "Priponka"
 
-#: Template/Attachments/edit.ctp:11 Template/Attachments/view.ctp:67
+#: Template/Attachments/edit.ctp:11 Template/Attachments/view.ctp:55
 msgid "Add"
 msgstr "Dodaj"
 
-#: Template/Attachments/edit.ctp:19 Template/Posts/edit.ctp:7
+#: Template/Attachments/edit.ctp:19 Template/Posts/edit.ctp:8
 msgid "Basic Info"
 msgstr "Osnovni podatki"
 
-#: Template/Attachments/edit.ctp:36 Template/Posts/edit.ctp:15
-#: Template/Profiles/view.ctp:286;472
+#: Template/Attachments/edit.ctp:36 Template/Posts/edit.ctp:22
+#: Template/Profiles/view.ctp:286;457
 msgid "Title"
 msgstr "Naslov"
 
@@ -163,38 +175,38 @@ msgstr "Datoteka"
 msgid "Description"
 msgstr "Opis"
 
-#: Template/Attachments/edit.ctp:54 Template/Posts/edit.ctp:25
+#: Template/Attachments/edit.ctp:54 Template/Posts/edit.ctp:29
 msgid "Additional Properties"
 msgstr "Dodatne lastnosti"
 
-#: Template/Attachments/edit.ctp:58 Template/Posts/edit.ctp:29
+#: Template/Attachments/edit.ctp:57 Template/Posts/edit.ctp:32
 msgid "Created"
 msgstr "Datum vpisa"
 
-#: Template/Attachments/edit.ctp:70 Template/Attachments/view.ctp:144
-#: Template/Posts/edit.ctp:47 Template/Profiles/add.ctp:85
+#: Template/Attachments/edit.ctp:64 Template/Attachments/view.ctp:119
+#: Template/Posts/edit.ctp:46 Template/Profiles/add.ctp:85
 #: Template/Profiles/edit.ctp:138 Template/Profiles/reorder_children.ctp:60
-#: Template/Profiles/view.ctp:295;482 Template/Users/install.ctp:23
+#: Template/Profiles/view.ctp:295;467 Template/Users/install.ctp:23
 msgid "Save"
 msgstr "Shrani"
 
-#: Template/Attachments/edit.ctp:76 Template/Attachments/view.ctp:145
-#: Template/Element/header.ctp:17 Template/Posts/edit.ctp:50
-#: Template/Posts/index.ctp:16 Template/Posts/view.ctp:13
+#: Template/Attachments/edit.ctp:67 Template/Attachments/view.ctp:120
+#: Template/Element/header.ctp:17 Template/Posts/edit.ctp:49
+#: Template/Posts/index.ctp:24 Template/Posts/view.ctp:13
 #: Template/Profiles/add.ctp:88 Template/Profiles/edit.ctp:141
 #: Template/Profiles/reorder_children.ctp:61
-#: Template/Profiles/view.ctp:300;487;511
+#: Template/Profiles/view.ctp:300;472;496
 msgid "or"
 msgstr "ali"
 
-#: Template/Attachments/edit.ctp:76 Template/Attachments/view.ctp:69;145
-#: Template/Posts/edit.ctp:50 Template/Profiles/add.ctp:88
+#: Template/Attachments/edit.ctp:67 Template/Attachments/view.ctp:57;120
+#: Template/Posts/edit.ctp:49 Template/Profiles/add.ctp:88
 #: Template/Profiles/edit.ctp:141 Template/Profiles/reorder_children.ctp:61
-#: Template/Profiles/view.ctp:301;488
+#: Template/Profiles/view.ctp:301;473
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: Template/Attachments/index.ctp:6
+#: Template/Attachments/index.ctp:5;7
 msgid "Attachments"
 msgstr "Priponke"
 
@@ -202,53 +214,53 @@ msgstr "Priponke"
 msgid "anonymous"
 msgstr "neznan/a"
 
-#: Template/Attachments/view.ctp:14;41
+#: Template/Attachments/view.ctp:14;33
 #: Template/Element/Sidebar/Profiles/dashboard.ctp:96;106;117;134;151;162
 msgid "Me"
 msgstr "Jaz sem"
 
-#: Template/Attachments/view.ctp:25
-msgid "Added by %1$s, %2$s."
-msgstr "%1$s objavil/a %2$s."
+#: Template/Attachments/view.ctp:20
+msgid "Added {0} by {1}."
+msgstr ""
 
-#: Template/Attachments/view.ctp:37
+#: Template/Attachments/view.ctp:29
 #: Template/Element/Sidebar/Profiles/dashboard.ctp:147;149
-#: Template/Posts/index.ctp:36 Template/Posts/view.ctp:42
+#: Template/Posts/index.ctp:42 Template/Posts/view.ctp:32
 msgid "Unknown"
 msgstr "neznan"
 
-#: Template/Attachments/view.ctp:52
+#: Template/Attachments/view.ctp:40
 msgid "nobody"
 msgstr ""
 
-#: Template/Attachments/view.ctp:56
-msgid "Belongs to"
-msgstr "Pripada"
+#: Template/Attachments/view.ctp:44
+msgid "Belongs to {0}."
+msgstr "Pripada {0}."
 
-#: Template/Attachments/view.ctp:57
+#: Template/Attachments/view.ctp:44
 #: Template/Element/Sidebar/Profiles/dashboard.ctp:47
-#: Template/Posts/index.ctp:42 Template/Posts/view.ctp:52
+#: Template/Posts/index.ctp:48 Template/Posts/view.ctp:38
 #: Template/Profiles/view.ctp:134;183
 msgid "and"
 msgstr "in"
 
-#: Template/Attachments/view.ctp:58
+#: Template/Attachments/view.ctp:47
 msgid "Add link"
 msgstr "Dodaj povezavo"
 
-#: Template/Attachments/view.ctp:68
+#: Template/Attachments/view.ctp:56
 msgid " or "
 msgstr ""
 
-#: Template/Attachments/view.ctp:111
+#: Template/Attachments/view.ctp:92
 msgid "Add Note"
 msgstr "Dodaj nalepko"
 
-#: Template/Attachments/view.ctp:130
+#: Template/Attachments/view.ctp:111
 msgid "Note"
 msgstr "Nalepka"
 
-#: Template/Attachments/view.ctp:140
+#: Template/Attachments/view.ctp:116
 msgid "Crop and create new image"
 msgstr "Z izrezom ustvari novo sliko"
 
@@ -668,50 +680,53 @@ msgstr ""
 msgid "Famiree"
 msgstr "Famiree"
 
-#: Template/Layout/error.ctp:35
+#: Template/Layout/error.ctp:34
 msgid "Error"
 msgstr ""
 
-#: Template/Layout/error.ctp:43
+#: Template/Layout/error.ctp:42
 msgid "Back"
 msgstr ""
 
-#: Template/Posts/edit.ctp:4
+#: Template/Posts/edit.ctp:3;5
 msgid "Edit Post"
 msgstr "Uredi zapis"
 
-#: Template/Posts/edit.ctp:19 Template/Profiles/view.ctp:475
+#: Template/Posts/edit.ctp:23 Template/Profiles/view.ctp:460
 msgid "Body"
 msgstr "Telo"
 
-#: Template/Posts/edit.ctp:38
+#: Template/Posts/edit.ctp:37
 msgid "Creator"
 msgstr "Avtor"
 
-#: Template/Posts/index.ctp:15 Template/Posts/view.ctp:12
-#: Template/Profiles/view.ctp:370;379;506
+#: Template/Posts/index.ctp:5
+msgid "Posts"
+msgstr "Spomini"
+
+#: Template/Posts/index.ctp:23 Template/Posts/view.ctp:12
+#: Template/Profiles/view.ctp:370;379;491
 msgid "edit"
 msgstr "uredi"
 
-#: Template/Posts/index.ctp:17 Template/Posts/view.ctp:15
-#: Template/Profiles/view.ctp:385;394;513
+#: Template/Posts/index.ctp:25 Template/Posts/view.ctp:14
+#: Template/Profiles/view.ctp:385;394;498
 msgid "delete"
 msgstr "briši"
 
-#: Template/Posts/index.ctp:19 Template/Posts/view.ctp:18
+#: Template/Posts/index.ctp:26 Template/Posts/view.ctp:15
 msgid "Are your sure you want to delete this post?"
 msgstr "Ste prepričani, da želite izbrisati zapis?"
 
-#: Template/Posts/index.ctp:27 Template/Posts/view.ctp:29
-#: Template/Profiles/view.ctp:538
-msgid "Published %1$s by %2$s."
-msgstr "Objavil/a %2$s, %1$s."
+#: Template/Posts/index.ctp:33 Template/Posts/view.ctp:23
+msgid "Published {0} by {1}."
+msgstr "Objavil/a {1}, {0}."
 
-#: Template/Posts/index.ctp:42 Template/Posts/view.ctp:52
-msgid "Linked to"
-msgstr "Povezano s/z"
+#: Template/Posts/index.ctp:48 Template/Posts/view.ctp:38
+msgid "Linked to {0}."
+msgstr "Povezano s/z {0}."
 
-#: Template/Posts/index.ctp:52 Template/Profiles/view.ctp:557
+#: Template/Posts/index.ctp:59 Template/Profiles/view.ctp:542
 msgid "Read more..."
 msgstr "Beri naprej..."
 
@@ -897,7 +912,7 @@ msgstr "Vrstni red otrok"
 msgid "unknown"
 msgstr "neznano"
 
-#: Template/Profiles/tree.ctp:47;49;322
+#: Template/Profiles/tree.ctp:47;49;339
 msgid "Show Tree"
 msgstr "Prikaz drevesa"
 
@@ -913,23 +928,23 @@ msgstr "Mladoleten otrok"
 msgid "deceased"
 msgstr "pokojni/a"
 
-#: Template/Profiles/tree.ctp:323
+#: Template/Profiles/tree.ctp:340
 msgid "Edit Profile"
 msgstr "Uredi profil"
 
-#: Template/Profiles/tree.ctp:324
+#: Template/Profiles/tree.ctp:341
 msgid "Add Mother or Father"
 msgstr "Dodaj očeta ali mater"
 
-#: Template/Profiles/tree.ctp:325
+#: Template/Profiles/tree.ctp:342
 msgid "Add Partner"
 msgstr "Dodaj partnerja"
 
-#: Template/Profiles/tree.ctp:326
+#: Template/Profiles/tree.ctp:343
 msgid "Add Sibling"
 msgstr "Dodaj sestro/brata"
 
-#: Template/Profiles/tree.ctp:327
+#: Template/Profiles/tree.ctp:344
 msgid "Add Child"
 msgstr "Dodaj otroka"
 
@@ -1026,15 +1041,19 @@ msgstr "Trenutno še ni elementov v galeriji."
 msgid "add"
 msgstr "dodaj"
 
-#: Template/Profiles/view.ctp:477
+#: Template/Profiles/view.ctp:462
 msgid "Please enter some memories about this person."
 msgstr "Vpišite besedilo spominov."
 
-#: Template/Profiles/view.ctp:523
+#: Template/Profiles/view.ctp:508
 msgid "Are your sure you want to delete this memory?"
 msgstr "Ste prepričani, da želite izbrisati spomin?"
 
-#: Template/Profiles/view.ctp:568;620
+#: Template/Profiles/view.ctp:523
+msgid "Published %1$s by %2$s."
+msgstr "Objavil/a %2$s, %1$s."
+
+#: Template/Profiles/view.ctp:553;605
 msgid "There are currently no memories for this person. Please do add yours."
 msgstr "Trenutno še ni spominov o izbrani osebi."
 
@@ -1123,6 +1142,9 @@ msgstr ""
 #: Template/Users/reset.ctp:13
 msgid "Request new Password"
 msgstr "Zahteva za novo geslo"
+
+#~ msgid "Added by %1$s, %2$s."
+#~ msgstr "%1$s objavil/a %2$s."
 
 #~ msgid "Properties have been saved."
 #~ msgstr "Profil je shranjen."
