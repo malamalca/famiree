@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2019-01-22 07:40+0000\n"
+"POT-Creation-Date: 2019-01-22 15:30+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -82,35 +82,39 @@ msgstr ""
 msgid "The post could not be deleted. Please, try again."
 msgstr ""
 
-#: Controller/ProfilesController.php:199
+#: Controller/ProfilesController.php:102
+msgid "Invalid user."
+msgstr ""
+
+#: Controller/ProfilesController.php:203
 msgid "The profile already has two parents."
 msgstr ""
 
-#: Controller/ProfilesController.php:234;257
+#: Controller/ProfilesController.php:238;261
 msgid "The profile has been saved."
 msgstr ""
 
-#: Controller/ProfilesController.php:238;261
+#: Controller/ProfilesController.php:242;265
 msgid "The profile could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/ProfilesController.php:278
+#: Controller/ProfilesController.php:282
 msgid "The profile has been deleted."
 msgstr ""
 
-#: Controller/ProfilesController.php:280
+#: Controller/ProfilesController.php:284
 msgid "The profile could not be deleted. Please, try again."
 msgstr ""
 
-#: Controller/ProfilesController.php:309
+#: Controller/ProfilesController.php:313
 msgid "Profile's avatar has been successfully saved."
 msgstr ""
 
-#: Controller/ProfilesController.php:311
+#: Controller/ProfilesController.php:315
 msgid "Profile's avatar could not be changed."
 msgstr ""
 
-#: Controller/ProfilesController.php:380
+#: Controller/ProfilesController.php:384
 msgid "Invalid ajax call."
 msgstr ""
 
@@ -539,7 +543,7 @@ msgid "Personal"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/edit.ctp:5
-#: Template/Element/Sidebar/Profiles/view.ctp:139;145
+#: Template/Element/Sidebar/Profiles/view.ctp:127;133
 #: Template/Profiles/edit.ctp:55;58
 msgid "Interests"
 msgstr ""
@@ -590,122 +594,67 @@ msgstr ""
 msgid "Hair Color"
 msgstr ""
 
-#: Template/Element/Sidebar/Profiles/view.ctp:72
-#: Template/Profiles/edit.ctp:25
-msgid "Auburn"
-msgstr ""
-
-#: Template/Element/Sidebar/Profiles/view.ctp:73
-#: Template/Profiles/edit.ctp:26
-msgid "Black"
-msgstr ""
-
-#: Template/Element/Sidebar/Profiles/view.ctp:74
-#: Template/Profiles/edit.ctp:27
-msgid "Blonde"
-msgstr ""
-
-#: Template/Element/Sidebar/Profiles/view.ctp:75;97
-#: Template/Profiles/edit.ctp:28;39
-msgid "Brown"
-msgstr ""
-
 #: Template/Element/Sidebar/Profiles/view.ctp:76
-#: Template/Profiles/edit.ctp:29
-msgid "Gray"
-msgstr ""
-
-#: Template/Element/Sidebar/Profiles/view.ctp:77
-#: Template/Profiles/edit.ctp:30
-msgid "Red"
-msgstr ""
-
-#: Template/Element/Sidebar/Profiles/view.ctp:79
-#: Template/Profiles/edit.ctp:32
-msgid "None"
-msgstr ""
-
-#: Template/Element/Sidebar/Profiles/view.ctp:80;101
-#: Template/Profiles/edit.ctp:33;44
-msgid "Other"
-msgstr ""
-
-#: Template/Element/Sidebar/Profiles/view.ctp:91
 #: Template/Profiles/edit.ctp:35
 msgid "Eye Color"
 msgstr ""
 
-#: Template/Element/Sidebar/Profiles/view.ctp:95
-#: Template/Profiles/edit.ctp:37
-msgid "Amber"
-msgstr ""
-
-#: Template/Element/Sidebar/Profiles/view.ctp:96
-#: Template/Profiles/edit.ctp:38
-msgid "Blue"
-msgstr ""
-
-#: Template/Element/Sidebar/Profiles/view.ctp:98
-#: Template/Profiles/edit.ctp:40
-msgid "Grey"
-msgstr ""
-
-#: Template/Element/Sidebar/Profiles/view.ctp:99
-#: Template/Profiles/edit.ctp:41
-msgid "Green"
-msgstr ""
-
-#: Template/Element/Sidebar/Profiles/view.ctp:100
-#: Template/Profiles/edit.ctp:42
-msgid "Hazel"
-msgstr ""
-
-#: Template/Element/Sidebar/Profiles/view.ctp:112
+#: Template/Element/Sidebar/Profiles/view.ctp:84
 #: Template/Profiles/edit.ctp:46
 msgid "Nick Names"
 msgstr ""
 
-#: Template/Element/Sidebar/Profiles/view.ctp:153
+#: Template/Element/Sidebar/Profiles/view.ctp:92
+#: Template/Profiles/edit.ctp:47
+msgid "Education"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:100
+#: Template/Profiles/edit.ctp:48
+msgid "Job"
+msgstr ""
+
+#: Template/Element/Sidebar/Profiles/view.ctp:141
 #: Template/Profiles/edit.ctp:59
 msgid "Activities"
 msgstr ""
 
-#: Template/Element/Sidebar/Profiles/view.ctp:161
+#: Template/Element/Sidebar/Profiles/view.ctp:149
 #: Template/Profiles/edit.ctp:60
 msgid "People/Heroes"
 msgstr ""
 
-#: Template/Element/Sidebar/Profiles/view.ctp:169
+#: Template/Element/Sidebar/Profiles/view.ctp:157
 #: Template/Profiles/edit.ctp:61
 msgid "Cuisines"
 msgstr ""
 
-#: Template/Element/Sidebar/Profiles/view.ctp:177
+#: Template/Element/Sidebar/Profiles/view.ctp:165
 #: Template/Profiles/edit.ctp:62
 msgid "Quotes"
 msgstr ""
 
-#: Template/Element/Sidebar/Profiles/view.ctp:185
+#: Template/Element/Sidebar/Profiles/view.ctp:173
 #: Template/Profiles/edit.ctp:63
 msgid "Movies"
 msgstr ""
 
-#: Template/Element/Sidebar/Profiles/view.ctp:193
+#: Template/Element/Sidebar/Profiles/view.ctp:181
 #: Template/Profiles/edit.ctp:64
 msgid "TV Shows"
 msgstr ""
 
-#: Template/Element/Sidebar/Profiles/view.ctp:201
+#: Template/Element/Sidebar/Profiles/view.ctp:189
 #: Template/Profiles/edit.ctp:65
 msgid "Music"
 msgstr ""
 
-#: Template/Element/Sidebar/Profiles/view.ctp:209
+#: Template/Element/Sidebar/Profiles/view.ctp:197
 #: Template/Profiles/edit.ctp:66
 msgid "Books"
 msgstr ""
 
-#: Template/Element/Sidebar/Profiles/view.ctp:217
+#: Template/Element/Sidebar/Profiles/view.ctp:205
 #: Template/Profiles/edit.ctp:67
 msgid "Sports"
 msgstr ""
@@ -730,13 +679,23 @@ msgstr ""
 msgid "Best Regards."
 msgstr ""
 
+#: Template/Error/error400.ctp:36
+#: Template/Error/error500.ctp:41
+#: Template/Layout/error.ctp:34
+msgid "Error"
+msgstr ""
+
+#: Template/Error/error400.ctp:37
+msgid "The requested address {0} was not found on this server."
+msgstr ""
+
+#: Template/Error/error500.ctp:39
+msgid "An Internal Error Has Occurred"
+msgstr ""
+
 #: Template/Layout/default.ctp:6
 #: Template/Profiles/tree.ctp:6
 msgid "Famiree"
-msgstr ""
-
-#: Template/Layout/error.ctp:34
-msgid "Error"
 msgstr ""
 
 #: Template/Layout/error.ctp:42
@@ -876,12 +835,69 @@ msgstr ""
 msgid "Personal info"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:47
-msgid "Education"
+#: Template/Profiles/edit.ctp:25
+#: View/Helper/FamireeHelper.php:43
+msgid "Auburn"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:48
-msgid "Job"
+#: Template/Profiles/edit.ctp:26
+#: View/Helper/FamireeHelper.php:44
+msgid "Black"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:27
+#: View/Helper/FamireeHelper.php:45
+msgid "Blonde"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:28;39
+#: View/Helper/FamireeHelper.php:46;56
+msgid "Brown"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:29
+#: View/Helper/FamireeHelper.php:47
+msgid "Gray"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:30
+#: View/Helper/FamireeHelper.php:48
+msgid "Red"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:32
+#: View/Helper/FamireeHelper.php:49
+msgid "None"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:33;44
+#: View/Helper/FamireeHelper.php:50;60;294;309
+msgid "Other"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:37
+#: View/Helper/FamireeHelper.php:54
+msgid "Amber"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:38
+#: View/Helper/FamireeHelper.php:55
+msgid "Blue"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:40
+#: View/Helper/FamireeHelper.php:57
+msgid "Grey"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:41
+#: View/Helper/FamireeHelper.php:58
+msgid "Green"
+msgstr ""
+
+#: Template/Profiles/edit.ctp:42
+#: View/Helper/FamireeHelper.php:59
+msgid "Hazel"
 msgstr ""
 
 #: Template/Profiles/edit.ctp:78

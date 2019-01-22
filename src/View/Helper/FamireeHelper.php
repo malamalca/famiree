@@ -16,6 +16,52 @@ class FamireeHelper extends Helper
     public $helpers = ['Html', 'Text'];
 
     /**
+     * Hair colors
+     *
+     * @var array
+     */
+    public $hairColors = [];
+
+    /**
+     * Eye colors
+     *
+     * @var array
+     */
+    public $eyeColors = [];
+
+    /**
+     * Helper initialization
+     *
+     * @param array $config Config array.
+     * @return void
+     */
+    public function initialize(array $config)
+    {
+        parent::initialize($config);
+
+        $this->hairColors = [
+            1 => __('Auburn'),
+            2 => __('Black'),
+            3 => __('Blonde'),
+            4 => __('Brown'),
+            5 => __('Gray'),
+            6 => __('Red'),
+            0 => __('None'),
+            -1 => __('Other')
+        ];
+
+        $this->eyeColors = [
+            1 => __('Amber'),
+            2 => __('Blue'),
+            3 => __('Brown'),
+            4 => __('Grey'),
+            5 => __('Green'),
+            6 => __('Hazel'),
+            -1 => __('Other')
+        ];
+    }
+
+    /**
      * Returns duration in form HH:MM
      *
      * @param int $seconds Duration in seconds
@@ -213,12 +259,9 @@ class FamireeHelper extends Helper
     }
 
     /**
-     * CleanPre function
-     *
      * Callback function from regex which removes new lines
      *
      * @param mixed $matches Regex matches
-     *
      * @return string
      */
     public static function cleanPre($matches)
@@ -234,5 +277,35 @@ class FamireeHelper extends Helper
         $text = str_replace('</p>', '', $text);
 
         return $text;
+    }
+
+    /**
+     * Returns string representation of eye color code
+     *
+     * @param int $color Color code
+     * @return string
+     */
+    public function eyeColor($color)
+    {
+        if (isset($this->eyeColors[$color])) {
+            return $this->eyeColors[$color];
+        }
+
+        return __('Other');
+    }
+
+    /**
+     * Returns string representation of hair color code
+     *
+     * @param int $color Color code
+     * @return string
+     */
+    public function hairColor($color)
+    {
+        if (isset($this->hairColors[$color])) {
+            return $this->hairColors[$color];
+        }
+
+        return __('Other');
     }
 }

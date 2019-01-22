@@ -98,6 +98,10 @@ class ProfilesController extends AppController
         $this->viewBuilder()->enableAutoLayout(false);
 
         $current_profile = $this->getRequest()->getParam('pass.0', $this->currentUser->get('id'));
+        if (empty($current_profile)) {
+            throw new NotFoundException(__('Invalid user.'));
+        }
+
         $tree = $this->Profiles->tree($current_profile, 100);
         $this->set(compact('tree', 'current_profile'));
     }

@@ -36,8 +36,8 @@ if (Configure::read('debug')) :
     $this->end();
 endif;
 ?>
-<h2><?= __d('cake', 'An Internal Error Has Occurred') ?></h2>
+<h2><?= __('An Internal Error Has Occurred') ?></h2>
 <p class="error">
-    <strong><?= __d('cake', 'Error') ?>: </strong>
+    <strong><?= __('Error') ?>: </strong>
     <?= h($message) ?>
 </p>

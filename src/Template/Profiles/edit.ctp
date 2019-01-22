@@ -21,28 +21,9 @@
     <fieldset>
         <?php
             echo $this->Form->control('h_c', ['type' => 'select', 'label' => __('Hair Color').':',
-                'options' => [
-                    1 => __('Auburn'),
-                    2 => __('Black'),
-                    3 => __('Blonde'),
-                    4 => __('Brown'),
-                    5 => __('Gray'),
-                    6 => __('Red'),
-
-                    0 => __('None'),
-                    -1 => __('Other'),
-                ], 'empty' => '']);
+                'options' => $this->Famiree->hairColors, 'empty' => '']);
             echo $this->Form->control('e_c', ['type' => 'select', 'label' => __('Eye Color').':',
-                'options' => [
-                    1 => __('Amber'),
-                    2 => __('Blue'),
-                    3 => __('Brown'),
-                    4 => __('Grey'),
-                    5 => __('Green'),
-                    6 => __('Hazel'),
-
-                    -1 => __('Other'),
-                ], 'empty' => '']);
+                'options' => $this->Famiree->eyeColors, 'empty' => '']);
             echo $this->Form->control('n_n', ['type' => 'text', 'label' => __('Nick Names').':']);
             echo $this->Form->control('edu', ['type' => 'text', 'label' => __('Education').':']);
             echo $this->Form->control('job', ['type' => 'text', 'label' => __('Job').':']);
@@ -52,7 +33,7 @@
 
 
     <div class="tab" id="EditProfileTabInterests">
-    <h1><?= h($profile->d_n).': '.__('Interests') ?></h1>
+    <h1><?= h($profile->d_n) . ': ' . __('Interests') ?></h1>
     <fieldset>
         <?php
             echo $this->Form->control('in_i', ['type' => 'text', 'label' => __('Interests').':']);
@@ -70,7 +51,7 @@
     </div>
 
     <div class="tab" id="EditProfileTabRelationships">
-    <h1><?= h($profile->d_n).': '.__('Relationships') ?></h1>
+    <h1><?= h($profile->d_n) . ': ' . __('Relationships') ?></h1>
     <fieldset>
     <?php
     if ($profile->g == 'm') {
@@ -138,7 +119,7 @@
         echo $this->Form->button(__('Save'), ['type' => 'submit', 'id' => 'ProfileSubmitButton']);
 
 if ($referer = trim(base64_decode($this->getRequest()->getData('referer')))) {
-    echo ' '.__('or').' '.$this->Html->link(__('Cancel'), $referer);
+    echo ' ' . __('or') . ' ' . $this->Html->link(__('Cancel'), $referer);
 }
         echo '</div>';
 

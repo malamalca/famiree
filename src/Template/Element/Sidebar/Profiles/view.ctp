@@ -22,30 +22,30 @@ if (!empty($profile->ta)) {
 ?>
     <ul>
         <li><?php
-        echo $this->Html->image('ico_family_tree.gif', ['class' => 'icon']);
-        echo $this->Famiree->link(__('[Show tree] for this person'), ['controller' => 'Profiles', 'action' => 'tree', $profile->id]);
+            echo $this->Html->image('ico_family_tree.gif', ['class' => 'icon']);
+            echo $this->Famiree->link(__('[Show tree] for this person'), ['controller' => 'Profiles', 'action' => 'tree', $profile->id]);
         ?></li>
         <?php
             if ($this->currentUser->exists()) {
         ?>
         <li><?php
-        echo $this->Html->image('ico_profile_edit.gif', ['class' => 'icon']);
-        echo $this->Famiree->link(__('[Edit] person\'s data'), ['controller' => 'Profiles', 'action' => 'edit', $profile->id]);
+            echo $this->Html->image('ico_profile_edit.gif', ['class' => 'icon']);
+            echo $this->Famiree->link(__('[Edit] person\'s data'), ['controller' => 'Profiles', 'action' => 'edit', $profile->id]);
         ?></li>
         <li><?php
-        echo $this->Html->image('ico_avatar.gif', ['class' => 'icon']);
-        echo $this->Famiree->link(__('[Change] person\'s avatar'), ['controller' => 'Profiles', 'action' => 'edit_avatar', $profile->id]);
+            echo $this->Html->image('ico_avatar.gif', ['class' => 'icon']);
+            echo $this->Famiree->link(__('[Change] person\'s avatar'), ['controller' => 'Profiles', 'action' => 'edit_avatar', $profile->id]);
         ?></li>
         <li><?php
-        echo $this->Html->image('ico_reorder.gif', ['class' => 'icon']);
-        echo $this->Famiree->link(__('[Reorder] children'), ['controller' => 'Profiles', 'action' => 'reorder_children', $profile->id]);
+            echo $this->Html->image('ico_reorder.gif', ['class' => 'icon']);
+            echo $this->Famiree->link(__('[Reorder] children'), ['controller' => 'Profiles', 'action' => 'reorder_children', $profile->id]);
         ?></li>
-            <li><?php
+        <li><?php
             if (empty($family['children'])) {
                 echo $this->Html->image('ico_delete.png', ['class' => 'icon']);
                 echo $this->Famiree->link(__('[Delete] profile'), ['controller' => 'Profiles', 'action' => 'delete', $profile->id], null, __('Are you sure you want to delete profile?'));
             }
-            ?></li>
+        ?></li>
         <?php
             }
         ?>
@@ -55,7 +55,7 @@ if (!empty($profile->ta)) {
     } // level check
 ?>
 <?php
-    if (!empty($profile->h_c) || !empty($profile->e_c) || !empty($profile->n_n)) {
+    if (!empty($profile->h_c) || !empty($profile->e_c) || !empty($profile->n_n) || !empty($profile->job) || !empty($profile->edu)) {
 ?>
 <div class="panel">
     <div class="inner">
@@ -66,22 +66,7 @@ if (!empty($profile->ta)) {
     ?>
         <li>
             <span class="label"><?= __('Hair Color') ?>:</span>
-            <span class="value">
-    <?php
-            $hair_colors = [
-                1 => __('Auburn'),
-                2 => __('Black'),
-                3 => __('Blonde'),
-                4 => __('Brown'),
-                5 => __('Gray'),
-                6 => __('Red'),
-
-                0 => __('None'),
-                -1 => __('Other'),
-            ];
-            echo $hair_colors[$profile->h_c];
-    ?>
-            </span>
+            <span class="value"><?= $this->Famiree->hairColor($profile->h_c) ?></span>
         </li>
     <?php
         }
@@ -89,20 +74,7 @@ if (!empty($profile->ta)) {
     ?>
         <li>
             <span class="label"><?= __('Eye Color') ?>:</span>
-            <span class="value">
-            <?php
-                $eye_colors = [
-                    1 => __('Amber'),
-                    2 => __('Blue'),
-                    3 => __('Brown'),
-                    4 => __('Grey'),
-                    5 => __('Green'),
-                    6 => __('Hazel'),
-                    -1 => __('Other'),
-                ];
-                echo $eye_colors[$profile->e_c];
-            ?>
-            </span>
+            <span class="value"><?= $this->Famiree->eyeColor($profile->e_c) ?></span>
         </li>
     <?php
         }
@@ -111,6 +83,22 @@ if (!empty($profile->ta)) {
         <li>
             <span class="label"><?= __('Nick Names') ?>:</span>
             <span class="value"><?= h($profile->n_n); ?>&nbsp;</span>
+        </li>
+    <?php
+        }
+        if (!empty($profile->edu)) {
+    ?>
+        <li>
+            <span class="label"><?= __('Education') ?>:</span>
+            <span class="value"><?= h($profile->edu); ?>&nbsp;</span>
+        </li>
+    <?php
+        }
+        if (!empty($profile->job)) {
+    ?>
+        <li>
+            <span class="label"><?= __('Job') ?>:</span>
+            <span class="value"><?= h($profile->job); ?>&nbsp;</span>
         </li>
     <?php
         }
