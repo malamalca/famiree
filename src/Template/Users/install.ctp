@@ -2,10 +2,13 @@
     use Cake\Core\Configure;
 
     $this->set('title_for_layout', __('Add First User'));
+    $this->set('sidebar', '');
 ?>
-<div class="form" id="ProfileLogin">
-    <span id="YourFather"><?= __('Your Father') ?></span>
-    <span id="YourMother"><?= __('Your Mother') ?></span>
+<div class="form" id="ProfileInstall">
+    <h1><?= __('Welcome to Famiree') ?></h1>
+    <p>
+        <?= __('Please enter user data for a first Famiree profile.') ?><br />
+        <?= __('This user will also be a first site admin with highest privileges.') ?><br /><br /></p>
 <?php
     echo $this->Form->create(null);
     echo $this->Form->hidden('lvl', ['value' => LVL_ROOT]);
