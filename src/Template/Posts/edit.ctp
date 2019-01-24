@@ -31,12 +31,7 @@
     <?php
         echo $this->Form->control('created', ['label' => __('Created') . ':']);
 
-        echo $this->Form->control('creator_id', [
-            'type' => 'select',
-            'options' => $authors,
-            'label' => __('Creator') . ':',
-            'id' => 'PostCreatorId'
-        ]);
+        echo $this->Form->control('creator_id', ['type' => 'select', 'label' => __('Creator') . ':']);
         ?>
     </div>
 </div>
