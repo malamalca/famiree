@@ -198,14 +198,18 @@ if (!empty($profile->mdn) &&
             ?>
         <li class="hr_top">
             <span class="label"><?= __('Added') ?>: </span>
-            <span class="value small"><?php
-            echo $this->Time->timeAgoInWords($profile->created, [
-                'format' => Configure::read('outputDateFormat') . ' HH:mm'
-            ]);
-                                      if (!empty($profile->creator)) {
-                                          echo ' ' . __('by') . ' ' . h($profile->creator->d_n);
-                                      }
-                                        ?>&nbsp;</span>
+            <span class="value small">
+                <?php
+                    echo $this->Time->timeAgoInWords($profile->created, [
+                        'format' => Configure::read('outputDateFormat') . ' HH:mm'
+                    ]);
+                    if (!empty($profile->creator)) {
+                        echo ' ' . __('by') . ' ' . h($profile->creator->d_n);
+                    }
+
+                ?>
+            &nbsp;
+            </span>
         </li>
             <?php
         }

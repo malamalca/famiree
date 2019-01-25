@@ -15,7 +15,7 @@
     echo $this->Form->hidden('l', ['value' => true]);
     echo $this->Form->control('fn', ['label' => __('First Name') . ':']);
     echo $this->Form->control('ln', ['label' => __('Last Name') . ':']);
-    echo $this->Form->control('e', ['label' => __('Email') . ':']);
+    echo $this->Form->control('e', ['label' => __('Email') . ':', 'error' => 'Invalid email address.']);
 
     echo '<br />';
     echo $this->Form->control('u', ['label' => __('Username') . ':']);

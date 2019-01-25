@@ -288,6 +288,9 @@ img {
 #unions .rb {
 	border-style:none solid solid none;
 }
+#unions .lb {
+	border-style:none none solid solid;
+}
 #unions .rbl {
 	border-style:none solid solid solid;
 }

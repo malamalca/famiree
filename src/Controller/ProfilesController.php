@@ -400,8 +400,17 @@ class ProfilesController extends AppController
      *
      * @return void
      */
-    /*public function gedImport()
+    public function gedImport()
     {
-        GedImport::fromFile(dirname(__FILE__) . '..' . DS . '..' . DS . '..' . DS . 'tests' . DS . 'Resource' . DS . 'shakespeare.ged');
-    }*/
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $uploadedFile = $this->getRequest()->getData('filename');
+            if (!empty($uploadedFile['tmp_name']) && $uploadedFile['error'] == 0 && is_uploaded_file($uploadedFile['tmp_name'])) {
+                if (GedImport::fromFile($uploadedFile['tmp_name'])) {
+                    $this->Flash->success(__('Successfuly imported Gedcom file.'));
+                } else {
+                    $this->Flash->error(__('An error occured importing Gedcome file.'));
+                }
+            }
+        }
+    }
 }

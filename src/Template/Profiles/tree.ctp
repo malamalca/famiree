@@ -270,7 +270,7 @@
 				}
 			}
 		} else {
-			// ancestor mode
+            // ancestor mode
 			$class = 'rbl';
 			if (!empty($parent1['d_r']) || !empty($parent2['d_r'])) $class .= ' d_r';
 			$style = sprintf('left: %Fem; ', ($parent1['x'] * $spacing_x + ($node_w / 2) - $line_w));
@@ -282,14 +282,48 @@
 			if (!empty($union['c'])) {
 				if (sizeof($union['c'])==1) {
 					// single child
-					$child = $tree['p'][$union['c'][0]]['Profile'];
+                    $child = $tree['p'][$union['c'][0]]['Profile'];
+                    $childsCenter = (($child['x'] * $spacing_x) + ($node_w / 2) - $line_w);
 
-					$class = 'v';
-					if (!empty($parent1['d_r']) || !empty($parent2['d_r'])) $class .= ' d_r';
-					$style = sprintf('left: %Fem; ', (($child['x'] * $spacing_x) + ($node_w / 2) - $line_w));
-					$style .= sprintf('bottom: %Fem; ', (($child['y'] * $spacing_y) + $node_h));
-					$style .= sprintf('height: %Fem; ', ($space_h * 2 / 3 + $line_w));
-					echo '<div class="'.$class.'" style="'.$style.'">&#160;</div>' . PHP_EOL;
+                    if ($child['x'] < $parent1['x'] && $child['x'] < $parent2['x']) {
+                        $parentsCenter = ($parent1['x']+$parent2['x']) / 2 * $spacing_x - ($node_w / 2) - $line_w;
+                        // right side
+                        $class = 'rb';
+                        if (!empty($parent1['d_r']) || !empty($parent2['d_r'])) $class .= ' d_r';
+
+                        $style = sprintf('left: %Fem; ', $childsCenter);
+                        $style .= sprintf('width: %Fem; ', $parentsCenter);
+                        $style .= sprintf('bottom: %Fem; ', ($child['y'] * $spacing_y) + $space_h * 1 / 3 + $node_h);
+                        $style .= sprintf('height: %Fem; ', ($space_h * 1 / 3 + $line_w));
+                        echo '<div class="'.$class.'" style="'.$style.'">&#160;</div>' . PHP_EOL;
+
+                        $verticalHeight = $space_h * 1 / 3;
+                    } elseif ($child['x'] > $parent1['x'] && $child['x'] > $parent2['x']) {
+                        $parentsCenter = ($parent1['x']+$parent2['x']) / 2 * $spacing_x + ($node_w / 2) - $line_w;
+                        // left side when only one child
+                        $class = 'lb';
+                        if (!empty($parent1['d_r']) || !empty($parent2['d_r'])) $class .= ' d_r';
+
+                        $style = sprintf('left: %Fem; ', $parentsCenter);
+                        $style .= sprintf('width: %Fem; ', $childsCenter - $parentsCenter);
+                        $style .= sprintf('bottom: %Fem; ', ($child['y'] * $spacing_y) + $space_h * 1 / 3 + $node_h);
+                        $style .= sprintf('height: %Fem; ', ($space_h * 1 / 3 + $line_w));
+                        echo '<div class="'.$class.'" style="'.$style.'">&#160;</div>' . PHP_EOL;
+
+                        $verticalHeight = $space_h * 1 / 3;
+                    } else {
+                        $verticalHeight = $space_h * 2 / 3;
+                    }
+
+                    $class = 'v';
+                    if (!empty($parent1['d_r']) || !empty($parent2['d_r'])) $class .= ' d_r';
+
+                    $style = sprintf('left: %Fem; ', $childsCenter);
+                    $style .= sprintf('bottom: %Fem; ', (($child['y'] * $spacing_y) + $node_h));
+                    $style .= sprintf('height: %Fem; ', ($verticalHeight + $line_w));
+
+                    if (!empty($parent1['d_r']) || !empty($parent2['d_r'])) $class .= ' d_r';
+                    echo '<div class="'.$class.'" style="'.$style.'">&#160;</div>' . PHP_EOL;
 				} else if (sizeof($union['c'])>1) {
 					$child0 = $tree['p'][$union['c'][0]]['Profile'];
 					$center = ($parent1['x']+$parent2['x']) / 2 * $spacing_x; // beware there is sum of parents in original version
