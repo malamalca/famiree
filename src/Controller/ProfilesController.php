@@ -400,8 +400,8 @@ class ProfilesController extends AppController
      *
      * @return void
      */
-    public function gedImport()
+    /*public function gedImport()
     {
         GedImport::fromFile(dirname(__FILE__) . '..' . DS . '..' . DS . '..' . DS . 'tests' . DS . 'Resource' . DS . 'shakespeare.ged');
-    }
+    }*/
 }
