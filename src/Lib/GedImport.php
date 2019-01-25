@@ -113,9 +113,6 @@ class GedImport
 
         foreach ($profiles as $k => $p) {
             $result = TableRegistry::get('Profiles')->save($p, ['associated' => ['Units']]);
-            if (!$result) {
-                var_dump($result->getErrors());
-            }
         }
 
         return true;
