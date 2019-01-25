@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Lib\GedImport;
 use Cake\Event\Event;
 use Cake\Http\Exception\NotFoundException;
 use Cake\ORM\TableRegistry;
@@ -261,6 +262,11 @@ class ProfilesController extends AppController
         $profile = $this->Profiles->get($id, ['contain' => ['Marriages' => ['Profiles']]]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $profile = $this->Profiles->patchEntity($profile, $this->getRequest()->getData(), ['associated' => ['Marriages']]);
+            if (empty($this->getRequest()->getData('p'))) {
+                $profile->setDirty('p', false);
+                unset($profile->p);
+            }
+
             if ($this->Profiles->save($profile)) {
                 $this->Flash->success(__('The profile has been saved.'));
 
@@ -387,5 +393,15 @@ class ProfilesController extends AppController
         } else {
             throw new NotFoundException(__('Invalid ajax call.'));
         }
+    }
+
+    /**
+     * Import ged file
+     *
+     * @return void
+     */
+    public function gedImport()
+    {
+        GedImport::fromFile(dirname(__FILE__) . '..' . DS . '..' . DS . '..' . DS . 'tests' . DS . 'Resource' . DS . 'shakespeare.ged');
     }
 }

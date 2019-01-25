@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2019-01-22 15:30+0000\n"
+"POT-Creation-Date: 2019-01-25 07:38+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -82,39 +82,39 @@ msgstr ""
 msgid "The post could not be deleted. Please, try again."
 msgstr ""
 
-#: Controller/ProfilesController.php:102
+#: Controller/ProfilesController.php:103
 msgid "Invalid user."
 msgstr ""
 
-#: Controller/ProfilesController.php:203
+#: Controller/ProfilesController.php:208
 msgid "The profile already has two parents."
 msgstr ""
 
-#: Controller/ProfilesController.php:238;261
+#: Controller/ProfilesController.php:243;266
 msgid "The profile has been saved."
 msgstr ""
 
-#: Controller/ProfilesController.php:242;265
+#: Controller/ProfilesController.php:247;270
 msgid "The profile could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/ProfilesController.php:282
+#: Controller/ProfilesController.php:287
 msgid "The profile has been deleted."
 msgstr ""
 
-#: Controller/ProfilesController.php:284
+#: Controller/ProfilesController.php:289
 msgid "The profile could not be deleted. Please, try again."
 msgstr ""
 
-#: Controller/ProfilesController.php:313
+#: Controller/ProfilesController.php:318
 msgid "Profile's avatar has been successfully saved."
 msgstr ""
 
-#: Controller/ProfilesController.php:315
+#: Controller/ProfilesController.php:320
 msgid "Profile's avatar could not be changed."
 msgstr ""
 
-#: Controller/ProfilesController.php:384
+#: Controller/ProfilesController.php:389
 msgid "Invalid ajax call."
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr ""
 msgid "Password has been changed."
 msgstr ""
 
-#: Controller/UsersController.php:189;221
+#: Controller/UsersController.php:189;221;252
 msgid "Please verify that the information is correct."
 msgstr ""
 
@@ -150,7 +150,15 @@ msgstr ""
 msgid "User has been added."
 msgstr ""
 
-#: Model/Table/ProfilesTable.php:448
+#: Controller/UsersController.php:249
+msgid "User settings have been changed."
+msgstr ""
+
+#: Lib/GedImport.php:26
+msgid "Get file does not exist"
+msgstr ""
+
+#: Model/Table/ProfilesTable.php:483
 msgid "Password Reset"
 msgstr ""
 
@@ -197,35 +205,38 @@ msgstr ""
 
 #: Template/Attachments/edit.ctp:64
 #: Template/Attachments/view.ctp:119
-#: Template/Posts/edit.ctp:46
+#: Template/Posts/edit.ctp:41
 #: Template/Profiles/add.ctp:85
-#: Template/Profiles/edit.ctp:138
+#: Template/Profiles/edit.ctp:119
 #: Template/Profiles/reorder_children.ctp:60
 #: Template/Profiles/view.ctp:295;467
-#: Template/Users/install.ctp:23
+#: Template/Users/install.ctp:26
+#: Template/Users/settings.ctp:32
 msgid "Save"
 msgstr ""
 
 #: Template/Attachments/edit.ctp:67
 #: Template/Attachments/view.ctp:120
 #: Template/Element/header.ctp:17
-#: Template/Posts/edit.ctp:49
+#: Template/Posts/edit.ctp:44
 #: Template/Posts/index.ctp:24
 #: Template/Posts/view.ctp:13
 #: Template/Profiles/add.ctp:88
-#: Template/Profiles/edit.ctp:141
+#: Template/Profiles/edit.ctp:122
 #: Template/Profiles/reorder_children.ctp:61
 #: Template/Profiles/view.ctp:300;472;496
+#: Template/Users/settings.ctp:34
 msgid "or"
 msgstr ""
 
 #: Template/Attachments/edit.ctp:67
 #: Template/Attachments/view.ctp:57;120
-#: Template/Posts/edit.ctp:49
+#: Template/Posts/edit.ctp:44
 #: Template/Profiles/add.ctp:88
-#: Template/Profiles/edit.ctp:141
+#: Template/Profiles/edit.ctp:122
 #: Template/Profiles/reorder_children.ctp:61
 #: Template/Profiles/view.ctp:301;473
+#: Template/Users/settings.ctp:34
 msgid "Cancel"
 msgstr ""
 
@@ -298,6 +309,7 @@ msgid "Hello, {0}."
 msgstr ""
 
 #: Template/Element/header.ctp:16
+#: Template/Users/settings.ctp:13
 msgid "Settings"
 msgstr ""
 
@@ -544,12 +556,12 @@ msgstr ""
 
 #: Template/Element/Sidebar/Profiles/edit.ctp:5
 #: Template/Element/Sidebar/Profiles/view.ctp:127;133
-#: Template/Profiles/edit.ctp:55;58
+#: Template/Profiles/edit.ctp:36;39
 msgid "Interests"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/edit.ctp:6
-#: Template/Profiles/edit.ctp:73
+#: Template/Profiles/edit.ctp:54
 msgid "Relationships"
 msgstr ""
 
@@ -595,67 +607,67 @@ msgid "Hair Color"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/view.ctp:76
-#: Template/Profiles/edit.ctp:35
+#: Template/Profiles/edit.ctp:25
 msgid "Eye Color"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/view.ctp:84
-#: Template/Profiles/edit.ctp:46
+#: Template/Profiles/edit.ctp:27
 msgid "Nick Names"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/view.ctp:92
-#: Template/Profiles/edit.ctp:47
+#: Template/Profiles/edit.ctp:28
 msgid "Education"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/view.ctp:100
-#: Template/Profiles/edit.ctp:48
+#: Template/Profiles/edit.ctp:29
 msgid "Job"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/view.ctp:141
-#: Template/Profiles/edit.ctp:59
+#: Template/Profiles/edit.ctp:40
 msgid "Activities"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/view.ctp:149
-#: Template/Profiles/edit.ctp:60
+#: Template/Profiles/edit.ctp:41
 msgid "People/Heroes"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/view.ctp:157
-#: Template/Profiles/edit.ctp:61
+#: Template/Profiles/edit.ctp:42
 msgid "Cuisines"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/view.ctp:165
-#: Template/Profiles/edit.ctp:62
+#: Template/Profiles/edit.ctp:43
 msgid "Quotes"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/view.ctp:173
-#: Template/Profiles/edit.ctp:63
+#: Template/Profiles/edit.ctp:44
 msgid "Movies"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/view.ctp:181
-#: Template/Profiles/edit.ctp:64
+#: Template/Profiles/edit.ctp:45
 msgid "TV Shows"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/view.ctp:189
-#: Template/Profiles/edit.ctp:65
+#: Template/Profiles/edit.ctp:46
 msgid "Music"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/view.ctp:197
-#: Template/Profiles/edit.ctp:66
+#: Template/Profiles/edit.ctp:47
 msgid "Books"
 msgstr ""
 
 #: Template/Element/Sidebar/Profiles/view.ctp:205
-#: Template/Profiles/edit.ctp:67
+#: Template/Profiles/edit.ctp:48
 msgid "Sports"
 msgstr ""
 
@@ -711,7 +723,7 @@ msgstr ""
 msgid "Body"
 msgstr ""
 
-#: Template/Posts/edit.ctp:37
+#: Template/Posts/edit.ctp:34
 msgid "Creator"
 msgstr ""
 
@@ -835,124 +847,59 @@ msgstr ""
 msgid "Personal info"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:25
-#: View/Helper/FamireeHelper.php:43
-msgid "Auburn"
-msgstr ""
-
-#: Template/Profiles/edit.ctp:26
-#: View/Helper/FamireeHelper.php:44
-msgid "Black"
-msgstr ""
-
-#: Template/Profiles/edit.ctp:27
-#: View/Helper/FamireeHelper.php:45
-msgid "Blonde"
-msgstr ""
-
-#: Template/Profiles/edit.ctp:28;39
-#: View/Helper/FamireeHelper.php:46;56
-msgid "Brown"
-msgstr ""
-
-#: Template/Profiles/edit.ctp:29
-#: View/Helper/FamireeHelper.php:47
-msgid "Gray"
-msgstr ""
-
-#: Template/Profiles/edit.ctp:30
-#: View/Helper/FamireeHelper.php:48
-msgid "Red"
-msgstr ""
-
-#: Template/Profiles/edit.ctp:32
-#: View/Helper/FamireeHelper.php:49
-msgid "None"
-msgstr ""
-
-#: Template/Profiles/edit.ctp:33;44
-#: View/Helper/FamireeHelper.php:50;60;294;309
-msgid "Other"
-msgstr ""
-
-#: Template/Profiles/edit.ctp:37
-#: View/Helper/FamireeHelper.php:54
-msgid "Amber"
-msgstr ""
-
-#: Template/Profiles/edit.ctp:38
-#: View/Helper/FamireeHelper.php:55
-msgid "Blue"
-msgstr ""
-
-#: Template/Profiles/edit.ctp:40
-#: View/Helper/FamireeHelper.php:57
-msgid "Grey"
-msgstr ""
-
-#: Template/Profiles/edit.ctp:41
-#: View/Helper/FamireeHelper.php:58
-msgid "Green"
-msgstr ""
-
-#: Template/Profiles/edit.ctp:42
-#: View/Helper/FamireeHelper.php:59
-msgid "Hazel"
-msgstr ""
-
-#: Template/Profiles/edit.ctp:78
+#: Template/Profiles/edit.ctp:59
 msgid "Wife"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:79;88
+#: Template/Profiles/edit.ctp:60;69
 msgid "Fiancee"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:80;89;115
+#: Template/Profiles/edit.ctp:61;70;96
 msgid "Partner"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:81
+#: Template/Profiles/edit.ctp:62
 msgid "Ex-wife (deceased)"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:82
+#: Template/Profiles/edit.ctp:63
 msgid "Ex-wife"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:84
+#: Template/Profiles/edit.ctp:65
 msgid "%s is his"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:87
+#: Template/Profiles/edit.ctp:68
 msgid "Husband"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:90
+#: Template/Profiles/edit.ctp:71
 msgid "Ex-husband (deceased)"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:91
+#: Template/Profiles/edit.ctp:72
 msgid "Ex-husband"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:93
+#: Template/Profiles/edit.ctp:74
 msgid "%s is her"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:97
+#: Template/Profiles/edit.ctp:78
 msgid "%s is my"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:108
+#: Template/Profiles/edit.ctp:89
 msgid "born %s"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:122
+#: Template/Profiles/edit.ctp:103
 msgid "Married On"
 msgstr ""
 
-#: Template/Profiles/edit.ctp:130
+#: Template/Profiles/edit.ctp:111
 msgid "Married In"
 msgstr ""
 
@@ -1140,28 +1087,35 @@ msgid "Set new password for {0}"
 msgstr ""
 
 #: Template/Users/change_password.ctp:7
-#: Template/Users/install.ctp:7
 #: Template/Users/login.ctp:6
 #: Template/Users/reset.ctp:7
 msgid "Your Father"
 msgstr ""
 
 #: Template/Users/change_password.ctp:8
-#: Template/Users/install.ctp:8
 #: Template/Users/login.ctp:7
 #: Template/Users/reset.ctp:8
 msgid "Your Mother"
 msgstr ""
 
-#: Template/Users/change_password.ctp:13;14
+#: Template/Users/change_password.ctp:13
+#: Template/Users/settings.ctp:23
 msgid "New Password"
 msgstr ""
 
 #: Template/Users/change_password.ctp:13
+#: Template/Users/settings.ctp:23
 msgid "Password is required, format must be valid."
 msgstr ""
 
 #: Template/Users/change_password.ctp:14
+#: Template/Users/install.ctp:23
+#: Template/Users/settings.ctp:24
+msgid "Repeat Password"
+msgstr ""
+
+#: Template/Users/change_password.ctp:14
+#: Template/Users/settings.ctp:24
 msgid "Passwords do not match."
 msgstr ""
 
@@ -1173,30 +1127,40 @@ msgstr ""
 msgid "Add First User"
 msgstr ""
 
-#: Template/Users/install.ctp:13
+#: Template/Users/install.ctp:8
+msgid "Welcome to Famiree"
+msgstr ""
+
+#: Template/Users/install.ctp:10
+msgid "Please enter user data for a first Famiree profile."
+msgstr ""
+
+#: Template/Users/install.ctp:11
+msgid "This user will also be a first site admin with highest privileges."
+msgstr ""
+
+#: Template/Users/install.ctp:16
 msgid "First Name"
 msgstr ""
 
-#: Template/Users/install.ctp:14
+#: Template/Users/install.ctp:17
 msgid "Last Name"
 msgstr ""
 
-#: Template/Users/install.ctp:15
+#: Template/Users/install.ctp:18
 #: Template/Users/reset.ctp:11
+#: Template/Users/settings.ctp:17
 msgid "Email"
 msgstr ""
 
-#: Template/Users/install.ctp:18
+#: Template/Users/install.ctp:21
+#: Template/Users/settings.ctp:16
 msgid "Username"
 msgstr ""
 
-#: Template/Users/install.ctp:19
+#: Template/Users/install.ctp:22
 #: Template/Users/login.ctp:11
 msgid "Password"
-msgstr ""
-
-#: Template/Users/install.ctp:20
-msgid "Repeat Password"
 msgstr ""
 
 #: Template/Users/login.ctp:2;17
@@ -1217,5 +1181,73 @@ msgstr ""
 
 #: Template/Users/reset.ctp:13
 msgid "Request new Password"
+msgstr ""
+
+#: Template/Users/settings.ctp:16
+msgid "Invalid username."
+msgstr ""
+
+#: Template/Users/settings.ctp:17
+msgid "Invalid email."
+msgstr ""
+
+#: Template/Users/settings.ctp:22
+msgid "Old Password"
+msgstr ""
+
+#: Template/Users/settings.ctp:22
+msgid "Invalid current password."
+msgstr ""
+
+#: View/Helper/FamireeHelper.php:43
+msgid "Auburn"
+msgstr ""
+
+#: View/Helper/FamireeHelper.php:44
+msgid "Black"
+msgstr ""
+
+#: View/Helper/FamireeHelper.php:45
+msgid "Blonde"
+msgstr ""
+
+#: View/Helper/FamireeHelper.php:46;56
+msgid "Brown"
+msgstr ""
+
+#: View/Helper/FamireeHelper.php:47
+msgid "Gray"
+msgstr ""
+
+#: View/Helper/FamireeHelper.php:48
+msgid "Red"
+msgstr ""
+
+#: View/Helper/FamireeHelper.php:49
+msgid "None"
+msgstr ""
+
+#: View/Helper/FamireeHelper.php:50;60;294;309
+msgid "Other"
+msgstr ""
+
+#: View/Helper/FamireeHelper.php:54
+msgid "Amber"
+msgstr ""
+
+#: View/Helper/FamireeHelper.php:55
+msgid "Blue"
+msgstr ""
+
+#: View/Helper/FamireeHelper.php:57
+msgid "Grey"
+msgstr ""
+
+#: View/Helper/FamireeHelper.php:58
+msgid "Green"
+msgstr ""
+
+#: View/Helper/FamireeHelper.php:59
+msgid "Hazel"
 msgstr ""
 

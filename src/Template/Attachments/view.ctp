@@ -105,8 +105,6 @@ if (!empty($attachment->description)) {
     $this->Form->unlockField('height');
     $this->Form->unlockField('profile_id');
 
-    //echo $this->Form->input('profile_title', array('type'=>'text', 'label'=>__('Profile', true).':'));
-
     echo '<div class="input text">';
     echo '<label for="Imgnote.note">' . __('Note') . ':</label>';
     echo $this->Form->text('note', ['id' => 'ImgnoteNote']);

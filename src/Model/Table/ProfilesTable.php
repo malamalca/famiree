@@ -3,6 +3,7 @@ namespace App\Model\Table;
 
 use App\Model\Table\Traits\FamilyTreeTrait;
 use ArrayObject;
+use Cake\Auth\DefaultPasswordHasher;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Database\Expression\QueryExpression;
@@ -100,7 +101,9 @@ class ProfilesTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create')
-            ->notEmpty('fn');
+            ->notEmpty('fn')
+            ->allowEmpty('e')
+            ->email('e');
 
         return $validator;
     }
@@ -158,10 +161,44 @@ class ProfilesTable extends Table
             )
             ->notEmpty('repeat_pass')
             ->add('repeat_pass', 'match', [
-                    'rule' => function ($value, $context) {
-                        return $value == $context['data']['p'];
-                    }
-                ]);
+                'rule' => function ($value, $context) {
+                    return $value == $context['data']['p'];
+                }
+            ]);
+
+        return $validator;
+    }
+
+    /**
+     * Settings validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     *
+     * @return \Cake\Validation\Validator
+     */
+    public function validationSettings($validator)
+    {
+        $validator = new Validator();
+        $validator
+            ->allowEmpty('e')
+            ->email('e')
+            ->allowEmpty('p')
+            ->add('p', 'minLength', ['rule' => ['minLength', 4]])
+            ->allowEmpty('repeat_pass')
+            ->add('repeat_pass', 'match', [
+                'rule' => function ($value, $context) {
+                    return $value == $context['data']['p'];
+                }
+            ])
+            ->allowEmpty('old_pass')
+            ->add('old_pass', 'match', [
+                'rule' => function ($value, $context) {
+                    /** @var \App\Model\Entity\Profile $user */
+                    $user = TableRegistry::get('Profiles')->get($context['data']['id']);
+
+                    return (new DefaultPasswordHasher)->check($value, $user->p);
+                }
+            ]);
 
         return $validator;
     }
@@ -176,6 +213,7 @@ class ProfilesTable extends Table
     {
         //$rules->add($rules->existsIn(['creator_id'], 'Creators'));
         //$rules->add($rules->existsIn(['modifier_id'], 'Modifiers'));
+        $rules->add($rules->isUnique(['u']));
 
         return $rules;
     }

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Famiree v0.9dev\n"
-"POT-Creation-Date: 2019-01-22 15:30+0000\n"
-"PO-Revision-Date: 2019-01-22 16:59+0100\n"
+"POT-Creation-Date: 2019-01-25 07:38+0000\n"
+"PO-Revision-Date: 2019-01-25 08:41+0100\n"
 "Last-Translator: Miha Nahtigal <mihan@email.si>\n"
 "Language-Team: Miha Nahtigal <miha@nahtigal.com>\n"
 "Language: sl_SI\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: Controller/AttachmentsController.php:84
 msgid "Attachment does not exist."
@@ -82,39 +82,39 @@ msgstr "Spomin je izbrisan."
 msgid "The post could not be deleted. Please, try again."
 msgstr "Spomina ni mogoče izbrisati."
 
-#: Controller/ProfilesController.php:102
+#: Controller/ProfilesController.php:103
 msgid "Invalid user."
 msgstr "Profil ne obstaja."
 
-#: Controller/ProfilesController.php:203
+#: Controller/ProfilesController.php:208
 msgid "The profile already has two parents."
 msgstr "Profil že ima dva starša."
 
-#: Controller/ProfilesController.php:238;261
+#: Controller/ProfilesController.php:243;266
 msgid "The profile has been saved."
 msgstr "Profil je shranjen."
 
-#: Controller/ProfilesController.php:242;265
+#: Controller/ProfilesController.php:247;270
 msgid "The profile could not be saved. Please, try again."
 msgstr "Profila ni mogoče shraniti. Preverite vpisana polja."
 
-#: Controller/ProfilesController.php:282
+#: Controller/ProfilesController.php:287
 msgid "The profile has been deleted."
 msgstr "Profil je izbrisan."
 
-#: Controller/ProfilesController.php:284
+#: Controller/ProfilesController.php:289
 msgid "The profile could not be deleted. Please, try again."
 msgstr "Profila nimogoče izbrisati."
 
-#: Controller/ProfilesController.php:313
+#: Controller/ProfilesController.php:318
 msgid "Profile's avatar has been successfully saved."
 msgstr "Provzeta slika profila je shranjena."
 
-#: Controller/ProfilesController.php:315
+#: Controller/ProfilesController.php:320
 msgid "Profile's avatar could not be changed."
 msgstr "Privzete slike profila ni mogoče spremeniti."
 
-#: Controller/ProfilesController.php:384
+#: Controller/ProfilesController.php:389
 msgid "Invalid ajax call."
 msgstr "Neveljaven ajax klic."
 
@@ -142,7 +142,7 @@ msgstr "Uporabnik ne obstaja."
 msgid "Password has been changed."
 msgstr "Geslo je bilo spremenjeno."
 
-#: Controller/UsersController.php:189;221
+#: Controller/UsersController.php:189;221;252
 msgid "Please verify that the information is correct."
 msgstr "Prosim preverite vpisane podatke."
 
@@ -150,7 +150,15 @@ msgstr "Prosim preverite vpisane podatke."
 msgid "User has been added."
 msgstr "Uporabnik je shranjen."
 
-#: Model/Table/ProfilesTable.php:448
+#: Controller/UsersController.php:249
+msgid "User settings have been changed."
+msgstr "Nastavitve so shranjene."
+
+#: Lib/GedImport.php:26
+msgid "Get file does not exist"
+msgstr "Datoteka ne obstaja"
+
+#: Model/Table/ProfilesTable.php:483
 msgid "Password Reset"
 msgstr "Novo geslo"
 
@@ -188,25 +196,26 @@ msgid "Created"
 msgstr "Datum vpisa"
 
 #: Template/Attachments/edit.ctp:64 Template/Attachments/view.ctp:119
-#: Template/Posts/edit.ctp:46 Template/Profiles/add.ctp:85
-#: Template/Profiles/edit.ctp:138 Template/Profiles/reorder_children.ctp:60
-#: Template/Profiles/view.ctp:295;467 Template/Users/install.ctp:23
+#: Template/Posts/edit.ctp:41 Template/Profiles/add.ctp:85
+#: Template/Profiles/edit.ctp:119 Template/Profiles/reorder_children.ctp:60
+#: Template/Profiles/view.ctp:295;467 Template/Users/install.ctp:26
+#: Template/Users/settings.ctp:32
 msgid "Save"
 msgstr "Shrani"
 
 #: Template/Attachments/edit.ctp:67 Template/Attachments/view.ctp:120
-#: Template/Element/header.ctp:17 Template/Posts/edit.ctp:49
+#: Template/Element/header.ctp:17 Template/Posts/edit.ctp:44
 #: Template/Posts/index.ctp:24 Template/Posts/view.ctp:13
-#: Template/Profiles/add.ctp:88 Template/Profiles/edit.ctp:141
+#: Template/Profiles/add.ctp:88 Template/Profiles/edit.ctp:122
 #: Template/Profiles/reorder_children.ctp:61
-#: Template/Profiles/view.ctp:300;472;496
+#: Template/Profiles/view.ctp:300;472;496 Template/Users/settings.ctp:34
 msgid "or"
 msgstr "ali"
 
 #: Template/Attachments/edit.ctp:67 Template/Attachments/view.ctp:57;120
-#: Template/Posts/edit.ctp:49 Template/Profiles/add.ctp:88
-#: Template/Profiles/edit.ctp:141 Template/Profiles/reorder_children.ctp:61
-#: Template/Profiles/view.ctp:301;473
+#: Template/Posts/edit.ctp:44 Template/Profiles/add.ctp:88
+#: Template/Profiles/edit.ctp:122 Template/Profiles/reorder_children.ctp:61
+#: Template/Profiles/view.ctp:301;473 Template/Users/settings.ctp:34
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -276,7 +285,7 @@ msgstr "vaše družinsko drevo..."
 msgid "Hello, {0}."
 msgstr "Pozdravljeni, {0}."
 
-#: Template/Element/header.ctp:16
+#: Template/Element/header.ctp:16 Template/Users/settings.ctp:13
 msgid "Settings"
 msgstr "Nastavitve"
 
@@ -514,11 +523,11 @@ msgstr "Osebni podatki"
 
 #: Template/Element/Sidebar/Profiles/edit.ctp:5
 #: Template/Element/Sidebar/Profiles/view.ctp:127;133
-#: Template/Profiles/edit.ctp:55;58
+#: Template/Profiles/edit.ctp:36;39
 msgid "Interests"
 msgstr "Interesi"
 
-#: Template/Element/Sidebar/Profiles/edit.ctp:6 Template/Profiles/edit.ctp:73
+#: Template/Element/Sidebar/Profiles/edit.ctp:6 Template/Profiles/edit.ctp:54
 msgid "Relationships"
 msgstr "Sorodstvena razmerja"
 
@@ -562,55 +571,55 @@ msgstr "Ste prepričani, da želite izbrisati profil?"
 msgid "Hair Color"
 msgstr "Barva las"
 
-#: Template/Element/Sidebar/Profiles/view.ctp:76 Template/Profiles/edit.ctp:35
+#: Template/Element/Sidebar/Profiles/view.ctp:76 Template/Profiles/edit.ctp:25
 msgid "Eye Color"
 msgstr "Barva oči"
 
-#: Template/Element/Sidebar/Profiles/view.ctp:84 Template/Profiles/edit.ctp:46
+#: Template/Element/Sidebar/Profiles/view.ctp:84 Template/Profiles/edit.ctp:27
 msgid "Nick Names"
 msgstr "Vzdevki"
 
-#: Template/Element/Sidebar/Profiles/view.ctp:92 Template/Profiles/edit.ctp:47
+#: Template/Element/Sidebar/Profiles/view.ctp:92 Template/Profiles/edit.ctp:28
 msgid "Education"
 msgstr "Izobrazba"
 
-#: Template/Element/Sidebar/Profiles/view.ctp:100 Template/Profiles/edit.ctp:48
+#: Template/Element/Sidebar/Profiles/view.ctp:100 Template/Profiles/edit.ctp:29
 msgid "Job"
 msgstr "Poklic"
 
-#: Template/Element/Sidebar/Profiles/view.ctp:141 Template/Profiles/edit.ctp:59
+#: Template/Element/Sidebar/Profiles/view.ctp:141 Template/Profiles/edit.ctp:40
 msgid "Activities"
 msgstr "Aktivnosti"
 
-#: Template/Element/Sidebar/Profiles/view.ctp:149 Template/Profiles/edit.ctp:60
+#: Template/Element/Sidebar/Profiles/view.ctp:149 Template/Profiles/edit.ctp:41
 msgid "People/Heroes"
 msgstr "Ljudje/Idoli"
 
-#: Template/Element/Sidebar/Profiles/view.ctp:157 Template/Profiles/edit.ctp:61
+#: Template/Element/Sidebar/Profiles/view.ctp:157 Template/Profiles/edit.ctp:42
 msgid "Cuisines"
 msgstr "Hrana"
 
-#: Template/Element/Sidebar/Profiles/view.ctp:165 Template/Profiles/edit.ctp:62
+#: Template/Element/Sidebar/Profiles/view.ctp:165 Template/Profiles/edit.ctp:43
 msgid "Quotes"
 msgstr "Reki/Pregovori"
 
-#: Template/Element/Sidebar/Profiles/view.ctp:173 Template/Profiles/edit.ctp:63
+#: Template/Element/Sidebar/Profiles/view.ctp:173 Template/Profiles/edit.ctp:44
 msgid "Movies"
 msgstr "Filmi"
 
-#: Template/Element/Sidebar/Profiles/view.ctp:181 Template/Profiles/edit.ctp:64
+#: Template/Element/Sidebar/Profiles/view.ctp:181 Template/Profiles/edit.ctp:45
 msgid "TV Shows"
 msgstr "TV programi"
 
-#: Template/Element/Sidebar/Profiles/view.ctp:189 Template/Profiles/edit.ctp:65
+#: Template/Element/Sidebar/Profiles/view.ctp:189 Template/Profiles/edit.ctp:46
 msgid "Music"
 msgstr "Glasba"
 
-#: Template/Element/Sidebar/Profiles/view.ctp:197 Template/Profiles/edit.ctp:66
+#: Template/Element/Sidebar/Profiles/view.ctp:197 Template/Profiles/edit.ctp:47
 msgid "Books"
 msgstr "Knjige"
 
-#: Template/Element/Sidebar/Profiles/view.ctp:205 Template/Profiles/edit.ctp:67
+#: Template/Element/Sidebar/Profiles/view.ctp:205 Template/Profiles/edit.ctp:48
 msgid "Sports"
 msgstr "Šport"
 
@@ -663,7 +672,7 @@ msgstr "Uredi zapis"
 msgid "Body"
 msgstr "Telo"
 
-#: Template/Posts/edit.ctp:37
+#: Template/Posts/edit.ctp:34
 msgid "Creator"
 msgstr "Avtor"
 
@@ -785,111 +794,59 @@ msgstr "njen"
 msgid "Personal info"
 msgstr "Osebni podatki"
 
-#: Template/Profiles/edit.ctp:25 View/Helper/FamireeHelper.php:43
-msgid "Auburn"
-msgstr "kostanjeva"
-
-#: Template/Profiles/edit.ctp:26 View/Helper/FamireeHelper.php:44
-msgid "Black"
-msgstr "črna"
-
-#: Template/Profiles/edit.ctp:27 View/Helper/FamireeHelper.php:45
-msgid "Blonde"
-msgstr "blond"
-
-#: Template/Profiles/edit.ctp:28;39 View/Helper/FamireeHelper.php:46;56
-msgid "Brown"
-msgstr "rjava"
-
-#: Template/Profiles/edit.ctp:29 View/Helper/FamireeHelper.php:47
-msgid "Gray"
-msgstr "siva"
-
-#: Template/Profiles/edit.ctp:30 View/Helper/FamireeHelper.php:48
-msgid "Red"
-msgstr "rdeča"
-
-#: Template/Profiles/edit.ctp:32 View/Helper/FamireeHelper.php:49
-msgid "None"
-msgstr "brez"
-
-#: Template/Profiles/edit.ctp:33;44 View/Helper/FamireeHelper.php:50;60;294;309
-msgid "Other"
-msgstr "drugo"
-
-#: Template/Profiles/edit.ctp:37 View/Helper/FamireeHelper.php:54
-msgid "Amber"
-msgstr "kostanjeva"
-
-#: Template/Profiles/edit.ctp:38 View/Helper/FamireeHelper.php:55
-msgid "Blue"
-msgstr "modra"
-
-#: Template/Profiles/edit.ctp:40 View/Helper/FamireeHelper.php:57
-msgid "Grey"
-msgstr "siva"
-
-#: Template/Profiles/edit.ctp:41 View/Helper/FamireeHelper.php:58
-msgid "Green"
-msgstr "zelena"
-
-#: Template/Profiles/edit.ctp:42 View/Helper/FamireeHelper.php:59
-msgid "Hazel"
-msgstr "kostanjeva"
-
-#: Template/Profiles/edit.ctp:78
+#: Template/Profiles/edit.ctp:59
 msgid "Wife"
 msgstr "Žena"
 
-#: Template/Profiles/edit.ctp:79;88
+#: Template/Profiles/edit.ctp:60;69
 msgid "Fiancee"
 msgstr "Zaročenka"
 
-#: Template/Profiles/edit.ctp:80;89;115
+#: Template/Profiles/edit.ctp:61;70;96
 msgid "Partner"
 msgstr "Partner"
 
-#: Template/Profiles/edit.ctp:81
+#: Template/Profiles/edit.ctp:62
 msgid "Ex-wife (deceased)"
 msgstr "Pokojna žena"
 
-#: Template/Profiles/edit.ctp:82
+#: Template/Profiles/edit.ctp:63
 msgid "Ex-wife"
 msgstr "Bivša žena"
 
-#: Template/Profiles/edit.ctp:84
+#: Template/Profiles/edit.ctp:65
 msgid "%s is his"
 msgstr "%s je njegov/a"
 
-#: Template/Profiles/edit.ctp:87
+#: Template/Profiles/edit.ctp:68
 msgid "Husband"
 msgstr "Soprog"
 
-#: Template/Profiles/edit.ctp:90
+#: Template/Profiles/edit.ctp:71
 msgid "Ex-husband (deceased)"
 msgstr "Pokojni mož"
 
-#: Template/Profiles/edit.ctp:91
+#: Template/Profiles/edit.ctp:72
 msgid "Ex-husband"
 msgstr "Bivši mož"
 
-#: Template/Profiles/edit.ctp:93
+#: Template/Profiles/edit.ctp:74
 msgid "%s is her"
 msgstr "%s je njen"
 
-#: Template/Profiles/edit.ctp:97
+#: Template/Profiles/edit.ctp:78
 msgid "%s is my"
 msgstr "%s je moj/a"
 
-#: Template/Profiles/edit.ctp:108
+#: Template/Profiles/edit.ctp:89
 msgid "born %s"
 msgstr "rojen/a %s"
 
-#: Template/Profiles/edit.ctp:122
+#: Template/Profiles/edit.ctp:103
 msgid "Married On"
 msgstr "Datum poroke"
 
-#: Template/Profiles/edit.ctp:130
+#: Template/Profiles/edit.ctp:111
 msgid "Married In"
 msgstr "Kraj poroke"
 
@@ -1082,25 +1039,30 @@ msgstr[3] "otrok"
 msgid "Set new password for {0}"
 msgstr "Novo geslo za \"{0}\""
 
-#: Template/Users/change_password.ctp:7 Template/Users/install.ctp:7
-#: Template/Users/login.ctp:6 Template/Users/reset.ctp:7
+#: Template/Users/change_password.ctp:7 Template/Users/login.ctp:6
+#: Template/Users/reset.ctp:7
 msgid "Your Father"
 msgstr "Vaš oče"
 
-#: Template/Users/change_password.ctp:8 Template/Users/install.ctp:8
-#: Template/Users/login.ctp:7 Template/Users/reset.ctp:8
+#: Template/Users/change_password.ctp:8 Template/Users/login.ctp:7
+#: Template/Users/reset.ctp:8
 msgid "Your Mother"
 msgstr "Vaša mati"
 
-#: Template/Users/change_password.ctp:13;14
+#: Template/Users/change_password.ctp:13 Template/Users/settings.ctp:23
 msgid "New Password"
 msgstr "Novo geslo"
 
-#: Template/Users/change_password.ctp:13
+#: Template/Users/change_password.ctp:13 Template/Users/settings.ctp:23
 msgid "Password is required, format must be valid."
 msgstr "Geslo je obvezno polje. Preverja se format."
 
-#: Template/Users/change_password.ctp:14
+#: Template/Users/change_password.ctp:14 Template/Users/install.ctp:23
+#: Template/Users/settings.ctp:24
+msgid "Repeat Password"
+msgstr "Ponovitev gesla"
+
+#: Template/Users/change_password.ctp:14 Template/Users/settings.ctp:24
 msgid "Passwords do not match."
 msgstr "Novo geslo in ponovitev gesla se ne ujemata."
 
@@ -1112,29 +1074,39 @@ msgstr "Spremeni"
 msgid "Add First User"
 msgstr "Dodaj prvi profil"
 
-#: Template/Users/install.ctp:13
+#: Template/Users/install.ctp:8
+msgid "Welcome to Famiree"
+msgstr "Dobrodošli v Famiree"
+
+#: Template/Users/install.ctp:10
+msgid "Please enter user data for a first Famiree profile."
+msgstr "Izpolnite osnovne podatke za prvi profil."
+
+#: Template/Users/install.ctp:11
+msgid "This user will also be a first site admin with highest privileges."
+msgstr ""
+"Ta tudi profil bo prejel administratorske pravice za upravljanje s portalom."
+
+#: Template/Users/install.ctp:16
 msgid "First Name"
 msgstr "Ime"
 
-#: Template/Users/install.ctp:14
+#: Template/Users/install.ctp:17
 msgid "Last Name"
 msgstr "Priimek"
 
-#: Template/Users/install.ctp:15 Template/Users/reset.ctp:11
+#: Template/Users/install.ctp:18 Template/Users/reset.ctp:11
+#: Template/Users/settings.ctp:17
 msgid "Email"
 msgstr "Email"
 
-#: Template/Users/install.ctp:18
+#: Template/Users/install.ctp:21 Template/Users/settings.ctp:16
 msgid "Username"
 msgstr "Uporabnik"
 
-#: Template/Users/install.ctp:19 Template/Users/login.ctp:11
+#: Template/Users/install.ctp:22 Template/Users/login.ctp:11
 msgid "Password"
 msgstr "Geslo"
-
-#: Template/Users/install.ctp:20
-msgid "Repeat Password"
-msgstr "Ponovitev gesla"
 
 #: Template/Users/login.ctp:2;17
 msgid "Login"
@@ -1156,11 +1128,76 @@ msgstr "Email za spremembo gesla"
 msgid "Request new Password"
 msgstr "Zahteva za novo geslo"
 
+#: Template/Users/settings.ctp:16
+msgid "Invalid username."
+msgstr "Napačno uporabniško ime."
+
+#: Template/Users/settings.ctp:17
+msgid "Invalid email."
+msgstr "Neveljaven email naslov."
+
+#: Template/Users/settings.ctp:22
+msgid "Old Password"
+msgstr "Trenutno geslo"
+
+#: Template/Users/settings.ctp:22
+msgid "Invalid current password."
+msgstr "Nepravilno trenutno geslo."
+
+#: View/Helper/FamireeHelper.php:43
+msgid "Auburn"
+msgstr "kostanjeva"
+
+#: View/Helper/FamireeHelper.php:44
+msgid "Black"
+msgstr "črna"
+
+#: View/Helper/FamireeHelper.php:45
+msgid "Blonde"
+msgstr "blond"
+
+#: View/Helper/FamireeHelper.php:46;56
+msgid "Brown"
+msgstr "rjava"
+
+#: View/Helper/FamireeHelper.php:47
+msgid "Gray"
+msgstr "siva"
+
+#: View/Helper/FamireeHelper.php:48
+msgid "Red"
+msgstr "rdeča"
+
+#: View/Helper/FamireeHelper.php:49
+msgid "None"
+msgstr "brez"
+
+#: View/Helper/FamireeHelper.php:50;60;294;309
+msgid "Other"
+msgstr "drugo"
+
+#: View/Helper/FamireeHelper.php:54
+msgid "Amber"
+msgstr "kostanjeva"
+
+#: View/Helper/FamireeHelper.php:55
+msgid "Blue"
+msgstr "modra"
+
+#: View/Helper/FamireeHelper.php:57
+msgid "Grey"
+msgstr "siva"
+
+#: View/Helper/FamireeHelper.php:58
+msgid "Green"
+msgstr "zelena"
+
+#: View/Helper/FamireeHelper.php:59
+msgid "Hazel"
+msgstr "kostanjeva"
+
 #~ msgid "Added by %1$s, %2$s."
 #~ msgstr "%1$s objavil/a %2$s."
-
-#~ msgid "Properties have been saved."
-#~ msgstr "Profil je shranjen."
 
 #~ msgid "RSS Memories"
 #~ msgstr "RSS spomini"

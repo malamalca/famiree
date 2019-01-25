@@ -119,6 +119,10 @@ class ProfilesControllerTest extends TestCase
     {
         $this->session(['Auth' => $this->authData]);
 
+        $this->get('profiles/add/child/1');
+        $this->assertResponseSuccess();
+        $this->assertNoRedirect();
+
         $profilesCount = TableRegistry::get('Profiles')->find()->count();
         $unionsCount = TableRegistry::get('Unions')->find()->count();
         $unitsCount = TableRegistry::get('Units')->find()->count();
@@ -155,6 +159,10 @@ class ProfilesControllerTest extends TestCase
     public function testEdit()
     {
         $this->session(['Auth' => $this->authData]);
+
+        $this->get('profiles/edit/1');
+        $this->assertResponseSuccess();
+        $this->assertNoRedirect();
 
         $profilesCount = TableRegistry::get('Profiles')->find()->count();
         $unionsCount = TableRegistry::get('Unions')->find()->count();

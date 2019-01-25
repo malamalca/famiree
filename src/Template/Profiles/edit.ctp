@@ -114,6 +114,26 @@
     </fieldset>
     </div>
 
+    <?php
+        if ($this->currentUser->get('lvl') <= LVL_ADMIN) {
+    ?>
+    <div class="tab" id="EditProfileTabAdmin">
+    <h1><?= h($profile->d_n) . ': ' . __('Administration') ?></h1>
+    <fieldset>
+        <?php
+            echo $this->Form->control('u', ['label' => __('Username') . ':', 'error' => __('Invalid username.')]);
+        ?>
+    </fieldset>
+    <fieldset>
+        <?php
+             echo $this->Form->control('p', ['type' => 'password', 'label' => __('New Password') . ':', 'value' => '', 'error' => __('Password is required, format must be valid.'), 'value' => '']);
+        ?>
+    </fieldset>
+    </div>
+    <?php
+        }
+    ?>
+
 <?php
         echo '<div class="input submit">';
         echo $this->Form->button(__('Save'), ['type' => 'submit', 'id' => 'ProfileSubmitButton']);
@@ -130,6 +150,7 @@ if ($referer = trim(base64_decode($this->getRequest()->getData('referer')))) {
             $("#EditProfileTabPersonal").hide();
             $("#EditProfileTabInterests").hide();
             $("#EditProfileTabRelationships").hide();
+            $("#EditProfileTabAdmin").hide();
 
             <?php if ($profile->l) { ?>
                 // hide death info form living people
@@ -173,6 +194,14 @@ if ($referer = trim(base64_decode($this->getRequest()->getData('referer')))) {
                 $("#EditProfileLinkRelationships").parent().addClass("active");
                 $(".tab").hide();
                 $("#EditProfileTabRelationships").show();
+                return false;
+            });
+
+            $("#EditProfileLinkAdmin").click(function(){
+                $("#SidebarProfileEditMenu li.active").removeClass("active");
+                $("#EditProfileLinkAdmin").parent().addClass("active");
+                $(".tab").hide();
+                $("#EditProfileTabAdmin").show();
                 return false;
             });
 

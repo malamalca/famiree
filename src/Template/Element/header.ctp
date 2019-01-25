@@ -13,7 +13,7 @@ if ($this->currentUser->exists()) {
     <?php
     printf(__('Hello, {0}.', '<b>' . $this->currentUser->get('d_n') . '</b>'));
     echo ' ';
-    echo $this->Html->link(__('Settings'), ['controller' => 'Settings']);
+    echo $this->Html->link(__('Settings'), ['controller' => 'Users', 'action' => 'settings']);
     echo ' ' . __('or') . ' ';
     echo $this->Html->link(__('Logout'), '/logout');
     ?>

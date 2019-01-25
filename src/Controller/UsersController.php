@@ -63,7 +63,7 @@ class UsersController extends AppController
      */
     public function isAuthorized($user)
     {
-        if (in_array($this->getRequest()->getParam('action'), ['properties'])) {
+        if (in_array($this->getRequest()->getParam('action'), ['settings'])) {
             return $this->Auth->user('id');
         }
 
@@ -222,6 +222,35 @@ class UsersController extends AppController
             }
         } else {
             $user->set('p', null);
+        }
+
+        $this->set(compact('user'));
+    }
+
+    /**
+     * Change users settings
+     *
+     * @return void
+     */
+    public function settings()
+    {
+        /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
+        $ProfilesTable = TableRegistry::get('Profiles');
+        $user = $ProfilesTable->get($this->currentUser->get('id'));
+
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $ProfilesTable->patchEntity($user, $this->getRequest()->getData(), ['validate' => 'settings']);
+            if (empty($this->getRequest()->getData('p'))) {
+                $user->setDirty('p', false);
+                unset($user->p);
+            }
+
+            if (!$user->getErrors() && $ProfilesTable->save($user)) {
+                $this->Flash->success(__('User settings have been changed.'));
+                $this->redirect('/');
+            } else {
+                $this->Flash->error(__('Please verify that the information is correct.'));
+            }
         }
 
         $this->set(compact('user'));

@@ -23,6 +23,9 @@
 </div>
 </fieldset>
 <fieldset>
+    <?= $this->Form->control('e', ['label' => __('Email').':', 'error' => __('Invalid email format.')]) ?>
+</fieldset>
+<fieldset>
     <div class="input text">
         <label><?= __('Date of Birth') ?>:</label>
         <?php
