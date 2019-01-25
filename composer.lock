@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37cbf9403d75167cc86deecfae93572c",
+    "content-hash": "656b3ccc41b103a5588ea68fef618a9d",
     "packages": [
         {
             "name": "aura/intl",
@@ -54,16 +54,16 @@
         },
         {
             "name": "cakephp/cakephp",
-            "version": "3.7.2",
+            "version": "3.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "eae26792654fece99bb121420e179f0a0efcb2ae"
+                "reference": "b0b9a3713720b30cd8e90c8b1a317a8294b2513a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/eae26792654fece99bb121420e179f0a0efcb2ae",
-                "reference": "eae26792654fece99bb121420e179f0a0efcb2ae",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/b0b9a3713720b30cd8e90c8b1a317a8294b2513a",
+                "reference": "b0b9a3713720b30cd8e90c8b1a317a8294b2513a",
                 "shasum": ""
             },
             "require": {
@@ -96,6 +96,7 @@
             },
             "require-dev": {
                 "cakephp/cakephp-codesniffer": "^3.0",
+                "cakephp/chronos": "^1.2.1",
                 "phpunit/phpunit": "^5.7.14|^6.0"
             },
             "suggest": {
@@ -138,7 +139,7 @@
                 "rapid-development",
                 "validation"
             ],
-            "time": "2019-01-04T03:02:35+00:00"
+            "time": "2019-01-22T03:01:08+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -199,16 +200,16 @@
         },
         {
             "name": "malamalca/php-gedcom",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/malamalca/php-gedcom.git",
-                "reference": "631e696897be3e892beaad33e56b35ed28ff2d8a"
+                "reference": "b2af6df3aca37a7b1686f38ecb6500a5d1ac680d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/malamalca/php-gedcom/zipball/631e696897be3e892beaad33e56b35ed28ff2d8a",
-                "reference": "631e696897be3e892beaad33e56b35ed28ff2d8a",
+                "url": "https://api.github.com/repos/malamalca/php-gedcom/zipball/b2af6df3aca37a7b1686f38ecb6500a5d1ac680d",
+                "reference": "b2af6df3aca37a7b1686f38ecb6500a5d1ac680d",
                 "shasum": ""
             },
             "require": {
@@ -234,7 +235,7 @@
                 "gedcom",
                 "parser"
             ],
-            "time": "2018-07-04T13:42:47+00:00"
+            "time": "2019-01-25T17:29:11+00:00"
         },
         {
             "name": "malamalca/wideimage",
@@ -2758,16 +2759,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.11",
+            "version": "0.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "cfb0b43021fb75abe853ab8d88d22cdb37596697"
+                "reference": "a138b8a2731b2c19f1dffa2f1411984a638fe977"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/cfb0b43021fb75abe853ab8d88d22cdb37596697",
-                "reference": "cfb0b43021fb75abe853ab8d88d22cdb37596697",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a138b8a2731b2c19f1dffa2f1411984a638fe977",
+                "reference": "a138b8a2731b2c19f1dffa2f1411984a638fe977",
                 "shasum": ""
             },
             "require": {
@@ -2827,7 +2828,7 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "time": "2019-01-15T14:21:47+00:00"
+            "time": "2019-01-19T20:23:08+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
