@@ -9,6 +9,7 @@ use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Event\EventManager;
 use Cake\Http\Exception\NotFoundException;
+use Cake\I18n\Time;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
 use Cake\Utility\Security;
@@ -84,13 +85,15 @@ class UsersController extends AppController
 
         if ($user = $this->Auth->identify()) {
             $this->Auth->setUser($user);
+            /** @var \App\Model\Entity\Profile $user */
+            $user = TableRegistry::get('Profiles')->get($this->Auth->user('id'));
+            $user->last_login = new Time();
 
             if ($this->Auth->authenticationProvider()->needsPasswordRehash()) {
-                /** @var \App\Model\Entity\Profile $user */
-                $user = TableRegistry::get('Profiles')->get($this->Auth->user('id'));
                 $user->p = $this->request->getData('p');
-                TableRegistry::get('Profiles')->save($user);
             }
+
+            TableRegistry::get('Profiles')->save($user);
 
             // set cookie
             if (!empty($this->getRequest()->getData('remember_me'))) {
