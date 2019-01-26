@@ -21,7 +21,7 @@ If Composer is installed globally, run
 composer create-project malamalca/famiree --no-dev
 ```
 
-## Installing Famiree via Github Release
+## Installing Famiree from archive
 1. Download [Latest Famiree release](https://github.com/malamalca/famiree/releases/latest) and extract it to your webroot folder.
 2. Copy  config/app.default.php to config/app.php and open the file with your preferred text editor
 3. Find and replace following settings in your config/app.php file:
