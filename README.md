@@ -30,7 +30,8 @@ composer create-project malamalca/famiree --no-dev
     * __DBUSER__ with mysql user (eg `famiree_www`)
     * __DBPASS__ with mysql password (eg `mysecretpassword`)
     * __DATABASE__ with mysql database name (eg `famiree`)
-5. Import schema/famiree.sql file into your mysql database (you should create it first and set up db permissions) via phpMyAdmin or mysql command line interface (eg `mysql -u username -p database_name < famiree.sql`.
+4. Import schema/famiree.sql file into your mysql database (you should create it first and set up db permissions) via phpMyAdmin or mysql command line interface (eg `mysql -u username -p database_name < famiree.sql`).
+5. Set up write permission for following folders and their subfolders `logs`, `tmp`, `uploads`, `webroot/img/thumbs`.
 
 ## Running
 
