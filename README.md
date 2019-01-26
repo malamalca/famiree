@@ -25,11 +25,11 @@ composer create-project malamalca/famiree --no-dev
 1. Download [Latest Famiree release](https://github.com/malamalca/famiree/releases/latest) and extract it to your webroot folder.
 2. Copy  config/app.default.php to config/app.php and open the file with your preferred text editor
 3. Find and replace following settings in your config/app.php file:
-    * __SALT__ with a random string (eg `3498klfsjo093ljk42389s`)
-    * __DBHOST__ with mysql host (eg `localhost`)
-    * __DBUSER__ with mysql user (eg `famiree_www`)
-    * __DBPASS__ with mysql password (eg `mysecretpassword`)
-    * __DATABASE__ with mysql database name (eg `famiree`)
+    * `__SALT__` with a random string (eg `3498klfsjo093ljk42389s`)
+    * `__DBHOST__` with mysql host (eg `localhost`)
+    * `__DBUSER__` with mysql user (eg `famiree_www`)
+    * `__DBPASS__` with mysql password (eg `mysecretpassword`)
+    * `__DATABASE__` with mysql database name (eg `famiree`)
 4. Import schema/famiree.sql file into your mysql database (you should create it first and set up db permissions) via phpMyAdmin or mysql command line interface (eg `mysql -u username -p database_name < famiree.sql`).
 5. Set up write permission for following folders and their subfolders `logs`, `tmp`, `uploads`, `webroot/img/thumbs`.
 
