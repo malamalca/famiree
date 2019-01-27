@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Famiree v0.9dev\n"
-"POT-Creation-Date: 2019-01-25 07:38+0000\n"
-"PO-Revision-Date: 2019-01-25 08:41+0100\n"
+"POT-Creation-Date: 2019-01-27 14:36+0000\n"
+"PO-Revision-Date: 2019-01-27 15:39+0100\n"
 "Last-Translator: Miha Nahtigal <mihan@email.si>\n"
 "Language-Team: Miha Nahtigal <miha@nahtigal.com>\n"
 "Language: sl_SI\n"
@@ -14,143 +14,151 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: Controller/AttachmentsController.php:84
+#: Controller/AttachmentsController.php:88
 msgid "Attachment does not exist."
 msgstr "Priponka ne obstaja."
 
-#: Controller/AttachmentsController.php:140
+#: Controller/AttachmentsController.php:144
 msgid "The attachment has been saved."
 msgstr "Priponka je shranjena."
 
-#: Controller/AttachmentsController.php:148
+#: Controller/AttachmentsController.php:152
 msgid "The attachment could not be saved. Please, try again."
 msgstr "Priponke ni mogoče shraniti. Preverite vpisana polja."
 
-#: Controller/AttachmentsController.php:165
+#: Controller/AttachmentsController.php:169
 msgid "The attachment has been deleted."
 msgstr "Priponka je izbrisana."
 
-#: Controller/AttachmentsController.php:167
+#: Controller/AttachmentsController.php:171
 msgid "The attachment could not be deleted. Please, try again."
 msgstr "Priponke ni mogoče izbrisati. Mogoče je pripeta kot profilna slika."
 
-#: Controller/AttachmentsLinksController.php:54
+#: Controller/AttachmentsLinksController.php:58
 msgid "The attachments link has been saved."
 msgstr "Priponka je shranjena."
 
-#: Controller/AttachmentsLinksController.php:62
+#: Controller/AttachmentsLinksController.php:66
 msgid "The attachments link could not be saved. Please, try again."
 msgstr "Povezave na priponko ni mogoče shraniti. Preverite vpisana polja."
 
-#: Controller/AttachmentsLinksController.php:78
+#: Controller/AttachmentsLinksController.php:82
 msgid "The attachments link has been deleted."
 msgstr "Povezava priponke je izbrisana."
 
-#: Controller/AttachmentsLinksController.php:80
+#: Controller/AttachmentsLinksController.php:84
 msgid "The attachments link could not be deleted. Please, try again."
 msgstr "Povezave na priponko ni mogoče izbrisati."
 
-#: Controller/ImgnotesController.php:68
+#: Controller/ImgnotesController.php:72
 msgid "The imgnote has been saved."
 msgstr "Nalepka na sliki je shranjena."
 
-#: Controller/ImgnotesController.php:77
+#: Controller/ImgnotesController.php:81
 msgid "The imgnote could not be saved. Please, try again."
 msgstr "Oznake ni mogoče shraniti. Preverite vpisana polja."
 
-#: Controller/ImgnotesController.php:95
+#: Controller/ImgnotesController.php:99
 msgid "The imgnote has been deleted."
 msgstr "Nalepka je izbrisana."
 
-#: Controller/ImgnotesController.php:97
+#: Controller/ImgnotesController.php:101
 msgid "The imgnote could not be deleted. Please, try again."
 msgstr "Oznake ni mogoče izbrisati."
 
-#: Controller/PostsController.php:80
+#: Controller/PostsController.php:84
 msgid "The post has been saved."
 msgstr "Spomin je shranjen."
 
-#: Controller/PostsController.php:88
+#: Controller/PostsController.php:92
 msgid "The post could not be saved. Please, try again."
 msgstr "Spomina ni mogoče shraniti. Preverite vpisana polja."
 
-#: Controller/PostsController.php:106
+#: Controller/PostsController.php:110
 msgid "The post has been deleted."
 msgstr "Spomin je izbrisan."
 
-#: Controller/PostsController.php:108
+#: Controller/PostsController.php:112
 msgid "The post could not be deleted. Please, try again."
 msgstr "Spomina ni mogoče izbrisati."
 
-#: Controller/ProfilesController.php:103
+#: Controller/ProfilesController.php:117
 msgid "Invalid user."
 msgstr "Profil ne obstaja."
 
-#: Controller/ProfilesController.php:208
+#: Controller/ProfilesController.php:222
 msgid "The profile already has two parents."
 msgstr "Profil že ima dva starša."
 
-#: Controller/ProfilesController.php:243;266
+#: Controller/ProfilesController.php:257;285
 msgid "The profile has been saved."
 msgstr "Profil je shranjen."
 
-#: Controller/ProfilesController.php:247;270
+#: Controller/ProfilesController.php:261;289
 msgid "The profile could not be saved. Please, try again."
 msgstr "Profila ni mogoče shraniti. Preverite vpisana polja."
 
-#: Controller/ProfilesController.php:287
+#: Controller/ProfilesController.php:306
 msgid "The profile has been deleted."
 msgstr "Profil je izbrisan."
 
-#: Controller/ProfilesController.php:289
+#: Controller/ProfilesController.php:308
 msgid "The profile could not be deleted. Please, try again."
 msgstr "Profila nimogoče izbrisati."
 
-#: Controller/ProfilesController.php:318
+#: Controller/ProfilesController.php:337
 msgid "Profile's avatar has been successfully saved."
 msgstr "Provzeta slika profila je shranjena."
 
-#: Controller/ProfilesController.php:320
+#: Controller/ProfilesController.php:339
 msgid "Profile's avatar could not be changed."
 msgstr "Privzete slike profila ni mogoče spremeniti."
 
-#: Controller/ProfilesController.php:389
+#: Controller/ProfilesController.php:408
 msgid "Invalid ajax call."
 msgstr "Neveljaven ajax klic."
 
-#: Controller/UsersController.php:105
+#: Controller/ProfilesController.php:423
+msgid "Successfuly imported Gedcom file."
+msgstr "Uvoz GEDCOM datoteke je bil uspešen."
+
+#: Controller/ProfilesController.php:425
+msgid "An error occured importing Gedcome file."
+msgstr "Pri uvozu GEDCOM datoteke je prišlo do napake."
+
+#: Controller/UsersController.php:108
 msgid "Invalid username or password, try again"
 msgstr "Napačno uporabniško ime ali geslo. Poizkusite ponovno."
 
-#: Controller/UsersController.php:155
+#: Controller/UsersController.php:158
 msgid "An email with password reset instructions has been sent."
 msgstr "Email z navodili za spremembo gesla je bil poslan na vpisan naslov."
 
-#: Controller/UsersController.php:157
+#: Controller/UsersController.php:160
 msgid "No user with specified email has been found."
 msgstr "Uporabnik z vpisanim email naslovom ne obstaja."
 
-#: Controller/UsersController.php:171
+#: Controller/UsersController.php:174
 msgid "Reset key does not exist."
 msgstr "Ključ za spremembo gesla ne obstaja."
 
-#: Controller/UsersController.php:179
+#: Controller/UsersController.php:182
 msgid "User does not exist."
 msgstr "Uporabnik ne obstaja."
 
-#: Controller/UsersController.php:186
+#: Controller/UsersController.php:189
 msgid "Password has been changed."
 msgstr "Geslo je bilo spremenjeno."
 
-#: Controller/UsersController.php:189;221;252
+#: Controller/UsersController.php:192;224;255
 msgid "Please verify that the information is correct."
 msgstr "Prosim preverite vpisane podatke."
 
-#: Controller/UsersController.php:218
+#: Controller/UsersController.php:221
 msgid "User has been added."
 msgstr "Uporabnik je shranjen."
 
-#: Controller/UsersController.php:249
+#: Controller/UsersController.php:252
 msgid "User settings have been changed."
 msgstr "Nastavitve so shranjene."
 
@@ -158,7 +166,7 @@ msgstr "Nastavitve so shranjene."
 msgid "Get file does not exist"
 msgstr "Datoteka ne obstaja"
 
-#: Model/Table/ProfilesTable.php:483
+#: Model/Table/ProfilesTable.php:486
 msgid "Password Reset"
 msgstr "Novo geslo"
 
@@ -175,15 +183,15 @@ msgid "Basic Info"
 msgstr "Osnovni podatki"
 
 #: Template/Attachments/edit.ctp:36 Template/Posts/edit.ctp:22
-#: Template/Profiles/view.ctp:286;457
+#: Template/Profiles/view.ctp:290;461
 msgid "Title"
 msgstr "Naslov"
 
-#: Template/Attachments/edit.ctp:42 Template/Profiles/view.ctp:282
+#: Template/Attachments/edit.ctp:42 Template/Profiles/view.ctp:286
 msgid "Filename"
 msgstr "Datoteka"
 
-#: Template/Attachments/edit.ctp:46 Template/Profiles/view.ctp:292
+#: Template/Attachments/edit.ctp:46 Template/Profiles/view.ctp:296
 msgid "Description"
 msgstr "Opis"
 
@@ -195,27 +203,27 @@ msgstr "Dodatne lastnosti"
 msgid "Created"
 msgstr "Datum vpisa"
 
-#: Template/Attachments/edit.ctp:64 Template/Attachments/view.ctp:119
+#: Template/Attachments/edit.ctp:64 Template/Attachments/view.ctp:117
 #: Template/Posts/edit.ctp:41 Template/Profiles/add.ctp:85
-#: Template/Profiles/edit.ctp:119 Template/Profiles/reorder_children.ctp:60
-#: Template/Profiles/view.ctp:295;467 Template/Users/install.ctp:26
+#: Template/Profiles/edit.ctp:150 Template/Profiles/reorder_children.ctp:60
+#: Template/Profiles/view.ctp:299;471 Template/Users/install.ctp:26
 #: Template/Users/settings.ctp:32
 msgid "Save"
 msgstr "Shrani"
 
-#: Template/Attachments/edit.ctp:67 Template/Attachments/view.ctp:120
+#: Template/Attachments/edit.ctp:67 Template/Attachments/view.ctp:118
 #: Template/Element/header.ctp:17 Template/Posts/edit.ctp:44
 #: Template/Posts/index.ctp:24 Template/Posts/view.ctp:13
-#: Template/Profiles/add.ctp:88 Template/Profiles/edit.ctp:122
+#: Template/Profiles/add.ctp:88 Template/Profiles/edit.ctp:153
 #: Template/Profiles/reorder_children.ctp:61
-#: Template/Profiles/view.ctp:300;472;496 Template/Users/settings.ctp:34
+#: Template/Profiles/view.ctp:304;476;500 Template/Users/settings.ctp:34
 msgid "or"
 msgstr "ali"
 
-#: Template/Attachments/edit.ctp:67 Template/Attachments/view.ctp:57;120
+#: Template/Attachments/edit.ctp:67 Template/Attachments/view.ctp:57;118
 #: Template/Posts/edit.ctp:44 Template/Profiles/add.ctp:88
-#: Template/Profiles/edit.ctp:122 Template/Profiles/reorder_children.ctp:61
-#: Template/Profiles/view.ctp:301;473 Template/Users/settings.ctp:34
+#: Template/Profiles/edit.ctp:153 Template/Profiles/reorder_children.ctp:61
+#: Template/Profiles/view.ctp:305;477 Template/Users/settings.ctp:34
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -269,11 +277,11 @@ msgstr " ali "
 msgid "Add Note"
 msgstr "Dodaj nalepko"
 
-#: Template/Attachments/view.ctp:111
+#: Template/Attachments/view.ctp:109
 msgid "Note"
 msgstr "Nalepka"
 
-#: Template/Attachments/view.ctp:116
+#: Template/Attachments/view.ctp:114
 msgid "Crop and create new image"
 msgstr "Z izrezom ustvari novo sliko"
 
@@ -307,7 +315,7 @@ msgstr "Slike"
 
 #: Template/Element/header.ctp:45
 #: Template/Element/Sidebar/Profiles/dashboard.ctp:29
-#: Template/Profiles/view.ctp:441
+#: Template/Profiles/view.ctp:445
 msgid "Memories"
 msgstr "Spomini"
 
@@ -356,31 +364,40 @@ msgstr "Moški"
 msgid "Female"
 msgstr "Ženski"
 
-#: Template/Element/profile_basics.ctp:27 Template/Profiles/view.ctp:33
+#: Template/Element/profile_basics.ctp:26 Template/Users/install.ctp:18
+#: Template/Users/reset.ctp:11 Template/Users/settings.ctp:17
+msgid "Email"
+msgstr "Email"
+
+#: Template/Element/profile_basics.ctp:26
+msgid "Invalid email format."
+msgstr "Neveljaven email naslov."
+
+#: Template/Element/profile_basics.ctp:30 Template/Profiles/view.ctp:33
 msgid "Date of Birth"
 msgstr "Datum rojstva"
 
-#: Template/Element/profile_basics.ctp:35 Template/Profiles/view.ctp:57
+#: Template/Element/profile_basics.ctp:38 Template/Profiles/view.ctp:57
 msgid "Place of Birth"
 msgstr "Kraj rojstva"
 
-#: Template/Element/profile_basics.ctp:41
+#: Template/Element/profile_basics.ctp:44
 msgid "Place of Living"
 msgstr "Prebivališče"
 
-#: Template/Element/profile_basics.ctp:47 Template/Profiles/view.ctp:72
+#: Template/Element/profile_basics.ctp:50 Template/Profiles/view.ctp:72
 msgid "Date of Death"
 msgstr "Datum smrti"
 
-#: Template/Element/profile_basics.ctp:55 Template/Profiles/view.ctp:88
+#: Template/Element/profile_basics.ctp:58 Template/Profiles/view.ctp:88
 msgid "Place of Death"
 msgstr "Kraj smrti"
 
-#: Template/Element/profile_basics.ctp:59 Template/Profiles/view.ctp:98
+#: Template/Element/profile_basics.ctp:62 Template/Profiles/view.ctp:98
 msgid "Cause of Death"
 msgstr "Vzrok smrti"
 
-#: Template/Element/profile_basics.ctp:63 Template/Profiles/view.ctp:108
+#: Template/Element/profile_basics.ctp:66 Template/Profiles/view.ctp:108
 msgid "Place of Burial"
 msgstr "Pokopan v/na"
 
@@ -531,6 +548,10 @@ msgstr "Interesi"
 msgid "Relationships"
 msgstr "Sorodstvena razmerja"
 
+#: Template/Element/Sidebar/Profiles/edit.ctp:10 Template/Profiles/edit.ctp:121
+msgid "Administration"
+msgstr "Administracija"
+
 #: Template/Element/Sidebar/Profiles/edit_avatar.ctp:17
 msgid "Click on image you wish to set as users new avatar."
 msgstr "Kliknite za spremembo privzete slike osebe."
@@ -668,7 +689,7 @@ msgstr "Nazaj"
 msgid "Edit Post"
 msgstr "Uredi zapis"
 
-#: Template/Posts/edit.ctp:23 Template/Profiles/view.ctp:460
+#: Template/Posts/edit.ctp:23 Template/Profiles/view.ctp:464
 msgid "Body"
 msgstr "Telo"
 
@@ -681,12 +702,12 @@ msgid "Posts"
 msgstr "Spomini"
 
 #: Template/Posts/index.ctp:23 Template/Posts/view.ctp:12
-#: Template/Profiles/view.ctp:370;379;491
+#: Template/Profiles/view.ctp:374;383;495
 msgid "edit"
 msgstr "uredi"
 
 #: Template/Posts/index.ctp:25 Template/Posts/view.ctp:14
-#: Template/Profiles/view.ctp:385;394;498
+#: Template/Profiles/view.ctp:389;398;502
 msgid "delete"
 msgstr "briši"
 
@@ -702,7 +723,7 @@ msgstr "Objavil/a {1}, {0}."
 msgid "Linked to {0}."
 msgstr "Povezano s/z {0}."
 
-#: Template/Posts/index.ctp:59 Template/Profiles/view.ctp:542
+#: Template/Posts/index.ctp:59 Template/Profiles/view.ctp:546
 msgid "Read more..."
 msgstr "Beri naprej..."
 
@@ -850,9 +871,68 @@ msgstr "Datum poroke"
 msgid "Married In"
 msgstr "Kraj poroke"
 
+#: Template/Profiles/edit.ctp:124 Template/Users/install.ctp:21
+#: Template/Users/settings.ctp:16
+msgid "Username"
+msgstr "Uporabnik"
+
+#: Template/Profiles/edit.ctp:124 Template/Users/settings.ctp:16
+msgid "Invalid username."
+msgstr "Napačno uporabniško ime."
+
+#: Template/Profiles/edit.ctp:127 Template/Users/install.ctp:22
+#: Template/Users/login.ctp:11
+msgid "Password"
+msgstr "Geslo"
+
+#: Template/Profiles/edit.ctp:127 Template/Users/change_password.ctp:13
+#: Template/Users/settings.ctp:23
+msgid "Password is required, format must be valid."
+msgstr "Geslo je obvezno polje. Preverja se format."
+
+#: Template/Profiles/edit.ctp:133
+msgid "Viewer"
+msgstr "Bralec"
+
+#: Template/Profiles/edit.ctp:134
+msgid "Editor"
+msgstr "Urednik"
+
+#: Template/Profiles/edit.ctp:135
+msgid "Admin"
+msgstr "Administrator"
+
+#: Template/Profiles/edit.ctp:138
+msgid "Root"
+msgstr "Sistem"
+
+#: Template/Profiles/edit.ctp:140
+msgid "Privileges"
+msgstr "Dostop"
+
 #: Template/Profiles/edit_avatar.ctp:5
 msgid "Select Avatar"
 msgstr "Izberi privzeto sliko profila"
+
+#: Template/Profiles/ged_import.ctp:4;8
+msgid "Import Gedcom file"
+msgstr "Uvoz Gedcom datoteke"
+
+#: Template/Profiles/ged_import.ctp:10
+msgid "Please upload a Gedcom file."
+msgstr "Izberite Gedcom datoteko"
+
+#: Template/Profiles/ged_import.ctp:11
+msgid "Profiles from Gedcom will replace entire family tree."
+msgstr "Obstoječi profili bodo z uvozom Gedcom datoteke izbrisani."
+
+#: Template/Profiles/ged_import.ctp:14
+msgid "Gedcom File"
+msgstr "Gedcom datoteka"
+
+#: Template/Profiles/ged_import.ctp:17
+msgid "Import"
+msgstr "Uvoz"
 
 #: Template/Profiles/index.ctp:4
 msgid "Search Results for \"{0}\""
@@ -882,7 +962,7 @@ msgstr "Vrstni red otrok"
 msgid "unknown"
 msgstr "neznano"
 
-#: Template/Profiles/tree.ctp:47;49;339
+#: Template/Profiles/tree.ctp:47;49;373
 msgid "Show Tree"
 msgstr "Prikaz drevesa"
 
@@ -898,23 +978,23 @@ msgstr "Mladoleten otrok"
 msgid "deceased"
 msgstr "pokojni/a"
 
-#: Template/Profiles/tree.ctp:340
+#: Template/Profiles/tree.ctp:374
 msgid "Edit Profile"
 msgstr "Uredi profil"
 
-#: Template/Profiles/tree.ctp:341
+#: Template/Profiles/tree.ctp:375
 msgid "Add Mother or Father"
 msgstr "Dodaj očeta ali mater"
 
-#: Template/Profiles/tree.ctp:342
+#: Template/Profiles/tree.ctp:376
 msgid "Add Partner"
 msgstr "Dodaj partnerja"
 
-#: Template/Profiles/tree.ctp:343
+#: Template/Profiles/tree.ctp:377
 msgid "Add Sibling"
 msgstr "Dodaj sestro/brata"
 
-#: Template/Profiles/tree.ctp:344
+#: Template/Profiles/tree.ctp:378
 msgid "Add Child"
 msgstr "Dodaj otroka"
 
@@ -978,52 +1058,52 @@ msgstr ", %d %s"
 msgid "Added"
 msgstr "Dodano"
 
-#: Template/Profiles/view.ctp:206
+#: Template/Profiles/view.ctp:207
 msgid "by"
 msgstr "::"
 
-#: Template/Profiles/view.ctp:215
+#: Template/Profiles/view.ctp:219
 msgid "Last Login"
 msgstr "Zadnja prijava"
 
-#: Template/Profiles/view.ctp:231
+#: Template/Profiles/view.ctp:235
 msgid "add photo"
 msgstr "dodaj fotografijo"
 
-#: Template/Profiles/view.ctp:236
+#: Template/Profiles/view.ctp:240
 msgid "Photo Gallery"
 msgstr "Foto galerija"
 
-#: Template/Profiles/view.ctp:287
+#: Template/Profiles/view.ctp:291
 msgid "Please enter a title for your attachment."
 msgstr "Vpišite naslov priponke oz. slike."
 
-#: Template/Profiles/view.ctp:397
+#: Template/Profiles/view.ctp:401
 msgid "Are you sure you want to delete this attachment?"
 msgstr "Ste prepričani, da želite izbrisati priponko?"
 
-#: Template/Profiles/view.ctp:424
+#: Template/Profiles/view.ctp:428
 msgid ""
 "There are currently no media files for this person. Please do add yours."
 msgstr "Trenutno še ni elementov v galeriji."
 
-#: Template/Profiles/view.ctp:436
+#: Template/Profiles/view.ctp:440
 msgid "add"
 msgstr "dodaj"
 
-#: Template/Profiles/view.ctp:462
+#: Template/Profiles/view.ctp:466
 msgid "Please enter some memories about this person."
 msgstr "Vpišite besedilo spominov."
 
-#: Template/Profiles/view.ctp:508
+#: Template/Profiles/view.ctp:512
 msgid "Are your sure you want to delete this memory?"
 msgstr "Ste prepričani, da želite izbrisati spomin?"
 
-#: Template/Profiles/view.ctp:523
+#: Template/Profiles/view.ctp:527
 msgid "Published %1$s by %2$s."
 msgstr "Objavil/a %2$s, %1$s."
 
-#: Template/Profiles/view.ctp:553;605
+#: Template/Profiles/view.ctp:557;609
 msgid "There are currently no memories for this person. Please do add yours."
 msgstr "Trenutno še ni spominov o izbrani osebi."
 
@@ -1052,10 +1132,6 @@ msgstr "Vaša mati"
 #: Template/Users/change_password.ctp:13 Template/Users/settings.ctp:23
 msgid "New Password"
 msgstr "Novo geslo"
-
-#: Template/Users/change_password.ctp:13 Template/Users/settings.ctp:23
-msgid "Password is required, format must be valid."
-msgstr "Geslo je obvezno polje. Preverja se format."
 
 #: Template/Users/change_password.ctp:14 Template/Users/install.ctp:23
 #: Template/Users/settings.ctp:24
@@ -1095,19 +1171,6 @@ msgstr "Ime"
 msgid "Last Name"
 msgstr "Priimek"
 
-#: Template/Users/install.ctp:18 Template/Users/reset.ctp:11
-#: Template/Users/settings.ctp:17
-msgid "Email"
-msgstr "Email"
-
-#: Template/Users/install.ctp:21 Template/Users/settings.ctp:16
-msgid "Username"
-msgstr "Uporabnik"
-
-#: Template/Users/install.ctp:22 Template/Users/login.ctp:11
-msgid "Password"
-msgstr "Geslo"
-
 #: Template/Users/login.ctp:2;17
 msgid "Login"
 msgstr "Prijava"
@@ -1127,10 +1190,6 @@ msgstr "Email za spremembo gesla"
 #: Template/Users/reset.ctp:13
 msgid "Request new Password"
 msgstr "Zahteva za novo geslo"
-
-#: Template/Users/settings.ctp:16
-msgid "Invalid username."
-msgstr "Napačno uporabniško ime."
 
 #: Template/Users/settings.ctp:17
 msgid "Invalid email."
