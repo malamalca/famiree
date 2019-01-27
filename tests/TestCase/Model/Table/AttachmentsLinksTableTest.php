@@ -54,32 +54,17 @@ class AttachmentsLinksTableTest extends TestCase
     }
 
     /**
-     * Test initialize method
+     * Test linkProfile method
      *
      * @return void
      */
-    public function testInitialize()
+    public function testLinkProfile()
     {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+        $ret = $this->AttachmentsLinks->linkProfile(2, 'd372525d-9fb6-4643-bd21-217cb96d7496');
+        $this->assertTrue($ret);
 
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
+        // link profile with attachment that does not exist
+        $ret = $this->AttachmentsLinks->linkProfile(2, 'd372525d-9fb6-4334-bd21-217cb96d7496');
+        $this->assertFalse($ret);
     }
 }

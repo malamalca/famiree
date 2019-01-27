@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\Cache\Cache;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -108,5 +109,18 @@ class LogsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         return $rules;
+    }
+
+    /**
+     * Aftersave event handler
+     *
+     * @param Event $event Event object
+     * @param EntityInterface $entity Entity object
+     * @param ArrayObject $options Options
+     * @return void
+     */
+    public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options)
+    {
+        Cache::delete('Logs');
     }
 }

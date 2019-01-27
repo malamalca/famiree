@@ -716,39 +716,44 @@ trait FamilyTreeTrait
      */
     private function __buildCache()
     {
-        $units = Cache::remember('tree-units', function () {
-            return TableRegistry::get('Units')->find()
+        $unitsCache = ['_unions' => [], '_g' => [], '_c2u' => [], '_p2u' => []];
+
+        //Cache::delete('Units.tree');
+        $unitsCache = Cache::remember('Units.tree', function () {
+            $units = TableRegistry::get('Units')->find()
                 ->select(['Units.union_id', 'Units.profile_id', 'Units.kind', 'Profiles.g'])
                 ->contain(['Profiles'])
                 ->order(['Units.union_id', 'Units.kind DESC', 'Units.sort_order', 'Units.id'])
                 ->all();
+
+            foreach ($units as $u) {
+                $union_id = $u->union_id;
+                $profile_id = $u->profile_id;
+
+                $unitsCache['_unions'][$union_id][$u->kind][] = $profile_id;
+                $unitsCache['_g'][$profile_id] = isset($u->profile->g) ? $u->profile->g : '';
+
+                if ($u->kind == 'c') {
+                    $unitsCache['_c2u'][$profile_id][$union_id] = &$unitsCache['_unions'][$union_id];
+                } else {
+                    $unitsCache['_p2u'][$profile_id][$union_id] = &$unitsCache['_unions'][$union_id];
+                }
+            }
+
+            return $unitsCache;
         });
 
         // union cache
-        $this->_unions = [];
+        $this->_unions = $unitsCache['_unions'];
 
         // "fetchAsChild" cache
-        $this->_c2u = [];
+        $this->_c2u = $unitsCache['_c2u'];
 
         // "fetchAsParent" cache
-        $this->_p2u = [];
+        $this->_p2u = $unitsCache['_p2u'];
 
         // gender cache
-        $this->_g = [];
-
-        foreach ($units as $u) {
-            $union_id = $u->union_id;
-            $profile_id = $u->profile_id;
-
-            $this->_unions[$union_id][$u->kind][] = $profile_id;
-            $this->_g[$profile_id] = isset($u->profile->g) ? $u->profile->g : '';
-
-            if ($u->kind == 'c') {
-                $this->_c2u[$profile_id][$union_id] = &$this->_unions[$union_id];
-            } else {
-                $this->_p2u[$profile_id][$union_id] = &$this->_unions[$union_id];
-            }
-        }
+        $this->_g = $unitsCache['_g'];
     }
 
     /**

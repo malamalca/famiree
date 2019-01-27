@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use App\Lib\GedImport;
+use Cake\Cache\Cache;
 use Cake\Event\Event;
 use Cake\Http\Exception\NotFoundException;
 use Cake\ORM\TableRegistry;
@@ -62,12 +63,14 @@ class ProfilesController extends AppController
             ->order(['Posts.created DESC'])
             ->limit(5)
             ->all();
-        $logs = TableRegistry::get('Logs')->find()
+        $logs = Cache::remember('Logs.dashboard', function () {
+            return TableRegistry::get('Logs')->find()
             ->select()
             ->contain(['Profiles', 'Imgnotes', 'Attachments', 'Posts', 'Users'])
             ->order(['Logs.created DESC'])
             ->limit(10)
             ->all();
+        });
 
         $dates = $this->Profiles->withBirthdays();
 

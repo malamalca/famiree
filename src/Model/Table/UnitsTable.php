@@ -104,7 +104,7 @@ class UnitsTable extends Table
      */
     public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options)
     {
-        Cache::delete('tree-units');
+        Cache::delete('Units');
     }
 
     /**
@@ -117,7 +117,7 @@ class UnitsTable extends Table
      */
     public function afterDelete(Event $event, EntityInterface $entity, ArrayObject $options)
     {
-        Cache::delete('tree-units');
+        Cache::delete('Units');
         $count = $this->find()
             ->select()
             ->where(['union_id' => $entity->union_id])

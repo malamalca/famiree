@@ -55,32 +55,13 @@ class AttachmentsTableTest extends TestCase
     }
 
     /**
-     * Test initialize method
+     * Test fetchForProfile method
      *
      * @return void
      */
-    public function testInitialize()
+    public function testFetchForProfile()
     {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
+        $ret = $this->Attachments->fetchForProfile(1);
+        $this->assertTrue((bool)$ret);
     }
 }
