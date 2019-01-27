@@ -716,7 +716,7 @@ trait FamilyTreeTrait
      */
     private function __buildCache()
     {
-        Cache::delete('Units.tree');
+        //Cache::delete('Units.tree');
         $unitsCache = Cache::remember('Units.tree', function () {
             $unitsCache = ['_unions' => [], '_g' => [], '_c2u' => [], '_p2u' => []];
 
