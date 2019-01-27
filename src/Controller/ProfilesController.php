@@ -45,6 +45,17 @@ class ProfilesController extends AppController
      */
     public function isAuthorized($user)
     {
+        if (in_array($this->getRequest()->getParam('action'), ['edit', 'delete',
+            'add', 'addChild', 'addPartner', 'addParent', 'addSibling',
+            'editAvatar', 'reorderChildren'
+        ])) {
+            return $this->currentUser->get('lvl') <= constant('LVL_EDITOR');
+        }
+
+        if (in_array($this->getRequest()->getParam('action'), ['gedImport'])) {
+            return $this->currentUser->get('lvl') <= constant('LVL_ADMIN');
+        }
+
         return true;
     }
 

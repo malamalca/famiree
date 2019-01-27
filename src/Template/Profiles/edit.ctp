@@ -123,10 +123,21 @@
         <?php
             echo $this->Form->control('u', ['label' => __('Username') . ':', 'error' => __('Invalid username.')]);
         ?>
+        <?php
+             echo $this->Form->control('p', ['type' => 'password', 'label' => __('Password') . ':', 'value' => '', 'error' => __('Password is required, format must be valid.'), 'value' => '']);
+        ?>
     </fieldset>
     <fieldset>
         <?php
-             echo $this->Form->control('p', ['type' => 'password', 'label' => __('New Password') . ':', 'value' => '', 'error' => __('Password is required, format must be valid.'), 'value' => '']);
+            $privileges = [
+                LVL_VIEWER => __('Viewer'),
+                LVL_EDITOR => __('Editor'),
+                LVL_ADMIN => __('Admin'),
+            ];
+            if ($this->currentUser->get('lvl') <= LVL_ROOT) {
+                $privileges[LVL_ROOT] = __('Root');
+            }
+            echo $this->Form->control('lvl', ['label' => __('Privileges') . ':', 'type' => 'select', 'options' => $privileges]);
         ?>
     </fieldset>
     </div>

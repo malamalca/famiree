@@ -22,6 +22,10 @@ class ImgnotesController extends AppController
      */
     public function isAuthorized($user)
     {
+        if (in_array($this->getRequest()->getParam('action'), ['edit', 'delete', 'add'])) {
+            return $this->currentUser->get('lvl') <= constant('LVL_EDITOR');
+        }
+
         return true;
     }
 
