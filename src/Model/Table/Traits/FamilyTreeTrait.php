@@ -716,10 +716,10 @@ trait FamilyTreeTrait
      */
     private function __buildCache()
     {
-        $unitsCache = ['_unions' => [], '_g' => [], '_c2u' => [], '_p2u' => []];
-
         //Cache::delete('Units.tree');
         $unitsCache = Cache::remember('Units.tree', function () {
+            $unitsCache = ['_unions' => [], '_g' => [], '_c2u' => [], '_p2u' => []];
+
             $units = TableRegistry::get('Units')->find()
                 ->select(['Units.union_id', 'Units.profile_id', 'Units.kind', 'Profiles.g'])
                 ->contain(['Profiles'])
