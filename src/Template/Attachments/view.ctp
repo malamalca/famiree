@@ -118,7 +118,33 @@ if (!empty($attachment->description)) {
     echo ' ' . __('or') . ' <span class="link" id="CancelNoteLink">' . __('Cancel') . '</span>';
     echo '</div>';
     echo $this->Form->end();
+?>
+</div>
+<div id="CropForm" class="form">
+<?php
+    echo $this->Form->Create(null, ['url' => ['controller' => 'Attachments', 'action' => 'crop']]);
+    echo '<fieldset>';
+    echo '<legend>' . __('Crop') . '</legend>';
+    echo $this->Form->hidden('attachment_id', ['type' => 'hidden', 'value' => $attachment->id]);
+    echo $this->Form->hidden('user_id', ['type' => 'hidden', 'value' => $this->currentUser->get('id')]);
+    echo $this->Form->hidden('referer', ['type' => 'hidden', 'value' => base64_encode($this->Url->build(null, true))]);
+    echo $this->Form->hidden('x', ['type' => 'hidden', 'id' => 'CropX1']);
+    echo $this->Form->hidden('y', ['type' => 'hidden', 'id' => 'CropY1']);
+    echo $this->Form->hidden('width', ['type' => 'hidden', 'id' => 'CropWidth']);
+    echo $this->Form->hidden('height', ['type' => 'hidden', 'id' => 'CropHeight']);
 
+    $this->Form->unlockField('x');
+    $this->Form->unlockField('y');
+    $this->Form->unlockField('width');
+    $this->Form->unlockField('height');
+
+    echo $this->Form->button(__('Save'), ['type' => 'submit']);
+    echo ' ' . __('or') . ' <span class="link" id="CancelCropLink">' . __('Cancel') . '</span>';
+    echo $this->Form->end();
+?>
+</div>
+
+<?php
     echo $this->Html->script('jquery.imgareaselect-0.8.min');
     echo $this->Html->script('jquery.imgnotes-0.2');
 
@@ -126,8 +152,8 @@ if (!empty($attachment->description)) {
     echo $this->Html->script('ui.autocomplete');
     echo $this->Html->css('imgnotes');
     echo $this->Html->css('ui.all');
-    ?>
-</div>
+?>
+
 <script type="text/javascript">
     <?php
         echo 'var notes = [';
@@ -176,6 +202,11 @@ if (!empty($attachment->description)) {
             $('#NoteForm').hide();
         });
 
+        $('#CancelCropLink').click(function() {
+            $('#AttachmentImage').imgAreaSelect({ hide: true });
+            $('#CropForm').hide();
+        });
+
         $('#AddNoteLink').click(function() {
             <?php
                 $large_sizes = $attachment->getImageSize('large');
@@ -192,6 +223,27 @@ if (!empty($attachment->description)) {
             ShowAddNote('#AttachmentImage', frame);
 
             $('#NoteForm').show();
+            $('#AttachmentImage').imgAreaSelect(frame);
+
+            return false;
+        });
+
+        $('#CropLink').click(function() {
+            <?php
+                $large_sizes = $attachment->getImageSize('large');
+                // do a 10% frame from middle
+                $w = round($large_sizes['width'] * .3);
+                $x1 = round($large_sizes['width'] / 2 - $w / 2);
+                $x2 = $x1 + $w;
+                $h = round($large_sizes['height'] * .3);
+                $y1 = round($large_sizes['height'] / 2 - $h / 2);
+                $y2 = $y1 + $h;
+
+                printf('var frame = {onSelectChange: ShowCropFrame, handles: true, x1:%1$s, x2:%2$s, y1:%3$s, y2:%4$s, width:%5$s, height:%6$s};', $x1, $x2, $y1, $y2, $w, $h).PHP_EOL;
+            ?>
+            ShowCropFrame('#AttachmentImage', frame);
+
+            $('#CropForm').show();
             $('#AttachmentImage').imgAreaSelect(frame);
 
             return false;
@@ -243,7 +295,21 @@ if (!empty($attachment->description)) {
         $('#ImgnoteY1').val(area.y1);
         $('#ImgnoteHeight').val(area.height);
         $('#ImgnoteWidth').val(area.width);
+    }
 
+    function ShowCropFrame(img, area) {
+        imgOffset = $(img).position();
+        form_left  = parseInt(imgOffset.left) + parseInt(area.x1);
+        form_top   = parseInt(imgOffset.top) + parseInt(area.y1) + parseInt(area.height)+5;
+
+        $('#CropForm').css({ left: form_left + 'px', top: form_top + 'px'});
+        $('#CropForm').show();
+
+        $('#CropForm').css("z-index", 10000);
+        $('#CropX1').val(area.x1);
+        $('#CropY1').val(area.y1);
+        $('#CropHeight').val(area.height);
+        $('#CropWidth').val(area.width);
     }
 
 

@@ -32,7 +32,7 @@ class AttachmentsController extends AppController
      */
     public function isAuthorized($user)
     {
-        if (in_array($this->getRequest()->getParam('action'), ['edit', 'delete', 'add'])) {
+        if (in_array($this->getRequest()->getParam('action'), ['edit', 'delete', 'add', 'crop'])) {
             return $this->currentUser->get('lvl') <= constant('LVL_EDITOR');
         }
 
@@ -110,6 +110,33 @@ class AttachmentsController extends AppController
         $attachment = $this->Attachments->get($id, ['contain' => ['Creators', 'Imgnotes', 'AttachmentsLinks.Profiles']]);
 
         $this->set('attachment', $attachment);
+    }
+
+    /**
+     * Crop method
+     *
+     * @param string|null $id Attachment id.
+     * @return \Cake\Http\Response|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function crop($id = null)
+    {
+        $this->getRequest()->allowMethod(['post']);
+        $attachment = $this->Attachments->get($this->getRequest()->getData('attachment_id'));
+
+        if ($this->Attachments->crop(
+            $attachment,
+            (int)$this->getRequest()->getData('x'),
+            (int)$this->getRequest()->getData('y'),
+            (int)$this->getRequest()->getData('width'),
+            (int)$this->getRequest()->getData('height')
+        )) {
+            $this->Flash->success(__('The attachment has been cropped.'));
+        } else {
+            $this->Flash->error(__('The attachment could not be cropped. Please, try again.'));
+        }
+
+        return $this->redirect(base64_decode($this->getRequest()->getData('referer')));
     }
 
     /**

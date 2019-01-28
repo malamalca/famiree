@@ -4,25 +4,23 @@ if ($this->currentUser->exists() && $this->currentUser->get('lvl') <= LVL_EDITOR
 <h1><?= __('Operations') ?></h1>
 <ul>
     <li>
-    <?php
-        echo $this->Html->image('ico_avatar.gif', ['class' => 'icon']);
-        echo $this->Html->link(
-            __('Point a Person'),
-            [
-                'controller' => 'Attachments',
-                'action' => 'addNote',
-                $attachment->id
-            ],
-            [
-                'id' => 'AddNoteLink'
-            ]
-        );
-    ?>
+        <?php
+            echo $this->Html->image('ico_avatar.gif', ['class' => 'icon']);
+            echo $this->Html->link(__('Point a Person'), ['action' => 'addNote', $attachment->id], [ 'id' => 'AddNoteLink']);
+        ?>
     </li>
-    <li><?php
-    echo $this->Html->image('ico_profile_edit.gif', ['class' => 'icon']);
-    echo $this->Famiree->link(__('[Edit] properties'), ['controller' => 'Attachments', 'action' => 'edit', $attachment->id]);
-    ?></li>
+    <li>
+        <?php
+            echo $this->Html->image('ico_profile_edit.gif', ['class' => 'icon']);
+            echo $this->Famiree->link(__('[Edit] properties'), ['action' => 'edit', $attachment->id]);
+        ?>
+    </li>
+    <li>
+        <?php
+            echo $this->Html->image('ico_crop.gif', ['class' => 'icon']);
+            echo $this->Famiree->link(__('[Crop] attachment'), ['action' => 'crop', $attachment->id], [ 'id' => 'CropLink']);
+        ?>
+    </li>
 </ul>
 <div>&nbsp;</div>
     <?php

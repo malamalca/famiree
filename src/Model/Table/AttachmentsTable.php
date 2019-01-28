@@ -232,7 +232,8 @@ class AttachmentsTable extends Table
 
                 $moveResult = ($method == 'uploaded') ? move_uploaded_file($tmpFilename, $dir->path . DS . 'original') : rename($tmpFilename, $dir->path . DS . 'original');
                 if ($moveResult) {
-                    $image->resize(640, 480, 'inside')->saveToFile($dir->path . DS . 'large', $entity->ext);
+                    $this->processOriginalImage($image, $entity->ext, $entity->id);
+                    /*$image->resize(640, 480, 'inside')->saveToFile($dir->path . DS . 'large', $entity->ext);
                     $image->resize(200, 200, 'inside')->saveToFile($dir->path . DS . 'medium', $entity->ext);
 
                     $thumb = $image->resize(75, 75, 'outside');
@@ -241,11 +242,70 @@ class AttachmentsTable extends Table
                     } elseif ($thumb->getWidth() < $thumb->getHeight()) {
                         $thumb = $thumb->crop(0, floor(($thumb->getHeight() - 75) / 2), 75, 75);
                     }
-                    $thumb->saveToFile(Configure::read('sourceFolders.thumbs') . $entity->id . '.png', null, 9);
+                    $thumb->saveToFile(Configure::read('sourceFolders.thumbs') . $entity->id . '.png', null, 9);*/
                 }
                 unset($image);
             }
         }
+    }
+
+    /**
+     * Create large+medium images and thumbnail
+     *
+     * @param \WideImage\Image $original Original image.
+     * @param string $ext Image extension
+     * @param string $id Attachment id
+     * @return void
+     */
+    public function processOriginalImage($original, $ext, $id)
+    {
+        $dir = new Folder(Configure::read('sourceFolders.attachments') . $id, true);
+
+        $original->resize(640, 480, 'inside')->saveToFile($dir->path . DS . 'large', $ext);
+        $original->resize(200, 200, 'inside')->saveToFile($dir->path . DS . 'medium', $ext);
+
+        $thumb = $original->resize(75, 75, 'outside');
+        if ($thumb->getWidth() > $thumb->getHeight()) {
+            $thumb = $thumb->crop(floor(($thumb->getWidth() - 75) / 2), 0, 75, 75);
+        } elseif ($thumb->getWidth() < $thumb->getHeight()) {
+            $thumb = $thumb->crop(0, floor(($thumb->getHeight() - 75) / 2), 75, 75);
+        }
+        $thumb->saveToFile(Configure::read('sourceFolders.thumbs') . $id . '.png', null, 9);
+    }
+
+    /**
+     * Crop attachment
+     *
+     * @param \App\Model\Entity\Attachment $attachment Attachment entity.
+     * @param int $cropX X position.
+     * @param int $cropY Y position.
+     * @param int $cropW Width.
+     * @param int $cropH Height.
+     * @return bool
+     */
+    public function crop($attachment, $cropX, $cropY, $cropW, $cropH)
+    {
+        $filenameOriginal = Configure::read('sourceFolders.attachments') . DS . $attachment->id . DS . 'original';
+        if (file_exists($filenameOriginal)) {
+            $largeSize = $this->getImageSize($attachment->id, 'large');
+            $originalSize = $this->getImageSize($attachment->id, 'original');
+
+            $scaleFactor = $originalSize['width'] / $largeSize['width'];
+            $x = (int)round($cropX * $scaleFactor);
+            $y = (int)round($cropY * $scaleFactor);
+            $width = (int)round($cropW * $scaleFactor);
+            $height = (int)round($cropH * $scaleFactor);
+
+            $image = WideImage::loadFromFile($filenameOriginal, $attachment->ext);
+            $image = $image->crop($x, $y, $width, $height);
+            $image->saveToFile($filenameOriginal, $attachment->ext);
+
+            $this->processOriginalImage($image, $attachment->ext, $attachment->id);
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
