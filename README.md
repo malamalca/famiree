@@ -4,7 +4,7 @@
 [![Build Status](https://img.shields.io/travis/malamalca/famiree/master.svg?style=flat-square)](https://travis-ci.org/malamalca/famiree)
 [![Total Downloads](https://img.shields.io/packagist/dt/malamalca/famiree.svg?style=flat-square)](https://packagist.org/packages/malamaca/famiree)
 
-Simple open source family tree web application [Famiree](https://famiree.org)
+Simple open source PHP family tree web application built with latest technologies.
 
 The source code can be found here: [malamalca/famiree](https://github.com/malamalca/famiree).
 
