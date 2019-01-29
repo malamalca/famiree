@@ -519,7 +519,7 @@ class ProfilesTable extends Table
                     return $whereExpr->isNotNull($fieldExpr);
                 })
                 ->andWhere(function (QueryExpression $andWhereExpr) use ($diffExpr) {
-                    return $andWhereExpr->gt($diffExpr, 0, 'integer');
+                    return $andWhereExpr->gte($diffExpr, 0, 'integer');
                 })
                 ->order(['diff'])
                 ->limit(20)
