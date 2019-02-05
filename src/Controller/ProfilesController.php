@@ -227,7 +227,7 @@ class ProfilesController extends AppController
                 break;
             case 'sibling':
                 $baseProfileKind = 'c';
-                $siblings = $this->Profiles->family($profileId, 'siblings');
+                $siblings = $this->Profiles->family($profileId, 'children');
                 $this->set(compact('siblings'));
                 break;
         }
