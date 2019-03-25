@@ -117,10 +117,11 @@ if (!empty($profile->mdn) &&
     <li class="hr_top">
         <span class="label"><?= __('Immediate Family') ?>: </span>
         <div class="value"><?php
-            // person can be child in only one family
+        // person can be child in only one family
         if (!empty($family['parents'])) {
             echo '<div>';
-            if (isset($family['parents'][0])) {
+            $parents = $family['parents'];
+            if ($firstParent = array_shift($parents)) {
                 if ($profile->g == 'f') {
                     echo __('Daughter of');
                 } elseif ($profile->g == 'm') {
@@ -128,10 +129,10 @@ if (!empty($profile->mdn) &&
                 } else {
                     echo __('Child of');
                 }
-                echo ' '.$this->Html->link($family['parents'][0]->fn, [$family['parents'][0]->id]);
+                echo ' '.$this->Html->link($firstParent->fn, [$firstParent->id]);
             }
-            if (isset($family['parents'][1])) {
-                echo ' ' . __('and') . ' ' . $this->Html->link($family['parents'][1]->fn, [$family['parents'][1]->id]);
+            if ($secondParent = array_shift($parents)) {
+                echo ' ' . __('and') . ' ' . $this->Html->link($secondParent->fn, [$secondParent->id]);
             }
             echo '</div>';
         }
@@ -161,15 +162,18 @@ if (!empty($profile->mdn) &&
         }
         if (!empty($family['marriages'])) {
             // $family['marriages'] is also user in sidebar for can_delete check
-            foreach ($family['marriages'] as $marriage) {
+            foreach ($family['marriages'] as $union_id => $marriage) {
                 echo '<div>';
                 echo __('Married');
                 if (!empty($marriage['spouse'])) {
-                    echo ' '.__('to').' ';
+                    echo ' ' . __('to') . ' ';
                     echo $this->Html->link(
                         $marriage['spouse']->fn,
                         [$marriage['spouse']->id]
                     );
+                    if (Configure::read('debug')) {
+                        echo ' (union_id: ' . $union_id . ')';
+                    }
                 }
                 if (!empty($marriage['children'])) {
                     echo ' ';
@@ -180,7 +184,7 @@ if (!empty($profile->mdn) &&
                     $i = 0;
                     foreach ($marriage['children'] as $child) {
                         if (sizeof($marriage['children']) > 1 && $i == sizeof($marriage['children']) - 1) {
-                            echo ' '.__('and').' ';
+                            echo ' ' . __('and') . ' ';
                         } elseif ($i > 0) {
                             echo ', ';
                         }
@@ -256,11 +260,7 @@ if ($this->currentUser->exists() && $this->currentUser->get('lvl') <= LVL_EDITOR
                 ]
             ]);
 
-            //if ($this->Html->value('Attachment.id')) {
-            //  $uuid = $this->Html->value('Attachment.id');
-            //} else {
-                $uuid = $this->Text->uuid();
-            //}
+            $uuid = $this->Text->uuid();
 
             echo $this->Form->control('id', ['type' => 'hidden', 'id' => 'AttachmentId']);
             echo $this->Form->control('referer', ['type' => 'hidden', 'value' => base64_encode($this->Url->build(null, true))]);

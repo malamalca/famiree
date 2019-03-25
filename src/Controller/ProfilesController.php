@@ -139,7 +139,7 @@ class ProfilesController extends AppController
         }
 
         $profile = $this->Profiles->get($id, ['contain' => ['Creators']]);
-        $family = $this->Profiles->family($id);
+        $family = $this->Profiles->family($id, null, true);
 
         /** @var \App\Model\Table\AttachmentsTable $AttachmentsTable */
         $AttachmentsTable = TableRegistry::get('Attachments');
@@ -227,7 +227,7 @@ class ProfilesController extends AppController
                 break;
             case 'sibling':
                 $baseProfileKind = 'c';
-                $siblings = $this->Profiles->family($profileId, 'children');
+                $siblings = $this->Profiles->family($profileId, 'siblings');
                 $this->set(compact('siblings'));
                 break;
         }
