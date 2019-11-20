@@ -28,7 +28,7 @@
 	if (isset($sidebar)) {
         if (!empty($sidebar)) {
 ?>
-			<div id="sidebar"><?= $this->element('sidebar' . DS . $sidebar) ?>&nbsp;</div>
+			<div id="sidebar"><?= $this->element('Sidebar' . DS . $sidebar) ?>&nbsp;</div>
 <?php
         }
 	}
