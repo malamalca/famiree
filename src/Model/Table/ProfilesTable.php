@@ -196,12 +196,13 @@ class ProfilesTable extends Table
                     /** @var \App\Model\Entity\Profile $user */
                     $user = TableRegistry::get('Profiles')->get($context['data']['id']);
 
-                    return (new DefaultPasswordHasher)->check($value, $user->p);
+                    return (new DefaultPasswordHasher())->check($value, $user->p);
                 }
             ]);
 
         return $validator;
     }
+
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -345,8 +346,10 @@ class ProfilesTable extends Table
             }
         }
 
-        if (empty($type) || $type == 'marriages' || $type == 'spouses' || $type == 'children' ||
-        (is_array($type) && (in_array('marriages', $type) || in_array('spouses', $type) || in_array('children', $type)))) {
+        if (
+            empty($type) || $type == 'marriages' || $type == 'spouses' || $type == 'children' ||
+            (is_array($type) && (in_array('marriages', $type) || in_array('spouses', $type) || in_array('children', $type)))
+        ) {
             $marr = TableRegistry::get('Units')->find()
                 ->select(['union_id'])
                 ->where(['profile_id' => $id, 'kind' => 'p'])
@@ -373,8 +376,10 @@ class ProfilesTable extends Table
                     $spouses[] = $marriages[$marriage_key]['spouse'];
                 }
 
-                if (empty($type) || $type == 'marriages' || $type == 'children' ||
-                (is_array($type) && (in_array('marriages', $type) || (in_array('marriages', $type) || in_array('children', $type))))) {
+                if (
+                    empty($type) || $type == 'marriages' || $type == 'children' ||
+                    (is_array($type) && (in_array('marriages', $type) || (in_array('marriages', $type) || in_array('children', $type))))
+                ) {
                     $marriages[$marriage_key]['children'] = TableRegistry::get('Profiles')->find()
                         ->matching('Units', function ($q) use ($marriage) {
                             return $q->where(['Units.union_id' => $marriage->union_id, 'Units.kind' => 'c']);

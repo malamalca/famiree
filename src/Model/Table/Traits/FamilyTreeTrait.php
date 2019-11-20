@@ -230,16 +230,17 @@ trait FamilyTreeTrait
 
         return ['u' => $unions + $parent_unions, 'p' => $profiles + $parent_profiles];
     }
+
     /**
      * __recurseChildren method
      *
      * Recursive function for processing children
      *
-     * @param array $children Children array
-     * @param int $depth Processing depth
-     * @param array $unions Unions array
-     * @param array $profiles Profiles array
-     * @param array $options Options array
+     * @param  array $children Children array
+     * @param  int $depth Processing depth
+     * @param  array $unions Unions array
+     * @param  array $profiles Profiles array
+     * @param  array $options Options array
      * @return float|int Current width
      */
     private function __recurseChildren($children, $depth, &$unions, &$profiles, $options = [])
@@ -316,14 +317,14 @@ trait FamilyTreeTrait
                     }
 
                     // set position for profile and spouses
-                    if ((
+                    if (
+                        (
                             // this is the case on central union where we have combined
                             // monthers and fathers secondary spouses
                             !empty($options['main_union']) &&
                             isset($profile_unions[$options['main_union']]) &&
                             ($options['main_union'] != $profile_union_id)
-                        )
-                        ||
+                        ) ||
                         (
                             // this is general rule
                             // first part is negation of upper onditions
@@ -331,11 +332,13 @@ trait FamilyTreeTrait
                             (
                                 !empty($options['main_union']) &&
                                 !isset($profile_unions[$options['main_union']])
-                            ))
-                            &&
+                            )) &&
+
                             ((count($profile_unions) > 1) &&
-                            ((($profile_g == 'm') && ($i > 1)) ||
-                            ((($profile_g == 'f') && ($i < count($profile_unions))))))
+                            ((($profile_g == 'm') &&
+                            ($i > 1)) ||
+                            ((($profile_g == 'f') &&
+                            ($i < count($profile_unions))))))
                         )
                     ) {
                         // this is the case where only single parent is displayed
@@ -350,7 +353,8 @@ trait FamilyTreeTrait
                         }
 
                         // make bigger space for main union
-                        if (!empty($options['main_union']) &&
+                        if (
+                            !empty($options['main_union']) &&
                             ($options['main_union'] == $profile_union_id)
                         ) {
                             $base_width += (int)($this->dx / 2);
@@ -403,7 +407,8 @@ trait FamilyTreeTrait
                         // add tree icon if sposuse has more than one marriage or
                         // is child in any union and is not main union (which has already all that
                         // included in tree
-                        if (($this->__fetchUnionOfChild($spouse_id) || (count($this->__fetchUnionsOfParent($spouse_id)) > 1))
+                        if (
+                            ($this->__fetchUnionOfChild($spouse_id) || (count($this->__fetchUnionsOfParent($spouse_id)) > 1))
                             &&
                             (empty($options['main_union']) || ($options['main_union'] != $profile_union_id))
                         ) {
@@ -448,6 +453,7 @@ trait FamilyTreeTrait
 
         return $current_width;
     }
+
     /**
      * __recurseParents method
      *
@@ -610,7 +616,8 @@ trait FamilyTreeTrait
                                     );
                                     // add tree icon if sposuse has more than one marriage or
                                     // is child in any union
-                                    if (($this->__fetchUnionOfChild($spouse_id) ||
+                                    if (
+                                        ($this->__fetchUnionOfChild($spouse_id) ||
                                         (count($this->__fetchUnionsOfParent($spouse_id)) > 1))
                                     ) {
                                         $profiles[$spouse_id]['Profile']['showPrune'] = '+';
@@ -706,6 +713,7 @@ trait FamilyTreeTrait
 
         return $current_width;
     }
+
     /**
      * buildCache method
      *
@@ -788,6 +796,7 @@ trait FamilyTreeTrait
 
         return false;
     }
+
     /**
      * __union method
      *
@@ -810,6 +819,7 @@ trait FamilyTreeTrait
 
         return false;
     }
+
     /**
      * __bottomMostChildInUnion method
      *
@@ -910,6 +920,7 @@ trait FamilyTreeTrait
 
         return [];
     }
+
     /**
      * fetchParents method
      *
@@ -945,6 +956,7 @@ trait FamilyTreeTrait
 
         return false;
     }
+
     /**
      * __fetchSiblings method
      *
@@ -967,6 +979,7 @@ trait FamilyTreeTrait
 
         return [];
     }
+
     /**
      * __bulkReadProfiles method
      *
@@ -1020,6 +1033,7 @@ trait FamilyTreeTrait
             unset($profile['mdn']);
         }
     }
+
     /**
      * __addGhost method
      *

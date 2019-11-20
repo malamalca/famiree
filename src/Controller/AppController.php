@@ -38,6 +38,7 @@ class AppController extends Controller
     {
         $this->_Auth = $Auth;
     }
+
     /**
      * Initialization hook method.
      *

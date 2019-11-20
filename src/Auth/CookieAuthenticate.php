@@ -42,6 +42,7 @@ class CookieAuthenticate extends BaseAuthenticate
      * @var string
      */
     private $_cookieKey = 'famiree';
+
     /**
      * Constructor
      *
@@ -100,6 +101,7 @@ class CookieAuthenticate extends BaseAuthenticate
             $cookie[$fields['password']]
         );
     }
+
     /**
      * Creates login cookie
      *
@@ -126,6 +128,7 @@ class CookieAuthenticate extends BaseAuthenticate
 
         return $this->_controller->Cookie->write($this->_cookieKey, $cookie);
     }
+
     /**
      * Deletes login cookie
      *

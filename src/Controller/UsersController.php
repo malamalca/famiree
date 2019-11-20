@@ -40,6 +40,7 @@ class UsersController extends AppController
         parent::initialize();
         $this->loadComponent('Cookie');
     }
+
     /**
      * BeforeFilter method.
      *
@@ -56,6 +57,7 @@ class UsersController extends AppController
 
         return null;
     }
+
     /**
      * IsAuthorized method.
      *
@@ -154,7 +156,9 @@ class UsersController extends AppController
                 ->first();
 
             if ($user) {
-                $ProfilesTable->sendResetEmail($user);
+                /** @var \App\Model\Entity\Profile $user2 */
+                $user2 = $user;
+                $ProfilesTable->sendResetEmail($user2);
                 $this->Flash->success(__('An email with password reset instructions has been sent.'));
             } else {
                 $this->Flash->error(__('No user with specified email has been found.'));

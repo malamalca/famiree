@@ -124,13 +124,15 @@ class AttachmentsController extends AppController
         $this->getRequest()->allowMethod(['post']);
         $attachment = $this->Attachments->get($this->getRequest()->getData('attachment_id'));
 
-        if ($this->Attachments->crop(
-            $attachment,
-            (int)$this->getRequest()->getData('x'),
-            (int)$this->getRequest()->getData('y'),
-            (int)$this->getRequest()->getData('width'),
-            (int)$this->getRequest()->getData('height')
-        )) {
+        if (
+            $this->Attachments->crop(
+                $attachment,
+                (int)$this->getRequest()->getData('x'),
+                (int)$this->getRequest()->getData('y'),
+                (int)$this->getRequest()->getData('width'),
+                (int)$this->getRequest()->getData('height')
+            )
+        ) {
             $this->Flash->success(__('The attachment has been cropped.'));
         } else {
             $this->Flash->error(__('The attachment could not be cropped. Please, try again.'));

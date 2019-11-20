@@ -20,7 +20,7 @@ class GedImport
     public static function fromFile($filename)
     {
         if (file_exists($filename)) {
-            $parser = new Parser;
+            $parser = new Parser();
             $gedcom = $parser->parse($filename);
         } else {
             throw new NotFoundException(__('Get file does not exist'));

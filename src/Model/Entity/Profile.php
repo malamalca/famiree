@@ -142,7 +142,7 @@ class Profile extends Entity
      */
     protected function _setP($password)
     {
-        return (new DefaultPasswordHasher)->hash($password);
+        return (new DefaultPasswordHasher())->hash($password);
     }
 
     /**
