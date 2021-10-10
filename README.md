@@ -1,51 +1,150 @@
-#  Famiree is a PHP Family Tree
+# Installation instructions
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://img.shields.io/travis/malamalca/famiree/master.svg?style=flat-square)](https://travis-ci.org/malamalca/famiree)
-[![Total Downloads](https://img.shields.io/packagist/dt/malamalca/famiree.svg?style=flat-square)](https://packagist.org/packages/malamaca/famiree)
 
-Simple open source PHP family tree web application built with latest technologies.
+## Initial
+```
+sudo apt update
+sudo apt full-upgrade
 
-The source code can be found here: [malamalca/famiree](https://github.com/malamalca/famiree).
+sudo timedatectl set-timezone Europe/Ljubljana
+timedatectl status
 
-![alt text](https://github.com/malamalca/famiree/raw/master/example.png)
+sudo nano /boot/config.txt
+   dtoverlay=disable-bt
 
-## Installing Famiree via Composer
+sudo systemctl disable hciuart.service
+sudo systemctl disable bluealsa.service
+sudo systemctl disable bluetooth.service
 
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project malamalca/famiree --no-dev`.
+sudo systemctl stop bluetooth
+sudo systemctl disable avahi-daemon
+sudo systemctl stop avahi-daemon
+sudo systemctl disable triggerhappy
+sudo systemctl stop triggerhappy
 
-If Composer is installed globally, run
+#enable www-data to reboot device
+sudo visudo
+   www-data ALL = NOPASSWD: /sbin/reboot, /sbin/halt
 
-```bash
-composer create-project malamalca/famiree --no-dev
 ```
 
-## Installing Famiree from archive
-1. Download [Latest Famiree release](https://github.com/malamalca/famiree/releases/latest) and extract it to your webroot folder.
-2. Copy  config/app.default.php to config/app.php and open the file with your preferred text editor
-3. Find and replace following settings in your config/app.php file:
-    * `__SALT__` with a random string (eg `3498klfsjo093ljk42389s`)
-    * `__DBHOST__` with mysql host (eg `localhost`)
-    * `__DBUSER__` with mysql user (eg `famiree_www`)
-    * `__DBPASS__` with mysql password (eg `mysecretpassword`)
-    * `__DATABASE__` with mysql database name (eg `famiree`)
-4. Import schema/famiree.sql file into your mysql database (you should create it first and set up db permissions) via phpMyAdmin or mysql command line interface (eg `mysql -u username -p database_name < famiree.sql`).
-5. Set up write permission for following folders and their subfolders `logs`, `tmp`, `uploads`, `webroot/img/thumbs`.
+## Change default username PI to THORBELL
 
-## Running
+```
+// set password for root
+sudo passwd
 
-You can now either use your machine's webserver to view the default home page, or start
-up the built-in webserver with:
+sudo nano /etc/ssh/sshd_config
+   PermitRootLogin yes
+sudo service ssh restart
 
-```bash
-bin/cake server -p 8765
+
+// login as root
+
+usermod -l thorbell pi
+usermod -m -d /home/thorbell thorbell
+sudo passwd -l root
+sudo nano /etc/ssh/sshd_config
+  #PermitRootLogin yes
 ```
 
-Then visit `http://localhost:8765` to see the welcome page.
+## Lighttpd
 
-## Configuration
+```
+sudo apt-get -y install lighttpd
 
-Read and edit `config/app.php` and setup the `'Datasources'` and any other
-configuration relevant for your application.
+sudo apt install php7.3 php7.3-fpm php7.3-cgi
+sudo lighttpd-enable-mod fastcgi-php
+sudo service lighttpd force-reload
 
+sudo apt-get install php7.3-curl php7.3-mbstring php7.3-pdo php7.3-sqlite3 php7.3-openssl php7.3-xml php7.3-intl php7.3-bcmath
+
+sudo ln -s /home/pi/camera_wwwroot/ ./cam
+```
+
+### PAM for auth 
+```
+sudo apt-get install php-pear
+sudo apt-get install php7.3-dev
+
+sudo nano /etc/apt/sources.list
+# uncomment sources
+sudo apt-get build-dep pam
+
+sudo apt-get install libpam0g-dev
+sudo pecl install pam
+
+# add extension "pam" to php.ini!!!
+sudo service lighttpd restart
+
+sudo cp /etc/pam.d/login /etc/pam.d/php
+sudo nano /etc/pam.d/php
+   auth       sufficient /lib/arm-linux-gnueabihf/security/pam_unix.so shadow nodelay
+   account    sufficient /lib/arm-linux-gnueabihf/security/pam_unix.so
+   
+sudo chgrp www-data /etc/shadow
+# for debug: cat /var/log/auth.log
+
+```
+
+## Samba (development)
+```
+sudo apt-get install samba samba-common-bin
+sudo nano /etc/samba/smb.conf 
+  [www]
+  Comment = WWW
+  Path = /home/thorbell/camera_wwwroot
+  Browseable = yes
+  Writeable = Yes
+  only guest = no
+  create mask = 0777
+  directory mask = 0777
+  Public = yes
+
+sudo smbpasswd -a thorbell
+
+sudo service smbd restart
+sudo service nmbd restart
+```
+
+## UV4L
+```
+curl http://www.linux-projects.org/listing/uv4l_repo/lpkey.asc | sudo apt-key add -
+deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main
+echo 'deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main' | sudo tee -a /etc/apt/sources.list
+sudo apt update
+sudo apt install uv4l uv4l-raspicam uv4l-raspicam-extras
+sudo apt install uv4l-webrtc
+sudo service uv4l_raspicam restart
+sudo service uv4l_raspicam status
+sudo mv openssl.cnf /etc/uv4l/openssl.cnf
+sudo nano /etc/systemd/system/uv4l_raspicam.service 
+sudo systemctl daemon-reload && sudo service uv4l_raspicam start
+openssl genrsa -out selfsign.key 2048 && openssl req -new -x509 -key selfsign.key -out selfsign.crt -sha256
+mv selfsign.* /etc/uv4l/
+sudo mv selfsign.* /etc/uv4l/
+
+sudo service uv4l_raspicam start
+sudo service uv4l_raspicam restart
+```
+
+## System Service
+```
+sudo nano thorbell.service /etc/systemd/system/thorbell.service
+
+[Unit]
+Description=Thorbell
+
+[Service]
+ExecStart=/usr/bin/php   /home/thorbell/camera_wwwroot/src/Console/thorbell.php
+WorkingDirectory=/home/thorbell/camera_wwwroot
+User=thorbell
+Restart=always
+
+[Install]
+WantedBy=default.target  
+
+systemctl daemon-reload
+sudo systemctl enable thorbell.service
+sudo systemctl start thorbell.service
+```
