@@ -1,0 +1,1 @@
+vendor/bin/phpcs --colors -p -s --standard=CakePHP $1

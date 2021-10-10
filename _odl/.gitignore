@@ -1,13 +1,12 @@
+# CakePHP specific files #
+##########################
 /config/app.php
 /config/.env
 /logs/*
 /tmp/*
 /vendor/*
-/photos/*
-/certs/*
-/db/*
-/vendor/*
-/_odl/*
+/uploads/*
+/webroot/img/thumbs/*
 
 # OS generated files #
 ######################
@@ -19,12 +18,10 @@
 Icon?
 ehthumbs.db
 Thumbs.db
-.directory
 
 # Tool specific files #
 #######################
-# PHPUnit
-.phpunit.result.cache
+*.bak
 # vim
 *~
 *.swp
@@ -44,5 +41,3 @@ nbproject/*
 .vscode
 # Sass preprocessor
 .sass-cache/
-# Composer
-*.lock
