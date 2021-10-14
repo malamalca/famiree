@@ -41,7 +41,7 @@ class DB
         $db = DB::getInstance();
 
         if ($db->_pdo == null) {
-            $db->_pdo = new \PDO('sqlite:' . Configure::read('App.db'));
+            $db->_pdo = new \PDO(Configure::read('App.db'));
         }
 
         return $db->_pdo;

@@ -11,7 +11,7 @@ class ProfilesTable extends Table
 {
     public $entityName = '\App\Model\Entity\Profile';
     public $tableName = 'profiles';
-    public $fieldList = ['id', 'title', 'token'];
+    //public $fieldList = ['id', 'title', 'token'];
 
 
     public function findByUsername($username) {
@@ -22,13 +22,15 @@ class ProfilesTable extends Table
 
         $stmt->bindValue(':username', $username, \PDO::PARAM_STR);
 
-        $stmt->execute();
-        $result = $stmt->fetchColumn();
+        $result = $stmt->execute();
 
-        dd($result);
-
-        if (!empty($result)) {
-            return (new Profile($result));
+        if ($result) {
+            $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+            if ($row) {
+                return self::newEntity($row);
+            }
+        } else {
+            $this->lastError = $stmt->errorInfo();
         }
     }
 

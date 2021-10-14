@@ -7,7 +7,7 @@ use App\Model\Table\SettingsTable;
 
 class App
 {
-    public static $allowedActions = ['Devices/pair'];
+    public static $allowedActions = ['Profiles/resetPassword'];
 
     private static $instance = null;
     private $_vars = [];
@@ -206,6 +206,6 @@ class App
      */
     public static function isLoggedIn()
     {
-        return !empty($_SESSION['isLoggedIn']);
+        return !empty($_SESSION['user']);
     }
 }

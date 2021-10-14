@@ -12,6 +12,13 @@ class Table
 
     public $lastError;
 
+    public function __construct()
+    {
+        $classVars = get_class_vars($this->entityName);
+
+        $this->fieldList = array_keys($classVars);
+    }
+
     /**
      * Create new entity from data
      *
