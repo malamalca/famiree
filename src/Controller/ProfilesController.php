@@ -24,8 +24,13 @@ class ProfilesController
         $counts = $ProfilesTable->countGenders();
 
         $posts = $PostsTable->query("SELECT * FROM posts ORDER BY posts.created DESC LIMIT 5");
-        $postsLinks = $profilesTable->query('SELECT * FROM profiles ' .
-            'LEFT JOIN posts_links on posts_links.class="Profile" and posts_links.foreign_id = profiles.id');
+        $postsLinks = $ProfilesTable->query('SELECT posts.* FROM posts_links ' .
+            'LEFT JOIN posts ON posts_links.foreign_id = profiles.id ' .
+            'WHERE posts_links.class="Profile" AND posts.id IN (:posts);',
+            
+        );
+
+        dd($postsLinks);
 
         /*$posts = TableRegistry::get('Posts')->find()
             ->select()
