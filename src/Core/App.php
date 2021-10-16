@@ -62,59 +62,10 @@ class App
         $ret = call_user_func_array([$controller, $methodName], $vars);
 
         if (empty($ret)) {
-            self::render($controllerName, $methodName);
+            $view = new View((self::getInstance())->_vars);
+
+            $view->render($controllerName, $methodName);
         }
-    }
-
-    /**
-     * Render function
-     *
-     * @param string $controllerName Controller name
-     * @param string $methodName Method name
-     * @return void
-     */
-    public static function render($controllerName, $methodName)
-    {
-        $templatePath = TEMPLATES . $controllerName . DS;
-        if (self::isAjax()) {
-            $templatePath .= 'ajax' . DS;
-        }
-        $templateFile = realpath($templatePath . $methodName . '.php');
-
-        if (empty($templateFile) || strpos($templateFile, $templatePath) !== 0 || strpos($templateFile, $templatePath) === false) {
-            die(sprintf('Template "%s" does not exist', $templatePath . $methodName . '.php'));
-        }
-
-        $App = self::getInstance();
-        extract($App->_vars);
-
-        ob_start();
-        include $templateFile;
-        $contents = ob_get_contents();
-        ob_end_clean();
-
-        // set default title
-        if (!isset($title)) {
-            $title = $controllerName . '::' . $methodName;
-        }
-
-        // output render data
-        if (self::isAjax()) {
-            require TEMPLATES . 'layouts' . DS . 'ajax.php';
-        } else {
-            require TEMPLATES . 'layouts' . DS . 'default.php';
-        }
-    }
-
-    /**
-     * Determines if request is ajax
-     *
-     * @return bool
-     */
-    public static function isAjax()
-    {
-        return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-            in_array(strtolower($_SERVER['HTTP_X_REQUESTED_WITH']), ['xmlhttprequest', 'thorbell']);
     }
 
     /**
@@ -167,6 +118,18 @@ class App
             die;
         }
     }
+
+    /**
+     * Determines if request is ajax
+     *
+     * @return bool
+     */
+    public static function isAjax()
+    {
+        return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+            in_array(strtolower($_SERVER['HTTP_X_REQUESTED_WITH']), ['xmlhttprequest', 'thorbell']);
+    }
+
 
     /**
      * Sets flash message

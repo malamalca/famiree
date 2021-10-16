@@ -1,0 +1,24 @@
+
+#container {
+	width: 960px;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+#content {
+	position: relative;
+}
+
+/* ******* */
+/* FOOTER  */
+/* ------- */
+#footer {
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	clear: both;
+	border-top: solid 1px #CCCCCC;
+	margin-top: 30px;
+
+	padding: 10px;
+	padding-top: 5px;
+}

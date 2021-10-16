@@ -17,10 +17,10 @@ $title = false;
     <input type="hidden" name="token" value="" />
 
     <label for="username">Username:</label>
-    <input type="text" name="username" id="username" value="" required>
+    <input type="text" name="u" id="username" value="" required>
 
     <label for="password">Password:</label>
-    <input type="password" name="password" id="password" value="" required>
+    <input type="password" name="p" id="password" value="" required>
     </fieldset>
 
     <fieldset>

@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Core\App;
 use App\Core\Configure;
+use App\Model\Table\PostsTable;
 use App\Model\Table\ProfilesTable;
 
 class ProfilesController
@@ -16,9 +17,17 @@ class ProfilesController
      */
     public function dashboard()
     {
-        /*$profiles = $this->paginate($this->Profiles);
-        $counts = $this->Profiles->countGenders();
-        $posts = TableRegistry::get('Posts')->find()
+        $ProfilesTable = new ProfilesTable();
+        $PostsTable = new PostsTable();
+
+        //$profiles = $this->paginate($this->Profiles);
+        $counts = $ProfilesTable->countGenders();
+
+        $posts = $PostsTable->query("SELECT * FROM posts ORDER BY posts.created DESC LIMIT 5");
+        $postsLinks = $profilesTable->query('SELECT * FROM profiles ' .
+            'LEFT JOIN posts_links on posts_links.class="Profile" and posts_links.foreign_id = profiles.id');
+
+        /*$posts = TableRegistry::get('Posts')->find()
             ->select()
             ->contain(['Profiles', 'Creators'])
             ->order(['Posts.created DESC'])
@@ -28,7 +37,9 @@ class ProfilesController
 
         $dates = $this->Profiles->withBirthdays();*/
 
-        //App::set(compact('profiles', 'counts', 'posts', 'logs', 'dates'));
+        $logs = [];
+
+        App::set(compact('counts', 'logs', 'posts', 'postsLinks'));
     }
 
     /**
@@ -72,10 +83,10 @@ class ProfilesController
      */
     public function login()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['username'])) {
-            $profile = (new ProfilesTable())->findByUsername($_POST['username']);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['u'])) {
+            $profile = (new ProfilesTable())->findByU($_POST['u']);
 
-            if (!empty($profile->p) && password_verify($_POST['password'], $profile->p)) {
+            if (!empty($profile->p) && password_verify($_POST['p'], $profile->p)) {
                 $_SESSION['user'] = $profile;
                 App::redirect('/');
             }
@@ -92,9 +103,9 @@ class ProfilesController
      */
     public function resetPassword()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['username'])) {
-            $profile = (new ProfilesTable())->findByUsername($_POST['username']);
-            $profile->p = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['u'])) {
+            $profile = (new ProfilesTable())->findByU($_POST['u']);
+            $profile->p = password_hash($_POST['p'], PASSWORD_DEFAULT);
 
             dd((new ProfilesTable())->save($profile));
 

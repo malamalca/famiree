@@ -1,0 +1,75 @@
+div#ProfileLogin {
+    width: 250px;
+	height: 356px;
+	position: relative;
+
+	margin-left: auto !important;
+	margin-right: auto !important;
+	background: url(img/login.gif) center top no-repeat;
+}
+#ProfileLogin #YourFather, #ProfileLogin #YourMother {
+	position: absolute;
+	display: block;
+	top: 85px;
+	left: 21px;
+	width: 90px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 12px;
+	color: #404040;
+}
+#ProfileLogin #YourMother {
+	left: 141px;
+}
+#ProfileLogin form {
+	position: absolute;
+	display: block;
+	top: 160px;
+}
+#ProfileLogin div.input, #ProfileLogin div.submit {
+	position: relative;
+	left: 21px;
+	width: 210px;
+	text-align: center;
+	font-weight: bold;
+	margin: 0px;
+	padding-bottom: 5px;
+}
+#ProfileLogin label {
+	color: #000;
+	margin: 0px;
+	padding: 0px;
+	display: block;
+	float: none;
+	width: 210px;
+	text-align: center;
+	font-weight: normal;
+}
+#ProfileLogin input {
+	width: 140px;
+	text-align: center;
+	font-weight: bold;
+}
+
+#ProfileLogin div.checkbox {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#ProfileLogin div.checkbox input {
+	display: block;
+	float: none;
+	margin: 0px;
+	padding: 0px;
+	width: auto;
+	float: left;
+	margin-right: 10px;
+	margin-left: 50px;
+}
+#ProfileLogin div.checkbox label {
+	margin: 0px;
+	padding: 0px;
+	float: none;
+	display: block;
+	width: auto;
+	text-align: left;
+}

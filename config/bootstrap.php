@@ -41,7 +41,7 @@ function dd()
  */
 function h($output)
 {
-    echo htmlentities($output, ENT_COMPAT, 'UTF-8');
+    return htmlentities($output, ENT_COMPAT, 'UTF-8');
 }
 
 /**

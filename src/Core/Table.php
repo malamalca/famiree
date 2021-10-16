@@ -19,6 +19,81 @@ class Table
         $this->fieldList = array_keys($classVars);
     }
 
+    public function __call($method, $args)
+    {
+        if (substr($method, 0, 6) == 'findBy') {
+            return call_user_func([$this, 'findByField'], substr($method, 6), $args);
+        }
+    }
+
+    public function query($sql, $args = []) {
+        $pdo = DB::getInstance()->connect();
+
+        $stmt = $pdo->prepare($sql);
+
+        foreach ($args as $fieldName => $fieldValue) {
+            $stmt->bindValue(':' . $fieldName, $fieldValue);
+        }
+
+        $result = $stmt->execute();
+
+        if ($result) {
+            $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+            if ($row) {
+                return self::newEntity($row);
+            }
+        } else {
+            $this->lastError = $stmt->errorInfo();
+        }
+    }
+
+    /**
+     * Magic Method For Finding records by name
+     *
+     * @param string $fields Fields part of method name
+     * @param array $args Arhuments with field values
+     * @return array
+     */
+    private function findByField($fields, $args) {
+        $pdo = DB::getInstance()->connect();
+
+        $sql = 'SELECT * FROM ' . $this->tableName . ' WHERE ';
+        $fields = explode('And', $fields);
+
+        // convert from camel case to snake case
+        foreach ($fields as $i => $fieldName) {
+            $fields[$i] = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $fieldName));
+        }
+
+        // build fields sql part
+        $fieldsSql = '';
+        foreach ($fields as $fieldName) {
+            if (!empty($fieldsSql)) {
+                $fieldsSql .= ' AND ';
+            }
+            
+            $fieldsSql .= $fieldName . '=:' . $fieldName;
+        }
+
+        $stmt = $pdo->prepare($sql . $fieldsSql);
+
+        foreach ($fields as $i => $fieldName) {
+            $stmt->bindValue(':' . $fieldName, $args[$i]);
+        }
+
+        $result = $stmt->execute();
+
+
+        if ($result) {
+            $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+            if ($row) {
+                return self::newEntity($row);
+            }
+        } else {
+            $this->lastError = $stmt->errorInfo();
+        }
+    }
+
     /**
      * Create new entity from data
      *

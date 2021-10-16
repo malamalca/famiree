@@ -1,37 +1,20 @@
 <?php
-use App\Core\App;
-
-$title = false;
-
+    $this->set('title', _('Login'));
+    $this->set('sidebar', null);
 ?>
-<div class="container">
+<div class="form" id="ProfileLogin">
+    <span id="YourFather"><?= _('Your Father') ?></span>
+    <span id="YourMother"><?= _('Your Mother') ?></span>
+<?php
+    echo $this->Form->create();
+    echo $this->Form->control('u', ['label' => _('Your name')]);
+    echo $this->Form->control('p', ['label' => _('Password'), 'type' => 'password']);
+    echo $this->Form->control('remember_me', [
+        'label' => _('Remember me'),
+        'type' => 'checkbox'
+    ]);
 
-<div class="row">
-  <div class="column"></div>
-  <div class="column">
-    <h1>Thorbell Login</h1>
-    <p>Please enter your password for Thorbell.</p>
-
-<form method="post">
-    <fieldset>
-    <input type="hidden" name="token" value="" />
-
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" value="" required>
-
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" value="" required>
-    </fieldset>
-
-    <fieldset>
-    <input class="button-primary" type="submit" value="Login">
-    </fieldset>
-
-    <fieldset>
-        <a href="<?= App::url('/resetpasswd') ?>">Forgot your password?</a>
-    </fieldset>
-</form>
-
-    </div>
-    <div class="column"></div>
+    echo $this->Form->submit(_('Login'));
+    echo $this->Form->end();
+    ?>
 </div>

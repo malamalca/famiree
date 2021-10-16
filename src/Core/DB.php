@@ -41,7 +41,7 @@ class DB
         $db = DB::getInstance();
 
         if ($db->_pdo == null) {
-            $db->_pdo = new \PDO(Configure::read('App.db'));
+            $db->_pdo = new \PDO(Configure::read('App.db'), Configure::read('App.dbUsername'), Configure::read('App.dbPassword'));
         }
 
         return $db->_pdo;

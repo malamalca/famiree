@@ -11,27 +11,25 @@ class ProfilesTable extends Table
 {
     public $entityName = '\App\Model\Entity\Profile';
     public $tableName = 'profiles';
-    //public $fieldList = ['id', 'title', 'token'];
 
+    /**
+     * Find gender counts
+     *
+     * @return array Counts
+     */
+    public function countGenders()
+    {
+        $ret = ['f' => 0, 'm' => 0];
 
-    public function findByUsername($username) {
+        $sql = 'SELECT g, COUNT(id) as count FROM profiles GROUP BY g';
+
         $pdo = DB::getInstance()->connect();
-
-        $sql = 'SELECT * FROM ' . $this->tableName . ' WHERE u=:username';
-        $stmt = $pdo->prepare($sql);
-
-        $stmt->bindValue(':username', $username, \PDO::PARAM_STR);
-
-        $result = $stmt->execute();
-
-        if ($result) {
-            $row = $stmt->fetch(\PDO::FETCH_ASSOC);
-            if ($row) {
-                return self::newEntity($row);
-            }
-        } else {
-            $this->lastError = $stmt->errorInfo();
+        $data = $pdo->query($sql);
+        foreach ($data as $row) {
+            $ret[$row['g']] = $row['count'];
         }
+
+        return $ret;
     }
 
     /**
