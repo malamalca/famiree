@@ -33,18 +33,20 @@
             foreach ($posts as $post) {
                 echo '<li>';
 
-                $linked_to = [];
+                $linkedTo = [];
                 //foreach ($post->profiles as $post_link) {
                 //    $linked_to[] = h($post_link->d_n);
                 //}
-                if (empty($linked_to)) {
-                    $linked_to[] = _('my past');
+                if (empty($linkedTo)) {
+                    $linkedTo[] = _('my past');
                 }
 
+                $
+
                 printf(
-                _('About %1$s written by %2$s %3$s'),
+                     _('About %1$s written by %2$s %3$s'),
                     $this->Html->link(
-                    $this->Text->toList($linked_to, _('and')), ['controller' => 'Posts', 'action' => 'view', $post->id]),
+                    $this->Text->toList($linkedTo, _('and')), ['controller' => 'Posts', 'action' => 'view', $post->id]),
                     $this->Html->link($post->creator->d_n, ['controller' => 'Profiles', 'action' => 'view', $post->creator->id]),
                     '<span class="light">(' . $this->Time->timeAgoInWords(
                         $post->created,
