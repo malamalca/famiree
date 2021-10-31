@@ -15,7 +15,8 @@
         "nikic/fast-route": "^1.3",
         "monolog/monolog": "^2.3",
         "malamalca/php-gedcom": "^1.0.6",
-        "malamalca/wideimage": "^1.1.6"
+        "malamalca/wideimage": "^1.1.6",
+        "cakephp/chronos": "^2.3"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "*",

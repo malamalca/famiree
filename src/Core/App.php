@@ -93,7 +93,7 @@ class App
      * @param string|array $params Url params
      * @return string
      */
-    public static function url_($params)
+    public static function url($params)
     {
         //$url_base = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['SCRIPT_NAME'], Configure::read('App.baseUrl')) + 1);
         $url_base = Configure::read('App.baseUrl', '/') . '/';

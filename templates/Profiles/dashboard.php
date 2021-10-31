@@ -47,7 +47,7 @@
                     $bdShowDate = true;
                     $oneIfFuture = 1;
 
-                    $dobReal = FrozenDate::parse($profile->dob);
+                    $dobReal = \Cake\Chronos\Chronos::parse($profile->dob);
                     $dob = $dobReal->year((new FrozenDate())->year);
 
 
