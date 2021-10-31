@@ -20,7 +20,7 @@ $title = 'Event List';
             <td><?= $device->title ?></td>
             <td><?= $device->token ?></td>
             <td>
-                <a href="<?= App::url('/devices/delete/' . $device->id) ?>" onclick="return confirm('Are you sure?');">
+                <a href="<?= $this->url('/devices/delete/' . $device->id) ?>" onclick="return confirm('Are you sure?');">
                     <i class="icon ion-md-trash"></i>
                 </a>
             </td>

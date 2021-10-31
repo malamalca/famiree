@@ -20,31 +20,26 @@ class ProfilesController
         $ProfilesTable = new ProfilesTable();
         $PostsTable = new PostsTable();
 
-        //$profiles = $this->paginate($this->Profiles);
         $counts = $ProfilesTable->countGenders();
 
         $posts = $PostsTable->query("SELECT * FROM posts ORDER BY posts.created DESC LIMIT 5");
-        $postsLinks = $ProfilesTable->query('SELECT posts.* FROM posts_links ' .
-            'LEFT JOIN posts ON posts_links.foreign_id = profiles.id ' .
-            'WHERE posts_links.class="Profile" AND posts.id IN (:posts);',
-            
+
+        $postsIds = [];
+        foreach ($posts as $post) {
+            $postsIds[] = $post->id;
+        }
+        $postsLinks = $ProfilesTable->query('SELECT posts_links.post_id, profiles.* FROM posts_links ' .
+            'LEFT JOIN profiles ON posts_links.foreign_id = profiles.id ' .
+            'WHERE posts_links.class="Profile" AND posts_links.post_id IN (:posts)',
+            ['posts' => implode(',', $postsIds)],
+            ['group' => 'post_id']
         );
 
-        dd($postsLinks);
-
-        /*$posts = TableRegistry::get('Posts')->find()
-            ->select()
-            ->contain(['Profiles', 'Creators'])
-            ->order(['Posts.created DESC'])
-            ->limit(5)
-            ->all();
-        $logs = [];
-
-        $dates = $this->Profiles->withBirthdays();*/
+        $birthdays = $ProfilesTable->fetchBirthdays();
 
         $logs = [];
 
-        App::set(compact('counts', 'logs', 'posts', 'postsLinks'));
+        App::set(compact('counts', 'logs', 'posts', 'postsLinks', 'birthdays'));
     }
 
     /**

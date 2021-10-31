@@ -42,8 +42,8 @@
                 $nextMonth = false;
                 $inFuture = false;
 
-            if (!empty($dates)) {
-                foreach ($dates as $profile) {
+            if (!empty($birthdays)) {
+                foreach ($birthdays as $profile) {
                     $bdShowDate = true;
                     $oneIfFuture = 1;
 

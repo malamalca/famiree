@@ -14,7 +14,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute(['GET', 'POST'], '/changepasswd', ['Profiles', 'changePassword']);
     $r->addRoute(['GET', 'POST'], '/resetpasswd', ['Profiles', 'resetPassword']);
 
-    $r->addRoute(['GET', 'POST'], '/profiles[/{action}[/{param1}]]', 'Devices');
+    $r->addRoute(['GET', 'POST'], '/posts[/{action}[/{param1}]]', 'Posts');
 });
 
 // Fetch method and URI from somewhere

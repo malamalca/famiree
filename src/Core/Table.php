@@ -26,7 +26,7 @@ class Table
         }
     }
 
-    public function query($sql, $args = []) {
+    public function query($sql, $args = [], $options = []) {
         $pdo = DB::getInstance()->connect();
 
         $stmt = $pdo->prepare($sql);
@@ -38,10 +38,22 @@ class Table
         $result = $stmt->execute();
 
         if ($result) {
-            $row = $stmt->fetch(\PDO::FETCH_ASSOC);
-            if ($row) {
-                return self::newEntity($row);
+            $ret = [];
+            while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+                if (!isset($options['hydrate']) || $options['hydrate'] === true) {
+                    $entity = self::newEntity($row);
+                } else {
+                    $entity= $row;
+                }
+
+                if (!empty($options['group']) && isset($row[$options['group']])) {
+                    $ret[$row[$options['group']]][] = $entity;
+                } else {
+                    $ret[] = $entity;
+                }
             }
+
+            return $ret;
         } else {
             $this->lastError = $stmt->errorInfo();
         }

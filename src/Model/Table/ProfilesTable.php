@@ -37,30 +37,20 @@ class ProfilesTable extends Table
      *
      * @return \Cake\ORM\ResultSet
      */
-    public function fetchForBirthdays()
+    public function fetchBirthdays()
     {
-        //Cache::delete('Profiles.birthdays');
-        $ret = Cache::remember('Profiles.birthdays', function () {
-            $q = $this->find();
-            $fieldExpr = $q->newExpr()->add('DATE_ADD(DATE_ADD(MAKEDATE(dob_y, 1), INTERVAL (dob_m)-1 MONTH), INTERVAL (dob_d)-1 DAY)');
-            $diffExpr = $q->newExpr()->add('DATEDIFF(DATE_ADD( DATE_ADD( MAKEDATE(YEAR(CURDATE()), 1), INTERVAL (dob_m)-1 MONTH ), INTERVAL (dob_d)-1 DAY ), CURDATE() )');
-            $dates = $q
-                ->select($this)
-                ->select(['dob' => $fieldExpr])
-                ->select(['diff' => $diffExpr])
-                ->where(['l' => true])
-                ->andWhere(function (QueryExpression $whereExpr) use ($fieldExpr) {
-                    return $whereExpr->isNotNull($fieldExpr);
-                })
-                ->andWhere(function (QueryExpression $andWhereExpr) use ($diffExpr) {
-                    return $andWhereExpr->gte($diffExpr, 0, 'integer');
-                })
-                ->order(['diff'])
-                ->limit(20)
-                ->all();
-
-            return $dates;
-        });
+        $ret = $this->query('SELECT profiles.*, ' .
+            'DATE_ADD(DATE_ADD(MAKEDATE(dob_y, 1), INTERVAL (dob_m)-1 MONTH), INTERVAL (dob_d)-1 DAY) AS dob, ' .
+            'DATEDIFF(DATE_ADD( DATE_ADD( MAKEDATE(YEAR(CURDATE()), 1), INTERVAL (dob_m)-1 MONTH ), INTERVAL (dob_d)-1 DAY ), CURDATE() ) AS diff ' .
+            'FROM profiles ' .
+            'WHERE l = TRUE AND ' .
+            'DATE_ADD(DATE_ADD(MAKEDATE(dob_y, 1), INTERVAL (dob_m)-1 MONTH), INTERVAL (dob_d)-1 DAY) IS NOT NULL AND ' .
+            'DATEDIFF(DATE_ADD( DATE_ADD( MAKEDATE(YEAR(CURDATE()), 1), INTERVAL (dob_m)-1 MONTH ), INTERVAL (dob_d)-1 DAY ), CURDATE() ) >= 0 ' .
+            'ORDER BY diff ' .
+            'LIMIT 20',
+            [],
+            ['group' => 'dob']
+        );
 
         return $ret;
     }

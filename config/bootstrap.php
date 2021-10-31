@@ -62,3 +62,5 @@ date_default_timezone_set('UTC');
 ini_set('intl.default_locale', 'sl_SI');
 
 session_start();
+
+define('LVL_EDITOR', 5);

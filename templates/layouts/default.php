@@ -11,7 +11,7 @@
     <meta name="description" content="ARHIM orodja">
     <meta name="author" content="ARHIM d.o.o.">
 
-    <link rel="stylesheet" href="<?= App::url("/css/main.css") ?>">
+    <link rel="stylesheet" href="<?= $this->url("/css/main.css") ?>">
 </head>
 
 <body>

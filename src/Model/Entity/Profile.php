@@ -57,4 +57,9 @@ class Profile
     public $creator_id;
     public $modified;
     public $modifier_id;
+
+    public function get($fieldName)
+    {
+        return $this->$fieldName;
+    }
 }

@@ -28,7 +28,7 @@ $title = false;
     </fieldset>
 
     <fieldset>
-        <a href="<?= App::url('/resetpasswd') ?>">Forgot your password?</a>
+        <a href="<?= $this->url('/resetpasswd') ?>">Forgot your password?</a>
     </fieldset>
 </form>
 

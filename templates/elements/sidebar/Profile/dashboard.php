@@ -34,24 +34,27 @@
                 echo '<li>';
 
                 $linkedTo = [];
-                //foreach ($post->profiles as $post_link) {
-                //    $linked_to[] = h($post_link->d_n);
-                //}
+                if (!empty($postsLinks[$post->id])) {
+                    foreach ($postsLinks[$post->id] as $profile) {
+                        $linkedTo[] = h($profile->d_n);
+                    }
+                }
                 if (empty($linkedTo)) {
                     $linkedTo[] = _('my past');
                 }
 
-                $
+                $aboutPersonLink = sprintf(
+                    '<a href="%1$s">%2$s</a>',
+                    $this->url('/posts/view/' . $post->id),
+                    implode(', ', $linkedTo)
+                );
 
                 printf(
                      _('About %1$s written by %2$s %3$s'),
-                    $this->Html->link(
-                    $this->Text->toList($linkedTo, _('and')), ['controller' => 'Posts', 'action' => 'view', $post->id]),
-                    $this->Html->link($post->creator->d_n, ['controller' => 'Profiles', 'action' => 'view', $post->creator->id]),
-                    '<span class="light">(' . $this->Time->timeAgoInWords(
-                        $post->created,
-                        ['accuracy' => 'day', 'format' => Configure::read('outputDateFormat')]
-                    ).')</span>'
+                    $aboutPersonLink,
+                    '', //this->Html->link($post->creator->d_n, ['controller' => 'Profiles', 'action' => 'view', $post->creator->id]),
+                    
+                    '<span class="light">(' . $post->created .')</span>'
                 );
                 echo '</li>';
             }

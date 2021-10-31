@@ -5,7 +5,7 @@ $title = 'Devices';
 ?>
 
 <div>
-    <a href="<?= App::url('/devices/add') ?>" class="button"><?= _('Pair Device') ?></a>
+    <a href="<?= $this->url('/devices/add') ?>" class="button"><?= _('Pair Device') ?></a>
 </div>
 
 <table>
@@ -24,7 +24,7 @@ $title = 'Devices';
             <td><?= h($device->title) ?></td>
             <td><?= $device->token ?></td>
             <td>
-                <a href="<?= App::url('/devices/delete/' . $device->id) ?>" onclick="return confirm('Are you sure?');">
+                <a href="<?= $this->url('/devices/delete/' . $device->id) ?>" onclick="return confirm('Are you sure?');">
                     <i class="icon ion-md-trash"></i>
                 </a>
             </td>

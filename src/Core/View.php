@@ -81,15 +81,20 @@ class View {
      * @param string|array $params Url params
      * @return string
      */
-    public static function url($params)
+    public function url($params)
     {
         //$url_base = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['SCRIPT_NAME'], Configure::read('App.baseUrl')) + 1);
-        $url_base = Configure::read('App.baseUrl', '/');
+        $url_base = Configure::read('App.baseUrl', '/') . '/';
 
         //if (substr($params, -3) == 'css') {
         //    dd($url_base);
         //}
 
         return $url_base . substr($params, 1);
+    }
+
+    public function getCurrentUser()
+    {
+        return $_SESSION['user'] ?? new \App\Model\Entity\User();
     }
 }
