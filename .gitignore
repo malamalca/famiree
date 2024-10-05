@@ -7,6 +7,7 @@
 /vendor/*
 /uploads/*
 /webroot/img/thumbs/*
+/.well-known/*
 
 # OS generated files #
 ######################
