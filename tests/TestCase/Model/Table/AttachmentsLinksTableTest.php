@@ -55,32 +55,54 @@ class AttachmentsLinksTableTest extends TestCase
     }
 
     /**
-     * Test initialize method
+     * Test testSaveWithModel method
      *
      * @return void
      */
-    public function testInitialize()
+    public function testSaveWithModel()
     {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+        $data = [
+            'attachment_id' => 'd372525d-9fb6-4643-bd21-217cb96d7495',
+            'class' => 'Profile',
+            'foreign_id' => '',
+        ];
 
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+        $entity = $this->AttachmentsLinks->newEntity($data);
+        $result = $this->AttachmentsLinks->save($entity);
 
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->assertFalse($result);
+
+        $data = [
+            'attachment_id' => 'd372525d-9fb6-4643-bd21-217cb96d7495',
+            'class' => 'Profile',
+            'foreign_id' => 'invalidId',
+        ];
+
+        $entity = $this->AttachmentsLinks->newEntity($data);
+        $result = $this->AttachmentsLinks->save($entity);
+
+        $this->assertFalse($result);
+
+        $data = [
+            'attachment_id' => 'd372525d-9fb6-4643-bd21-217cb96d7495',
+            'class' => 'Profile',
+            'foreign_id' => '2',
+        ];
+
+        $entity = $this->AttachmentsLinks->newEntity($data);
+        $result = $this->AttachmentsLinks->save($entity);
+
+        $this->assertTrue((bool)$result);
+
+        $data = [
+            'attachment_id' => 'd372525d-9fb6-4643-bd21-217cb96d7495',
+            'class' => 'Profile',
+            'foreign_id' => 2,
+        ];
+
+        $entity = $this->AttachmentsLinks->newEntity($data);
+        $result = $this->AttachmentsLinks->save($entity);
+
+        $this->assertTrue((bool)$result);
     }
 }

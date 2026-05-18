@@ -168,7 +168,7 @@ class ProfilesController extends AppController
                 break;
             case 'sibling':
                 $baseProfileKind = 'c';
-                $siblings = $this->Profiles->family($profileId, 'children');
+                $siblings = $this->Profiles->family($profileId, ['siblings']);
                 $this->set(compact('siblings'));
                 break;
         }
@@ -184,7 +184,7 @@ class ProfilesController extends AppController
             );
 
             if ($this->Profiles->save($profile)) {
-                // create new family with base profile in neccessary
+                // create new family with base profile if neccessary
                 if (empty($profile->units[0]->union_id)) {
                     /** @var \App\Model\Entity\Unit $profileUnit */
                     $profileUnit = $profile->units[0];

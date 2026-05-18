@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use ArrayObject;
+use App\Model\Rule\ExistsInWithModelRule;
 use Cake\Event\Event;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -82,6 +83,9 @@ class AttachmentsLinksTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['attachment_id'], 'Attachments'));
+
+        // check for valid link
+        $rules->add(new ExistsInWithModelRule());
 
         return $rules;
     }

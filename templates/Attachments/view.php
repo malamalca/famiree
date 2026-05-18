@@ -52,7 +52,7 @@
     echo $this->Form->hidden('class', ['value' => 'Profile']);
     echo $this->Form->hidden('foreign_id', ['id' => 'AttachmentsLinksForeignId']);
     echo $this->Form->text('profile', ['id' => 'AttachmentsLinksProfile']);
-    echo $this->Form->button(__('Add'), ['type' => 'submit']);
+    echo $this->Form->button(__('Add'), ['type' => 'submit', 'id' => 'AttachmentsLinksSubmit']);
     echo __(' or ');
     echo $this->Html->link(__('Cancel'), '#', ['id' => 'AddAttachmentsCancelLink']);
     echo $this->Form->end();
@@ -116,7 +116,7 @@ if (!empty($attachment->description)) {
     echo $this->Form->control('crop_to_new', ['type' => 'checkbox', 'label' => __('Crop and create new image')]);
 
     echo '<div class="input submit">';
-    echo $this->Form->button(__('Save'), ['type' => 'submit']);
+    echo $this->Form->button(__('Save'), ['type' => 'submit', 'id' => 'ImgnoteSubmit']);
     echo ' ' . __('or') . ' <span class="link" id="CancelNoteLink">' . __('Cancel') . '</span>';
     echo '</div>';
     echo $this->Form->end();
@@ -145,11 +145,13 @@ if (!empty($attachment->description)) {
             search: function() {
                 $('#ImgnoteProfileId').val('');
                 $('#ImageAvatarCheck').hide();
+                $('#ImgnoteSubmit').prop('disabled', true);
             },
             select: function(event, ui) {
                 $('#ImgnoteProfileId').val(ui.item.value);
                 $('#ImgnoteNote').val(ui.item.label);
                 $('#ImageAvatarCheck').show();
+                $('#ImgnoteSubmit').prop('disabled', false);
                 return false;
             }
         });
@@ -182,6 +184,8 @@ if (!empty($attachment->description)) {
 
             ShowAddNote('#AttachmentImage', frame);
 
+            $('#ImgnoteSubmit').prop('disabled', true);
+
             $('#NoteForm').show();
             $("#AttachmentImage").imgAreaSelect(frame);
 
@@ -197,6 +201,7 @@ if (!empty($attachment->description)) {
         $('#AddAttachmentsLink').click(function(e) {
             $('#AttachmentsLinkForm').css('display', 'inline');
             $('#AddAttachmentsLink').hide();
+            $('#AttachmentsLinksSubmit').prop('disabled', true);
             e.preventDefault();
             return false;
         });
@@ -212,10 +217,12 @@ if (!empty($attachment->description)) {
             width: "240px",
             search: function() {
                 $('#AttachmentsLinksForeignId').val('');
+                $('#AttachmentsLinksSubmit').prop('disabled', true);
             },
             select: function(event, ui) {
                 $('#AttachmentsLinksForeignId').val(ui.item.value);
                 $('#AttachmentsLinksProfile').val(ui.item.label);
+                $('#AttachmentsLinksSubmit').prop('disabled', false);
                 return false;
             }
         });

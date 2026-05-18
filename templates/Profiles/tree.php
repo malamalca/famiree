@@ -68,7 +68,7 @@
 		);
 
 		if (!empty($node['nt']) && $node['nt'] == 'ghost') {
-			echo $this->Html->link(__('Add This Person'), ['action' => $node['method'], $node['ref']], ['class'=>'ghost']) . PHP_EOL;
+			echo $this->Html->link(__('Add This Person'), ['action' => $node['method'], 'parent', $node['ref']], ['class'=>'ghost']) . PHP_EOL;
 		} else {
 			echo '<div class="avatar_wrap">' . PHP_EOL;
 				echo '<div class="icon_wrap">' . PHP_EOL;
