@@ -13,8 +13,8 @@ use Cake\ORM\Entity;
  * @property int|null $profile_id
  * @property string|null $kind
  * @property int|null $sort_order
- * @property \Cake\I18n\FrozenTime|null $created
- * @property \Cake\I18n\FrozenTime|null $modified
+ * @property \Cake\I18n\DateTime|null $created
+ * @property \Cake\I18n\DateTime|null $modified
  *
  * @property \App\Model\Entity\Union $union
  * @property \App\Model\Entity\Profile $profile
@@ -30,7 +30,7 @@ class Unit extends Entity
      *
      * @var array<string, bool>
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'union_id' => true,
         'profile_id' => true,
         'kind' => true,

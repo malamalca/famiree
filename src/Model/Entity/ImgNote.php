@@ -17,8 +17,8 @@ use Cake\ORM\Entity;
  * @property int|null $width
  * @property int|null $height
  * @property string|null $note
- * @property \Cake\I18n\FrozenTime|null $created
- * @property \Cake\I18n\FrozenTime|null $modified
+ * @property \Cake\I18n\DateTime|null $created
+ * @property \Cake\I18n\DateTime|null $modified
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Attachment $attachment
@@ -35,7 +35,7 @@ class ImgNote extends Entity
      *
      * @var array<string, bool>
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'user_id' => true,
         'attachment_id' => true,
         'profile_id' => true,

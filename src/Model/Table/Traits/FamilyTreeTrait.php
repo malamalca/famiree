@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Model\Table\Traits;
 
 use Cake\Cache\Cache;
-use Cake\ORM\TableRegistry;
 
 /**
  * FamilyTree Behavior for CakePHP 1.2
@@ -731,10 +730,10 @@ trait FamilyTreeTrait
     private function __buildCache()
     {
         $units = Cache::remember('tree-units', function () {
-            return TableRegistry::get('Units')->find()
+            return $this->fetchTable('Units')->find()
                 ->select(['Units.union_id', 'Units.profile_id', 'Units.kind', 'Profiles.g'])
                 ->contain(['Profiles'])
-                ->order(['Units.union_id', 'Units.kind DESC', 'Units.sort_order', 'Units.id'])
+                ->orderBy(['Units.union_id', 'Units.kind DESC', 'Units.sort_order', 'Units.id'])
                 ->all();
         });
 
@@ -1006,7 +1005,7 @@ trait FamilyTreeTrait
             return;
         }
         if (is_array($profile_list)) {
-            $bulk = TableRegistry::get('Profiles')->find()
+            $bulk = $this->fetchTable('Profiles')->find()
                 ->select()
                 ->where(['Profiles.id IN' => $profile_list])
                 ->all();
@@ -1019,7 +1018,7 @@ trait FamilyTreeTrait
                 $this->__cleanupProfile($profiles[$profile->id]['Profile']);
             }
         } elseif (is_numeric($profile_list) && !isset($profiles[$profile_list])) {
-            $profiles[$profile_list] = TableRegistry::get('Profiles')->get($profile_list)->toArray();
+            $profiles[$profile_list] = $this->fetchTable('Profiles')->get($profile_list)->toArray();
             $this->__cleanupProfile($profiles[$profile_list]['Profile']);
         }
     }

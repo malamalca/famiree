@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
@@ -19,7 +18,7 @@ class ImgnotesControllerTest extends TestCase
      *
      * @var array
      */
-    public $fixtures = [
+    protected array $fixtures = [
         'app.Imgnotes',
         'app.Attachments',
         'app.AttachmentsLinks',
@@ -58,9 +57,9 @@ class ImgnotesControllerTest extends TestCase
      */
     public function testAdd(): void
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
 
-        $countBefore = TableRegistry::get('Imgnotes')->find()->count();
+        $countBefore = $this->fetchTable('Imgnotes')->find()->count();
 
         $this->post('/imgnotes/edit', [
             'user_id' => 1,
@@ -77,7 +76,7 @@ class ImgnotesControllerTest extends TestCase
         $this->assertRedirect(['controller' => 'Attachments', 'action' => 'view', 'd372525d-9fb6-4643-bd21-217cb96d7496']);
         $this->assertFlashElement('flash/success');
 
-        $countAfter = TableRegistry::get('Imgnotes')->find()->count();
+        $countAfter = $this->fetchTable('Imgnotes')->find()->count();
         $this->assertEquals($countBefore + 1, $countAfter);
     }
 
@@ -88,9 +87,9 @@ class ImgnotesControllerTest extends TestCase
      */
     public function testEdit()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
 
-        $countBefore = TableRegistry::get('Imgnotes')->find()->count();
+        $countBefore = $this->fetchTable('Imgnotes')->find()->count();
 
         $this->post('/imgnotes/edit/1', [
             'id' => 1,
@@ -108,10 +107,10 @@ class ImgnotesControllerTest extends TestCase
         $this->assertRedirect(['controller' => 'Attachments', 'action' => 'view', 'd372525d-9fb6-4643-bd21-217cb96d7496']);
         $this->assertFlashElement('flash/success');
 
-        $countAfter = TableRegistry::get('Imgnotes')->find()->count();
+        $countAfter = $this->fetchTable('Imgnotes')->find()->count();
         $this->assertEquals($countBefore, $countAfter);
 
-        $imgnote = TableRegistry::get('Imgnotes')->get(1);
+        $imgnote = $this->fetchTable('Imgnotes')->get(1);
         $this->assertEquals('This is Donald Duck', $imgnote->note);
     }
 
@@ -122,15 +121,15 @@ class ImgnotesControllerTest extends TestCase
      */
     public function testDelete()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
 
-        $countBefore = TableRegistry::get('Imgnotes')->find()->count();
+        $countBefore = $this->fetchTable('Imgnotes')->find()->count();
 
         $this->get('/imgnotes/delete/1');
 
         $this->assertRedirect();
 
-        $countAfter = TableRegistry::get('Imgnotes')->find()->count();
+        $countAfter = $this->fetchTable('Imgnotes')->find()->count();
         $this->assertEquals($countBefore - 1, $countAfter);
     }
 }

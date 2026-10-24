@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\View\Helper;
 
-use Cake\I18n\FrozenDate;
+use Cake\I18n\Date;
 use Cake\View\Helper;
 
 /**
@@ -14,7 +14,7 @@ use Cake\View\Helper;
  */
 class FamireeHelper extends Helper
 {
-    public $helpers = ['Html', 'Text'];
+    protected array $helpers = ['Html', 'Text'];
 
     /**
      * Hair colors
@@ -84,7 +84,7 @@ class FamireeHelper extends Helper
      */
     public function getMonthName($month)
     {
-        $_time = new FrozenDate('2018-' . str_pad((string)$month, 2, '0', STR_PAD_LEFT) . '-01');
+        $_time = new Date('2018-' . str_pad((string)$month, 2, '0', STR_PAD_LEFT) . '-01');
         $_format = 'MMMM';
 
         return $_time->i18nFormat($_format);
@@ -101,7 +101,7 @@ class FamireeHelper extends Helper
         $_format = 'MMMM';
 
         for ($month = 1; $month < 13; $month++) {
-            $ret[$month] = (new FrozenDate('2018-' . str_pad((string)$month, 2, '0', STR_PAD_LEFT) . '-01'))
+            $ret[$month] = (new Date('2018-' . str_pad((string)$month, 2, '0', STR_PAD_LEFT) . '-01'))
                 ->i18nFormat($_format);
         }
 
@@ -120,8 +120,8 @@ class FamireeHelper extends Helper
             $dateString .= '-12-31';
         }
 
-        $date = new FrozenDate($dateString);
-        $now = new FrozenDate();
+        $date = new Date($dateString);
+        $now = new Date();
 
         $ret = $now->year - $date->year;
         if ($date->month > $now->month) {

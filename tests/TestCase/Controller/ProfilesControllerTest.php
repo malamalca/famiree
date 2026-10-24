@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
@@ -19,7 +18,7 @@ class ProfilesControllerTest extends TestCase
      *
      * @var array
      */
-    public $fixtures = [
+    protected array $fixtures = [
         'app.Posts',
         'app.Profiles',
         'app.PostsLinks',
@@ -62,7 +61,7 @@ class ProfilesControllerTest extends TestCase
      */
     public function testDashboard()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
         $this->get('/profiles/dashboard');
 
         $this->assertResponseOk();
@@ -76,7 +75,7 @@ class ProfilesControllerTest extends TestCase
      */
     public function testIndex()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
         $this->get('/profiles/index');
 
         $this->assertResponseOk();
@@ -90,7 +89,7 @@ class ProfilesControllerTest extends TestCase
      */
     public function testTree()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
         $this->get('/profiles/tree');
 
         $this->assertResponseOk();
@@ -104,7 +103,7 @@ class ProfilesControllerTest extends TestCase
      */
     public function testView()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
         $this->get('/profiles/view/2');
 
         $this->assertResponseOk();
@@ -118,11 +117,11 @@ class ProfilesControllerTest extends TestCase
      */
     public function testAddChild()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
 
-        $profilesCount = TableRegistry::get('Profiles')->find()->count();
-        $unionsCount = TableRegistry::get('Unions')->find()->count();
-        $unitsCount = TableRegistry::get('Units')->find()->count();
+        $profilesCount = $this->fetchTable('Profiles')->find()->count();
+        $unionsCount = $this->fetchTable('Unions')->find()->count();
+        $unitsCount = $this->fetchTable('Units')->find()->count();
 
         $this->post('/profiles/add/child/1', [
             'ta' => null,
@@ -140,11 +139,11 @@ class ProfilesControllerTest extends TestCase
         $this->assertRedirect(['controller' => 'Profiles', 'action' => 'view', 3]);
         $this->assertFlashElement('flash/success');
 
-        $this->assertEquals($profilesCount + 1, TableRegistry::get('Profiles')->find()->count());
-        $this->assertEquals($unionsCount, TableRegistry::get('Unions')->find()->count());
-        $this->assertEquals($unitsCount + 1, TableRegistry::get('Units')->find()->count());
+        $this->assertEquals($profilesCount + 1, $this->fetchTable('Profiles')->find()->count());
+        $this->assertEquals($unionsCount, $this->fetchTable('Unions')->find()->count());
+        $this->assertEquals($unitsCount + 1, $this->fetchTable('Units')->find()->count());
 
-        $profile = TableRegistry::get('Profiles')->get(3);
+        $profile = $this->fetchTable('Profiles')->get(3);
         $this->assertEquals('Dewey Duck', $profile->d_n);
     }
 
@@ -155,11 +154,11 @@ class ProfilesControllerTest extends TestCase
      */
     public function testEdit()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
 
-        $profilesCount = TableRegistry::get('Profiles')->find()->count();
-        $unionsCount = TableRegistry::get('Unions')->find()->count();
-        $unitsCount = TableRegistry::get('Units')->find()->count();
+        $profilesCount = $this->fetchTable('Profiles')->find()->count();
+        $unionsCount = $this->fetchTable('Unions')->find()->count();
+        $unitsCount = $this->fetchTable('Units')->find()->count();
 
         $this->post('/profiles/edit/1', [
             'id' => 1,
@@ -170,11 +169,11 @@ class ProfilesControllerTest extends TestCase
         $this->assertRedirect(['controller' => 'Profiles', 'action' => 'view', 1]);
         $this->assertFlashElement('flash/success');
 
-        $this->assertEquals($profilesCount, TableRegistry::get('Profiles')->find()->count());
-        $this->assertEquals($unionsCount, TableRegistry::get('Unions')->find()->count());
-        $this->assertEquals($unitsCount, TableRegistry::get('Units')->find()->count());
+        $this->assertEquals($profilesCount, $this->fetchTable('Profiles')->find()->count());
+        $this->assertEquals($unionsCount, $this->fetchTable('Unions')->find()->count());
+        $this->assertEquals($unitsCount, $this->fetchTable('Units')->find()->count());
 
-        $profile = TableRegistry::get('Profiles')->get(1);
+        $profile = $this->fetchTable('Profiles')->get(1);
         $this->assertEquals('Donald P.', $profile->fn);
         $this->assertEquals('Donald P. Duck', $profile->d_n);
     }
@@ -186,17 +185,17 @@ class ProfilesControllerTest extends TestCase
      */
     public function testEditAvatar()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
 
-        $countBefore = TableRegistry::get('Profiles')->find()->count();
+        $countBefore = $this->fetchTable('Profiles')->find()->count();
 
         $this->get('/profiles/edit-avatar/2/d372525d-9fb6-4643-bd21-217cb96d7495');
 
         $this->assertRedirect();
 
-        $countAfter = TableRegistry::get('Profiles')->find()->count();
+        $countAfter = $this->fetchTable('Profiles')->find()->count();
         $this->assertEquals($countBefore, $countAfter);
-        $profile = TableRegistry::get('Profiles')->get(1);
+        $profile = $this->fetchTable('Profiles')->get(1);
         $this->assertEquals('d372525d-9fb6-4643-bd21-217cb96d7495', $profile->ta);
     }
 
@@ -207,15 +206,15 @@ class ProfilesControllerTest extends TestCase
      */
     public function testDelete()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
 
-        $countBefore = TableRegistry::get('Profiles')->find()->count();
+        $countBefore = $this->fetchTable('Profiles')->find()->count();
 
         $this->get('/profiles/delete/1');
 
         $this->assertRedirect();
 
-        $countAfter = TableRegistry::get('Profiles')->find()->count();
+        $countAfter = $this->fetchTable('Profiles')->find()->count();
         $this->assertEquals($countBefore - 1, $countAfter);
     }
 }

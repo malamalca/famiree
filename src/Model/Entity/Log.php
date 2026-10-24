@@ -15,7 +15,7 @@ use Cake\ORM\Entity;
  * @property string|null $action
  * @property int|null $user_id
  * @property string|null $change
- * @property \Cake\I18n\FrozenTime|null $created
+ * @property \Cake\I18n\DateTime|null $created
  *
  * @property \App\Model\Entity\Foreign $foreign
  * @property \App\Model\Entity\User $user
@@ -31,7 +31,7 @@ class Log extends Entity
      *
      * @var array<string, bool>
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'title' => true,
         'class' => true,
         'foreign_id' => true,

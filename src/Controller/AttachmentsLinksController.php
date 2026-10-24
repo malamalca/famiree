@@ -12,17 +12,6 @@ namespace App\Controller;
 class AttachmentsLinksController extends AppController
 {
     /**
-     * isAuthorized hook method.
-     *
-     * @param array $user Logged in user.
-     * @return bool
-     */
-    public function isAuthorized($user)
-    {
-        return true;
-    }
-
-    /**
      * Edit method
      *
      * @param string|null $id Attachments Link id.
@@ -71,6 +60,6 @@ class AttachmentsLinksController extends AppController
             $this->Flash->error(__('The attachments link could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect($this->getRequest()->referer());
+        return $this->redirect($this->referer());
     }
 }

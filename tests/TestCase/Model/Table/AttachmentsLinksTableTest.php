@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\AttachmentsLinksTable;
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -24,7 +23,7 @@ class AttachmentsLinksTableTest extends TestCase
      *
      * @var array
      */
-    public $fixtures = [
+    protected array $fixtures = [
         'app.AttachmentsLinks',
         'app.Attachments',
         'app.Profiles',
@@ -38,8 +37,8 @@ class AttachmentsLinksTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('AttachmentsLinks') ? [] : ['className' => AttachmentsLinksTable::class];
-        $this->AttachmentsLinks = TableRegistry::getTableLocator()->get('AttachmentsLinks', $config);
+        $config = $this->getTableLocator()->exists('AttachmentsLinks') ? [] : ['className' => AttachmentsLinksTable::class];
+        $this->AttachmentsLinks = $this->getTableLocator()->get('AttachmentsLinks', $config);
     }
 
     /**

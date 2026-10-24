@@ -8,7 +8,7 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class LogsFixture extends TestFixture
 {
-    public $records = [
+    public array $records = [
         [
             'id' => 1,
             'title' => 'Lorem ipsum dolor sit amet',

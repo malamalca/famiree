@@ -7,7 +7,7 @@ use ArrayObject;
 use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
-use Cake\Filesystem\Folder;
+use Cake\Utility\Filesystem;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Utility\Text;
@@ -184,7 +184,7 @@ class AttachmentsTable extends Table
      */
     public function afterDelete(Event $event, EntityInterface $entity, ArrayObject $options)
     {
-        $dir = (new Folder(Configure::read('sourceFolders.attachments') . $entity->id))->delete();
+        (new Filesystem())->deleteDir(Configure::read('sourceFolders.attachments') . $entity->id);
         $thumb = Configure::read('sourceFolders.thumbs') . $entity->id . '.png';
         if (file_exists($thumb)) {
             unlink($thumb);
@@ -219,19 +219,24 @@ class AttachmentsTable extends Table
      */
     public function processUpload($entity, \Laminas\Diactoros\UploadedFile $uploadedFile)
     {
-        $image = WideImage::loadFromFile($uploadedFile->getStream()->getMetadata('uri'), $entity->ext);
+        $stream = $uploadedFile->getStream();
+        $uploadedPath = $stream->getMetadata('uri');
+        $image = WideImage::loadFromFile($uploadedPath, $entity->ext);
         if (!empty($image)) {
-            $dir = new Folder(Configure::read('sourceFolders.attachments') . $entity->id, true);
+            $dir = Configure::read('sourceFolders.attachments') . $entity->id;
+            (new Filesystem())->mkdir($dir);
 
-            if (file_exists($dir->path . DS . 'original')) {
-                unlink($dir->path . DS . 'original');
+            if (file_exists($dir . DS . 'original')) {
+                unlink($dir . DS . 'original');
             }
 
-            //$uploadedFile->moveTo($dir->path . DS . 'original');
-            rename($uploadedFile->getStream()->getMetadata('uri'), $dir->path . DS . 'original');
-            if (is_file($dir->path . DS . 'original')) {
-                $image->resize(640, 480, 'inside')->saveToFile($dir->path . DS . 'large', $entity->ext);
-                $image->resize(200, 200, 'inside')->saveToFile($dir->path . DS . 'medium', $entity->ext);
+            //$uploadedFile->moveTo($dir . DS . 'original');
+            // release the file handle first, otherwise the file stays locked on Windows
+            $stream->close();
+            rename($uploadedPath, $dir . DS . 'original');
+            if (is_file($dir . DS . 'original')) {
+                $image->resize(640, 480, 'inside')->saveToFile($dir . DS . 'large', $entity->ext);
+                $image->resize(200, 200, 'inside')->saveToFile($dir . DS . 'medium', $entity->ext);
 
                 $thumb = $image->resize(75, 75, 'outside');
                 if ($thumb->getWidth() > $thumb->getHeight()) {

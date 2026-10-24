@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\AttachmentsTable;
-use Cake\ORM\TableRegistry;
+use Cake\ORM\Association\BelongsTo;
+use Cake\ORM\Association\HasMany;
 use Cake\TestSuite\TestCase;
+use Laminas\Diactoros\UploadedFile;
 
 /**
  * App\Model\Table\AttachmentsTable Test Case
@@ -24,7 +26,7 @@ class AttachmentsTableTest extends TestCase
      *
      * @var array
      */
-    public $fixtures = [
+    protected array $fixtures = [
         'app.Attachments',
         'app.Profiles',
         'app.AttachmentsLinks',
@@ -39,8 +41,8 @@ class AttachmentsTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Attachments') ? [] : ['className' => AttachmentsTable::class];
-        $this->Attachments = TableRegistry::getTableLocator()->get('Attachments', $config);
+        $config = $this->getTableLocator()->exists('Attachments') ? [] : ['className' => AttachmentsTable::class];
+        $this->Attachments = $this->getTableLocator()->get('Attachments', $config);
     }
 
     /**
@@ -62,7 +64,16 @@ class AttachmentsTableTest extends TestCase
      */
     public function testInitialize()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->assertSame('attachments', $this->Attachments->getTable());
+        $this->assertSame('title', $this->Attachments->getDisplayField());
+        $this->assertSame('id', $this->Attachments->getPrimaryKey());
+        $this->assertTrue($this->Attachments->hasBehavior('Timestamp'));
+
+        $this->assertInstanceOf(BelongsTo::class, $this->Attachments->getAssociation('Creators'));
+        $this->assertSame('Profiles', $this->Attachments->getAssociation('Creators')->getClassName());
+        $this->assertInstanceOf(HasMany::class, $this->Attachments->getAssociation('AttachmentsLinks'));
+        $this->assertTrue($this->Attachments->getAssociation('AttachmentsLinks')->getDependent());
+        $this->assertInstanceOf(HasMany::class, $this->Attachments->getAssociation('Imgnotes'));
     }
 
     /**
@@ -72,16 +83,39 @@ class AttachmentsTableTest extends TestCase
      */
     public function testValidationDefault()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $valid = ['ext' => 'png', 'title' => 'Duck', 'filesize' => 1024, 'width' => 10, 'height' => 20];
+        $this->assertEmpty($this->Attachments->newEntity($valid)->getErrors());
+
+        // extension is required when creating
+        $this->assertArrayHasKey('ext', $this->Attachments->newEntity(['title' => 'Duck'])->getErrors());
+        $this->assertArrayHasKey('ext', $this->Attachments->newEntity(['ext' => ''] + $valid)->getErrors());
+        $this->assertArrayHasKey('ext', $this->Attachments->newEntity(['ext' => 'toolongext'] + $valid)->getErrors());
+
+        $this->assertArrayHasKey('title', $this->Attachments->newEntity(['title' => str_repeat('x', 101)] + $valid)->getErrors());
+        $this->assertArrayHasKey('filesize', $this->Attachments->newEntity(['filesize' => 'big'] + $valid)->getErrors());
+        $this->assertArrayHasKey('checksum', $this->Attachments->newEntity(['checksum' => str_repeat('a', 33)] + $valid)->getErrors());
+        $this->assertArrayHasKey('id', $this->Attachments->newEntity(['id' => 'not-a-uuid'] + $valid)->getErrors());
     }
 
     /**
-     * Test buildRules method
+     * Only images are accepted for upload
      *
      * @return void
      */
-    public function testBuildRules()
+    public function testUploadValidation()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $png = TESTS . 'Resource' . DS . 'DDuckAngry.png';
+        $upload = new UploadedFile($png, filesize($png), UPLOAD_ERR_OK, 'DDuckAngry.png', 'image/png');
+        $this->assertEmpty($this->Attachments->newEntity(['ext' => 'png', 'attachment' => $upload])->getErrors());
+
+        $text = TMP . 'not-an-image.txt';
+        file_put_contents($text, 'just text');
+        try {
+            $upload = new UploadedFile($text, filesize($text), UPLOAD_ERR_OK, 'not-an-image.png', 'image/png');
+            $errors = $this->Attachments->newEntity(['ext' => 'png', 'attachment' => $upload])->getErrors();
+            $this->assertArrayHasKey('mime', $errors['attachment'] ?? [], 'File content decides, not the client mime type');
+        } finally {
+            unlink($text);
+        }
     }
 }

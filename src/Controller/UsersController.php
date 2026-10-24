@@ -6,10 +6,10 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
+use Authentication\Identifier\PasswordIdentifier;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
-use Cake\ORM\TableRegistry;
 
 /**
  * Users Controller
@@ -19,17 +19,6 @@ use Cake\ORM\TableRegistry;
 class UsersController extends AppController
 {
     /**
-     * Initialize method.
-     *
-     * @return void
-     */
-    public function initialize(): void
-    {
-        parent::initialize();
-        //$this->loadComponent('Cookie');
-    }
-
-    /**
      * BeforeFilter method.
      *
      * @param \Cake\Event\EventInterface $event Cake Event object.
@@ -38,27 +27,14 @@ class UsersController extends AppController
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['logout', 'reset', 'changePassword', 'install']);
+
+        $allowed = ['login', 'logout', 'reset', 'changePassword', 'install'];
         if (Configure::read('enableRegistration')) {
-            $this->Auth->allow(['register']);
+            $allowed[] = 'register';
         }
+        $this->Authentication->allowUnauthenticated($allowed);
 
         return null;
-    }
-
-    /**
-     * IsAuthorized method.
-     *
-     * @param array $user Authenticated user.
-     * @return bool
-     */
-    public function isAuthorized($user)
-    {
-        if (in_array($this->getRequest()->getParam('action'), ['properties'])) {
-            return $this->Auth->user('id');
-        }
-
-        return parent::isAuthorized($user);
     }
 
     /**
@@ -66,60 +42,55 @@ class UsersController extends AppController
      *
      * This method will display login form
      *
-     * @return mixed
+     * @return \Cake\Http\Response|null
      */
     public function login()
     {
-        if ($this->Auth->user('id')) {
-            $this->redirect($this->Auth->redirectUrl());
-        }
+        $result = $this->Authentication->getResult();
 
-        $user = $this->Auth->identify();
-        if ($user) {
-            $this->Auth->setUser($user);
-
-            if ($this->Auth->authenticationProvider()->needsPasswordRehash()) {
-                /** @var \App\Model\Entity\Profile $user */
-                $user = TableRegistry::get('Profiles')->get($this->Auth->user('id'));
-                $user->p = $this->request->getData('p');
-                TableRegistry::get('Profiles')->save($user);
+        if ($result && $result->isValid()) {
+            if ($this->getRequest()->is('post')) {
+                $this->rehashPassword();
             }
 
-            // set cookie
-            if (!empty($this->getRequest()->getData('remember_me'))) {
-                /** @var \App\Auth\CookieAuthenticate $CookieAuth */
-                $CookieAuth = $this->Auth->getAuthenticate('Cookie');
-                if (!empty($CookieAuth)) {
-                    $this->response = $CookieAuth->createCookie($this->getRequest()->getData());
-                }
-            }
-        } else {
-            if ($this->getRequest()->is('post') || env('PHP_AUTH_USER')) {
-                $this->Flash->error(__('Invalid username or password, try again'));
-            }
+            $target = $this->Authentication->getLoginRedirect() ?? '/';
+
+            return $this->redirect($target);
         }
 
-        if ($this->Auth->user('id')) {
-            $redirect = $this->Auth->redirectUrl();
-
-            return $this->response->withLocation($redirect);
+        if ($this->getRequest()->is('post')) {
+            $this->Flash->error(__('Invalid username or password, try again'));
         }
+
+        return null;
     }
 
     /**
      * Logout method
      *
-     * @return mixed
+     * @return \Cake\Http\Response|null
      */
     public function logout()
     {
-        /** @var \App\Auth\CookieAuthenticate $CookieAuth */
-        $CookieAuth = $this->Auth->getAuthenticate('Cookie');
-        if (!empty($CookieAuth)) {
-            $this->response = $CookieAuth->deleteCookie();
-        }
+        $target = $this->Authentication->logout();
 
-        return $this->response->withLocation($this->Auth->logout());
+        return $this->redirect($target);
+    }
+
+    /**
+     * Stores a fresh password hash when the logged in user still has an old (sha1) one.
+     *
+     * @return void
+     */
+    protected function rehashPassword(): void
+    {
+        $identifier = $this->Authentication->getAuthenticationService()->getIdentificationProvider();
+        if ($identifier instanceof PasswordIdentifier && $identifier->needsPasswordRehash()) {
+            /** @var \App\Model\Entity\Profile $user */
+            $user = $this->fetchTable('Profiles')->get($this->currentUser->get('id'));
+            $user->p = (string)$this->getRequest()->getData('p');
+            $this->fetchTable('Profiles')->save($user);
+        }
     }
 
     /**
@@ -129,15 +100,13 @@ class UsersController extends AppController
      */
     public function reset()
     {
-        if ($this->Auth->user()) {
-            $redirect = $this->Auth->redirectUrl();
-
-            $this->redirect($redirect);
+        if ($this->currentUser->exists()) {
+            return $this->redirect('/');
         }
 
         if ($this->getRequest()->is('post')) {
             /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
-            $ProfilesTable = TableRegistry::get('Profiles');
+            $ProfilesTable = $this->fetchTable('Profiles');
             /** @var \App\Model\Entity\Profile $user */
             $user = $ProfilesTable->find()
                 ->select()
@@ -166,7 +135,7 @@ class UsersController extends AppController
         }
 
         /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
-        $ProfilesTable = TableRegistry::get('Profiles');
+        $ProfilesTable = $this->fetchTable('Profiles');
         $user = $ProfilesTable->find()->select()->where(['rst' => $resetKey])->first();
 
         if (empty($user)) {
@@ -197,7 +166,7 @@ class UsersController extends AppController
     public function install()
     {
         /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
-        $ProfilesTable = TableRegistry::get('Profiles');
+        $ProfilesTable = $this->fetchTable('Profiles');
 
         $userCount = $ProfilesTable->find()->count();
         if ($userCount > 0) {

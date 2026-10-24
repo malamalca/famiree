@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\UnitsTable;
-use Cake\ORM\TableRegistry;
+use Cake\ORM\Association\BelongsTo;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -24,7 +24,7 @@ class UnitsTableTest extends TestCase
      *
      * @var array
      */
-    public $fixtures = [
+    protected array $fixtures = [
         'app.Units',
         'app.Unions',
         'app.Profiles',
@@ -38,8 +38,8 @@ class UnitsTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Units') ? [] : ['className' => UnitsTable::class];
-        $this->Units = TableRegistry::getTableLocator()->get('Units', $config);
+        $config = $this->getTableLocator()->exists('Units') ? [] : ['className' => UnitsTable::class];
+        $this->Units = $this->getTableLocator()->get('Units', $config);
     }
 
     /**
@@ -61,7 +61,13 @@ class UnitsTableTest extends TestCase
      */
     public function testInitialize()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->assertSame('units', $this->Units->getTable());
+        $this->assertSame('id', $this->Units->getDisplayField());
+        $this->assertSame('id', $this->Units->getPrimaryKey());
+        $this->assertTrue($this->Units->hasBehavior('Timestamp'));
+
+        $this->assertInstanceOf(BelongsTo::class, $this->Units->getAssociation('Unions'));
+        $this->assertInstanceOf(BelongsTo::class, $this->Units->getAssociation('Profiles'));
     }
 
     /**
@@ -71,7 +77,11 @@ class UnitsTableTest extends TestCase
      */
     public function testValidationDefault()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $valid = ['union_id' => 1, 'profile_id' => 1, 'kind' => 'p', 'sort_order' => 1];
+        $this->assertEmpty($this->Units->newEntity($valid)->getErrors());
+
+        $this->assertArrayHasKey('kind', $this->Units->newEntity(['kind' => 'pc'] + $valid)->getErrors());
+        $this->assertArrayHasKey('sort_order', $this->Units->newEntity(['sort_order' => 'first'] + $valid)->getErrors());
     }
 
     /**
@@ -81,6 +91,15 @@ class UnitsTableTest extends TestCase
      */
     public function testBuildRules()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $valid = ['union_id' => 1, 'profile_id' => 1, 'kind' => 'p', 'sort_order' => 5];
+        $this->assertNotFalse($this->Units->save($this->Units->newEntity($valid)));
+
+        $unit = $this->Units->newEntity(['union_id' => 9999] + $valid);
+        $this->assertFalse($this->Units->save($unit), 'Union has to exist');
+        $this->assertArrayHasKey('union_id', $unit->getErrors());
+
+        $unit = $this->Units->newEntity(['profile_id' => 9999] + $valid);
+        $this->assertFalse($this->Units->save($unit), 'Profile has to exist');
+        $this->assertArrayHasKey('profile_id', $unit->getErrors());
     }
 }

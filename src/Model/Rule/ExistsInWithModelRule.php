@@ -3,11 +3,13 @@
 namespace App\Model\Rule;
 
 use Cake\Datasource\EntityInterface;
-use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
+use Cake\ORM\Locator\LocatorAwareTrait;
 
 class ExistsInWithModelRule
 {
+    use LocatorAwareTrait;
+
     /**
      * Options for the constructor
      *
@@ -34,7 +36,7 @@ class ExistsInWithModelRule
             return false;
         }
 
-        $_repository = TableRegistry::get(Inflector::pluralize($entity->class));
+        $_repository = $this->fetchTable(Inflector::pluralize($entity->class));
 
         return $_repository->exists(['id' => (int)$entity->foreign_id]);
     }

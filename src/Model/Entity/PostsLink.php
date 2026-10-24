@@ -27,7 +27,7 @@ class PostsLink extends Entity
      *
      * @var array<string, bool>
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'post_id' => true,
         'class' => true,
         'foreign_id' => true,

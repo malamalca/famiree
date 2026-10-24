@@ -5,7 +5,7 @@ namespace App\Controller;
 
 use Cake\Core\Configure;
 use Cake\Http\Exception\NotFoundException;
-use Cake\I18n\FrozenDate;
+use Cake\I18n\Date;
 use Cake\Utility\Text;
 
 /**
@@ -16,23 +16,12 @@ use Cake\Utility\Text;
  */
 class AttachmentsController extends AppController
 {
-    public $paginate = [
+    public array $paginate = [
         'limit' => 25,
         'order' => [
             'Attachments.created' => 'asc',
         ],
     ];
-
-    /**
-     * isAuthorized hook method.
-     *
-     * @param array $user Logged in user.
-     * @return bool
-     */
-    public function isAuthorized($user)
-    {
-        return true;
-    }
 
     /**
      * Index method
@@ -43,7 +32,7 @@ class AttachmentsController extends AppController
     {
         $q = $this->Attachments->find();
         if ($this->getRequest()->getQuery('filter') != 'all') {
-            $q->where(['created >=' => (new FrozenDate())->subMonths(3)]);
+            $q->where(['created >=' => (new Date())->subMonths(3)]);
         }
 
         $attachments = $this->paginate($q);
@@ -102,10 +91,7 @@ class AttachmentsController extends AppController
      */
     public function view($id = null)
     {
-        $attachment = $this->Attachments->get(
-            $id,
-            ['contain' => ['Creators', 'Imgnotes', 'AttachmentsLinks.Profiles']]
-        );
+        $attachment = $this->Attachments->get($id, contain: ['Creators', 'Imgnotes', 'AttachmentsLinks.Profiles']);
 
         $this->set('attachment', $attachment);
     }
@@ -120,7 +106,7 @@ class AttachmentsController extends AppController
     public function edit($id = null)
     {
         if ($id) {
-            $attachment = $this->Attachments->get($id, ['contain' => ['AttachmentsLinks']]);
+            $attachment = $this->Attachments->get($id, contain: ['AttachmentsLinks']);
         } else {
             $attachment = $this->Attachments->newEmptyEntity();
         }
@@ -166,6 +152,6 @@ class AttachmentsController extends AppController
             $this->Flash->error(__('The attachment could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect($this->getRequest()->getQuery('redirect', $this->getRequest()->referer()));
+        return $this->redirect($this->getRequest()->getQuery('redirect', $this->referer()));
     }
 }

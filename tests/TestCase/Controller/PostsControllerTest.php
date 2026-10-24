@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller;
 
 use Cake\Datasource\Exception\RecordNotFoundException;
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
@@ -20,7 +19,7 @@ class PostsControllerTest extends TestCase
      *
      * @var array
      */
-    public $fixtures = [
+    protected array $fixtures = [
         'app.Posts',
         'app.Profiles',
         'app.PostsLinks',
@@ -58,7 +57,7 @@ class PostsControllerTest extends TestCase
      */
     public function testIndex()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
         $this->get('/posts');
 
         $this->assertResponseOk();
@@ -72,7 +71,7 @@ class PostsControllerTest extends TestCase
      */
     public function testView()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
         $this->get('/posts/view/1');
 
         $this->assertResponseOk();
@@ -90,9 +89,9 @@ class PostsControllerTest extends TestCase
      */
     public function testAdd()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
 
-        $countBefore = TableRegistry::get('Posts')->find()->count();
+        $countBefore = $this->fetchTable('Posts')->find()->count();
 
         $this->post('/posts/edit', [
             'title' => 'Test Memory',
@@ -103,7 +102,7 @@ class PostsControllerTest extends TestCase
         $this->assertRedirect(['controller' => 'Posts', 'action' => 'index']);
         $this->assertFlashElement('flash/success');
 
-        $countAfter = TableRegistry::get('Posts')->find()->count();
+        $countAfter = $this->fetchTable('Posts')->find()->count();
         $this->assertEquals($countBefore + 1, $countAfter);
     }
 
@@ -114,9 +113,9 @@ class PostsControllerTest extends TestCase
      */
     public function testEdit()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
 
-        $countBefore = TableRegistry::get('Posts')->find()->count();
+        $countBefore = $this->fetchTable('Posts')->find()->count();
 
         $this->post('/posts/edit/1', [
             'id' => 1,
@@ -128,10 +127,10 @@ class PostsControllerTest extends TestCase
         $this->assertRedirect(['controller' => 'Posts', 'action' => 'index']);
         $this->assertFlashElement('flash/success');
 
-        $countAfter = TableRegistry::get('Posts')->find()->count();
+        $countAfter = $this->fetchTable('Posts')->find()->count();
         $this->assertEquals($countBefore, $countAfter);
 
-        $post = TableRegistry::get('Posts')->get(1);
+        $post = $this->fetchTable('Posts')->get(1);
         $this->assertEquals('Test Memory', $post->title);
     }
 
@@ -142,15 +141,15 @@ class PostsControllerTest extends TestCase
      */
     public function testDelete()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
 
-        $countBefore = TableRegistry::get('Posts')->find()->count();
+        $countBefore = $this->fetchTable('Posts')->find()->count();
 
         $this->get('/posts/delete/1');
 
         $this->assertRedirect();
 
-        $countAfter = TableRegistry::get('Posts')->find()->count();
+        $countAfter = $this->fetchTable('Posts')->find()->count();
         $this->assertEquals($countBefore - 1, $countAfter);
     }
 }

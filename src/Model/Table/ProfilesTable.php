@@ -10,12 +10,12 @@ use Cake\Core\Configure;
 use Cake\Database\Expression\QueryExpression;
 use Cake\Event\Event;
 use Cake\Mailer\Mailer;
-use Cake\ORM\Query;
+use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Validation\Validator;
+use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * Profiles Model
@@ -37,6 +37,8 @@ use Cake\Validation\Validator;
  */
 class ProfilesTable extends Table
 {
+    use LocatorAwareTrait;
+
     use FamilyTreeTrait;
 
     /**
@@ -184,7 +186,7 @@ class ProfilesTable extends Table
      * @param \Cake\Event\Event $event Event object
      * @param \App\Model\Entity\Profile $entity Entity object
      * @param \ArrayObject $options Options
-     * @return bool
+     * @return void
      */
     public function beforeSave(Event $event, \App\Model\Entity\Profile $entity, ArrayObject $options)
     {
@@ -192,8 +194,6 @@ class ProfilesTable extends Table
             $entity->d_n = trim(trim($entity->fn . ' ' . $entity->mn) . ' ' . $entity->ln);
         }
         Cache::delete('Profiles');
-
-        return true;
     }
 
     /**
@@ -205,7 +205,7 @@ class ProfilesTable extends Table
     public function updateAttachmentCount($profiles)
     {
         foreach ($profiles as $profileId) {
-            $attachmentCount = TableRegistry::get('AttachmentsLinks')->find()
+            $attachmentCount = $this->fetchTable('AttachmentsLinks')->find()
                 ->where(['class' => 'Profile', 'foreign_id' => $profileId])
                 ->count();
 
@@ -225,7 +225,7 @@ class ProfilesTable extends Table
     public function updateMemoryCount($profiles)
     {
         foreach ($profiles as $profileId) {
-            $attachmentCount = TableRegistry::get('PostsLinks')->find()
+            $attachmentCount = $this->fetchTable('PostsLinks')->find()
                 ->where(['class' => 'Profile', 'foreign_id' => $profileId])
                 ->count();
 
@@ -248,10 +248,10 @@ class ProfilesTable extends Table
     {
         $ret = [];
 
-        $data = TableRegistry::get('Profiles')->get($id);
+        $data = $this->fetchTable('Profiles')->get($id);
 
         /** @var \App\Model\Entity\Unit $family */
-        $family = TableRegistry::get('Units')->find()
+        $family = $this->fetchTable('Units')->find()
             ->select(['union_id'])
             ->where(['profile_id' => $id, 'kind' => 'c'])
             ->first();
@@ -260,12 +260,12 @@ class ProfilesTable extends Table
         $siblings = [];
         if (!empty($family)) {
             if (empty($type) || $type == 'parents' || (is_array($type) && in_array('parents', $type))) {
-                $parents = TableRegistry::get('Profiles')->find()
+                $parents = $this->fetchTable('Profiles')->find()
                     ->select()
                     ->matching('Units', function ($q) use ($family) {
                         return $q->where(['Units.union_id' => $family->union_id, 'Units.kind' => 'p']);
                     })
-                    ->order(['Profiles.g DESC'])
+                    ->orderBy(['Profiles.g DESC'])
                     ->toArray();
 
                 if ($assoc) {
@@ -283,14 +283,14 @@ class ProfilesTable extends Table
             }
 
             if (empty($type) || $type == 'siblings' || (is_array($type) && in_array('siblings', $type))) {
-                $siblings = TableRegistry::get('Profiles')->find()
+                $siblings = $this->fetchTable('Profiles')->find()
                     ->select()
                     ->matching('Units', function ($q) use ($id, $family) {
                         return $q->where(
                             ['Units.union_id' => $family->union_id, 'Units.kind' => 'c', 'Units.profile_id !=' => $id]
                         );
                     })
-                    ->order(['Units.sort_order', 'Profiles.dob_y'])
+                    ->orderBy(['Units.sort_order', 'Profiles.dob_y'])
                     ->toArray();
 
                 if ($assoc) {
@@ -315,7 +315,7 @@ class ProfilesTable extends Table
                 in_array('children', $type)
             ))
         ) {
-            $marr = TableRegistry::get('Units')->find()
+            $marr = $this->fetchTable('Units')->find()
                 ->select(['union_id'])
                 ->where(['profile_id' => $id, 'kind' => 'p'])
                 ->all();
@@ -330,7 +330,7 @@ class ProfilesTable extends Table
                     $marriage_key = $m_k;
                 }
 
-                $marriages[$marriage_key]['spouse'] = TableRegistry::get('Profiles')->find()
+                $marriages[$marriage_key]['spouse'] = $this->fetchTable('Profiles')->find()
                     ->matching('Units', function ($q) use ($id, $marriage) {
                         return $q->where(
                             ['Units.union_id' => $marriage->union_id, 'Units.kind' => 'p', 'Units.profile_id !=' => $id]
@@ -351,11 +351,11 @@ class ProfilesTable extends Table
                         in_array('children', $type))
                     ))
                 ) {
-                    $marriages[$marriage_key]['children'] = TableRegistry::get('Profiles')->find()
+                    $marriages[$marriage_key]['children'] = $this->fetchTable('Profiles')->find()
                         ->matching('Units', function ($q) use ($marriage) {
                             return $q->where(['Units.union_id' => $marriage->union_id, 'Units.kind' => 'c']);
                         })
-                        ->order(['Units.sort_order', 'Profiles.dob_y'])
+                        ->orderBy(['Units.sort_order', 'Profiles.dob_y'])
                         ->toArray();
 
                     if ($assoc) {
@@ -395,23 +395,23 @@ class ProfilesTable extends Table
     /**
      * Costum finder method "search"
      *
-     * @param \Cake\ORM\Query $query Query object.
-     * @param array $options Options.
-     * @return \Cake\ORM\Query
+     * @param \Cake\ORM\Query\SelectQuery $query Query object.
+     * @param string|null $criterio Search term.
+     * @return \Cake\ORM\Query\SelectQuery
      */
-    public function findSearch(Query $query, array $options)
+    public function findSearch(SelectQuery $query, ?string $criterio = null)
     {
-        if (!empty($options['criterio']) && strlen($options['criterio']) > 1) {
+        if (!empty($criterio) && strlen($criterio) > 1) {
             $query->where([
                 'OR' => [
-                    'd_n LIKE' => '%' . $options['criterio'] . '%',
-                    'mdn LIKE' => '%' . $options['criterio'] . '%',
-                    'loc LIKE' => '%' . $options['criterio'] . '%',
+                    'd_n LIKE' => '%' . $criterio . '%',
+                    'mdn LIKE' => '%' . $criterio . '%',
+                    'loc LIKE' => '%' . $criterio . '%',
                 ],
             ]);
         }
 
-        $query->order(['ln', 'fn']);
+        $query->orderBy(['ln', 'fn']);
 
         return $query;
     }
@@ -430,7 +430,7 @@ class ProfilesTable extends Table
                 'count' => $query->func()->count('*'),
             ])
             ->enableHydration(false)
-            ->group(['g'])
+            ->groupBy(['g'])
             ->toArray();
 
         $counts = Hash::combine($counts, '{n}.g', '{n}.count');
@@ -503,7 +503,7 @@ class ProfilesTable extends Table
                 ->andWhere(function (QueryExpression $andWhereExpr) use ($diffExpr) {
                     return $andWhereExpr->gt($diffExpr, 0, 'integer');
                 })
-                ->order(['diff'])
+                ->orderBy(['diff'])
                 ->limit(20)
                 ->all();
 

@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Cake\ORM\TableRegistry;
 
 /**
  * Posts Controller
@@ -13,17 +12,6 @@ use Cake\ORM\TableRegistry;
  */
 class PostsController extends AppController
 {
-    /**
-     * isAuthorized hook method.
-     *
-     * @param array $user Logged in user.
-     * @return bool
-     */
-    public function isAuthorized($user)
-    {
-        return true;
-    }
-
     /**
      * Index method
      *
@@ -46,7 +34,7 @@ class PostsController extends AppController
      */
     public function view($id = null)
     {
-        $post = $this->Posts->get($id, ['contain' => ['Profiles', 'Creators']]);
+        $post = $this->Posts->get($id, contain: ['Profiles', 'Creators']);
         $this->set('post', $post);
     }
 
@@ -60,7 +48,7 @@ class PostsController extends AppController
     public function edit($id = null)
     {
         if ($id) {
-            $post = $this->Posts->get($id, ['contain' => ['PostsLinks']]);
+            $post = $this->Posts->get($id, contain: ['PostsLinks']);
         } else {
             $post = $this->Posts->newEmptyEntity();
         }
@@ -78,7 +66,7 @@ class PostsController extends AppController
             }
             $this->Flash->error(__('The post could not be saved. Please, try again.'));
         }
-        $creators = TableRegistry::get('Profiles')->find('list')->order('ln');
+        $creators = $this->fetchTable('Profiles')->find('list')->orderBy('ln');
         $this->set(compact('post', 'creators'));
     }
 

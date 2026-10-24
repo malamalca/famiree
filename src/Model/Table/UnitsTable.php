@@ -9,8 +9,8 @@ use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
+use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * Units Model
@@ -29,6 +29,8 @@ use Cake\Validation\Validator;
  */
 class UnitsTable extends Table
 {
+    use LocatorAwareTrait;
+
     /**
      * Initialize method
      *
@@ -121,8 +123,8 @@ class UnitsTable extends Table
             ->count();
 
         if ($count <= 1) {
-            $union = TableRegistry::get('Unions')->get($entity->union_id);
-            TableRegistry::get('Unions')->delete($union);
+            $union = $this->fetchTable('Unions')->get($entity->union_id);
+            $this->fetchTable('Unions')->delete($union);
         }
     }
 }

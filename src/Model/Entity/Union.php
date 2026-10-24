@@ -14,8 +14,8 @@ use Cake\ORM\Entity;
  * @property int|null $dom_m
  * @property string|null $dom_y
  * @property string|null $loc
- * @property \Cake\I18n\FrozenTime|null $created
- * @property \Cake\I18n\FrozenTime|null $modified
+ * @property \Cake\I18n\DateTime|null $created
+ * @property \Cake\I18n\DateTime|null $modified
  *
  * @property \App\Model\Entity\Unit[] $units
  */
@@ -30,7 +30,7 @@ class Union extends Entity
      *
      * @var array<string, bool>
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         't' => true,
         'dom_d' => true,
         'dom_m' => true,

@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\PostsTable;
-use Cake\ORM\TableRegistry;
+use Cake\ORM\Association\BelongsTo;
+use Cake\ORM\Association\BelongsToMany;
+use Cake\ORM\Association\HasMany;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -24,7 +26,7 @@ class PostsTableTest extends TestCase
      *
      * @var array
      */
-    public $fixtures = [
+    protected array $fixtures = [
         'app.Posts',
         'app.Profiles',
         'app.PostsLinks',
@@ -38,8 +40,8 @@ class PostsTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Posts') ? [] : ['className' => PostsTable::class];
-        $this->Posts = TableRegistry::getTableLocator()->get('Posts', $config);
+        $config = $this->getTableLocator()->exists('Posts') ? [] : ['className' => PostsTable::class];
+        $this->Posts = $this->getTableLocator()->get('Posts', $config);
     }
 
     /**
@@ -61,7 +63,16 @@ class PostsTableTest extends TestCase
      */
     public function testInitialize()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->assertSame('posts', $this->Posts->getTable());
+        $this->assertSame('title', $this->Posts->getDisplayField());
+        $this->assertSame('id', $this->Posts->getPrimaryKey());
+        $this->assertTrue($this->Posts->hasBehavior('Timestamp'));
+
+        $this->assertInstanceOf(BelongsTo::class, $this->Posts->getAssociation('Creators'));
+        $this->assertSame('Profiles', $this->Posts->getAssociation('Creators')->getClassName());
+        $this->assertInstanceOf(HasMany::class, $this->Posts->getAssociation('PostsLinks'));
+        $this->assertTrue($this->Posts->getAssociation('PostsLinks')->getDependent());
+        $this->assertInstanceOf(BelongsToMany::class, $this->Posts->getAssociation('Profiles'));
     }
 
     /**
@@ -71,16 +82,11 @@ class PostsTableTest extends TestCase
      */
     public function testValidationDefault()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->assertEmpty($this->Posts->newEntity(['title' => 'My memory', 'body' => 'Once upon a time'])->getErrors());
+
+        $this->assertArrayHasKey('title', $this->Posts->newEntity(['title' => str_repeat('x', 101)])->getErrors());
+        $this->assertArrayHasKey('title', $this->Posts->newEntity(['title' => ['array']])->getErrors());
+        $this->assertArrayHasKey('body', $this->Posts->newEntity(['body' => ['array']])->getErrors());
     }
 
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
 }

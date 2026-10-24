@@ -15,7 +15,7 @@ declare(strict_types=1);
  */
 namespace App\View;
 
-use Cake\Event\EventManager;
+use Cake\Event\EventManagerInterface;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
 use Cake\View\View;
@@ -41,14 +41,14 @@ class AppView extends View
      *
      * @param \Cake\Http\ServerRequest|null $request Request instance.
      * @param \Cake\Http\Response|null $response Response instance.
-     * @param \Cake\Event\EventManager|null $eventManager Event manager instance.
+     * @param \Cake\Event\EventManagerInterface|null $eventManager Event manager instance.
      * @param array $viewOptions View options. See View::$_passedVars for list of
      *   options which get set as class properties.
      */
     public function __construct(
         ?ServerRequest $request = null,
         ?Response $response = null,
-        ?EventManager $eventManager = null,
+        ?EventManagerInterface $eventManager = null,
         array $viewOptions = []
     ) {
         if (isset($viewOptions['currentUser'])) {

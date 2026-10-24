@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query;
+use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -65,14 +65,14 @@ class PostsTable extends Table
     /**
      * Finder function for posts pagination
      *
-     * @param \Cake\ORM\Query $q Query instance.
-     * @return \Cake\ORM\Query
+     * @param \Cake\ORM\Query\SelectQuery $q Query instance.
+     * @return \Cake\ORM\Query\SelectQuery
      */
-    public function findPaginated(Query $q)
+    public function findPaginated(SelectQuery $q)
     {
         $q
             ->contain(['Creators', 'Profiles'])
-            ->order(['Posts.created DESC'])
+            ->orderBy(['Posts.created DESC'])
             ->limit(10);
 
         return $q;

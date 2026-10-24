@@ -75,11 +75,11 @@
                             } elseif ($log->foreign_id == $this->currentUser->get('id')) {
                                 echo __('{0} has edited my profile.',
                                     empty($log->user_id) ? __('Guest') :
-                                        $this->Html->link($log->user->d_n, ['controller' => 'Profiles', 'action' => 'view', $log->foreign_id])
+                                        $this->Html->link($log->user?->d_n, ['controller' => 'Profiles', 'action' => 'view', $log->foreign_id])
                                 );
                             } elseif ($log->foreign_id == $log->user_id) {
                                 echo __('{0} has edited his own profile.',
-                                    $this->Html->link($log->user->d_n, ['controller' => 'Profiles', 'action' => 'view', $log->foreign_id])
+                                    $this->Html->link($log->user?->d_n, ['controller' => 'Profiles', 'action' => 'view', $log->foreign_id])
                                 );
                             } else {
                                 if ($log->action == 'add') {
@@ -93,7 +93,7 @@
                                     $this->Html->link($log->title, ['controller' => 'Profiles', 'action' => 'view', $log->foreign_id]),
                                     empty($log->user_id) ? __('Guest') :
                                         $this->Html->link(
-                                            ($log->user_id == $this->currentUser->get('id')) ? __('Me') : $log->user->d_n,
+                                            ($log->user_id == $this->currentUser->get('id')) ? __('Me') : $log->user?->d_n,
                                             ['controller' => 'Profiles', 'action' => 'view', $log->user_id]
                                         )
                                 );
@@ -103,7 +103,7 @@
                                 __('Profile "%1$s" has been deleted by %2$s'),
                                 $log->title,
                                 $this->Html->link(
-                                    ($log->user_id == $this->currentUser->get('id')) ? __('Me') : $log->user->d_n,
+                                    ($log->user_id == $this->currentUser->get('id')) ? __('Me') : $log->user?->d_n,
                                     ['controller' => 'Profiles', 'action' => 'view', $log->user_id]
                                 )
                             );
@@ -114,7 +114,7 @@
                             printf(
                                 __('Post "%1$s" has been deleted by %2$s.'),
                                 $log->title,
-                                $this->Html->link(($log->user_id == $this->currentUser->get('id')) ? __('Me') : $log->user->d_n,
+                                $this->Html->link(($log->user_id == $this->currentUser->get('id')) ? __('Me') : $log->user?->d_n,
                                     ['controller' => 'Profiles', 'action' => 'view', $log->user_id]
                                 )
                             );
@@ -131,7 +131,7 @@
                                     $this->Html->link($log->title, ['controller' => 'Posts', 'action' => 'view', $log->foreign_id]) : $log->title
                                 ),
                                 $this->Html->link(
-                                    ($post->user_id == $this->currentUser->get('id')) ? __('Me') : $log->user->d_n,
+                                    ($post->user_id == $this->currentUser->get('id')) ? __('Me') : $log->user?->d_n,
                                     ['controller' => 'Profiles', 'action' => 'view', $log->user_id])
                             );
                         }
@@ -148,7 +148,7 @@
                             $this->Html->link($log->title, ['controller' => 'Attachments', 'action' => 'view', $log->foreign_id]),
                             empty($log->user_id) ? __('Unknown') :
                                 $this->Html->link(
-                                    $log->user_id == $this->currentUser->get('id') ? __('Me') : $log->user->d_n,
+                                    $log->user_id == $this->currentUser->get('id') ? __('Me') : $log->user?->d_n,
                                     ['controller' => 'Profiles', 'action' => 'view', $log->user_id]
                                 )
                         );
@@ -159,7 +159,7 @@
                                 __('A note has been added to %1$s by %2$s.'),
                                 $this->Html->link(__('image'), ['controller' => 'Attachments', 'action' => 'view', $log->imgnote->attachment_id]),
                                 $this->Html->link(
-                                    $log->user_id == $this->currentUser->get('id') ? __('Me') : $log->user->d_n,
+                                    $log->user_id == $this->currentUser->get('id') ? __('Me') : $log->user?->d_n,
                                     ['controller' => 'Profiles', 'action' => 'view', $log->user_id]
                                 )
                             );

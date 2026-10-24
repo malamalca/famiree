@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
-use Cake\Auth\DefaultPasswordHasher;
-use Cake\I18n\FrozenDate;
+use Authentication\PasswordHasher\DefaultPasswordHasher;
+use Cake\I18n\Date;
 use Cake\ORM\Entity;
 
 /**
@@ -54,10 +54,10 @@ use Cake\ORM\Entity;
  * @property string|null $in_s
  * @property int|null $cn_med
  * @property int|null $cn_mem
- * @property \Cake\I18n\FrozenTime|null $last_login
- * @property \Cake\I18n\FrozenTime|null $created
+ * @property \Cake\I18n\DateTime|null $last_login
+ * @property \Cake\I18n\DateTime|null $created
  * @property int|null $creator_id
- * @property \Cake\I18n\FrozenTime|null $modified
+ * @property \Cake\I18n\DateTime|null $modified
  * @property int|null $modifier_id
  *
  * @property \App\Model\Entity\Creator $creator
@@ -77,7 +77,7 @@ class Profile extends Entity
      *
      * @var array<string, bool>
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'ta' => true,
         'd_n' => true,
         'ln' => true,
@@ -143,7 +143,12 @@ class Profile extends Entity
      */
     protected function _setP($password)
     {
-        return (new DefaultPasswordHasher())->hash($password);
+        // empty passwords are cleared (reset forms), never hashed
+        if ($password === null || $password === '') {
+            return $password;
+        }
+
+        return (new DefaultPasswordHasher())->hash((string)$password);
     }
 
     /**
@@ -161,8 +166,8 @@ class Profile extends Entity
             $dateString .= '-' . (empty($this->dob_m) ? '12' : str_pad((string)$this->dob_m, 2, '0', STR_PAD_LEFT));
             $dateString .= '-' . (empty($this->dob_d) ? '31' : str_pad((string)$this->dob_d, 2, '0', STR_PAD_LEFT));
 
-            $date = new FrozenDate($dateString);
-            $now = new FrozenDate();
+            $date = new Date($dateString);
+            $now = new Date();
 
             $ret = $now->year - $date->year;
             if ($date->month > $now->month) {

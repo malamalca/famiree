@@ -8,8 +8,8 @@ use App\Model\Rule\ExistsInWithModelRule;
 use Cake\Event\Event;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
+use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * AttachmentsLinks Model
@@ -27,6 +27,8 @@ use Cake\Validation\Validator;
  */
 class AttachmentsLinksTable extends Table
 {
+    use LocatorAwareTrait;
+
     /**
      * Initialize method
      *
@@ -107,7 +109,7 @@ class AttachmentsLinksTable extends Table
                 $profilesToUpdate[] = $previousProfileId;
             }
             /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
-            $ProfilesTable = TableRegistry::get('Profiles');
+            $ProfilesTable = $this->fetchTable('Profiles');
             $ProfilesTable->updateAttachmentCount($profilesToUpdate);
         }
     }
@@ -124,7 +126,7 @@ class AttachmentsLinksTable extends Table
     {
         if ($entity->class == 'Profile') {
             /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
-            $ProfilesTable = TableRegistry::get('Profiles');
+            $ProfilesTable = $this->fetchTable('Profiles');
             $ProfilesTable->updateAttachmentCount([$entity->foreign_id]);
         }
     }

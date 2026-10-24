@@ -6,17 +6,32 @@ namespace App\Model\Behavior;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
-use Cake\Http\Session;
+use Cake\Routing\Router;
 use Cake\ORM\Behavior;
-use Cake\ORM\TableRegistry;
+use Cake\ORM\Locator\LocatorAwareTrait;
 
 class LoggableBehavior extends Behavior
 {
-    protected $_defaultConfig = [
+    use LocatorAwareTrait;
+
+    protected array $_defaultConfig = [
         'excludedProperties' => [
             'created', 'modified',
         ],
     ];
+
+    /**
+     * Returns id of the logged in user or null when there is none (cli, guests).
+     *
+     * @return int|string|null
+     */
+    protected function currentUserId(): int|string|null
+    {
+        /** @var \Authentication\IdentityInterface|null $identity */
+        $identity = Router::getRequest()?->getAttribute('identity');
+
+        return $identity?->getIdentifier();
+    }
 
     /**
      * afterSave event handler
@@ -59,16 +74,16 @@ class LoggableBehavior extends Behavior
             }
         }
         if (!empty($packed)) {
-            $log = TableRegistry::get('Logs')->newEntity([
+            $log = $this->fetchTable('Logs')->newEntity([
                 'title' => $entity->get($this->table()->getDisplayField()),
                 'class' => $entityClass,
                 'foreign_id' => $entity->id,
                 'action' => $action,
-                'user_id' => (new Session())->read('Auth.User.id'),
+                'user_id' => $this->currentUserId(),
                 'change' => serialize($packed),
             ]);
 
-            TableRegistry::get('Logs')->save($log);
+            $this->fetchTable('Logs')->save($log);
         }
     }
 
@@ -98,16 +113,16 @@ class LoggableBehavior extends Behavior
         }
 
         if (!empty($packed)) {
-            $log = TableRegistry::get('Logs')->newEntity([
+            $log = $this->fetchTable('Logs')->newEntity([
                 'title' => $entity->get($this->table()->getDisplayField()),
                 'class' => $entityClass,
                 'foreign_id' => $entity->id,
                 'action' => $action,
-                'user_id' => (new Session())->read('Auth.User.id'),
+                'user_id' => $this->currentUserId(),
                 'change' => serialize($packed),
             ]);
 
-            TableRegistry::get('Logs')->save($log);
+            $this->fetchTable('Logs')->save($log);
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
     use Cake\Core\Configure;
-    use Cake\I18n\FrozenDate;
+    use Cake\I18n\Date;
 
     $this->set('sidebar', 'Profiles/dashboard');
     $this->set('title_for_layout', __('Dashboard'));
@@ -53,8 +53,8 @@
                     $bdShowDate = true;
                     $oneIfFuture = 1;
 
-                    $dobReal = FrozenDate::parse($profile->dob);
-                    $dob = $dobReal->year((new FrozenDate())->year);
+                    $dobReal = Date::parse($profile->dob);
+                    $dob = $dobReal->year((new Date())->year);
 
 
                     if ($dob->isToday() && empty($hasTodayCaption)) {
@@ -72,7 +72,7 @@
                     } elseif ($dob->isNextMonth() && empty($nextMonth)) {
                         echo '<div class="date_title">'.__('Next month').'</div>'.PHP_EOL;
                         $nextMonth = true;
-                    } elseif ($dob->diffInMonths((new FrozenDate())->day(1)) > 1 && empty($inFuture)) {
+                    } elseif ($dob->diffInMonths((new Date())->day(1)) > 1 && empty($inFuture)) {
                         echo '<div class="date_title">'.__('Furher on').'</div>'.PHP_EOL;
                         $inFuture = true;
                     }

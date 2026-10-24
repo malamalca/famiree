@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\UnionsTable;
-use Cake\ORM\TableRegistry;
+use Cake\ORM\Association\BelongsToMany;
+use Cake\ORM\Association\HasMany;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -24,7 +25,7 @@ class UnionsTableTest extends TestCase
      *
      * @var array
      */
-    public $fixtures = [
+    protected array $fixtures = [
         'app.Unions',
         'app.Units',
     ];
@@ -37,8 +38,8 @@ class UnionsTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Unions') ? [] : ['className' => UnionsTable::class];
-        $this->Unions = TableRegistry::getTableLocator()->get('Unions', $config);
+        $config = $this->getTableLocator()->exists('Unions') ? [] : ['className' => UnionsTable::class];
+        $this->Unions = $this->getTableLocator()->get('Unions', $config);
     }
 
     /**
@@ -60,7 +61,14 @@ class UnionsTableTest extends TestCase
      */
     public function testInitialize()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->assertSame('unions', $this->Unions->getTable());
+        $this->assertSame('id', $this->Unions->getDisplayField());
+        $this->assertSame('id', $this->Unions->getPrimaryKey());
+        $this->assertTrue($this->Unions->hasBehavior('Timestamp'));
+
+        $this->assertInstanceOf(HasMany::class, $this->Unions->getAssociation('Units'));
+        $this->assertInstanceOf(BelongsToMany::class, $this->Unions->getAssociation('Profiles'));
+        $this->assertSame('units', $this->Unions->getAssociation('Profiles')->junction()->getTable());
     }
 
     /**
@@ -70,6 +78,13 @@ class UnionsTableTest extends TestCase
      */
     public function testValidationDefault()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $valid = ['t' => 'L', 'dom_d' => 1, 'dom_m' => 2, 'dom_y' => '1950', 'loc' => 'Duckburg'];
+        $this->assertEmpty($this->Unions->newEntity($valid)->getErrors());
+
+        $this->assertArrayHasKey('t', $this->Unions->newEntity(['t' => 'LL'] + $valid)->getErrors());
+        $this->assertArrayHasKey('dom_d', $this->Unions->newEntity(['dom_d' => 'first'] + $valid)->getErrors());
+        $this->assertArrayHasKey('dom_m', $this->Unions->newEntity(['dom_m' => 'feb'] + $valid)->getErrors());
+        $this->assertArrayHasKey('dom_y', $this->Unions->newEntity(['dom_y' => str_repeat('1', 11)] + $valid)->getErrors());
+        $this->assertArrayHasKey('loc', $this->Unions->newEntity(['loc' => str_repeat('x', 101)] + $valid)->getErrors());
     }
 }

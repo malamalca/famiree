@@ -6,7 +6,6 @@ namespace App\Controller;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
-use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 
 /**
@@ -28,22 +27,11 @@ class ProfilesController extends AppController
         if (!$this->currentUser->exists()) {
             $userCount = $this->Profiles->find()->count();
             if ($userCount == 0) {
-                $this->redirect(['controller' => 'Users', 'action' => 'install']);
+                return $this->redirect(['controller' => 'Users', 'action' => 'install']);
             }
         }
 
         return null;
-    }
-
-    /**
-     * isAuthorized hook method.
-     *
-     * @param array $user Logged in user.
-     * @return bool
-     */
-    public function isAuthorized($user)
-    {
-        return true;
     }
 
     /**
@@ -55,16 +43,16 @@ class ProfilesController extends AppController
     {
         $profiles = $this->paginate($this->Profiles);
         $counts = $this->Profiles->countGenders();
-        $posts = TableRegistry::get('Posts')->find()
+        $posts = $this->fetchTable('Posts')->find()
             ->select()
             ->contain(['Profiles', 'Creators'])
-            ->order(['Posts.created DESC'])
+            ->orderBy(['Posts.created DESC'])
             ->limit(5)
             ->all();
-        $logs = TableRegistry::get('Logs')->find()
+        $logs = $this->fetchTable('Logs')->find()
             ->select()
             ->contain(['Profiles', 'Imgnotes', 'Attachments', 'Posts', 'Users'])
-            ->order(['Logs.created DESC'])
+            ->orderBy(['Logs.created DESC'])
             ->limit(10)
             ->all();
 
@@ -123,15 +111,15 @@ class ProfilesController extends AppController
             $id = $this->currentUser->get('id');
         }
 
-        $profile = $this->Profiles->get($id, ['contain' => ['Creators']]);
+        $profile = $this->Profiles->get($id, contain: ['Creators']);
         $family = $this->Profiles->family($id);
 
         /** @var \App\Model\Table\AttachmentsTable $AttachmentsTable */
-        $AttachmentsTable = TableRegistry::get('Attachments');
+        $AttachmentsTable = $this->fetchTable('Attachments');
         $attachments = $AttachmentsTable->fetchForProfile($id);
 
         /** @var \App\Model\Table\PostsTable $PostsTable */
-        $PostsTable = TableRegistry::get('Posts');
+        $PostsTable = $this->fetchTable('Posts');
         $posts = $PostsTable->fetchForProfile($id);
 
         $this->set(compact('profile', 'family', 'posts', 'attachments'));
@@ -162,7 +150,7 @@ class ProfilesController extends AppController
                 if (isset($family['parents']) && count($family['parents']) == 2) {
                     $this->Flash->error(__('The profile already has two parents.'));
 
-                    return $this->redirect($this->getRequest()->referer());
+                    return $this->redirect($this->referer());
                 }
                 $this->set(compact('family'));
                 break;
@@ -190,15 +178,15 @@ class ProfilesController extends AppController
                     $profileUnit = $profile->units[0];
 
                     /** @var \App\Model\Entity\Unit $baseUnit */
-                    $baseUnit = TableRegistry::get('Units')->newEntity(
+                    $baseUnit = $this->fetchTable('Units')->newEntity(
                         ['profile_id' => $baseProfile->id, 'kind' => $baseProfileKind]
                     );
 
                     /** @var \App\Model\Entity\Union $union */
-                    $union = TableRegistry::get('Unions')->newEmptyEntity();
+                    $union = $this->fetchTable('Unions')->newEmptyEntity();
 
                     $union->units = [$profileUnit, $baseUnit];
-                    $union = TableRegistry::get('Unions')->save($union);
+                    $union = $this->fetchTable('Unions')->save($union);
                 }
 
                 $this->Flash->success(__('The profile has been saved.'));
@@ -220,7 +208,7 @@ class ProfilesController extends AppController
      */
     public function edit($id = null)
     {
-        $profile = $this->Profiles->get($id, ['contain' => ['Marriages' => ['Profiles']]]);
+        $profile = $this->Profiles->get($id, contain: ['Marriages' => ['Profiles']]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $profile = $this->Profiles->patchEntity(
                 $profile,
@@ -268,7 +256,7 @@ class ProfilesController extends AppController
     {
         $profile = $this->Profiles->get($id);
         /** @var \App\Model\Table\AttachmentsTable $AttachmentsTable */
-        $AttachmentsTable = TableRegistry::get('Attachments');
+        $AttachmentsTable = $this->fetchTable('Attachments');
         $attachments = $AttachmentsTable->fetchForProfile($id);
 
         if (!empty($attachmentId)) {
@@ -305,7 +293,7 @@ class ProfilesController extends AppController
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $unitIds = Hash::extract($this->getRequest()->getData('units', []), '{n}.id');
             if (count($unitIds) > 0) {
-                $unitsTable = TableRegistry::get('Units');
+                $unitsTable = $this->fetchTable('Units');
 
                 /** @var \Cake\ORM\ResultSet<\Cake\Datasource\EntityInterface> $units */
                 $units = $unitsTable->find()

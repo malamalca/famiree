@@ -1,7 +1,7 @@
 <?php
     // converted to cakephp 1.3
     use Cake\Core\Configure;
-    use Cake\I18n\FrozenDate;
+    use Cake\I18n\Date;
 
 ?>
 <h1><?php
@@ -35,7 +35,7 @@ if (!empty($profile->mdn) &&
 
                 if (@checkdate($profile->dob_m, $profile->dob_d, (int)$profile->dob_y)) {
                     $dob = $profile->dob_y.'-'.$profile->dob_m.'-'.$profile->dob_d;
-                    echo (new FrozenDate($dob))->i18nFormat(Configure::read('outputDateFormat'));
+                    echo (new Date($dob))->i18nFormat(Configure::read('outputDateFormat'));
 
                     // display age
                     echo ' (';
@@ -73,7 +73,7 @@ if (!empty($profile->mdn) &&
                 <span class="value"><?php
                 if (@checkdate($profile->dod_m, $profile->dod_d, (int)$profile->dod_y)) {
                     $dod = $profile->dod_y.'-'.$profile->dod_m.'-'.$profile->dod_d;
-                    echo (new FrozenDate($dod))->i18nFormat(Configure::read('outputDateFormat'));
+                    echo (new Date($dod))->i18nFormat(Configure::read('outputDateFormat'));
                 } elseif (!empty($profile->dod_y)) {
                     echo $profile->dod_y;
                 } else {

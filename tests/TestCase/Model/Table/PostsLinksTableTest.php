@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\PostsLinksTable;
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -24,7 +23,7 @@ class PostsLinksTableTest extends TestCase
      *
      * @var array
      */
-    public $fixtures = [
+    protected array $fixtures = [
         'app.PostsLinks',
         'app.Posts',
         'app.Profiles',
@@ -38,8 +37,8 @@ class PostsLinksTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('PostsLinks') ? [] : ['className' => PostsLinksTable::class];
-        $this->PostsLinks = TableRegistry::getTableLocator()->get('PostsLinks', $config);
+        $config = $this->getTableLocator()->exists('PostsLinks') ? [] : ['className' => PostsLinksTable::class];
+        $this->PostsLinks = $this->getTableLocator()->get('PostsLinks', $config);
     }
 
     /**
@@ -61,7 +60,9 @@ class PostsLinksTableTest extends TestCase
      */
     public function testInitialize()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->assertSame('posts_links', $this->PostsLinks->getTable());
+        $this->assertSame('id', $this->PostsLinks->getDisplayField());
+        $this->assertSame('id', $this->PostsLinks->getPrimaryKey());
     }
 
     /**
@@ -71,16 +72,11 @@ class PostsLinksTableTest extends TestCase
      */
     public function testValidationDefault()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $valid = ['post_id' => 1, 'foreign_id' => 1, 'class' => 'Profile'];
+        $this->assertEmpty($this->PostsLinks->newEntity($valid)->getErrors());
+
+        $this->assertArrayHasKey('class', $this->PostsLinks->newEntity(['post_id' => 1, 'foreign_id' => 1])->getErrors());
+        $this->assertArrayHasKey('class', $this->PostsLinks->newEntity(['class' => str_repeat('x', 21)] + $valid)->getErrors());
     }
 
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
 }

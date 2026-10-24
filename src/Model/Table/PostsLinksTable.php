@@ -6,8 +6,8 @@ namespace App\Model\Table;
 use ArrayObject;
 use Cake\Event\Event;
 use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
+use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * PostsLinks Model
@@ -23,6 +23,8 @@ use Cake\Validation\Validator;
  */
 class PostsLinksTable extends Table
 {
+    use LocatorAwareTrait;
+
     /**
      * Initialize method
      *
@@ -76,7 +78,7 @@ class PostsLinksTable extends Table
                 $profilesToUpdate[] = $previousProfileId;
             }
             /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
-            $ProfilesTable = TableRegistry::get('Profiles');
+            $ProfilesTable = $this->fetchTable('Profiles');
             $ProfilesTable->updateMemoryCount($profilesToUpdate);
         }
     }
@@ -93,7 +95,7 @@ class PostsLinksTable extends Table
     {
         if ($entity->class == 'Profile') {
             /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
-            $ProfilesTable = TableRegistry::get('Profiles');
+            $ProfilesTable = $this->fetchTable('Profiles');
             $ProfilesTable->updateMemoryCount([$entity->foreign_id]);
         }
     }

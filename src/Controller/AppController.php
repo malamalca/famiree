@@ -17,16 +17,18 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Lib\AuthUser;
-use Cake\Controller\Component\AuthComponent;
 use Cake\Controller\Controller;
+use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 
 /**
  * Application Controller
+ *
+ * @property \Authentication\Controller\Component\AuthenticationComponent $Authentication
  */
 class AppController extends Controller
 {
-    public $currentUser = null;
+    public ?AuthUser $currentUser = null;
 
     /**
      * Initialization hook method.
@@ -41,58 +43,33 @@ class AppController extends Controller
     {
         parent::initialize();
 
-        $this->loadComponent('RequestHandler', [
-            'enableBeforeRedirect' => false,
-        ]);
         $this->loadComponent('Flash');
         $this->loadComponent('FormProtection');
-
-        $this->loadComponent('Auth', [
-            'authorize' => ['Controller'],
-            'loginAction' => ['controller' => 'Users', 'action' => 'login'],
-
-            'authenticate' => [
-                AuthComponent::ALL => [
-                    'userModel' => 'Profiles',
-                    'fields' => ['username' => 'u', 'password' => 'p'],
-                    'passwordHasher' => [
-                        'className' => 'Fallback',
-                        'hashers' => [
-                            'Default',
-                            'Weak' => ['hashType' => 'sha1'],
-                        ],
-                    ],
-                ],
-                'Cookie',
-                'Form',
-            ],
-            'loginRedirect' => '/',
+        $this->loadComponent('Authentication.Authentication', [
+            'logoutRedirect' => ['controller' => 'Users', 'action' => 'login'],
         ]);
 
-        /*
-         * Enable the following component for recommended CakePHP security settings.
-         * see https://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
-
-        // do not display auth messages when there is no user
-        if (!$this->Auth->user()) {
-            $this->Auth->setConfig('authError', false);
-        }
-
-        $this->currentUser = new AuthUser(isset($this->Auth) ? $this->Auth->user() : []);
+        $this->currentUser = new AuthUser($this->identityData());
         $this->viewBuilder()->setOptions(['currentUser' => $this->currentUser]);
     }
 
     /**
-     * isAuthorized hook method.
+     * Returns data of the logged in user (without password hash) or empty array.
      *
-     * @param array $user Logged in user.
-     * @return bool
+     * @return array
      */
-    public function isAuthorized($user)
+    protected function identityData(): array
     {
-        return false;
+        $identity = $this->Authentication->getIdentity();
+        if (!$identity) {
+            return [];
+        }
+
+        $data = $identity->getOriginalData();
+        $data = $data instanceof EntityInterface ? $data->toArray() : (array)$data;
+        unset($data['p']);
+
+        return $data;
     }
 
     /**
@@ -103,7 +80,7 @@ class AppController extends Controller
      */
     public function beforeRender(EventInterface $event)
     {
-        $builder = $this->viewBuilder()
+        $this->viewBuilder()
             ->addHelper('Famiree')
             ->addHelper('AssetCompress.AssetCompress');
 

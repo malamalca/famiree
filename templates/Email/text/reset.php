@@ -6,7 +6,7 @@ $reset_url = Router::url(array(
 	'prefix' => null,
 	'plugin' => null,
 	'controller' => 'Users',
-	'action' =>	'change_password',
+	'action' => 'changePassword',
 	$reset_key), true
 );
 

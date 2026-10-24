@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Cake\ORM\TableRegistry;
 
 /**
  * Imgnotes Controller
@@ -13,17 +12,6 @@ use Cake\ORM\TableRegistry;
  */
 class ImgnotesController extends AppController
 {
-    /**
-     * isAuthorized hook method.
-     *
-     * @param array $user Logged in user.
-     * @return bool
-     */
-    public function isAuthorized($user)
-    {
-        return true;
-    }
-
     /**
      * Edit method
      *
@@ -43,10 +31,10 @@ class ImgnotesController extends AppController
 
             if ($this->Imgnotes->save($imgnote)) {
                 /** @var \App\Model\Table\AttachmentsLinksTable $AttachmentsLinksTable */
-                $AttachmentsLinksTable = TableRegistry::get('AttachmentsLinks');
+                $AttachmentsLinksTable = $this->fetchTable('AttachmentsLinks');
                 if ($this->getRequest()->getData('crop_to_new')) {
                     /** @var \App\Model\Table\AttachmentsTable $AttachmentsTable */
-                    $AttachmentsTable = TableRegistry::get('Attachments');
+                    $AttachmentsTable = $this->fetchTable('Attachments');
 
                     /** @var \App\Model\Entity\Attachment $attachment */
                     $attachment = $AttachmentsTable->createFromImgnote($imgnote);
@@ -91,6 +79,6 @@ class ImgnotesController extends AppController
             $this->Flash->error(__('The imgnote could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect($this->getRequest()->referer());
+        return $this->redirect($this->referer());
     }
 }

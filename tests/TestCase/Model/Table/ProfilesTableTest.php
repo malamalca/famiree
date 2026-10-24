@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\ProfilesTable;
-use Cake\ORM\TableRegistry;
+use Cake\ORM\Association\BelongsTo;
+use Cake\ORM\Association\BelongsToMany;
+use Cake\ORM\Association\HasMany;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -24,7 +26,7 @@ class ProfilesTableTest extends TestCase
      *
      * @var array
      */
-    public $fixtures = [
+    protected array $fixtures = [
         'app.Profiles',
         'app.Imgnotes',
         'app.Units',
@@ -38,8 +40,8 @@ class ProfilesTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Profiles') ? [] : ['className' => ProfilesTable::class];
-        $this->Profiles = TableRegistry::getTableLocator()->get('Profiles', $config);
+        $config = $this->getTableLocator()->exists('Profiles') ? [] : ['className' => ProfilesTable::class];
+        $this->Profiles = $this->getTableLocator()->get('Profiles', $config);
     }
 
     /**
@@ -61,7 +63,20 @@ class ProfilesTableTest extends TestCase
      */
     public function testInitialize()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->assertSame('profiles', $this->Profiles->getTable());
+        $this->assertSame('d_n', $this->Profiles->getDisplayField());
+        $this->assertSame('id', $this->Profiles->getPrimaryKey());
+        $this->assertTrue($this->Profiles->hasBehavior('Timestamp'));
+        $this->assertTrue($this->Profiles->hasBehavior('Loggable'));
+
+        $this->assertInstanceOf(BelongsTo::class, $this->Profiles->getAssociation('Creators'));
+        $this->assertSame('Profiles', $this->Profiles->getAssociation('Creators')->getClassName());
+        $this->assertInstanceOf(BelongsToMany::class, $this->Profiles->getAssociation('Attachments'));
+        $this->assertInstanceOf(BelongsToMany::class, $this->Profiles->getAssociation('Posts'));
+        $this->assertInstanceOf(BelongsToMany::class, $this->Profiles->getAssociation('Marriages'));
+        $this->assertSame('Unions', $this->Profiles->getAssociation('Marriages')->getClassName());
+        $this->assertInstanceOf(HasMany::class, $this->Profiles->getAssociation('Units'));
+        $this->assertTrue($this->Profiles->getAssociation('Units')->getDependent());
     }
 
     /**
@@ -71,16 +86,10 @@ class ProfilesTableTest extends TestCase
      */
     public function testValidationDefault()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->assertEmpty($this->Profiles->newEntity(['fn' => 'Donald', 'ln' => 'Duck'])->getErrors());
+
+        $this->assertArrayHasKey('fn', $this->Profiles->newEntity(['fn' => ''])->getErrors());
+        $this->assertArrayHasKey('id', $this->Profiles->newEntity(['id' => 'abc', 'fn' => 'Donald'])->getErrors());
     }
 
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
 }

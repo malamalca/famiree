@@ -8,7 +8,7 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class ImgnotesFixture extends TestFixture
 {
-    public $records = [
+    public array $records = [
         [
             'id' => 1,
             'user_id' => 1,

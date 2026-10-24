@@ -4,11 +4,12 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller;
 
 use Cake\Core\Configure;
-use Cake\Filesystem\Folder;
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
+use FilesystemIterator;
 use Laminas\Diactoros\UploadedFile;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use const UPLOAD_ERR_OK;
 
 /**
@@ -23,7 +24,7 @@ class AttachmentsControllerTest extends TestCase
      *
      * @var array
      */
-    public $fixtures = [
+    protected array $fixtures = [
         'app.Imgnotes',
         'app.Attachments',
         'app.AttachmentsLinks',
@@ -59,13 +60,11 @@ class AttachmentsControllerTest extends TestCase
 
         $this->resourceFolder = dirname(__FILE__) . DS . '..' . DS . '..' . DS . 'Resource';
 
-        $uploadedAttachments = new Folder($this->resourceFolder . DS . 'uploads');
-        $uploadedAttachments->copy(TMP . 'uploads');
+        $this->copyDirectory($this->resourceFolder . DS . 'uploads', TMP . 'uploads');
 
         Configure::write('sourceFolders.attachments', TMP . 'uploads' . DS);
 
-        $uploadedThumbs = new Folder($this->resourceFolder . DS . 'thumbs');
-        $uploadedThumbs->copy(TMP . 'thumbs');
+        $this->copyDirectory($this->resourceFolder . DS . 'thumbs', TMP . 'thumbs');
 
         Configure::write('sourceFolders.thumbs', TMP . 'thumbs' . DS);
 
@@ -83,15 +82,63 @@ class AttachmentsControllerTest extends TestCase
     {
         parent::tearDown();
 
-        $uploadedAttachments = new Folder(TMP . 'uploads');
-        $uploadedAttachments->delete();
-
-        $uploadedThumbs = new Folder(TMP . 'thumbs');
-        $uploadedThumbs->delete();
+        $this->deleteDirectory(TMP . 'uploads');
+        $this->deleteDirectory(TMP . 'thumbs');
 
         if (file_exists(TMP . 'DDuckAngry.png')) {
             unlink(TMP . 'DDuckAngry.png');
         }
+    }
+
+    /**
+     * Recursively copies a directory
+     *
+     * @param string $source Source directory.
+     * @param string $destination Destination directory.
+     * @return void
+     */
+    private function copyDirectory(string $source, string $destination): void
+    {
+        if (!is_dir($destination)) {
+            mkdir($destination, 0777, true);
+        }
+
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($source, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+        foreach ($iterator as $item) {
+            $target = $destination . DS . $iterator->getSubPathname();
+            if ($item->isDir()) {
+                if (!is_dir($target)) {
+                    mkdir($target, 0777, true);
+                }
+            } else {
+                copy($item->getPathname(), $target);
+            }
+        }
+    }
+
+    /**
+     * Recursively deletes a directory
+     *
+     * @param string $path Directory to delete.
+     * @return void
+     */
+    private function deleteDirectory(string $path): void
+    {
+        if (!is_dir($path)) {
+            return;
+        }
+
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+        foreach ($iterator as $item) {
+            $item->isDir() ? rmdir($item->getPathname()) : unlink($item->getPathname());
+        }
+        rmdir($path);
     }
 
     /**
@@ -101,7 +148,7 @@ class AttachmentsControllerTest extends TestCase
      */
     public function testIndex()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
 
         $this->get('/attachments');
 
@@ -116,7 +163,7 @@ class AttachmentsControllerTest extends TestCase
      */
     public function testView()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
         $this->get('/attachments/view/d372525d-9fb6-4643-bd21-217cb96d7495');
 
         $this->assertResponseOk();
@@ -130,9 +177,9 @@ class AttachmentsControllerTest extends TestCase
      */
     public function testAdd()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
 
-        $countBefore = TableRegistry::get('Attachments')->find()->count();
+        $countBefore = $this->fetchTable('Attachments')->find()->count();
 
         $this->enableCsrfToken();
         $this->enableSecurityToken();
@@ -157,14 +204,14 @@ class AttachmentsControllerTest extends TestCase
         $this->assertRedirect(['controller' => 'Attachments', 'action' => 'index']);
         $this->assertFlashElement('flash/success');
 
-        $countAfter = TableRegistry::get('Attachments')->find()->count();
+        $countAfter = $this->fetchTable('Attachments')->find()->count();
         $this->assertEquals($countBefore + 1, $countAfter);
 
         $this->assertFalse(file_exists(TMP . 'DDuckAngry.png')); // file should move
 
-        $attachment = TableRegistry::get('Attachments')->find()
+        $attachment = $this->fetchTable('Attachments')->find()
             ->select()
-            ->order('created DESC')
+            ->orderBy('created DESC')
             ->first();
 
         $this->assertEquals('D. Duck the Madman', $attachment->title);
@@ -182,10 +229,10 @@ class AttachmentsControllerTest extends TestCase
      */
     public function testEdit()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
 
         // edit without file upload
-        $countBefore = TableRegistry::get('Attachments')->find()->count();
+        $countBefore = $this->fetchTable('Attachments')->find()->count();
 
         $this->enableCsrfToken();
         $this->enableSecurityToken();
@@ -209,10 +256,10 @@ class AttachmentsControllerTest extends TestCase
         $this->assertRedirect(['controller' => 'Attachments', 'action' => 'index']);
         $this->assertFlashElement('flash/success');
 
-        $countAfter = TableRegistry::get('Attachments')->find()->count();
+        $countAfter = $this->fetchTable('Attachments')->find()->count();
         $this->assertEquals($countBefore, $countAfter);
 
-        $attachment = TableRegistry::get('Attachments')->get('d372525d-9fb6-4643-bd21-217cb96d7495');
+        $attachment = $this->fetchTable('Attachments')->get('d372525d-9fb6-4643-bd21-217cb96d7495');
 
         $this->assertEquals('D. Duck Profile Edited', $attachment->title);
 
@@ -223,7 +270,7 @@ class AttachmentsControllerTest extends TestCase
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         // edit with file upload
-        $countBefore = TableRegistry::get('Attachments')->find()->count();
+        $countBefore = $this->fetchTable('Attachments')->find()->count();
 
         $this->enableCsrfToken();
         $this->enableSecurityToken();
@@ -249,10 +296,10 @@ class AttachmentsControllerTest extends TestCase
         $this->assertRedirect(['controller' => 'Attachments', 'action' => 'index']);
         $this->assertFlashElement('flash/success');
 
-        $countAfter = TableRegistry::get('Attachments')->find()->count();
+        $countAfter = $this->fetchTable('Attachments')->find()->count();
         $this->assertEquals($countBefore, $countAfter);
 
-        $attachment = TableRegistry::get('Attachments')->get('d372525d-9fb6-4643-bd21-217cb96d7495');
+        $attachment = $this->fetchTable('Attachments')->get('d372525d-9fb6-4643-bd21-217cb96d7495');
 
         $this->assertEquals('D. Duck Profile Edited', $attachment->title);
         $this->assertEquals('DDuckAngry.png', $attachment->original);
@@ -279,15 +326,15 @@ class AttachmentsControllerTest extends TestCase
         $this->assertTrue(file_exists(Configure::read('sourceFolders.thumbs') . 'd372525d-9fb6-4643-bd21-217cb96d7495.png'));
         $this->assertTrue(file_exists(Configure::read('sourceFolders.attachments') . 'd372525d-9fb6-4643-bd21-217cb96d7495'));
 
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
 
-        $countBefore = TableRegistry::get('Attachments')->find()->count();
+        $countBefore = $this->fetchTable('Attachments')->find()->count();
 
         $this->get('attachments/delete/d372525d-9fb6-4643-bd21-217cb96d7495');
 
         $this->assertRedirect();
 
-        $countAfter = TableRegistry::get('Attachments')->find()->count();
+        $countAfter = $this->fetchTable('Attachments')->find()->count();
         $this->assertEquals($countBefore - 1, $countAfter);
 
         $this->assertFalse(file_exists(Configure::read('sourceFolders.thumbs') . 'd372525d-9fb6-4643-bd21-217cb96d7495.png'));
@@ -301,7 +348,7 @@ class AttachmentsControllerTest extends TestCase
      */
     public function testDisplay()
     {
-        $this->session(['Auth' => $this->authData]);
+        $this->session(['Auth' => $this->authData['User']]);
         $this->get('/attachments/display/d372525d-9fb6-4643-bd21-217cb96d7495');
         $this->assertRedirect(['controller' => 'Attachments', 'action' => 'display', 'd372525d-9fb6-4643-bd21-217cb96d7495', 'original', 'D-Duck-Profile.png']);
 
