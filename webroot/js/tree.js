@@ -91,6 +91,37 @@ $(document).ready(function() {
             }
         });
 
+        // mouse wheel zooms the tree around the mouse pointer (same scale as the zoom slider: 1px - 12px)
+        $('#tree_window').on('wheel', function(e) {
+            var oe = e.originalEvent;
+            if (!oe || !oe.deltaY) return;
+            // zoom control and open popup menus scroll normally
+            if ($(e.target).closest('#zoomer, .popup').length) return;
+            e.preventDefault();
+
+            var $tree = $('#tree');
+            var oldSize = parseFloat($tree.css('fontSize'));
+            var delta = oe.deltaMode == 1 ? oe.deltaY * 33 : oe.deltaY; // lines or pixels
+            var newSize = Math.max(1, Math.min(12, oldSize * Math.exp(-delta * 0.0015)));
+            if (newSize == oldSize) return;
+
+            // keep the point under the cursor in place; the margins of #tree are in em and scale as well
+            var ratio = newSize / oldSize;
+            var win = $('#tree_window').offset();
+            var cx = oe.pageX - win.left;
+            var cy = oe.pageY - win.top;
+            var pos = $tree.position();
+            var marginLeft = parseFloat($tree.css('marginLeft'));
+            var marginTop = parseFloat($tree.css('marginTop'));
+
+            $tree.css({
+                'fontSize': newSize + 'px',
+                'left': cx - (cx - (pos.left + marginLeft)) * ratio - marginLeft * ratio,
+                'top': cy - (cy - (pos.top + marginTop)) * ratio - marginTop * ratio
+            });
+            $('#zoom_slider').css({'top': 143 - (newSize - 1) / 11 * 143});
+        });
+
         $('#zoomer>img').click(function(e) {
             $('#tree').css({'left': $('#tree_window').width() / 2, 'top': $('#tree_window').height() / 2});
         });

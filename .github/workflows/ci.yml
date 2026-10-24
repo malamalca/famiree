@@ -58,7 +58,7 @@ jobs:
         fi
 
     - name: Execute post install cmd
-      run: composer run-script post-install-cmd --no-interaction
+      run: composer run-script setup --no-interaction
 
     - name: Setup problem matchers for PHPUnit
       if: matrix.php-version == '8.1'

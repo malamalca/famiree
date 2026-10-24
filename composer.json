@@ -40,7 +40,7 @@
     },
     "scripts": {
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
-        "post-install-cmd": "App\\Console\\Installer::postInstall",
+        "setup": "App\\Console\\Installer::postInstall",
         "post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump",
         "check": [
             "@test",
