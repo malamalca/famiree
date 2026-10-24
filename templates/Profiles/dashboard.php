@@ -66,7 +66,7 @@
                         echo '<div class="date_title">'.__('Tomorrow').'</div>'.PHP_EOL;
                         $bdShowDate = false;
                         $hasTommorowCaption = true;
-                    } elseif ($dob->isThisMonth() && empty($thisMonth)) {
+                    } elseif ($dob->format('Ym') === (new Date())->format('Ym') && empty($thisMonth)) {
                         echo '<div class="date_title">'.__('This month').'</div>'.PHP_EOL;
                         $thisMonth = true;
                     } elseif ($dob->isNextMonth() && empty($nextMonth)) {

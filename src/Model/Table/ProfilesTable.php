@@ -484,10 +484,10 @@ class ProfilesTable extends Table
         //Cache::delete('Profiles.birthdays');
         $ret = Cache::remember('Profiles.birthdays', function () {
             $q = $this->find();
-            $fieldExpr = $q->newExpr()->add(
+            $fieldExpr = $q->expr()->add(
                 'DATE_ADD(DATE_ADD(MAKEDATE(dob_y, 1), INTERVAL (dob_m)-1 MONTH), INTERVAL (dob_d)-1 DAY)'
             );
-            $diffExpr = $q->newExpr()->add(
+            $diffExpr = $q->expr()->add(
                 'DATEDIFF(DATE_ADD( DATE_ADD( MAKEDATE(YEAR(CURDATE()), 1), ' .
                 'INTERVAL (dob_m)-1 MONTH), INTERVAL (dob_d)-1 DAY), CURDATE() )'
             );

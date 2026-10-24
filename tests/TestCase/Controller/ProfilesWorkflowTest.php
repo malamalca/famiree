@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller;
 
 use App\Test\TestCase\FamilyBuilderTrait;
+use Cake\Cache\Cache;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
@@ -347,6 +348,52 @@ class ProfilesWorkflowTest extends TestCase
         $this->assertResponseOk();
         $this->assertResponseContains('Huey');
         $this->assertResponseContains('Dewey');
+    }
+
+    /**
+     * Dashboard lists upcoming birthdays in groups (tomorrow, this month, next month, further on)
+     *
+     * @return void
+     */
+    public function testDashboardBirthdays()
+    {
+        $today = new \DateTimeImmutable('today');
+        $year = (int)$today->format('Y');
+        $lastDay = new \DateTimeImmutable($year . '-12-31');
+        if ($lastDay->diff($today)->days < 50) {
+            $this->markTestSkipped('Birthdays are only listed until the end of the year.');
+        }
+
+        $profiles = $this->fetchTable('Profiles');
+        Cache::delete('Profiles.birthdays');
+        foreach (
+            [
+                'Tomorrow' => '+1 day',
+                'Nextmonth' => 'first day of next month',
+                'Later' => '+45 days',
+            ] as $name => $when
+        ) {
+            $birthday = $today->modify($when);
+            $profiles->saveOrFail($profiles->newEntity([
+                'fn' => 'Birthday' . $name,
+                'ln' => 'Duck',
+                'g' => 'f',
+                'l' => true,
+                'dob_y' => 1970,
+                'dob_m' => (int)$birthday->format('n'),
+                'dob_d' => (int)$birthday->format('j'),
+            ]));
+        }
+        Cache::delete('Profiles.birthdays');
+
+        $this->get('/profiles/dashboard');
+
+        $this->assertResponseOk();
+        $this->assertResponseContains('BirthdayTomorrow Duck');
+        $this->assertResponseContains('BirthdayNextmonth Duck');
+        $this->assertResponseContains('BirthdayLater Duck');
+        $this->assertResponseContains('date_title');
+        Cache::delete('Profiles.birthdays');
     }
 
     /**
