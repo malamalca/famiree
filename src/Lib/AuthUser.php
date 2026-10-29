@@ -14,7 +14,7 @@ class AuthUser implements ArrayAccess
     public const PROJECT_ROLE_EDITOR = 7;
     public const PROJECT_ROLE_READER = 10;
 
-    private $container = [];
+    private array $container = [];
 
     /**
      * Add admin sidebar elements.
@@ -23,7 +23,7 @@ class AuthUser implements ArrayAccess
      * @access public
      * @return mixed
      */
-    public function __construct($userArray)
+    public function __construct(array $userArray)
     {
         $this->container = $userArray;
     }
@@ -33,7 +33,7 @@ class AuthUser implements ArrayAccess
      *
      * @return bool
      */
-    public function exists()
+    public function exists(): bool
     {
         return !empty($this->container['id']);
     }
@@ -44,7 +44,7 @@ class AuthUser implements ArrayAccess
      * @param int $role User role.
      * @return bool
      */
-    public function role($role)
+    public function role(int $role): bool
     {
         static $roles;
 
@@ -61,7 +61,7 @@ class AuthUser implements ArrayAccess
      * @param string $offset Array offset.
      * @return mixed
      */
-    public function get($offset)
+    public function get(string $offset): mixed
     {
         return $this->container[$offset] ?? null;
     }

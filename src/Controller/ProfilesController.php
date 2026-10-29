@@ -6,6 +6,7 @@ namespace App\Controller;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
+use Cake\Http\Response;
 use Cake\Utility\Hash;
 
 /**
@@ -22,7 +23,7 @@ class ProfilesController extends AppController
      * @param \Cake\Event\EventInterface $event Event object
      * @return \Cake\Http\Response|null
      */
-    public function beforeFilter(EventInterface $event)
+    public function beforeFilter(EventInterface $event): ?Response
     {
         if (!$this->currentUser->exists()) {
             $userCount = $this->Profiles->find()->count();
@@ -81,7 +82,7 @@ class ProfilesController extends AppController
      *
      * @return void
      */
-    public function tree()
+    public function tree(): void
     {
         $this->viewBuilder()->enableAutoLayout(false);
 
@@ -105,7 +106,7 @@ class ProfilesController extends AppController
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null)
     {
         if (empty($id)) {
             $id = $this->currentUser->get('id');
@@ -132,7 +133,7 @@ class ProfilesController extends AppController
      * @param int $profileId Profile id.
      * @return \Cake\Http\Response|void
      */
-    public function add($relationship, $profileId = null)
+    public function add(string $relationship, ?int $profileId = null)
     {
         $baseProfile = $this->Profiles->get($profileId);
 
@@ -168,7 +169,7 @@ class ProfilesController extends AppController
             $profile = $this->Profiles->patchEntity(
                 $profile,
                 $this->getRequest()->getData(),
-                ['associated' => ['Units']]
+                ['associated' => ['Units']],
             );
 
             if ($this->Profiles->save($profile)) {
@@ -179,7 +180,7 @@ class ProfilesController extends AppController
 
                     /** @var \App\Model\Entity\Unit $baseUnit */
                     $baseUnit = $this->fetchTable('Units')->newEntity(
-                        ['profile_id' => $baseProfile->id, 'kind' => $baseProfileKind]
+                        ['profile_id' => $baseProfile->id, 'kind' => $baseProfileKind],
                     );
 
                     /** @var \App\Model\Entity\Union $union */
@@ -206,14 +207,14 @@ class ProfilesController extends AppController
      * @return \Cake\Http\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(?string $id = null)
     {
         $profile = $this->Profiles->get($id, contain: ['Marriages' => ['Profiles']]);
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $profile = $this->Profiles->patchEntity(
                 $profile,
                 $this->getRequest()->getData(),
-                ['associated' => ['Marriages']]
+                ['associated' => ['Marriages']],
             );
             if ($this->Profiles->save($profile)) {
                 $this->Flash->success(__('The profile has been saved.'));
@@ -232,7 +233,7 @@ class ProfilesController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null): ?Response
     {
         $this->getRequest()->allowMethod(['get', 'post', 'delete']);
         $profile = $this->Profiles->get($id);
@@ -248,11 +249,11 @@ class ProfilesController extends AppController
     /**
      * Change avatar
      *
-     * @param int $id Profile id
+     * @param string|null $id Profile id
      * @param string $attachmentId Attachment id to be set as new avatar (optional)
      * @return \Cake\Http\Response|void
      */
-    public function editAvatar($id = null, $attachmentId = null)
+    public function editAvatar(?string $id = null, ?string $attachmentId = null)
     {
         $profile = $this->Profiles->get($id);
         /** @var \App\Model\Table\AttachmentsTable $AttachmentsTable */
@@ -282,10 +283,10 @@ class ProfilesController extends AppController
     /**
      * Reorder children function
      *
-     * @param int $id Contact id
+     * @param string|null $id Contact id
      * @return void
      */
-    public function reorderChildren($id = null)
+    public function reorderChildren(?string $id = null): void
     {
         $profile = $this->Profiles->get($id);
         $marriages = $this->Profiles->family($id, 'marriages');
@@ -302,7 +303,7 @@ class ProfilesController extends AppController
                     ->all();
 
                 $unitsTable->patchEntities($units, $this->getRequest()->getData('units'));
-                $result = $unitsTable->saveMany($units);
+                $unitsTable->saveMany($units);
             }
 
             $this->redirect(['action' => 'view', $id]);
@@ -325,6 +326,7 @@ class ProfilesController extends AppController
 
             // fire autocomplete with at least 2 characters
             if (strlen($term) > 1) {
+                /** @var \Cake\Datasource\ResultSetInterface<\App\Model\Entity\Profile> $profiles */
                 $profiles = $this->Profiles->find()
                     ->select(['id', 'd_n'])
                     ->where(['d_n LIKE' => '%' . $term . '%'])

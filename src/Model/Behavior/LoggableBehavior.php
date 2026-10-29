@@ -6,9 +6,9 @@ namespace App\Model\Behavior;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
-use Cake\Routing\Router;
 use Cake\ORM\Behavior;
 use Cake\ORM\Locator\LocatorAwareTrait;
+use Cake\Routing\Router;
 
 class LoggableBehavior extends Behavior
 {
@@ -23,7 +23,7 @@ class LoggableBehavior extends Behavior
     /**
      * Returns id of the logged in user or null when there is none (cli, guests).
      *
-     * @return int|string|null
+     * @return string|int|null
      */
     protected function currentUserId(): int|string|null
     {
@@ -41,7 +41,7 @@ class LoggableBehavior extends Behavior
      * @param \ArrayObject $options Options
      * @return void
      */
-    public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options)
+    public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options): void
     {
         $entityClass = get_class($entity);
         $entityClass = substr($entityClass, strrpos($entityClass, '\\') + 1);
@@ -77,7 +77,7 @@ class LoggableBehavior extends Behavior
             $log = $this->fetchTable('Logs')->newEntity([
                 'title' => $entity->get($this->table()->getDisplayField()),
                 'class' => $entityClass,
-                'foreign_id' => $entity->id,
+                'foreign_id' => $entity->get('id'),
                 'action' => $action,
                 'user_id' => $this->currentUserId(),
                 'change' => serialize($packed),
@@ -95,7 +95,7 @@ class LoggableBehavior extends Behavior
      * @param \ArrayObject $options Options
      * @return void
      */
-    public function afterDelete(Event $event, EntityInterface $entity, ArrayObject $options)
+    public function afterDelete(Event $event, EntityInterface $entity, ArrayObject $options): void
     {
         $entityClass = get_class($entity);
         $entityClass = substr($entityClass, strrpos($entityClass, '\\') + 1);
@@ -116,7 +116,7 @@ class LoggableBehavior extends Behavior
             $log = $this->fetchTable('Logs')->newEntity([
                 'title' => $entity->get($this->table()->getDisplayField()),
                 'class' => $entityClass,
-                'foreign_id' => $entity->id,
+                'foreign_id' => $entity->get('id'),
                 'action' => $action,
                 'user_id' => $this->currentUserId(),
                 'change' => serialize($packed),

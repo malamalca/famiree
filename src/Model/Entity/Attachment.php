@@ -5,6 +5,7 @@ namespace App\Model\Entity;
 
 use Cake\Core\Configure;
 use Cake\ORM\Entity;
+use Exception;
 
 /**
  * Attachment Entity
@@ -64,9 +65,9 @@ class Attachment extends Entity
      *
      * @param mixed $size Image size
      * @access public
-     * @return bool|array
+     * @return array|bool
      */
-    public function getImageSize($size = 'original')
+    public function getImageSize(mixed $size = 'original'): bool|array
     {
         $ret = false;
         $folder = Configure::read('sourceFolders.attachments');
@@ -83,7 +84,7 @@ class Attachment extends Entity
                     $ret['width'] = $sizes[0];
                     $ret['height'] = $sizes[1];
                 }
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
             }
         }
 

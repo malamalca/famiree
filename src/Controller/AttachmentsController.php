@@ -5,8 +5,10 @@ namespace App\Controller;
 
 use Cake\Core\Configure;
 use Cake\Http\Exception\NotFoundException;
+use Cake\Http\Response;
 use Cake\I18n\Date;
 use Cake\Utility\Text;
+use Laminas\Diactoros\UploadedFile;
 
 /**
  * Attachments Controller
@@ -43,12 +45,12 @@ class AttachmentsController extends AppController
     /**
      * Serve up files directly from the uploads folder.
      *
-     * @param mixed $id Attachment id
-     * @param mixed $size Attachment size
-     * @param mixed $name Attachment name
+     * @param string $id Attachment id
+     * @param string $size Attachment size
+     * @param string|null $name Attachment name
      * @return \Cake\Http\Response
      */
-    public function display($id, $size = 'original', $name = null)
+    public function display(string $id, string $size = 'original', ?string $name = null): Response
     {
         /** @var \App\Model\Entity\Attachment $attachment */
         $attachment = $this->Attachments->get($id);
@@ -76,7 +78,7 @@ class AttachmentsController extends AppController
             ->withType($attachment->mimetype)
             ->withFile(
                 $filePath,
-                ['name' => $a_description, 'download' => (bool)$this->getRequest()->getParam('download')]
+                ['name' => $a_description, 'download' => (bool)$this->getRequest()->getParam('download')],
             );
 
         return $response;
@@ -89,7 +91,7 @@ class AttachmentsController extends AppController
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null)
     {
         $attachment = $this->Attachments->get($id, contain: ['Creators', 'Imgnotes', 'AttachmentsLinks.Profiles']);
 
@@ -103,7 +105,7 @@ class AttachmentsController extends AppController
      * @return \Cake\Http\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(?string $id = null)
     {
         if ($id) {
             $attachment = $this->Attachments->get($id, contain: ['AttachmentsLinks']);
@@ -114,11 +116,11 @@ class AttachmentsController extends AppController
             $attachment = $this->Attachments->patchEntity(
                 $attachment,
                 $this->getRequest()->getData(),
-                ['AttachmentsLinks']
+                ['AttachmentsLinks'],
             );
 
             if ($this->Attachments->save($attachment)) {
-                if ($this->getRequest()->getData('attachment') instanceof \Laminas\Diactoros\UploadedFile) {
+                if ($this->getRequest()->getData('attachment') instanceof UploadedFile) {
                     $this->Attachments->processUpload($attachment, $this->getRequest()->getData('attachment'));
                 }
                 $this->Flash->success(__('The attachment has been saved.'));
@@ -142,7 +144,7 @@ class AttachmentsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null): ?Response
     {
         $this->getRequest()->allowMethod(['get', 'post', 'delete']);
         $attachment = $this->Attachments->get($id);

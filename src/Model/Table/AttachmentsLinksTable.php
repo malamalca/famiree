@@ -3,13 +3,14 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use ArrayObject;
+use App\Model\Entity\AttachmentsLink;
 use App\Model\Rule\ExistsInWithModelRule;
+use ArrayObject;
 use Cake\Event\Event;
+use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * AttachmentsLinks Model
@@ -100,7 +101,7 @@ class AttachmentsLinksTable extends Table
      * @param \ArrayObject $options Options
      * @return void
      */
-    public function afterSave(Event $event, \App\Model\Entity\AttachmentsLink $entity, ArrayObject $options)
+    public function afterSave(Event $event, AttachmentsLink $entity, ArrayObject $options): void
     {
         if ($entity->class == 'Profile') {
             $profilesToUpdate = [$entity->foreign_id];
@@ -122,7 +123,7 @@ class AttachmentsLinksTable extends Table
      * @param \ArrayObject $options Options
      * @return void
      */
-    public function afterDelete(Event $event, \App\Model\Entity\AttachmentsLink $entity, ArrayObject $options)
+    public function afterDelete(Event $event, AttachmentsLink $entity, ArrayObject $options): void
     {
         if ($entity->class == 'Profile') {
             /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
@@ -134,15 +135,15 @@ class AttachmentsLinksTable extends Table
     /**
      * Link profile and attachment
      *
-     * @param int $profileId Profile id
-     * @param string $attachmentId Attachment id
+     * @param string|int $profileId Profile id
+     * @param string|int $attachmentId Attachment id
      * @return bool
      */
-    public function linkProfile($profileId, $attachmentId)
+    public function linkProfile(string|int $profileId, string|int $attachmentId): bool
     {
         if (!$this->exists(['attachment_id' => $attachmentId, 'class' => 'Profile', 'foreign_id' => $profileId])) {
             $attachemntsLink = $this->newEntity(
-                ['attachment_id' => $attachmentId, 'class' => 'Profile', 'foreign_id' => $profileId]
+                ['attachment_id' => $attachmentId, 'class' => 'Profile', 'foreign_id' => $profileId],
             );
 
             return (bool)$this->save($attachemntsLink);

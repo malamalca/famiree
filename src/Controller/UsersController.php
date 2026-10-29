@@ -6,10 +6,12 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
+use Authentication\AuthenticationService;
 use Authentication\Identifier\PasswordIdentifier;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
+use Cake\Http\Response;
 
 /**
  * Users Controller
@@ -24,7 +26,7 @@ class UsersController extends AppController
      * @param \Cake\Event\EventInterface $event Cake Event object.
      * @return \Cake\Http\Response|null
      */
-    public function beforeFilter(EventInterface $event)
+    public function beforeFilter(EventInterface $event): ?Response
     {
         parent::beforeFilter($event);
 
@@ -44,7 +46,7 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
-    public function login()
+    public function login(): ?Response
     {
         $result = $this->Authentication->getResult();
 
@@ -70,7 +72,7 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
-    public function logout()
+    public function logout(): ?Response
     {
         $target = $this->Authentication->logout();
 
@@ -84,7 +86,12 @@ class UsersController extends AppController
      */
     protected function rehashPassword(): void
     {
-        $identifier = $this->Authentication->getAuthenticationService()->getIdentificationProvider();
+        $service = $this->Authentication->getAuthenticationService();
+        if (!$service instanceof AuthenticationService) {
+            return;
+        }
+
+        $identifier = $service->getIdentificationProvider();
         if ($identifier instanceof PasswordIdentifier && $identifier->needsPasswordRehash()) {
             /** @var \App\Model\Entity\Profile $user */
             $user = $this->fetchTable('Profiles')->get($this->currentUser->get('id'));
@@ -96,9 +103,9 @@ class UsersController extends AppController
     /**
      * Reset method
      *
-     * @return void
+     * @return \Cake\Http\Response|null Redirects if already logged in.
      */
-    public function reset()
+    public function reset(): ?Response
     {
         if ($this->currentUser->exists()) {
             return $this->redirect('/');
@@ -120,6 +127,8 @@ class UsersController extends AppController
                 $this->Flash->error(__('No user with specified email has been found.'));
             }
         }
+
+        return null;
     }
 
     /**
@@ -128,7 +137,7 @@ class UsersController extends AppController
      * @param string $resetKey Auto generated reset key.
      * @return void
      */
-    public function changePassword($resetKey = null)
+    public function changePassword(?string $resetKey = null): void
     {
         if (!$resetKey) {
             throw new NotFoundException(__('Reset key does not exist.'));
@@ -163,7 +172,7 @@ class UsersController extends AppController
      *
      * @return void
      */
-    public function install()
+    public function install(): void
     {
         /** @var \App\Model\Table\ProfilesTable $ProfilesTable */
         $ProfilesTable = $this->fetchTable('Profiles');

@@ -105,7 +105,7 @@ class AttachmentsControllerTest extends TestCase
 
         $iterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($source, FilesystemIterator::SKIP_DOTS),
-            RecursiveIteratorIterator::SELF_FIRST
+            RecursiveIteratorIterator::SELF_FIRST,
         );
         foreach ($iterator as $item) {
             $target = $destination . DS . $iterator->getSubPathname();
@@ -133,7 +133,7 @@ class AttachmentsControllerTest extends TestCase
 
         $iterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS),
-            RecursiveIteratorIterator::CHILD_FIRST
+            RecursiveIteratorIterator::CHILD_FIRST,
         );
         foreach ($iterator as $item) {
             $item->isDir() ? rmdir($item->getPathname()) : unlink($item->getPathname());
@@ -190,7 +190,7 @@ class AttachmentsControllerTest extends TestCase
             115850,
             UPLOAD_ERR_OK,
             'DDuckAngry.png',
-            'image/png'
+            'image/png',
         );
 
         $this->post('/attachments/edit', [
@@ -281,7 +281,7 @@ class AttachmentsControllerTest extends TestCase
             115850,
             UPLOAD_ERR_OK,
             'DDuckAngry.png',
-            'image/png'
+            'image/png',
         );
 
         $this->post('attachments/edit/d372525d-9fb6-4643-bd21-217cb96d7495', [
@@ -308,7 +308,7 @@ class AttachmentsControllerTest extends TestCase
         $this->assertTrue(file_exists(Configure::read('sourceFolders.thumbs') . $attachment->id . '.png'));
         $this->assertEquals(
             filesize(Configure::read('sourceFolders.attachments') . $attachment->id . DS . 'original'),
-            filesize($this->resourceFolder . DS . 'DDuckAngry.png')
+            filesize($this->resourceFolder . DS . 'DDuckAngry.png'),
         );
 
         $this->assertTrue(file_exists(Configure::read('sourceFolders.attachments') . $attachment->id . DS . 'original'));

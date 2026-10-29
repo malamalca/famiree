@@ -88,5 +88,4 @@ class PostsTableTest extends TestCase
         $this->assertArrayHasKey('title', $this->Posts->newEntity(['title' => ['array']])->getErrors());
         $this->assertArrayHasKey('body', $this->Posts->newEntity(['body' => ['array']])->getErrors());
     }
-
 }

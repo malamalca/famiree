@@ -67,12 +67,12 @@ class ProfilesAccountTest extends TestCase
     public function testDisplayNameIsBuiltOnSave()
     {
         $profile = $this->Profiles->saveOrFail(
-            $this->Profiles->newEntity(['fn' => 'Donald', 'mn' => 'Fauntleroy', 'ln' => 'Duck', 'g' => 'm'])
+            $this->Profiles->newEntity(['fn' => 'Donald', 'mn' => 'Fauntleroy', 'ln' => 'Duck', 'g' => 'm']),
         );
         $this->assertSame('Donald Fauntleroy Duck', $profile->d_n);
 
         $profile = $this->Profiles->saveOrFail(
-            $this->Profiles->newEntity(['fn' => 'Daisy', 'g' => 'f'])
+            $this->Profiles->newEntity(['fn' => 'Daisy', 'g' => 'f']),
         );
         $this->assertSame('Daisy', $profile->d_n, 'No trailing spaces without last name');
 
@@ -97,7 +97,7 @@ class ProfilesAccountTest extends TestCase
     {
         $profile = $this->Profiles->newEntity(
             ['fn' => '', 'ln' => '', 'u' => '', 'e' => '', 'p' => '', 'repeat_pass' => ''],
-            ['validate' => 'install']
+            ['validate' => 'install'],
         );
         $errors = $profile->getErrors();
         foreach (['fn', 'ln', 'u', 'e'] as $field) {

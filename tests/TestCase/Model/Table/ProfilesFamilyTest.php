@@ -178,7 +178,7 @@ class ProfilesFamilyTest extends TestCase
         $this->assertArrayHasKey($this->ids['union2'], $tree['u']);
         $this->assertGreaterThan(
             $tree['p'][$this->ids['huey']]['Profile']['y'],
-            $tree['p'][$this->ids['donald']]['Profile']['y']
+            $tree['p'][$this->ids['donald']]['Profile']['y'],
         );
     }
 

@@ -7,10 +7,10 @@ use ArrayObject;
 use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
+use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * Units Model
@@ -101,7 +101,7 @@ class UnitsTable extends Table
      * @param \ArrayObject $options Options
      * @return void
      */
-    public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options)
+    public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         Cache::delete('tree-units');
     }
@@ -114,7 +114,7 @@ class UnitsTable extends Table
      * @param \ArrayObject $options Options
      * @return void
      */
-    public function afterDelete(EventInterface $event, EntityInterface $entity, ArrayObject $options)
+    public function afterDelete(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         Cache::delete('tree-units');
         $count = $this->find()

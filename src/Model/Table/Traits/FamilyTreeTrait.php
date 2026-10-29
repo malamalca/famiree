@@ -18,44 +18,44 @@ trait FamilyTreeTrait
      *
      * @var int
      */
-    private $ghost_id = -1;
+    private int $ghost_id = -1;
     /**
      * dx variable specifies width of single profile; spacings included
      *
      * @var int
      */
-    private $dx = 6;
+    private int $dx = 6;
     /**
      * dy variable specifies tree line height
      *
      * @var int
      */
-    private $dy = 4;
+    private int $dy = 4;
 
     /**
      * Unions cache
      *
      * @var array
      */
-    private $_unions = [];
+    private array $_unions = [];
     /**
      * Child to union cache
      *
      * @var array
      */
-    private $_c2u = [];
+    private array $_c2u = [];
     /**
      * Parent to union cache
      *
      * @var array
      */
-    private $_p2u = [];
+    private array $_p2u = [];
     /**
      * Gender cache
      *
      * @var array
      */
-    private $_g = [];
+    private array $_g = [];
 
     /**
      * tree method
@@ -66,8 +66,10 @@ trait FamilyTreeTrait
      * @param int $depth Tree depthd
      * @return array Unions and Profiles with calculated positions for XML tree generation
      */
-    public function tree($id, $depth = 100)
+    public function tree(mixed $id, int $depth = 100): array
     {
+        $id = (int)$id;
+
         // initialize defaults
         $this->ghost_id = -1;
 
@@ -197,7 +199,7 @@ trait FamilyTreeTrait
                         'parent',
                         'ref' => $id,
                         'direct_relative' => true,
-                    ]
+                    ],
                 );
 
                 $dad = $this->__addGhost(
@@ -209,7 +211,7 @@ trait FamilyTreeTrait
                         'parent',
                         'ref' => $id,
                         'direct_relative' => true,
-                    ]
+                    ],
                 );
 
                 $unions[$main_union] = $this->_unions[$main_union];
@@ -239,8 +241,12 @@ trait FamilyTreeTrait
      * @param array $options Options array
      * @return float|int Current width
      */
-    private function __recurseChildren($children, &$unions, &$profiles, $options = [])
-    {
+    private function __recurseChildren(
+        array $children,
+        array &$unions,
+        array &$profiles,
+        array $options = [],
+    ): float|int {
         // initialization
         $current_width = 0;
 
@@ -302,7 +308,7 @@ trait FamilyTreeTrait
                                 'y' => $options['y'] - $this->dy,
                                 'direct_relative' => !empty($options['direct_relative']) ||
                                     (isset($options['main_union']) && $options['main_union'] == $profile_union_id),
-                            ]
+                            ],
                         );
                     }
 
@@ -371,7 +377,7 @@ trait FamilyTreeTrait
                                     isset($options['direct_relative_id']) &&
                                     in_array($real_profile_id, (array)$options['direct_relative_id'])
                                 ),
-                            ]
+                            ],
                         );
 
                         $spouse_position = $options['x'] + $current_width + (int)($base_width / 2) - $this->dx + $dx_f;
@@ -398,7 +404,7 @@ trait FamilyTreeTrait
                                     isset($options['direct_relative_id']) &&
                                     in_array($real_profile_id, (array)$options['direct_relative_id'])
                                 ),
-                            ]
+                            ],
                         );
                         // add tree icon if sposuse has more than one marriage or
                         // is child in any union and is not main union (which has already all that
@@ -422,7 +428,7 @@ trait FamilyTreeTrait
                                 'method' => 'add',
                                 'spouse',
                                 'ref' => $real_profile_id,
-                            ]
+                            ],
                         );
 
                         // add ghost profile to unions
@@ -443,7 +449,7 @@ trait FamilyTreeTrait
                     $options['y'],
                     [
                         'direct_relative' => $options['direct_relative'] ?? false,
-                    ]
+                    ],
                 );
 
                 $current_width += $this->dx;
@@ -465,8 +471,13 @@ trait FamilyTreeTrait
      * @param array $options Options array.
      * @return float|int Current width
      */
-    private function __recurseParents($profile_id, $depth, &$unions, &$profiles, $options)
-    {
+    private function __recurseParents(
+        int $profile_id,
+        int $depth,
+        array &$unions,
+        array &$profiles,
+        array $options,
+    ): float|int {
         // initialization
         $current_width = 0;
 
@@ -518,7 +529,7 @@ trait FamilyTreeTrait
                                 'y' => $options['y'] + $this->dy,
                                 'width' => $siblings_widths[$parent],
                                 'maxDepth' => $options['maxDepth'],
-                            ]
+                            ],
                         );
                     }
                 } else {
@@ -526,7 +537,6 @@ trait FamilyTreeTrait
                 }
             } // finished 1. STEP: width calculation
 
-            $upper_width = $upper_widths['dad'] + $upper_widths['mom'];
             $siblings_width = $siblings_widths['dad'] + $siblings_widths['mom'];
 
             // calculate total width
@@ -592,7 +602,7 @@ trait FamilyTreeTrait
                                 $options['y'],
                                 [
                                     'direct_relative' => in_array($sibling_id, $parents),
-                                ]
+                                ],
                             );
                             $current_x += $this->dx;
                         }
@@ -613,7 +623,7 @@ trait FamilyTreeTrait
                                         $profiles,
                                         $spouse_id,
                                         $current_x,
-                                        $options['y']
+                                        $options['y'],
                                     );
                                     // add tree icon if sposuse has more than one marriage or
                                     // is child in any union
@@ -632,7 +642,7 @@ trait FamilyTreeTrait
                                             'method' => 'add',
                                             'spouse',
                                             'ref' => $sibling_id,
-                                        ]
+                                        ],
                                     );
                                     $unions[$spouse_union_id]['p'][] = $ghost_id;
                                 }
@@ -649,7 +659,7 @@ trait FamilyTreeTrait
                                 $options['y'],
                                 [
                                     'direct_relative' => in_array($sibling_id, $parents),
-                                ]
+                                ],
                             );
                             $current_x += $this->dx;
                         }
@@ -670,7 +680,7 @@ trait FamilyTreeTrait
                             'parent',
                             'ref' => $profile_id,
                             'direct_relative' => true,
-                        ]
+                        ],
                     );
                     $unions[$parent_union_id]['p'][] = $ghost_id;
                 }
@@ -698,7 +708,7 @@ trait FamilyTreeTrait
                     'parent',
                     'ref' => $profile_id,
                     'direct_relative' => true,
-                ]
+                ],
             );
             $unions[$parent_union_id]['p'][] = $ghost_id;
 
@@ -711,7 +721,7 @@ trait FamilyTreeTrait
                     'parent',
                     'ref' => $profile_id,
                     'direct_relative' => true,
-                ]
+                ],
             );
             $unions[$parent_union_id]['p'][] = $ghost_id;
         }
@@ -727,7 +737,7 @@ trait FamilyTreeTrait
      * @access public
      * @return void
      */
-    private function __buildCache()
+    private function __buildCache(): void
     {
         $units = Cache::remember('tree-units', function () {
             return $this->fetchTable('Units')->find()
@@ -774,7 +784,7 @@ trait FamilyTreeTrait
      * @param array $options Options array.
      * @return void
      */
-    private function __addProfile(&$profiles, $profile_id, $x, $y, $options = [])
+    private function __addProfile(array &$profiles, int $profile_id, int $x, int $y, array $options = []): void
     {
         $profiles[$profile_id]['Profile']['id'] = $profile_id;
         $profiles[$profile_id]['Profile']['x'] = $x;
@@ -789,9 +799,9 @@ trait FamilyTreeTrait
      *
      * @param int $profile_id Profile id
      * @access private
-     * @return bool|string
+     * @return string|bool
      */
-    private function __gender($profile_id)
+    private function __gender(int $profile_id): bool|string
     {
         if (isset($this->_g[$profile_id])) {
             return $this->_g[$profile_id];
@@ -808,13 +818,13 @@ trait FamilyTreeTrait
      * @param int $profile1_id First profile id
      * @param int $profile2_id Second profile id
      * @access private
-     * @return bool|int
+     * @return int|bool
      */
-    private function __union($profile1_id, $profile2_id)
+    private function __union(int $profile1_id, int $profile2_id): bool|int
     {
         $union = array_intersect(
             array_keys($this->_p2u[$profile1_id]),
-            array_keys($this->_p2u[$profile2_id])
+            array_keys($this->_p2u[$profile2_id]),
         );
         if (!empty($union)) {
             return reset($union);
@@ -830,7 +840,7 @@ trait FamilyTreeTrait
      * @access private
      * @return mixed
      */
-    private function __bottomMostChildInUnion($union_id)
+    private function __bottomMostChildInUnion(int $union_id): mixed
     {
         if (isset($this->_unions[$union_id]['c']) && (count($this->_unions[$union_id]['c']) == 1)) {
             // this child must also not be parent in any union
@@ -847,9 +857,9 @@ trait FamilyTreeTrait
      * __fetchUnionOfChild method
      *
      * @param int $profile_id Profile id.
-     * @return bool|array
+     * @return int|false Union id the profile is child of, false when none.
      */
-    private function __fetchUnionOfChild($profile_id)
+    private function __fetchUnionOfChild(int $profile_id): int|false
     {
         if (isset($this->_c2u[$profile_id])) {
             foreach ($this->_c2u[$profile_id] as $union_id => $union) {
@@ -864,10 +874,10 @@ trait FamilyTreeTrait
      * __fetchUnionsOfParent method
      *
      * @param int $profile_id Profile id.
-     * @param bool $exclude_profile_id Exclude base profile.
+     * @param int|false $exclude_profile_id Profile id to exclude from unions.
      * @return array
      */
-    private function __fetchUnionsOfParent($profile_id, $exclude_profile_id = false)
+    private function __fetchUnionsOfParent(int $profile_id, int|false $exclude_profile_id = false): array
     {
         $ret = [];
         if (isset($this->_p2u[$profile_id])) {
@@ -886,9 +896,9 @@ trait FamilyTreeTrait
      *
      * @param int $profile_id Profile id
      * @param int $union_id Union id
-     * @return bool|int
+     * @return int|bool
      */
-    private function __fetchSpouse($profile_id, $union_id)
+    private function __fetchSpouse(int $profile_id, int $union_id): bool|int
     {
         if (
             !empty($this->_p2u[$profile_id][$union_id]['p'][0]) &&
@@ -912,13 +922,13 @@ trait FamilyTreeTrait
      * @param int $union_id Union for which to return children. Return children from all unions on null.
      * @return array
      */
-    private function __fetchChildren($profile_id, $union_id = null)
+    private function __fetchChildren(int $profile_id, ?int $union_id = null): array
     {
         if (!empty($union_id) && !empty($this->_p2u[$profile_id][$union_id]['c'])) {
             return $this->_p2u[$profile_id][$union_id]['c'];
         } elseif (is_null($union_id) && !empty($this->_p2u[$profile_id])) {
             $children = [];
-            foreach ($this->_p2u[$profile_id] as $union_id => $union) {
+            foreach ($this->_p2u[$profile_id] as $union) {
                 if (!empty($union['c'])) {
                     $children += (array)$union['c'];
                 }
@@ -935,9 +945,9 @@ trait FamilyTreeTrait
      *
      * @param int $profile_id Profile id
      * @access private
-     * @return bool|array
+     * @return array|bool
      */
-    private function __fetchParents($profile_id)
+    private function __fetchParents(int $profile_id): bool|array
     {
         if (isset($this->_c2u[$profile_id])) {
             $union = reset($this->_c2u[$profile_id]);
@@ -974,7 +984,7 @@ trait FamilyTreeTrait
      * @access public
      * @return array
      */
-    private function __fetchSiblings($profile_id, $include_self = true)
+    private function __fetchSiblings(int $profile_id, bool $include_self = true): array
     {
         if (isset($this->_c2u[$profile_id])) {
             $union = reset($this->_c2u[$profile_id]);
@@ -999,12 +1009,13 @@ trait FamilyTreeTrait
      * @access private
      * @return void
      */
-    private function __bulkReadProfiles(&$profiles, $profile_list)
+    private function __bulkReadProfiles(mixed &$profiles, mixed $profile_list): void
     {
         if (empty($profile_list)) {
             return;
         }
         if (is_array($profile_list)) {
+            /** @var \Cake\Datasource\ResultSetInterface<\App\Model\Entity\Profile> $bulk */
             $bulk = $this->fetchTable('Profiles')->find()
                 ->select()
                 ->where(['Profiles.id IN' => $profile_list])
@@ -1013,7 +1024,7 @@ trait FamilyTreeTrait
             foreach ($bulk as $profile) {
                 $profiles[$profile->id]['Profile'] = array_merge(
                     $profiles[$profile->id]['Profile'],
-                    $profile->toArray()
+                    $profile->toArray(),
                 );
                 $this->__cleanupProfile($profiles[$profile->id]['Profile']);
             }
@@ -1032,7 +1043,7 @@ trait FamilyTreeTrait
      * @access private
      * @return void
      */
-    private function __cleanupProfile(&$profile)
+    private function __cleanupProfile(mixed &$profile): void
     {
         if (empty($profile['dod_c'])) {
             unset($profile['dod_c']);
@@ -1057,7 +1068,7 @@ trait FamilyTreeTrait
      * @param array $options Y position of ghost node
      * @return int Ghost id
      */
-    private function __addGhost(&$profiles, $x = 0, $y = 0, $options = [])
+    private function __addGhost(array &$profiles, int $x = 0, int $y = 0, array $options = []): int
     {
         $ghost_id = $this->ghost_id;
         $this->ghost_id--;

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\View\Helper;
 
+use Cake\Chronos\ChronosDate;
 use Cake\I18n\Date;
 use Cake\View\Helper;
 
@@ -21,14 +22,14 @@ class FamireeHelper extends Helper
      *
      * @var array
      */
-    public $hairColors = [];
+    public array $hairColors = [];
 
     /**
      * Eye colors
      *
      * @var array
      */
-    public $eyeColors = [];
+    public array $eyeColors = [];
 
     /**
      * Helper initialization
@@ -68,7 +69,7 @@ class FamireeHelper extends Helper
      * @param int $seconds Duration in seconds
      * @return string
      */
-    public function duration($seconds)
+    public function duration(int $seconds): string
     {
         $hours = str_pad((string)(floor($seconds / 3600)), 2, '0', STR_PAD_LEFT);
         $minutes = str_pad((string)(floor($seconds / 60) % 60), 2, '0', STR_PAD_LEFT);
@@ -82,7 +83,7 @@ class FamireeHelper extends Helper
      * @param int $month Month number from 1..12
      * @return string
      */
-    public function getMonthName($month)
+    public function getMonthName(int $month): string
     {
         $_time = new Date('2018-' . str_pad((string)$month, 2, '0', STR_PAD_LEFT) . '-01');
         $_format = 'MMMM';
@@ -95,7 +96,7 @@ class FamireeHelper extends Helper
      *
      * @return array
      */
-    public function getMonthNames()
+    public function getMonthNames(): array
     {
         $ret = [];
         $_format = 'MMMM';
@@ -111,16 +112,16 @@ class FamireeHelper extends Helper
     /**
      * Returns age
      *
-     * @param string $dateString Date string
+     * @param \Cake\Chronos\ChronosDate|string $dateString Date string or date object
      * @return int
      */
-    public function age($dateString)
+    public function age(string|ChronosDate $dateString): int
     {
         if (is_string($dateString) && strlen($dateString) == 4) {
             $dateString .= '-12-31';
         }
 
-        $date = new Date($dateString);
+        $date = is_string($dateString) ? new Date($dateString) : $dateString;
         $now = new Date();
 
         $ret = $now->year - $date->year;
@@ -143,13 +144,13 @@ class FamireeHelper extends Helper
      * @param bool $confirmMessage JavaScript confirmation message.
      * @return string An <a /> element.
      */
-    public function link($title, $url = null, $options = [], $confirmMessage = false)
+    public function link(string $title, mixed $url = null, ?array $options = [], bool $confirmMessage = false): string
     {
         if (preg_match('/\[(.*)\]/', $title, $matches)) {
             $link_element = $this->Html->link(
                 $matches[1],
                 $url,
-                array_merge((array)$options, ['confirm' => $confirmMessage])
+                array_merge((array)$options, ['confirm' => $confirmMessage]),
             );
 
             return str_replace($matches[0], $link_element, $title);
@@ -166,7 +167,7 @@ class FamireeHelper extends Helper
      * @param string $page_delimiter Page delimiter
      * @return string
      */
-    public function excerpt($body = null, $max_length = 300, $page_delimiter = '<!-- -- -->')
+    public function excerpt(?string $body = null, int $max_length = 300, string $page_delimiter = '<!-- -- -->'): string
     {
         $ret = '';
         if (stripos($body, $page_delimiter) !== false) {
@@ -191,7 +192,7 @@ class FamireeHelper extends Helper
      * line-breaks after paragraphing. Default true.
      * @return string Text which has been converted into correct paragraph tags.
      */
-    public function autop($pee, $br = 1)
+    public function autop(string $pee, int|bool $br = 1): string
     {
         if (trim($pee) === '') {
             return '';
@@ -223,12 +224,12 @@ class FamireeHelper extends Helper
         $pee = preg_replace(
             '!<p>([^<]+)</(div|address|form)>!',
             '<p>$1</p></$2>',
-            $pee
+            $pee,
         );
         $pee = preg_replace(
             '!<p>\s*(</?' . $allblocks . '[^>]*>)\s*</p>!',
             '$1',
-            $pee
+            $pee,
         ); // don't pee all over a tag
         $pee = preg_replace('|<p>(<li.+?)</p>|', '$1', $pee); // nested lists
         $pee = preg_replace('|<p><blockquote([^>]*)>|i', '<blockquote$1><p>', $pee);
@@ -241,7 +242,7 @@ class FamireeHelper extends Helper
                 function ($matches) {
                     return str_replace("\n", '<PreserveNewline />', $matches[0]);
                 },
-                $pee
+                $pee,
             );
             $pee = preg_replace('|(?<!<br />)\s*\n|', "<br />\n", $pee);
             $pee = str_replace('<PreserveNewline />', "\n", $pee);
@@ -250,13 +251,13 @@ class FamireeHelper extends Helper
         $pee = preg_replace(
             '!<br />(\s*</?(?:p|li|div|dl|dd|dt|th|pre|td|ul|ol)[^>]*>)!',
             '$1',
-            $pee
+            $pee,
         );
         if (strpos($pee, '<pre') !== false) {
             $pee = preg_replace_callback(
                 '!(<pre[^>]*>)(.*?)</pre>!is',
                 'self::cleanPre',
-                $pee
+                $pee,
             );
         }
         $pee = preg_replace("|\n</p>$|", '</p>', $pee);
@@ -270,7 +271,7 @@ class FamireeHelper extends Helper
      * @param mixed $matches Regex matches
      * @return string
      */
-    public static function cleanPre($matches)
+    public static function cleanPre(mixed $matches): string
     {
         if (is_array($matches)) {
             $text = $matches[1] . $matches[2] . '</pre>';
@@ -291,7 +292,7 @@ class FamireeHelper extends Helper
      * @param int $color Color code
      * @return string
      */
-    public function eyeColor($color)
+    public function eyeColor(int $color): string
     {
         if (isset($this->eyeColors[$color])) {
             return $this->eyeColors[$color];
@@ -306,7 +307,7 @@ class FamireeHelper extends Helper
      * @param int $color Color code
      * @return string
      */
-    public function hairColor($color)
+    public function hairColor(int $color): string
     {
         if (isset($this->hairColors[$color])) {
             return $this->hairColors[$color];

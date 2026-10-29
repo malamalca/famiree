@@ -7,6 +7,7 @@ use App\Test\TestCase\FamilyBuilderTrait;
 use Cake\Cache\Cache;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
+use DateTimeImmutable;
 
 /**
  * Family building workflows of App\Controller\ProfilesController
@@ -357,9 +358,9 @@ class ProfilesWorkflowTest extends TestCase
      */
     public function testDashboardBirthdays()
     {
-        $today = new \DateTimeImmutable('today');
+        $today = new DateTimeImmutable('today');
         $year = (int)$today->format('Y');
-        $lastDay = new \DateTimeImmutable($year . '-12-31');
+        $lastDay = new DateTimeImmutable($year . '-12-31');
         if ($lastDay->diff($today)->days < 50) {
             $this->markTestSkipped('Birthdays are only listed until the end of the year.');
         }

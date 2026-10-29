@@ -91,5 +91,4 @@ class ProfilesTableTest extends TestCase
         $this->assertArrayHasKey('fn', $this->Profiles->newEntity(['fn' => ''])->getErrors());
         $this->assertArrayHasKey('id', $this->Profiles->newEntity(['id' => 'abc', 'fn' => 'Donald'])->getErrors());
     }
-
 }

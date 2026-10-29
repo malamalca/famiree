@@ -68,7 +68,7 @@ class LoggableBehaviorTest extends TestCase
     public function testAddIsLogged()
     {
         $profile = $this->Profiles->saveOrFail(
-            $this->Profiles->newEntity(['fn' => 'Donald', 'ln' => 'Duck', 'g' => 'm', 'job' => 'Sailor'])
+            $this->Profiles->newEntity(['fn' => 'Donald', 'ln' => 'Duck', 'g' => 'm', 'job' => 'Sailor']),
         );
 
         $this->assertSame(1, $this->Logs->find()->count());

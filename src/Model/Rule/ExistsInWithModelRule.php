@@ -1,10 +1,13 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Model\Rule;
 
+use App\Model\Entity\AttachmentsLink;
 use Cake\Datasource\EntityInterface;
-use Cake\Utility\Inflector;
 use Cake\ORM\Locator\LocatorAwareTrait;
+use Cake\Utility\Inflector;
+use RuntimeException;
 
 class ExistsInWithModelRule
 {
@@ -15,7 +18,7 @@ class ExistsInWithModelRule
      *
      * @var array<string, mixed>
      */
-    protected $_options = [];
+    protected array $_options = [];
 
     /**
      * Performs the existence check
@@ -28,8 +31,8 @@ class ExistsInWithModelRule
      */
     public function __invoke(EntityInterface $entity, array $options): bool
     {
-        if (!($entity instanceof \App\Model\Entity\AttachmentsLink)) {
-            throw new \RuntimeException('The ExistsInWithModelRule is valid only for AttachmentsLink');
+        if (!($entity instanceof AttachmentsLink)) {
+            throw new RuntimeException('The ExistsInWithModelRule is valid only for AttachmentsLink');
         }
 
         if (!isset($entity->foreign_id) || is_null($entity->foreign_id) || !is_numeric($entity->foreign_id)) {
@@ -40,5 +43,4 @@ class ExistsInWithModelRule
 
         return $_repository->exists(['id' => (int)$entity->foreign_id]);
     }
-
 }

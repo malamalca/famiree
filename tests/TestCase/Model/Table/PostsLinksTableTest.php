@@ -78,5 +78,4 @@ class PostsLinksTableTest extends TestCase
         $this->assertArrayHasKey('class', $this->PostsLinks->newEntity(['post_id' => 1, 'foreign_id' => 1])->getErrors());
         $this->assertArrayHasKey('class', $this->PostsLinks->newEntity(['class' => str_repeat('x', 21)] + $valid)->getErrors());
     }
-
 }

@@ -3,21 +3,27 @@ name: CI
 on:
   push:
     branches:
-      - '*'
+      - 'master'
   pull_request:
     branches:
       - '*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   testsuite:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['8.1']
+        include:
+          - php-version: '8.4'
+            dependencies: 'highest'
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Setup MySQL
       uses: mirromutth/mysql-action@v1.1
@@ -31,89 +37,44 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php-version }}
-        extensions: mbstring, intl
-        coverage: pcov
-        ini-values: session.save_path=/tmp
+        extensions: mbstring, intl, pdo_mysql, fileinfo, zip, iconv, gd
+        ini-values: zend.assertions=1, session.save_path=/tmp
+        coverage: none
 
-    - name: Get composer cache directory
-      id: composer-cache
-      run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-    - name: Get date part for cache key
-      id: key-date
-      run: echo "date=$(date +'%Y-%m')" >> $GITHUB_OUTPUT
-
-    - name: Cache composer dependencies
-      uses: actions/cache@v4
+    - name: Composer install
+      uses: ramsey/composer-install@v4
       with:
-        path: ${{ steps.composer-cache.outputs.dir }}
-        key: ${{ runner.os }}-composer-${{ steps.key-date.outputs.date }}-${{ hashFiles('composer.json') }}
-
-    - name: Composer Install
-      run: |
-        if ${{ matrix.php-version == '8.1' }}; then
-          composer update --ignore-platform-reqs
-        else
-          composer update
-        fi
+        dependency-versions: ${{ matrix.dependencies }}
 
     - name: Execute post install cmd
       run: composer run-script setup --no-interaction
 
-    - name: Setup problem matchers for PHPUnit
-      if: matrix.php-version == '8.1'
-      run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+    - name: Run tests
+      # tests/bootstrap.php builds the test schema with Migrator on the `test`
+      # connection, so no separate migrations step is needed.
+      run: composer test
 
-    - name: Run PHPUnit
-      run: |
-        if [[ ${{ matrix.php-version }} == '8.1' ]]; then
-          export CODECOVERAGE=1 && php -dpcov.enabled=1 -dpcov.directory=. vendor/bin/phpunit --coverage-clover=coverage.xml
-        else
-          vendor/bin/phpunit
-        fi
-    - name: Submit code coverage
-      if: matrix.php-version == '8.1'
-      uses: codecov/codecov-action@v4
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }} # required
-
-
-  cs-stan:
+  coding-standard:
     name: Coding Standard & Static Analysis
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.1'
+        php-version: '8.4'
         extensions: mbstring, intl
-        tools: cs2pr
         coverage: none
+        tools: cs2pr
 
-    - name: Get composer cache directory
-      id: composer-cache
-      run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-    - name: Get date part for cache key
-      id: key-date
-      run: echo "date=$(date +'%Y-%m')" >> $GITHUB_OUTPUT
-
-    - name: Cache composer dependencies
-      uses: actions/cache@v4
-      with:
-        path: ${{ steps.composer-cache.outputs.dir }}
-        key: ${{ runner.os }}-composer-${{ steps.key-date.outputs.date }}-${{ hashFiles('composer.json') }}
-
-    - name: Composer Install
-      run: |
-        composer update
+    - name: Composer install
+      uses: ramsey/composer-install@v4
 
     - name: Run PHP CodeSniffer
       run: vendor/bin/phpcs --report=checkstyle | cs2pr
 
     - name: Run phpstan
-      if: success() || failure()
-      run: vendor/bin/phpstan.phar analyse --error-format=github
+      if: always()
+      run: composer stan

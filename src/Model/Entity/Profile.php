@@ -138,25 +138,25 @@ class Profile extends Entity
     /**
      * Set password method.
      *
-     * @param string $password Users password.
-     * @return bool
+     * @param string|null $password Users password.
+     * @return string|null
      */
-    protected function _setP($password)
+    protected function _setP(?string $password): ?string
     {
         // empty passwords are cleared (reset forms), never hashed
         if ($password === null || $password === '') {
             return $password;
         }
 
-        return (new DefaultPasswordHasher())->hash((string)$password);
+        return (new DefaultPasswordHasher())->hash($password);
     }
 
     /**
      * Returns profile age
      *
-     * @return bool|int
+     * @return int|bool
      */
-    public function age()
+    public function age(): bool|int
     {
         $ret = false;
 

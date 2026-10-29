@@ -90,5 +90,4 @@ class LogsTableTest extends TestCase
             $this->assertArrayHasKey($field, $errors, "$field is limited to 50 characters");
         }
     }
-
 }

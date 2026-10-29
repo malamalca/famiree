@@ -3,11 +3,12 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Entity\PostsLink;
 use ArrayObject;
 use Cake\Event\Event;
+use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * PostsLinks Model
@@ -69,7 +70,7 @@ class PostsLinksTable extends Table
      * @param \ArrayObject $options Options
      * @return void
      */
-    public function afterSave(Event $event, \App\Model\Entity\PostsLink $entity, ArrayObject $options)
+    public function afterSave(Event $event, PostsLink $entity, ArrayObject $options): void
     {
         if ($entity->class == 'Profile') {
             $profilesToUpdate = [$entity->foreign_id];
@@ -91,7 +92,7 @@ class PostsLinksTable extends Table
      * @param \ArrayObject $options Options
      * @return void
      */
-    public function afterDelete(Event $event, \App\Model\Entity\PostsLink $entity, ArrayObject $options)
+    public function afterDelete(Event $event, PostsLink $entity, ArrayObject $options): void
     {
         if ($entity->class == 'Profile') {
             /** @var \App\Model\Table\ProfilesTable $ProfilesTable */

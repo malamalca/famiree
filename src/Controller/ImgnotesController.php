@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Http\Response;
 
 /**
  * Imgnotes Controller
@@ -19,7 +20,7 @@ class ImgnotesController extends AppController
      * @return \Cake\Http\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(?string $id = null)
     {
         if ($id) {
             $imgnote = $this->Imgnotes->get($id);
@@ -52,7 +53,7 @@ class ImgnotesController extends AppController
                     return $this->redirect($referer);
                 } else {
                     return $this->redirect(
-                        ['controller' => 'Attachments', 'action' => 'view', $imgnote->attachment_id]
+                        ['controller' => 'Attachments', 'action' => 'view', $imgnote->attachment_id],
                     );
                 }
             }
@@ -69,7 +70,7 @@ class ImgnotesController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null): ?Response
     {
         $this->getRequest()->allowMethod(['post', 'delete', 'get']);
         $imgnote = $this->Imgnotes->get($id);

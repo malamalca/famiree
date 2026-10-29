@@ -3,13 +3,16 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Entity\Attachment;
+use App\Model\Entity\ImgNote;
 use ArrayObject;
 use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
+use Cake\Datasource\ResultSetInterface;
 use Cake\Event\Event;
-use Cake\Utility\Filesystem;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Utility\Filesystem;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use Laminas\Diactoros\UploadedFile;
@@ -155,9 +158,9 @@ class AttachmentsTable extends Table
      * @param \ArrayObject $options Options
      * @return void
      */
-    public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options)
+    public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options): void
     {
-        if (!empty($data['attachment']) && $data['attachment'] instanceof \Laminas\Diactoros\UploadedFile) {
+        if (!empty($data['attachment']) && $data['attachment'] instanceof UploadedFile) {
             $attachment = $data['attachment'];
             $data['filename'] = $attachment->getClientFilename();
             $data['original'] = $attachment->getClientFilename();
@@ -182,10 +185,10 @@ class AttachmentsTable extends Table
      * @param \ArrayObject $options Options
      * @return void
      */
-    public function afterDelete(Event $event, EntityInterface $entity, ArrayObject $options)
+    public function afterDelete(Event $event, EntityInterface $entity, ArrayObject $options): void
     {
-        (new Filesystem())->deleteDir(Configure::read('sourceFolders.attachments') . $entity->id);
-        $thumb = Configure::read('sourceFolders.thumbs') . $entity->id . '.png';
+        (new Filesystem())->deleteDir(Configure::read('sourceFolders.attachments') . $entity->get('id'));
+        $thumb = Configure::read('sourceFolders.thumbs') . $entity->get('id') . '.png';
         if (file_exists($thumb)) {
             unlink($thumb);
         }
@@ -194,10 +197,10 @@ class AttachmentsTable extends Table
     /**
      * Fetch for specified profile
      *
-     * @param int $id Profile id
-     * @return \Cake\ORM\ResultSet
+     * @param string|int $id Profile id
+     * @return \Cake\Datasource\ResultSetInterface
      */
-    public function fetchForProfile($id)
+    public function fetchForProfile(string|int $id): ResultSetInterface
     {
         /** @var \Cake\ORM\ResultSet $ret */
         $ret = $this->find()
@@ -217,7 +220,7 @@ class AttachmentsTable extends Table
      * @param \Laminas\Diactoros\UploadedFile $uploadedFile Temporary file name
      * @return void
      */
-    public function processUpload($entity, \Laminas\Diactoros\UploadedFile $uploadedFile)
+    public function processUpload(Attachment $entity, UploadedFile $uploadedFile): void
     {
         $stream = $uploadedFile->getStream();
         $uploadedPath = $stream->getMetadata('uri');
@@ -256,7 +259,7 @@ class AttachmentsTable extends Table
      * @param \App\Model\Entity\ImgNote $imgnote Imgnote entity
      * @return \App\Model\Entity\Attachment|bool
      */
-    public function createFromImgnote($imgnote)
+    public function createFromImgnote(ImgNote $imgnote): Attachment|bool
     {
         $fileOriginal = Configure::read('sourceFolders.attachments') . DS . $imgnote->attachment_id . DS . 'original';
         if (file_exists($fileOriginal)) {
@@ -301,7 +304,7 @@ class AttachmentsTable extends Table
                     $croppedAttachment->filesize,
                     UPLOAD_ERR_OK,
                     $croppedAttachment->original,
-                    $croppedAttachment->mimetype
+                    $croppedAttachment->mimetype,
                 );
 
                 if ($this->save($croppedAttachment, ['associated' => ['AttachmentsLinks']])) {
@@ -322,9 +325,9 @@ class AttachmentsTable extends Table
      * @param string $attachmentId Attachment id
      * @param mixed $size Image size
      * @access public
-     * @return bool|array
+     * @return array|bool
      */
-    public function getImageSize($attachmentId, $size = 'original')
+    public function getImageSize(string $attachmentId, mixed $size = 'original'): bool|array
     {
         $ret = false;
         $folder = Configure::read('sourceFolders.attachments');

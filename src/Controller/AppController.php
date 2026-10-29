@@ -78,7 +78,7 @@ class AppController extends Controller
      * @param \Cake\Event\EventInterface $event The beforeRender event.
      * @return null
      */
-    public function beforeRender(EventInterface $event)
+    public function beforeRender(EventInterface $event): null
     {
         $this->viewBuilder()
             ->addHelper('Famiree')

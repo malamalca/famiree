@@ -190,7 +190,7 @@ class Installer
                 '<info>Set Folder Permissions ? (Default to Y)</info> [<comment>Y,n</comment>]? ',
                 $validator,
                 10,
-                'Y'
+                'Y',
             );
 
             if (in_array($setFolderPermissions, ['n', 'N'])) {
@@ -337,7 +337,7 @@ class Installer
                     (string)$dbPassword,
                     $dir,
                     'app_local.php',
-                    $io
+                    $io,
                 );
             } else {
                 $io->writeError('Cannot connect to mysql database. Please try again.');
@@ -463,7 +463,7 @@ class Installer
         string $db,
         string $dbUser,
         string $dbPassword,
-        IOInterface $io
+        IOInterface $io,
     ): bool {
         try {
             ConnectionManager::drop('install');
@@ -515,7 +515,7 @@ class Installer
         string $dbPassword,
         string $dir,
         string $file,
-        IOInterface $io
+        IOInterface $io,
     ): void {
         $config = $dir . '/config/' . $file;
         $content = file_get_contents($config);

@@ -3,19 +3,21 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Entity\Profile;
 use App\Model\Table\Traits\FamilyTreeTrait;
 use ArrayObject;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Database\Expression\QueryExpression;
+use Cake\Datasource\ResultSetInterface;
 use Cake\Event\Event;
 use Cake\Mailer\Mailer;
+use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Utility\Hash;
 use Cake\Validation\Validator;
-use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * Profiles Model
@@ -112,7 +114,7 @@ class ProfilesTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationResetPassword($validator)
+    public function validationResetPassword(Validator $validator): Validator
     {
         $validator = new Validator();
         $validator
@@ -121,7 +123,7 @@ class ProfilesTable extends Table
                 'repeat_pass',
                 function ($context) {
                     return !empty($context['data']['p']);
-                }
+                },
             )
             ->notEmptyString('repeat_pass')
             ->add('repeat_pass', 'match', [
@@ -139,7 +141,7 @@ class ProfilesTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationInstall($validator): Validator
+    public function validationInstall(Validator $validator): Validator
     {
         $validator = new Validator();
         $validator
@@ -153,7 +155,7 @@ class ProfilesTable extends Table
                 'repeat_pass',
                 function ($context) {
                     return !empty($context['data']['p']);
-                }
+                },
             )
             ->notEmptyString('repeat_pass')
             ->add('repeat_pass', 'match', [
@@ -188,7 +190,7 @@ class ProfilesTable extends Table
      * @param \ArrayObject $options Options
      * @return void
      */
-    public function beforeSave(Event $event, \App\Model\Entity\Profile $entity, ArrayObject $options)
+    public function beforeSave(Event $event, Profile $entity, ArrayObject $options): void
     {
         if ($entity->isDirty('fn') || $entity->isDirty('mn') || $entity->isDirty('ln')) {
             $entity->d_n = trim(trim($entity->fn . ' ' . $entity->mn) . ' ' . $entity->ln);
@@ -202,7 +204,7 @@ class ProfilesTable extends Table
      * @param array $profiles Array of profile id's
      * @return void
      */
-    public function updateAttachmentCount($profiles)
+    public function updateAttachmentCount(array $profiles): void
     {
         foreach ($profiles as $profileId) {
             $attachmentCount = $this->fetchTable('AttachmentsLinks')->find()
@@ -211,7 +213,7 @@ class ProfilesTable extends Table
 
             $this->updateAll(
                 ['cn_med' => $attachmentCount],
-                ['id' => $profileId]
+                ['id' => $profileId],
             );
         }
     }
@@ -222,7 +224,7 @@ class ProfilesTable extends Table
      * @param array $profiles Array of profile id's
      * @return void
      */
-    public function updateMemoryCount($profiles)
+    public function updateMemoryCount(array $profiles): void
     {
         foreach ($profiles as $profileId) {
             $attachmentCount = $this->fetchTable('PostsLinks')->find()
@@ -231,7 +233,7 @@ class ProfilesTable extends Table
 
             $this->updateAll(
                 ['cn_mem' => $attachmentCount],
-                ['id' => $profileId]
+                ['id' => $profileId],
             );
         }
     }
@@ -239,16 +241,17 @@ class ProfilesTable extends Table
     /**
      * Build family tree for specified profile
      *
-     * @param int $id Profile id
-     * @param string|array $type Which part of family to fetch: parents, children, siblings, marriages, spouses
+     * @param string|int $id Profile id
+     * @param array|string $type Which part of family to fetch: parents, children, siblings, marriages, spouses
      * @param bool $assoc Fetch associativly (array keys equal profile id)
      * @return array
      */
-    public function family($id, $type = null, $assoc = false)
+    public function family(string|int $id, string|array|null $type = null, bool $assoc = false): array
     {
         $ret = [];
 
-        $data = $this->fetchTable('Profiles')->get($id);
+        // throws NotFoundException when profile does not exist
+        $this->fetchTable('Profiles')->get($id);
 
         /** @var \App\Model\Entity\Unit $family */
         $family = $this->fetchTable('Units')->find()
@@ -260,6 +263,7 @@ class ProfilesTable extends Table
         $siblings = [];
         if (!empty($family)) {
             if (empty($type) || $type == 'parents' || (is_array($type) && in_array('parents', $type))) {
+                /** @var array<\App\Model\Entity\Profile> $parents */
                 $parents = $this->fetchTable('Profiles')->find()
                     ->select()
                     ->matching('Units', function ($q) use ($family) {
@@ -283,11 +287,12 @@ class ProfilesTable extends Table
             }
 
             if (empty($type) || $type == 'siblings' || (is_array($type) && in_array('siblings', $type))) {
+                /** @var array<\App\Model\Entity\Profile> $siblings */
                 $siblings = $this->fetchTable('Profiles')->find()
                     ->select()
                     ->matching('Units', function ($q) use ($id, $family) {
                         return $q->where(
-                            ['Units.union_id' => $family->union_id, 'Units.kind' => 'c', 'Units.profile_id !=' => $id]
+                            ['Units.union_id' => $family->union_id, 'Units.kind' => 'c', 'Units.profile_id !=' => $id],
                         );
                     })
                     ->orderBy(['Units.sort_order', 'Profiles.dob_y'])
@@ -315,6 +320,7 @@ class ProfilesTable extends Table
                 in_array('children', $type)
             ))
         ) {
+            /** @var \Cake\Datasource\ResultSetInterface<\App\Model\Entity\Unit> $marr */
             $marr = $this->fetchTable('Units')->find()
                 ->select(['union_id'])
                 ->where(['profile_id' => $id, 'kind' => 'p'])
@@ -330,17 +336,23 @@ class ProfilesTable extends Table
                     $marriage_key = $m_k;
                 }
 
-                $marriages[$marriage_key]['spouse'] = $this->fetchTable('Profiles')->find()
+                /** @var \App\Model\Entity\Profile|null $spouse */
+                $spouse = $this->fetchTable('Profiles')->find()
                     ->matching('Units', function ($q) use ($id, $marriage) {
                         return $q->where(
-                            ['Units.union_id' => $marriage->union_id, 'Units.kind' => 'p', 'Units.profile_id !=' => $id]
+                            [
+                                'Units.union_id' => $marriage->union_id,
+                                'Units.kind' => 'p',
+                                'Units.profile_id !=' => $id,
+                            ],
                         );
                     })
                     ->first();
+                $marriages[$marriage_key]['spouse'] = $spouse;
                 if ($assoc) {
-                    $spouses[$marriages[$marriage_key]['spouse']->id] = $marriages[$marriage_key]['spouse'];
+                    $spouses[$spouse->id] = $spouse;
                 } else {
-                    $spouses[] = $marriages[$marriage_key]['spouse'];
+                    $spouses[] = $spouse;
                 }
 
                 if (
@@ -351,19 +363,21 @@ class ProfilesTable extends Table
                         in_array('children', $type))
                     ))
                 ) {
-                    $marriages[$marriage_key]['children'] = $this->fetchTable('Profiles')->find()
+                    /** @var array<\App\Model\Entity\Profile> $children_of_marriage */
+                    $children_of_marriage = $this->fetchTable('Profiles')->find()
                         ->matching('Units', function ($q) use ($marriage) {
                             return $q->where(['Units.union_id' => $marriage->union_id, 'Units.kind' => 'c']);
                         })
                         ->orderBy(['Units.sort_order', 'Profiles.dob_y'])
                         ->toArray();
+                    $marriages[$marriage_key]['children'] = $children_of_marriage;
 
                     if ($assoc) {
-                        foreach ($marriages[$marriage_key]['children'] as $child) {
+                        foreach ($children_of_marriage as $child) {
                             $children[$child->id] = $child;
                         }
                     } else {
-                            $children = array_merge($children, $marriages[$marriage_key]['children']);
+                            $children = array_merge($children, $children_of_marriage);
                     }
                 }
             }
@@ -399,7 +413,7 @@ class ProfilesTable extends Table
      * @param string|null $criterio Search term.
      * @return \Cake\ORM\Query\SelectQuery
      */
-    public function findSearch(SelectQuery $query, ?string $criterio = null)
+    public function findSearch(SelectQuery $query, ?string $criterio = null): SelectQuery
     {
         if (!empty($criterio) && strlen($criterio) > 1) {
             $query->where([
@@ -421,7 +435,7 @@ class ProfilesTable extends Table
      *
      * @return array Counts
      */
-    public function countGenders()
+    public function countGenders(): array
     {
         $query = $this->find();
         $counts = $query
@@ -450,7 +464,7 @@ class ProfilesTable extends Table
      * @param \App\Model\Entity\Profile $user User entity.
      * @return bool
      */
-    public function sendResetEmail($user)
+    public function sendResetEmail(Profile $user): bool
     {
         $reset_key = uniqid();
         $user->rst = $reset_key;
@@ -477,19 +491,19 @@ class ProfilesTable extends Table
     /**
      * Fetch profiles with concatenated date of birth, ordered by dob
      *
-     * @return \Cake\ORM\ResultSet
+     * @return \Cake\Datasource\ResultSetInterface
      */
-    public function withBirthdays()
+    public function withBirthdays(): ResultSetInterface
     {
         //Cache::delete('Profiles.birthdays');
         $ret = Cache::remember('Profiles.birthdays', function () {
             $q = $this->find();
             $fieldExpr = $q->expr()->add(
-                'DATE_ADD(DATE_ADD(MAKEDATE(dob_y, 1), INTERVAL (dob_m)-1 MONTH), INTERVAL (dob_d)-1 DAY)'
+                'DATE_ADD(DATE_ADD(MAKEDATE(dob_y, 1), INTERVAL (dob_m)-1 MONTH), INTERVAL (dob_d)-1 DAY)',
             );
             $diffExpr = $q->expr()->add(
                 'DATEDIFF(DATE_ADD( DATE_ADD( MAKEDATE(YEAR(CURDATE()), 1), ' .
-                'INTERVAL (dob_m)-1 MONTH), INTERVAL (dob_d)-1 DAY), CURDATE() )'
+                'INTERVAL (dob_m)-1 MONTH), INTERVAL (dob_d)-1 DAY), CURDATE() )',
             );
 
             $dates = $q

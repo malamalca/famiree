@@ -32,9 +32,9 @@ class AppView extends View
     /**
      * Current user
      *
-     * @var object
+     * @var object|null
      */
-    public $currentUser = null;
+    public ?object $currentUser = null;
 
     /**
      * Constructor
@@ -49,7 +49,7 @@ class AppView extends View
         ?ServerRequest $request = null,
         ?Response $response = null,
         ?EventManagerInterface $eventManager = null,
-        array $viewOptions = []
+        array $viewOptions = [],
     ) {
         if (isset($viewOptions['currentUser'])) {
             $this->currentUser = $viewOptions['currentUser'];

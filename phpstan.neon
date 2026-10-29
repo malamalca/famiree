@@ -4,6 +4,10 @@ parameters:
     bootstrapFiles:
         - config/paths.php
         - vendor/cakephp/cakephp/src/functions.php
+    ignoreErrors:
+        # Cake 5.2 Table::get() takes `mixed ...$args`; named args like contain: are valid, PHPStan 1.x sees only the old signature
+        -
+            message: '#Unknown parameter \$contain#'
     excludePaths:
         - src/Console/Installer.php
         - src/App/Controller/ErrorController.php

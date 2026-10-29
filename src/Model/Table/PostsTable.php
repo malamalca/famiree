@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use Cake\Datasource\ResultSetInterface;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -68,7 +69,7 @@ class PostsTable extends Table
      * @param \Cake\ORM\Query\SelectQuery $q Query instance.
      * @return \Cake\ORM\Query\SelectQuery
      */
-    public function findPaginated(SelectQuery $q)
+    public function findPaginated(SelectQuery $q): SelectQuery
     {
         $q
             ->contain(['Creators', 'Profiles'])
@@ -117,10 +118,10 @@ class PostsTable extends Table
     /**
      * Fetch for specified profile
      *
-     * @param int $id Profile id
-     * @return \Cake\ORM\ResultSet
+     * @param string|int $id Profile id
+     * @return \Cake\Datasource\ResultSetInterface
      */
-    public function fetchForProfile($id)
+    public function fetchForProfile(string|int $id): ResultSetInterface
     {
         /** @var \Cake\ORM\ResultSet $ret */
         $ret = $this->find()
