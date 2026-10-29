@@ -170,9 +170,11 @@ class AttachmentsTable extends Table
             $data['ext'] = strtolower(pathinfo($attachment->getClientFilename(), PATHINFO_EXTENSION));
 
             if (substr($attachment->getClientMediaType(), 0, 5) == 'image') {
-                $imageInfo = getimagesize($attachment->getStream()->getMetadata('uri'));
-                $data['width'] = $imageInfo[0];
-                $data['height'] = $imageInfo[1];
+                $imageInfo = @getimagesize($attachment->getStream()->getMetadata('uri'));
+                if ($imageInfo !== false) {
+                    $data['width'] = $imageInfo[0];
+                    $data['height'] = $imageInfo[1];
+                }
             }
         }
     }
@@ -337,7 +339,7 @@ class AttachmentsTable extends Table
 
         $filename = $folder . DS . $attachmentId . DS . $size;
         if (file_exists($filename)) {
-            $sizes = getimagesize($filename);
+            $sizes = @getimagesize($filename);
             if ($sizes) {
                 $ret = [];
                 $ret['width'] = $sizes[0];

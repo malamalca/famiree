@@ -29,6 +29,7 @@
 
 # Denote all files that are truly binary and should not be modified.
 *.png binary
+/tests/Resource/uploads/** binary
 *.jpg binary
 *.gif binary
 *.ico binary

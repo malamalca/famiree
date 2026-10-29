@@ -28,7 +28,8 @@ class ProfilesController extends AppController
         if (!$this->currentUser->exists()) {
             $userCount = $this->Profiles->find()->count();
             if ($userCount == 0) {
-                return $this->redirect(['controller' => 'Users', 'action' => 'install']);
+                $event->setResult($this->redirect(['controller' => 'Users', 'action' => 'install']));
+                $event->stopPropagation();
             }
         }
 
