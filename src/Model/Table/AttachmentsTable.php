@@ -170,7 +170,11 @@ class AttachmentsTable extends Table
             $data['ext'] = strtolower(pathinfo($attachment->getClientFilename(), PATHINFO_EXTENSION));
 
             if (substr($attachment->getClientMediaType(), 0, 5) == 'image') {
+                // Content may still not be a real image; getimagesize() would
+                // emit a notice for it, which the test suite treats as failure.
+                set_error_handler(static fn(): bool => true);
                 $imageInfo = getimagesize($attachment->getStream()->getMetadata('uri'));
+                restore_error_handler();
                 if ($imageInfo !== false) {
                     $data['width'] = $imageInfo[0];
                     $data['height'] = $imageInfo[1];
@@ -339,7 +343,9 @@ class AttachmentsTable extends Table
 
         $filename = $folder . DS . $attachmentId . DS . $size;
         if (file_exists($filename)) {
+            set_error_handler(static fn(): bool => true);
             $sizes = getimagesize($filename);
+            restore_error_handler();
             if ($sizes) {
                 $ret = [];
                 $ret['width'] = $sizes[0];

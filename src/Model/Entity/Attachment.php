@@ -78,7 +78,9 @@ class Attachment extends Entity
         $filename = $folder . DS . $this->id . DS . $size;
         if (file_exists($filename)) {
             try {
+                set_error_handler(static fn(): bool => true);
                 $sizes = getimagesize($filename);
+                restore_error_handler();
                 if ($sizes) {
                     $ret = [];
                     $ret['width'] = $sizes[0];
